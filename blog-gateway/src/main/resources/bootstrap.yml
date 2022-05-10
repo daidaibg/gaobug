@@ -1,0 +1,31 @@
+server:
+  port: 19527
+spring:
+  application:
+    name: blog-getaway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.196.100.44:18848
+        group: DEV_GROUP
+        namespace: 4f237f6f-1e60-4220-9013-e1c086464abb
+      config:
+        server-addr: 121.196.100.44:18848 #Nacos作为配置中心地址
+        file-extension: yml #指定yaml格式的配置
+        group: DEV_GROUP
+        namespace: 4f237f6f-1e60-4220-9013-e1c086464abb
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            # 设置允许的域名
+            allowedOrigins: "*"
+            # 允许所有头信息
+            allowedHeaders: "*"
+            # 允许跨域请求的请求方式
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS

@@ -1,0 +1,29 @@
+# Tomcat
+server:
+  port: 19724
+spring:
+  application:
+    name: blog-system
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.196.100.44:18848
+        group: DEV_GROUP
+        namespace: 4f237f6f-1e60-4220-9013-e1c086464abb
+      config:
+        server-addr: 121.196.100.44:18848 #Nacos作为配置中心地址
+        file-extension: yml #指定yaml格式的配置
+        group: DEV_GROUP
+        namespace: 4f237f6f-1e60-4220-9013-e1c086464abb
+        shared-configs[0]:
+          dataId: redis.yml
+          group: DEV_GROUP
+        shared-configs[1]:
+          dataId: datasource.yml
+          group: DEV_GROUP
+          refresh: true
+        shared-configs[2]:
+          dataId: other.yml
+          group: DEV_GROUP
+          refresh: true
+
