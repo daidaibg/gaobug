@@ -15,6 +15,8 @@
         <module>blog-gateway</module>
         <module>blog-engine/blog-system</module>
         <module>blog-engine/blog-app</module>
+        <module>blog-authorization/blog-authorization-consumer</module>
+        <module>blog-authorization/blog-authorization-provider</module>
     </modules>
 
     <parent>

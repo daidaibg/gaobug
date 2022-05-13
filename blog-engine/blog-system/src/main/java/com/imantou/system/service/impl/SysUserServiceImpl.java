@@ -1,7 +1,6 @@
 package com.imantou.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.imantou.common.remote.SysUserClientService;
 import com.imantou.system.service.SysUserService;
 
 import com.imantou.common.dao.SysUserMapper;

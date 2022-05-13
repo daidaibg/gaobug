@@ -3,8 +3,10 @@ package com.imantou.common.response;
 import com.imantou.common.enums.ResultEnum;
 import com.imantou.common.exception.BusinessException;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author yhht
@@ -37,7 +39,12 @@ public class ResponseWrapped<T> implements Serializable {
         this.success = ResultEnum.SUCCESS.isSuccess();
         this.data = data;
     }
-
+    public ResponseWrapped(HttpStatus httpStatus) {
+        this.code = httpStatus.value();
+        this.msg = httpStatus.getReasonPhrase();
+        this.success = Objects.equals(httpStatus.series(), HttpStatus.Series.SUCCESSFUL);
+        this.data = (T) "";
+    }
     public ResponseWrapped(String msg, T data) {
         this.code = ResultEnum.SUCCESS.getCode();
         this.msg = msg;
@@ -128,7 +135,9 @@ public class ResponseWrapped<T> implements Serializable {
     public static ResponseWrapped<Object> error(String msg) {
         return new ResponseWrapped<>(ResultEnum.ERROR, msg);
     }
-
+    public static ResponseWrapped<Object> error(HttpStatus httpStatus) {
+        return new ResponseWrapped<>(httpStatus);
+    }
     /**
      * 失败
      */

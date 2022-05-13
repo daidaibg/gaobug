@@ -1,7 +1,7 @@
 package com.imantou.system.controller;
 
 import com.imantou.common.domain.SysUser;
-import com.imantou.common.remote.SysUserClientService;
+import com.imantou.common.remote.SysUserClientApi;
 import com.imantou.system.service.SysUserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +13,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
-public class SysUserController implements SysUserClientService {
+public class SysUserController implements SysUserClientApi {
 
     @Resource
     private SysUserService userService;

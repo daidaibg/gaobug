@@ -1,7 +1,7 @@
 package com.imantou.common.annotation.metadata;
 
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
+
 import com.imantou.common.annotation.RateLimit;
 import com.imantou.common.request.CustomRequestWrapper;
 import com.imantou.common.utils.MethodUtils;
@@ -94,7 +94,7 @@ public class RateLimitMethodMetaData extends AbstractMethodMetaData {
         SortedMap<String, String> parameterMap = new TreeMap<>();
         byte[] bodyBytes = StreamUtils.copyToByteArray(request.getInputStream());
         String jsonStr = new String(bodyBytes, request.getCharacterEncoding());
-        if (StringUtils.hasLength(jsonStr) && jsonStr.contains(StringPool.LEFT_BRACE)) {
+        if (StringUtils.hasLength(jsonStr) && jsonStr.contains("{")) {
             parameterMap = JSON.parseObject(jsonStr, TreeMap.class);
         }
         return parameterMap;

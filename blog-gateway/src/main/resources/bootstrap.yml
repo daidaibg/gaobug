@@ -6,14 +6,14 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 121.196.100.44:18848
+        server-addr: localhost:8848
         group: DEV_GROUP
-        namespace: 4f237f6f-1e60-4220-9013-e1c086464abb
+        namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
       config:
-        server-addr: 121.196.100.44:18848 #Nacos作为配置中心地址
-        file-extension: yml #指定yaml格式的配置
+        server-addr: localhost:8848 #Nacos作为配置中心地址
         group: DEV_GROUP
-        namespace: 4f237f6f-1e60-4220-9013-e1c086464abb
+        namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
+        file-extension: yml #指定yaml格式的配置
     gateway:
       globalcors:
         cors-configurations:

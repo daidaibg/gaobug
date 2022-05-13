@@ -5,7 +5,6 @@ import com.imantou.common.enums.ResultEnum;
 import com.imantou.common.exception.*;
 import com.imantou.common.response.ResponseWrapped;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.dao.QueryTimeoutException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -74,15 +73,15 @@ public class WebExceptionAdvice {
         return ResponseWrapped.error(ResultEnum.ERROR);
     }
 
-    /**
-     * 处理403异常
-     */
-    @ExceptionHandler(value = UnauthorizedException.class)
-    @ResponseBody
-    public ResponseWrapped<Object> exceptionHandler(UnauthorizedException e) {
-        log.error("403无访问权限:", e);
-        return ResponseWrapped.error(ResultEnum.ERROR_UNAUTHORIZED);
-    }
+//    /**
+//     * 处理403异常
+//     */
+//    @ExceptionHandler(value = UnauthorizedException.class)
+//    @ResponseBody
+//    public ResponseWrapped<Object> exceptionHandler(UnauthorizedException e) {
+//        log.error("403无访问权限:", e);
+//        return ResponseWrapped.error(ResultEnum.ERROR_UNAUTHORIZED);
+//    }
 
     /**
      * 处理404异常

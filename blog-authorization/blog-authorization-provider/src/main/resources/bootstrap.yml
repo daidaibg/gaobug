@@ -1,0 +1,28 @@
+server:
+  port: 19801
+
+spring:
+  application:
+    name: blog-auth-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        group: DEV_GROUP
+        namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
+      config:
+        server-addr: localhost:8848
+        group: DEV_GROUP
+        namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
+        file-extension: yml #指定yaml格式的配置
+        shared-configs[0]:
+          dataId: redis.yml
+          group: DEV_GROUP
+        shared-configs[1]:
+          dataId: datasource.yml
+          group: DEV_GROUP
+          refresh: true
+        shared-configs[2]:
+          dataId: other.yml
+          group: DEV_GROUP
+          refresh: true

@@ -6,6 +6,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.stereotype.Component;
 import sun.misc.BASE64Encoder;
 import sun.security.util.SecurityConstants;
 
@@ -19,43 +20,83 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
+@Component
 public class ImageUtil {
     static int targetWidth = 55;//小图长
     static int targetHeight = 45;//小图宽
     static int circleR = 8;//半径
     static int r1 = 4;//距离点
 
+    public static Map<Integer, BufferedImage> CAPTCHA_CACHE;
+
+    public ImageUtil() throws IOException {
+        CAPTCHA_CACHE = new ConcurrentHashMap<>();
+        for (int i = 0; i < 5; i++) {
+            URL url = new URL("https://picsum.photos/360/210");
+            CAPTCHA_CACHE.put(i, ImageIO.read(url.openStream()));
+        }
+    }
+
     /**
      * @return Map<String, Object>  返回生成的抠图和带抠图阴影的大图 base64码及抠图坐标
      * @Description: 读取本地图片，生成拼图验证码
      * @author zhoujin
      */
-    public static Map<String, Object> createImage(File file) {
-        HashMap<String, Object> resultMap = new HashMap<>();
+    public static BufferedImage getBufferedImage() {
+        Random rand = new Random();
+        return CAPTCHA_CACHE.get(rand.nextInt(CAPTCHA_CACHE.size()));
+    }
 
+    public static Map<String, Object> getCaptcha() {
+        return createImage(getBufferedImage());
+    }
+
+    public static Map<String, Object> createImage(BufferedImage oriImage) {
+        HashMap<String, Object> resultMap = new HashMap<>();
         try {
-            BufferedImage oriImage = ImageIO.read(file);
             Random random = new Random();
             //X轴距离右端targetWidth  Y轴距离底部targetHeight以上
             int widthRandom = random.nextInt(oriImage.getWidth() - 2 * targetWidth) + targetWidth;
             int heightRandom = random.nextInt(oriImage.getHeight() - targetHeight);
 
-            BufferedImage targetImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR);
+            BufferedImage targetImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
             cutByTemplate(oriImage, targetImage, getBlockData(), widthRandom, heightRandom);
 
-            resultMap.put("bigImage", getImageBASE64(oriImage));//大图
-            resultMap.put("smallImage", getImageBASE64(targetImage));//小图
+            resultMap.put("bigImage", getImageBASE64(oriImage, "jpeg"));//大图
+            resultMap.put("smallImage", getImageBASE64(targetImage, "png"));//小图
             resultMap.put("xWidth", widthRandom);
             resultMap.put("yHeight", heightRandom);
-            // 验证码存入session
-            ShiroUtils.setCaptcha(widthRandom);
         } catch (Exception e) {
             log.info("创建图形验证码异常", e);
         }
         return resultMap;
     }
+//
+//    public static Map<String, Object> createImage(File file) {
+//        HashMap<String, Object> resultMap = new HashMap<>();
+//        try {
+//            BufferedImage oriImage = ImageIO.read(file);
+//            Random random = new Random();
+//            //X轴距离右端targetWidth  Y轴距离底部targetHeight以上
+//            int widthRandom = random.nextInt(oriImage.getWidth() - 2 * targetWidth) + targetWidth;
+//            int heightRandom = random.nextInt(oriImage.getHeight() - targetHeight);
+//
+//            BufferedImage targetImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
+//            cutByTemplate(oriImage, targetImage, getBlockData(), widthRandom, heightRandom);
+//
+//            resultMap.put("bigImage", getImageBASE64(oriImage, "jpeg"));//大图
+//            resultMap.put("smallImage", getImageBASE64(targetImage, "png"));//小图
+//            resultMap.put("xWidth", widthRandom);
+//            resultMap.put("yHeight", heightRandom);
+//        } catch (Exception e) {
+//            log.info("创建图形验证码异常", e);
+//        }
+//        return resultMap;
+//    }
 
 
     /**
@@ -63,28 +104,29 @@ public class ImageUtil {
      * @Description: 读取网络图片，生成拼图验证码
      * @author zhoujin
      */
-    public static Map<String, Object> createImage(String imgUrl, Map<String, Object> resultMap) {
-        try {
-            //通过URL 读取图片
-            URL url = new URL(imgUrl);
-            BufferedImage bufferedImage = ImageIO.read(url.openStream());
-            Random rand = new Random();
-            int widthRandom = rand.nextInt(bufferedImage.getWidth() - targetWidth - 100 + 1) + 100;
-            int heightRandom = rand.nextInt(bufferedImage.getHeight() - targetHeight + 1);
-            log.info("原图大小{} x {},随机生成的坐标 X,Y 为（{}，{}）", bufferedImage.getWidth(), bufferedImage.getHeight(), widthRandom, heightRandom);
-
-            BufferedImage target = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR);
-            cutByTemplate(bufferedImage, target, getBlockData(), widthRandom, heightRandom);
-            resultMap.put("bigImage", getImageBASE64(bufferedImage));//大图
-            resultMap.put("smallImage", getImageBASE64(target));//小图
-            resultMap.put("xWidth", widthRandom);
-            resultMap.put("yHeight", heightRandom);
-        } catch (Exception e) {
-            log.info("创建图形验证码异常", e);
-        } finally {
-            return resultMap;
-        }
-    }
+//    public static Map<String, Object> createImage(String imgUrl) {
+//        HashMap<String, Object> resultMap = new HashMap<>();
+//        try {
+//            //通过URL 读取图片
+//            URL url = new URL(imgUrl);
+//            BufferedImage bufferedImage = ImageIO.read(url.openStream());
+//            Random rand = new Random();
+//            int widthRandom = rand.nextInt(bufferedImage.getWidth() - targetWidth - 100 + 1) + 100;
+//            int heightRandom = rand.nextInt(bufferedImage.getHeight() - targetHeight + 1);
+//            log.info("原图大小{} x {},随机生成的坐标 X,Y 为（{}，{}）", bufferedImage.getWidth(), bufferedImage.getHeight(), widthRandom, heightRandom);
+//
+//            BufferedImage target = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR);
+//            cutByTemplate(bufferedImage, target, getBlockData(), widthRandom, heightRandom);
+//            resultMap.put("bigImage", getImageBASE64(bufferedImage, "jpeg"));//大图
+//            resultMap.put("smallImage", getImageBASE64(target, "png"));//小图
+//            resultMap.put("xWidth", widthRandom);
+//            resultMap.put("yHeight", heightRandom);
+//        } catch (Exception e) {
+//            log.info("创建图形验证码异常", e);
+//        } finally {
+//            return resultMap;
+//        }
+//    }
 
     /**
      * @param oriImage      原图
@@ -99,7 +141,7 @@ public class ImageUtil {
      * @author zhoujin
      */
     private static void cutByTemplate(BufferedImage oriImage, BufferedImage targetImage, int[][] templateImage, int x, int y) {
-        int[][] martrix = new int[3][3];
+        int[][] matrix = new int[3][3];
         int[] values = new int[9];
         //创建shape区域
         for (int i = 0; i < targetWidth; i++) {
@@ -113,8 +155,8 @@ public class ImageUtil {
 
                     //抠图区域高斯模糊
                     readPixel(oriImage, x + i, y + j, values);
-                    fillMatrix(martrix, values);
-                    oriImage.setRGB(x + i, y + j, avgMatrix(martrix));
+                    fillMatrix(matrix, values);
+                    oriImage.setRGB(x + i, y + j, avgMatrix(matrix));
                 } else {
                     //这里把背景设为透明
                     targetImage.setRGB(i, j, rgb_ori & 0x00ffffff);
@@ -220,14 +262,14 @@ public class ImageUtil {
      * @Description: 图片转BASE64
      * @author zhoujin
      */
-    public static String getImageBASE64(BufferedImage image) throws IOException {
+    public static String getImageBASE64(BufferedImage image, String format) throws IOException {
         ByteArrayOutputStream bao = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", bao);
+        ImageIO.write(image, format, bao);
         byte[] imageData = bao.toByteArray();
         BASE64Encoder encoder = new BASE64Encoder();
         String BASE64IMAGE = encoder.encodeBuffer(imageData).trim();
         BASE64IMAGE = BASE64IMAGE.replaceAll("\r|\n", "");  //删除 \r\n
-        return "data:image/png;base64," + BASE64IMAGE;
+        return "data:image/" + format + ";base64," + BASE64IMAGE;
     }
 
 }

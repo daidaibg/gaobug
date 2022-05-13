@@ -1,5 +1,6 @@
 package com.imantou.common.dao;
 
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.imantou.common.domain.SysConfig;
 
