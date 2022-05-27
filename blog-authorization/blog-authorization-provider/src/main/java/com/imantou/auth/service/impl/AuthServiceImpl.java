@@ -1,9 +1,8 @@
 package com.imantou.auth.service.impl;
 
 import com.imantou.auth.service.AuthService;
-import com.imantou.common.domain.AuthTokenVO;
-import com.imantou.common.domain.JwtTokenVO;
-import com.imantou.common.domain.UserContext;
+import com.imantou.common.vo.JwtTokenVO;
+import com.imantou.common.vo.UserContext;
 import com.imantou.common.enums.ResultEnum;
 import com.imantou.common.exception.BusinessException;
 import com.imantou.common.utils.JwtUtils;

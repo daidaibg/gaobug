@@ -1,7 +1,7 @@
 package com.imantou.gateway.service.impl;
 
-import com.imantou.common.domain.JwtTokenVO;
-import com.imantou.common.domain.LoginForm;
+import com.imantou.common.vo.JwtTokenVO;
+import com.imantou.common.dto.LoginForm;
 import com.imantou.common.exception.RemoteCallException;
 import com.imantou.common.response.ResponseWrapped;
 import com.imantou.gateway.service.AuthConsumerService;

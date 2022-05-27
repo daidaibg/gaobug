@@ -1,7 +1,7 @@
 package com.imantou.auth.controller;
 
 import com.imantou.auth.service.AuthService;
-import com.imantou.common.domain.JwtTokenVO;
+import com.imantou.common.vo.JwtTokenVO;
 import com.imantou.common.response.ResponseWrapped;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

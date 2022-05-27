@@ -1,6 +1,6 @@
 package com.imantou.gateway.service;
 
-import com.imantou.common.domain.JwtTokenVO;
+import com.imantou.common.vo.JwtTokenVO;
 import com.imantou.common.remote.AuthClientApi;
 import com.imantou.common.response.ResponseWrapped;
 import com.imantou.gateway.service.impl.AuthConsumerServiceFallback;

@@ -1,10 +1,10 @@
-package com.imantou.common.dao;
+package com.imantou.common.dao.sys;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.imantou.common.domain.SysOss;
 
 /**
-* @author huang
+* @author gaobug
 * @description 针对表【sys_oss(文件上传)】的数据库操作Mapper
 * @createDate 2022-04-27 11:37:24
 */

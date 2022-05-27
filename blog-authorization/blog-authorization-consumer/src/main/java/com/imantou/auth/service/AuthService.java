@@ -1,8 +1,8 @@
 package com.imantou.auth.service;
 
 import com.imantou.auth.service.impl.AuthServiceFallback;
-import com.imantou.common.domain.JwtTokenVO;
-import com.imantou.common.domain.LoginForm;
+import com.imantou.common.vo.JwtTokenVO;
+import com.imantou.common.dto.LoginForm;
 import com.imantou.common.remote.AuthClientApi;
 import com.imantou.common.response.ResponseWrapped;
 import org.springframework.cloud.openfeign.FeignClient;

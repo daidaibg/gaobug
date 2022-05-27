@@ -1,7 +1,7 @@
 package com.imantou.auth.service;
 
 import com.imantou.auth.dto.LoginForm;
-import com.imantou.common.domain.AuthTokenVO;
+import com.imantou.common.vo.AuthTokenVO;
 
 
 import java.util.Map;

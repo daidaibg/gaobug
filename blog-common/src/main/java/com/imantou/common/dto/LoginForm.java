@@ -1,4 +1,4 @@
-package com.imantou.common.domain;
+package com.imantou.common.dto;
 
 import com.imantou.common.annotation.Verify;
 import lombok.Getter;

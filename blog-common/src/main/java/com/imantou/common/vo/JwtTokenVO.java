@@ -1,4 +1,4 @@
-package com.imantou.common.domain;
+package com.imantou.common.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

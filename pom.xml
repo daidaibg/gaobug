@@ -17,6 +17,7 @@
         <module>blog-engine/blog-app</module>
         <module>blog-authorization/blog-authorization-consumer</module>
         <module>blog-authorization/blog-authorization-provider</module>
+        <module>blog-store</module>
     </modules>
 
     <parent>

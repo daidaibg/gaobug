@@ -1,8 +1,8 @@
 package com.imantou.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.imantou.common.domain.JwtTokenVO;
-import com.imantou.common.domain.AuthTokenVO;
+import com.imantou.common.vo.JwtTokenVO;
+import com.imantou.common.vo.AuthTokenVO;
 import com.imantou.common.response.ResponseWrapped;
 import com.imantou.gateway.service.AuthConsumerService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +40,9 @@ public class AuthFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
+        if (uri.getPath().startsWith("/app")){
+            return chain.filter(exchange);
+        }
         if (uri.getPath().startsWith("/auth/login")){
             return chain.filter(exchange);
         }

@@ -1,6 +1,6 @@
 package com.imantou.auth.service;
 
-import com.imantou.common.domain.JwtTokenVO;
+import com.imantou.common.vo.JwtTokenVO;
 
 public interface AuthService {
     /**

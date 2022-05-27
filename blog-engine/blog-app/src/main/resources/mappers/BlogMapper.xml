@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imantou.app.dao.BlogMapper">
+
+    <resultMap id="BaseResultMap" type="com.imantou.common.domain.Blog">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="summary" column="summary" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="tag" column="tag" jdbcType="BIGINT"/>
+            <result property="clickCount" column="click_count" jdbcType="INTEGER"/>
+            <result property="collectCount" column="collect_count" jdbcType="INTEGER"/>
+            <result property="coverUrl" column="cover_url" jdbcType="BIGINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="author" column="author" jdbcType="VARCHAR"/>
+            <result property="articlesPart" column="articles_part" jdbcType="VARCHAR"/>
+            <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
+            <result property="publish" column="publish" jdbcType="TINYINT"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="openComment" column="open_comment" jdbcType="TINYINT"/>
+            <result property="hot" column="host" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,summary,
+        content,tag,click_count,
+        collect_count,thumbnail_url,status,
+        author,articles_part,category_id,
+        publish,sort,open_comment,
+        hot,create_time,update_time
+    </sql>
+    <sql id="blog_list_columns">
+        t.id,t.title,t.summary,t.click_count,t.collect_count,t.cover_url,
+        t.author,t.publish,t.sort,t.open_comment,t.hot,t.create_time
+    </sql>
+
+    <select id="selectRecommendBlogPage" resultType="com.imantou.app.vo.BlogPageVO">
+        select
+            <include refid="blog_list_columns"/>
+        from
+            t_blog t
+        where
+            t.`status` = 1
+            AND t.`publish` = 1
+        ORDER BY t.hot DESC,t.sort DESC,t.create_time DESC,t.click_count DESC
+    </select>
+
+    <select id="selectNewestBlogPage" resultType="com.imantou.app.vo.BlogPageVO">
+        select
+              <include refid="blog_list_columns"/>
+        from
+             t_blog t
+        where
+              t.`status` = 1
+          AND t.`publish` = 1
+        ORDER BY t.create_time DESC
+    </select>
+
+    <select id="selectHotBlogPage" resultType="com.imantou.app.vo.BlogPageVO">
+        select
+        <include refid="blog_list_columns"/>
+        from
+        t_blog t
+        where
+        t.`status` = 1
+        AND t.`publish` = 1
+        ORDER BY t.hot DESC,t.click_count DESC,t.create_time DESC,t.collect_count DESC
+    </select>
+
+</mapper>

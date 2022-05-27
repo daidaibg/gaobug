@@ -3,15 +3,15 @@ server:
 
 spring:
   application:
-    name: blog-app-server
+    name: blog-app
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: http://175.178.235.24:18848
         group: DEV_GROUP
         namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
       config:
-        server-addr: localhost:8848 #Nacos作为配置中心地址
+        server-addr: http://175.178.235.24:18848 #Nacos作为配置中心地址
         file-extension: yml #指定yaml格式的配置
         group: DEV_GROUP
         namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
@@ -26,23 +26,4 @@ spring:
           dataId: other.yml
           group: DEV_GROUP
           refresh: true
-
-spring:
-  cache:
-    type: redis
-    redis:
-      time-to-live: 20000 #毫秒
-      cache-null-values: false #是否缓存空值
-  redis:
-    database: 0
-    host: 175.178.235.24
-    port: 16379
-    password: redis16379  # 密码（默认为空）
-    timeout: 6000ms  # 连接超时时长（毫秒）
-    jedis:
-      pool:
-        max-active: 100  # 连接池最大连接数（使用负值表示没有限制）
-        max-wait: 10000ms    # 连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-idle: 20      # 连接池中的最大空闲连接
-        min-idle: 10      # 连接池中的最小空闲连接
 

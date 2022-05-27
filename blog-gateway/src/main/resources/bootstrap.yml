@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: 175.178.235.24:18848
         group: DEV_GROUP
         namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
       config:
@@ -14,6 +14,19 @@ spring:
         group: DEV_GROUP
         namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
         file-extension: yml #指定yaml格式的配置
+    sentinel:
+      transport:
+        dashboard: localhost:8080 #配置Sentinel dashboard地址
+        port: 8719
+      datasource:
+        ds1:
+          nacos:
+            server-addr: localhost:8848
+            dataId: cloudalibaba-sentinel-service
+            namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
+            groupId: DEV_GROUP
+            data-type: json
+            rule-type: flow
     gateway:
       globalcors:
         cors-configurations:
@@ -29,3 +42,6 @@ spring:
               - DELETE
               - PUT
               - OPTIONS
+feign:
+  sentinel:
+    enabled: true # 激活Sentinel对Feign的支持
