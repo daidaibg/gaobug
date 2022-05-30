@@ -1,10 +1,15 @@
 package com.imantou.app.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.imantou.app.dao.BlogCategoryMapper;
-import com.imantou.common.domain.BlogCategory;
 import com.imantou.app.service.BlogCategoryService;
+import com.imantou.common.domain.BlogCategory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
 
 /**
  * @author gaobug
@@ -13,7 +18,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, BlogCategory> implements BlogCategoryService {
+    @Resource
+    private BlogCategoryMapper blogCategoryMapper;
 
+    @Override
+    public IPage<?> getCategoryPage(Page<BlogCategory> page, String keywords) {
+        return lambdaQuery().likeRight(StringUtils.hasText(keywords), BlogCategory::getCategoryName, keywords).page(page);
+    }
 }
 
 

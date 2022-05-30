@@ -1,8 +1,4 @@
-/*
- * 爱组搭 http://aizuda.com 低代码组件化开发平台
- * ------------------------------------------
- * 受知识产权保护，请勿删除版权申明
- */
+
 package com.imantou.store.autoconfigure;
 
 import lombok.Getter;
@@ -21,7 +17,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = OssProperties.OSS_PREFIX)
 public class OssProperties {
 
-    public static final String OSS_PREFIX = "aizuda.oss";
+    public static final String OSS_PREFIX = "imantou.oss";
 
     private String platform;
 

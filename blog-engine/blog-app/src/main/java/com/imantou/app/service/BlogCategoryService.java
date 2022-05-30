@@ -1,5 +1,7 @@
 package com.imantou.app.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.imantou.common.domain.BlogCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface BlogCategoryService extends IService<BlogCategory> {
 
+    IPage<?> getCategoryPage(Page<BlogCategory> page, String keywords);
 }

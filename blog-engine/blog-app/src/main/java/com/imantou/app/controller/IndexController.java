@@ -5,7 +5,7 @@ import com.imantou.app.dto.BlogSearchDTO;
 import com.imantou.app.service.BlogService;
 import com.imantou.common.domain.Blog;
 import com.imantou.common.response.ResponseWrapped;
-import com.imantou.common.utils.PageUtils;
+import com.imantou.common.response.PageWrapped;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,7 @@ public class IndexController {
      */
     @GetMapping("/blog/list/{type}")
     public ResponseWrapped<Object> getIndexBlogPage(@PathVariable String type, Page<Blog> page) {
-        return ResponseWrapped.success(new PageUtils(blogService.getIndexBlogPage(type, page)));
+        return ResponseWrapped.success(new PageWrapped(blogService.getIndexBlogPage(type, page)));
     }
 
     /**
@@ -36,6 +36,6 @@ public class IndexController {
      */
     @GetMapping("/blog/search")
     public ResponseWrapped<Object> getSearchBlog(Page<Blog> page, BlogSearchDTO searchDTO) {
-        return ResponseWrapped.success(new PageUtils(blogService.getSearchBlogPage(page, searchDTO)));
+        return ResponseWrapped.success(new PageWrapped(blogService.getSearchBlogPage(page, searchDTO)));
     }
 }

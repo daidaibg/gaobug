@@ -4,6 +4,7 @@ package com.imantou.common.advice;
 import com.imantou.common.enums.ResultEnum;
 import com.imantou.common.exception.*;
 import com.imantou.common.response.ResponseWrapped;
+import com.imantou.common.verify.exception.ParamsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.QueryTimeoutException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -132,25 +133,25 @@ public class WebExceptionAdvice {
         return ResponseWrapped.error(ResultEnum.ERROR_REDIS_OUT_TIME);
     }
 
-    /**
-     * 限流异常
-     */
-    @ExceptionHandler(RateLimitException.class)
-    @ResponseBody
-    public ResponseWrapped<Object> exceptionHandler(RateLimitException e) {
-        log.error("限流异常", e);
-        return ResponseWrapped.error(e.getMessage());
-    }
-
-    /**
-     * 分布式锁异常
-     */
-    @ExceptionHandler(DistributedLockException.class)
-    @ResponseBody
-    public ResponseWrapped<Object> exceptionHandler(DistributedLockException e) {
-        log.error("限流异常", e);
-        return ResponseWrapped.error(e.getMessage());
-    }
+//    /**
+//     * 限流异常
+//     */
+//    @ExceptionHandler(RateLimitException.class)
+//    @ResponseBody
+//    public ResponseWrapped<Object> exceptionHandler(RateLimitException e) {
+//        log.error("限流异常", e);
+//        return ResponseWrapped.error(e.getMessage());
+//    }
+//
+//    /**
+//     * 分布式锁异常
+//     */
+//    @ExceptionHandler(DistributedLockException.class)
+//    @ResponseBody
+//    public ResponseWrapped<Object> exceptionHandler(DistributedLockException e) {
+//        log.error("限流异常", e);
+//        return ResponseWrapped.error(e.getMessage());
+//    }
 
     /**
      * 处理其他异常

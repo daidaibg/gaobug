@@ -21,6 +21,11 @@ public class LoginController {
         return authService.getCaptcha(randomId);
     }
 
+    @GetMapping(value = "/app/info")
+    public ResponseWrapped<Object> getAppLoginUserInfo(@RequestBody LoginForm form) {
+        return ResponseWrapped.success(form);
+    }
+
     @PostMapping(value = "/app/login")
     public ResponseWrapped<Object> appLogin(@RequestBody LoginForm form) {
         return ResponseWrapped.success(form);

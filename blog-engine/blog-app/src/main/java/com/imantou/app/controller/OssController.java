@@ -4,7 +4,9 @@ import com.imantou.app.service.SysOssService;
 import com.imantou.common.domain.SysOss;
 import com.imantou.common.exception.BusinessException;
 import com.imantou.common.response.ResponseWrapped;
-import com.imantou.common.utils.FileUtils;
+import com.imantou.utils.FileUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +21,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/oss")
+@RefreshScope
 public class OssController {
+
+    @Value("${gaobug.url.website}")
+    private String website;
 
     @Resource
     private SysOssService ossService;
@@ -44,6 +50,7 @@ public class OssController {
         sysOosForSave.setUrl("/img/" + newFileName);
         sysOosForSave.setCreateDate(new Date());
         ossService.save(sysOosForSave);
+        sysOosForSave.setUrl(website + sysOosForSave.getUrl());
         return ResponseWrapped.success(sysOosForSave);
     }
 

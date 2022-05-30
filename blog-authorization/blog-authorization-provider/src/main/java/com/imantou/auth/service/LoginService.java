@@ -17,11 +17,26 @@ public interface LoginService {
     Map<String, Object> getCaptcha(String randomId);
 
     /**
+     * @param randomId
+     * @return
+     */
+    Boolean verifyCaptcha(String randomId, Integer captcha);
+
+    /**
      * 用户登录
      *
-     * @param form 登录表单
+     * @param randomId 验证码key
+     * @param form     登录表单
      * @return 登录令牌
      */
     AuthTokenVO systemLogin(String randomId, LoginForm form);
 
+    /**
+     * 用户登录
+     *
+     * @param randomId 验证码key
+     * @param form     登录表单
+     * @return 登录令牌
+     */
+    AuthTokenVO appLogin(String randomId, LoginForm form);
 }

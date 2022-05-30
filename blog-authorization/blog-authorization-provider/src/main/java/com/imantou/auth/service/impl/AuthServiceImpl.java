@@ -5,7 +5,7 @@ import com.imantou.common.vo.JwtTokenVO;
 import com.imantou.common.vo.UserContext;
 import com.imantou.common.enums.ResultEnum;
 import com.imantou.common.exception.BusinessException;
-import com.imantou.common.utils.JwtUtils;
+import com.imantou.utils.JwtUtils;
 import com.imantou.common.utils.RedisHelper;
 import com.imantou.common.utils.RequestUtils;
 import org.springframework.stereotype.Service;

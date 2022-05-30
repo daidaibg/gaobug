@@ -6,7 +6,7 @@ import com.imantou.app.dto.BlogUpdateDTO;
 import com.imantou.app.service.BlogService;
 import com.imantou.common.domain.Blog;
 import com.imantou.common.response.ResponseWrapped;
-import com.imantou.common.utils.PageUtils;
+import com.imantou.common.response.PageWrapped;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,7 +34,7 @@ public class BlogController {
      */
     @GetMapping("/page")
     public ResponseWrapped<Object> getBlogPage(Page<Blog> page, Blog blog) {
-        return ResponseWrapped.success(new PageUtils(blogService.getBlogPageByUser(page, blog)));
+        return ResponseWrapped.success(new PageWrapped(blogService.getBlogPageByUser(page, blog)));
     }
 
     /**
