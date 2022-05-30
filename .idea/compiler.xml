@@ -9,22 +9,22 @@
         <outputRelativeToContentRoot value="true" />
         <module name="blog-security" />
         <module name="blog-common" />
+        <module name="blog-auth-consumer" />
         <module name="blog-store" />
         <module name="blog-gateway" />
-        <module name="blog-authorization-provider" />
+        <module name="blog-auth-provider" />
         <module name="blog-system" />
         <module name="blog-app" />
-        <module name="blog-authorization-consumer" />
-        <module name="blog-limiter" />
         <module name="blog-base" />
+        <module name="blog-limiter" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="blog-app" options="-parameters" />
-      <module name="blog-authorization-consumer" options="-parameters" />
-      <module name="blog-authorization-provider" options="-parameters" />
+      <module name="blog-auth-consumer" options="-parameters" />
+      <module name="blog-auth-provider" options="-parameters" />
       <module name="blog-base" options="-parameters" />
       <module name="blog-cloud" options="" />
       <module name="blog-common" options="-parameters" />

@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>com.imantou</groupId>
-            <artifactId>blog-utils</artifactId>
+            <artifactId>blog-base</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * @author gaobug
+ */
 @FeignClient(value = "blog-auth-provider", fallback = AuthServiceFallback.class)
 public interface AuthService extends AuthClientApi {
     /**
@@ -17,6 +20,7 @@ public interface AuthService extends AuthClientApi {
      *
      * @return 请求结果
      */
+    @Override
     @GetMapping(AUTH_SERVER + "/auth/authorization")
     ResponseWrapped<JwtTokenVO> authorization();
 
@@ -26,6 +30,7 @@ public interface AuthService extends AuthClientApi {
      * @param randomId 随机id
      * @return 验证码
      */
+    @Override
     @GetMapping(AUTH_SERVER + "/login/captcha/{randomId}")
     ResponseWrapped<Object> getCaptcha(@PathVariable String randomId);
 
@@ -36,6 +41,7 @@ public interface AuthService extends AuthClientApi {
      * @param randomId 缓存验证的随机id
      * @return 登录令牌
      */
+    @Override
     @PostMapping(value = AUTH_SERVER + "/login/system/login/{randomId}")
     ResponseWrapped<Object> systemLogin(LoginForm form, @PathVariable String randomId);
 }

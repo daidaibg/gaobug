@@ -17,9 +17,9 @@
         <module>blog-engine/blog-system</module>
         <module>blog-engine/blog-app</module>
 
-        <module>blog-authorization</module>
-        <module>blog-authorization/blog-authorization-consumer</module>
-        <module>blog-authorization/blog-authorization-provider</module>
+        <module>blog-auth</module>
+        <module>blog-auth/blog-auth-consumer</module>
+        <module>blog-auth/blog-auth-provider</module>
 
         <module>blog-store</module>
         <module>blog-security</module>
