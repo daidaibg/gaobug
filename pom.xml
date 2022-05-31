@@ -9,26 +9,12 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>blog-common</module>
-        <module>blog-base</module>
-        <module>blog-gateway</module>
-
-        <module>blog-engine</module>
-        <module>blog-engine/blog-system</module>
-        <module>blog-engine/blog-app</module>
-
-        <module>blog-auth</module>
-        <module>blog-auth/blog-auth-consumer</module>
-        <module>blog-auth/blog-auth-provider</module>
-
-        <module>blog-store</module>
-        <module>blog-security</module>
-        <module>blog-limiter</module>
         <module>blog-api</module>
-
-        <module>blog-common/blog-common-core</module>
-        <module>blog-common-base</module>
-
+        <module>blog-common</module>
+        <module>blog-gateway</module>
+        <module>blog-auth</module>
+        <module>blog-platform</module>
+        <module>blog-system</module>
     </modules>
 
     <parent>

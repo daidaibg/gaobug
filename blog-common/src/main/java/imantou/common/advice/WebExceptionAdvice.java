@@ -4,7 +4,7 @@ package imantou.common.advice;
 import imantou.common.enums.ResultEnum;
 import imantou.common.exception.*;
 import imantou.common.response.ResponseWrapped;
-import imantou.common.verify.exception.ParamsException;
+import com.imantou.verify.verify.exception.IllegalArgumentException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.QueryTimeoutException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -117,9 +117,9 @@ public class WebExceptionAdvice {
     /**
      * 参数校验异常
      */
-    @ExceptionHandler(ParamsException.class)
+    @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody
-    public ResponseWrapped<Object> exceptionHandler(ParamsException exception) {
+    public ResponseWrapped<Object> exceptionHandler(IllegalArgumentException exception) {
         return ResponseWrapped.error(exception.getMessage());
     }
 
