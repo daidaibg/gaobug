@@ -1,7 +1,7 @@
 package com.imantou.limiter.extend;
 
 import com.imantou.limiter.metadata.DistributedLockMethodMetaData;
-import com.imantou.exception.metadata.MethodMetaData;
+import com.imantou.base.metadata.MethodMetaData;
 
 /**
  * 分布式锁扩展

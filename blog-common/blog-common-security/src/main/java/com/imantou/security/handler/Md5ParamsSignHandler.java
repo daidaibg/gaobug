@@ -1,8 +1,9 @@
 package com.imantou.security.handler;
 
 
+import com.imantou.base.utils.JacksonUtils;
 import com.imantou.security.autoconfigure.SecurityProperties;
-import imantou.security.utils.JacksonUtils;
+
 import lombok.AllArgsConstructor;
 import org.springframework.boot.convert.DurationStyle;
 import org.springframework.util.DigestUtils;

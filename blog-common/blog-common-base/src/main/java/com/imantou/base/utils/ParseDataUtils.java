@@ -1,4 +1,4 @@
-package com.imantou.exception.utils;
+package com.imantou.base.utils;
 
 import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;

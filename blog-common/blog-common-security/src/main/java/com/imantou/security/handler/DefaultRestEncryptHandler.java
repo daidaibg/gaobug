@@ -1,7 +1,7 @@
 package com.imantou.security.handler;
 
 
-import imantou.security.utils.JacksonUtils;
+import com.imantou.base.utils.JacksonUtils;
 
 /**
  * 默认接口加密处理类

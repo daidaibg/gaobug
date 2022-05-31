@@ -2,7 +2,7 @@ package com.imantou.system.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import imantou.common.domain.SysMenu;
+import com.imantou.system.domain.SysMenu;
 
 /**
 * @author gaobug

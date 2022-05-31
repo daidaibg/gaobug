@@ -4,10 +4,10 @@ package com.imantou.limiter.metadata;
 import com.imantou.limiter.request.CustomRequestWrapper;
 import com.imantou.limiter.RateLimit;
 
-import com.imantou.exception.metadata.AbstractMethodMetaData;
-import com.imantou.exception.utils.JacksonUtils;
-import com.imantou.exception.utils.MethodUtils;
-import com.imantou.exception.utils.RequestUtils;
+import com.imantou.base.metadata.AbstractMethodMetaData;
+import com.imantou.base.utils.JacksonUtils;
+import com.imantou.base.utils.MethodUtils;
+import com.imantou.base.utils.RequestUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.util.Assert;

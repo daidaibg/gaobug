@@ -1,7 +1,7 @@
 package com.imantou.verify.strategy;
 
 
-import com.imantou.exception.metadata.MethodMetaData;
+import com.imantou.base.metadata.MethodMetaData;
 
 /**
  * 参数校验接口

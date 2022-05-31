@@ -1,4 +1,4 @@
-package com.imantou.exception.utils;
+package com.imantou.base.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

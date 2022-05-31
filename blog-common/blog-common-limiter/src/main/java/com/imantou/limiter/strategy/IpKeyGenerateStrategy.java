@@ -1,7 +1,7 @@
 package com.imantou.limiter.strategy;
 
-import com.imantou.exception.metadata.MethodMetaData;
-import com.imantou.exception.utils.RequestUtils;
+import com.imantou.base.metadata.MethodMetaData;
+import com.imantou.base.utils.RequestUtils;
 
 /**
  * ip策略

@@ -1,4 +1,4 @@
-package com.imantou.exception.config;
+package com.imantou.base.config;
 
 import lombok.Getter;
 import lombok.Setter;

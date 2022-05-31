@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.concurrent.ExecutionException;
 
 /**
  * 平台用户登录相关接口
@@ -34,7 +35,7 @@ public class PlatformLoginController {
      * 获取登录用户信息
      */
     @GetMapping("/info")
-    public ResponseWrapped<Object> getLoginUserInfo() {
+    public ResponseWrapped<Object> getLoginUserInfo() throws ExecutionException, InterruptedException {
         PlatformUserContextVO platformUserContextVO = loginService.getPlatformLoginUserInfo();
         return ResponseWrapped.success();
     }

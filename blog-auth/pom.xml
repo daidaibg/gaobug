@@ -8,14 +8,15 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
 
     <artifactId>blog-auth</artifactId>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
     <dependencies>
         <!--用户模块-->
         <dependency>
@@ -42,10 +43,7 @@
             <groupId>com.imantou</groupId>
             <artifactId>blog-common-verify</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
-
-
         <!--nacos service discovery client依赖-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -56,30 +54,10 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash; Sentinel支持采用 Nacos 作为规则配置数据源，引入该适配依赖 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.csp</groupId>-->
-<!--            <artifactId>sentinel-datasource-nacos</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
-        <!--spring cloud+dubbo 依赖-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.alibaba.cloud</groupId>-->
-        <!--            <artifactId>spring-cloud-starter-dubbo</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.alibaba.csp</groupId>-->
-        <!--            <artifactId>sentinel-apache-dubbo-adapter</artifactId>-->
-        <!--        </dependency>-->
-
-
     </dependencies>
 
     <profiles>
@@ -97,15 +75,35 @@
                             <!-- 解决乱码 -->
                             <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
                             <!-- main启动入口 -->
-                            <mainClass>imantou.user.AuthApplication</mainClass>
+                            <mainClass>com.imantou.auth.AuthApplication</mainClass>
                             <!-- 设置为ZIP，此模式下spring-boot-maven-plugin会将Manifest.MF文件中的Main-Class设置为org.springframework.boot.loader.PropertiesLauncher -->
                             <layout>ZIP</layout>
                             <!-- 需要包含的jar包 -->
                             <includes>
-                                <!-- 通用模块 -->
+                                <!--用户模块-->
                                 <dependency>
-                                    <groupId>imantou</groupId>
-                                    <artifactId>blog-common</artifactId>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-api-user</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-advice</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-core</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-cache</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-verify</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-base</artifactId>
                                 </dependency>
                             </includes>
                         </configuration>
@@ -132,7 +130,7 @@
                                     <outputDirectory>${project.build.directory}/lib</outputDirectory>
                                     <!-- 需要排除的jar的 groupId -->
                                     <excludeGroupIds>
-                                        imantou
+                                        com.imantou
                                     </excludeGroupIds>
                                 </configuration>
                             </execution>

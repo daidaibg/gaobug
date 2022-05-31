@@ -1,5 +1,5 @@
 
-package com.imantou.exception.config;
+package com.imantou.base.config;
 
 import cn.hutool.core.lang.generator.SnowflakeGenerator;
 import lombok.extern.slf4j.Slf4j;

@@ -1,9 +1,7 @@
 package com.imantou.api.user;
 
-import com.imantou.advice.response.ResponseWrapped;
 import com.imantou.api.vo.SystemUserVO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -15,7 +13,7 @@ import java.util.Set;
  * @author gaobug
  */
 @FeignClient(value = "blog-system", contextId = "system-user")
-public interface SystemUserService {
+public interface SystemUserClient {
     /**
      * 根据用户名获取用户信息
      *
@@ -23,7 +21,7 @@ public interface SystemUserService {
      * @return 用户信息
      */
     @GetMapping(value = "/getUserByName/{userName}")
-    ResponseWrapped<SystemUserVO> getUserByName(@PathVariable String userName);
+    SystemUserVO getUserByName(@PathVariable String userName);
 
     /**
      * 获取用户权限

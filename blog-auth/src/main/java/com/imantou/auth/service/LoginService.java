@@ -4,6 +4,8 @@ import com.imantou.auth.dto.LoginForm;
 import com.imantou.auth.vo.AuthTokenVO;
 import com.imantou.auth.vo.PlatformUserContextVO;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * 登录服务接口
  *
@@ -33,6 +35,6 @@ public interface LoginService {
      *
      * @return 平台登录用户基本信息
      */
-    PlatformUserContextVO getPlatformLoginUserInfo();
+    PlatformUserContextVO getPlatformLoginUserInfo() throws ExecutionException, InterruptedException;
 
 }

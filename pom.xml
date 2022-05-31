@@ -15,7 +15,6 @@
         <module>blog-auth</module>
         <module>blog-platform</module>
         <module>blog-system</module>
-        <module>blog-auth</module>
     </modules>
 
     <parent>
@@ -91,10 +90,10 @@
                 </configuration>
             </plugin>
             <!--打包插件-->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

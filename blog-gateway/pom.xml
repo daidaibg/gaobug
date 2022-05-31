@@ -22,24 +22,19 @@
             <version>1.0-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>spring-boot-starter-data-redis</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>mybatis-plus-boot-starter</artifactId>
-                    <groupId>com.baomidou</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>spring-boot-starter-web</artifactId>
                     <groupId>org.springframework.boot</groupId>
                 </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.imantou</groupId>
+            <artifactId>blog-api-auth</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <exclusions>
                 <exclusion>
-                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <artifactId>spring-boot-starter-web</artifactId>
                     <groupId>org.springframework.boot</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>javax.servlet-api</artifactId>
-                    <groupId>javax.servlet</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -62,16 +57,20 @@
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
         </dependency>
-        <!--引入webflux-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <!--webflux-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <!--sentinel 核心环境 依赖-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+<!--        </dependency>-->
         <!--        &lt;!&ndash; Sentinel支持采用 Nacos 作为规则配置数据源，引入该适配依赖 &ndash;&gt;-->
         <!-- https://mvnrepository.com/artifact/com.alibaba.csp/sentinel-datasource-nacos -->
         <dependency>
@@ -94,4 +93,23 @@
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <!--编译插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                    <encoding>utf-8</encoding>
+                </configuration>
+            </plugin>
+            <!--打包插件-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

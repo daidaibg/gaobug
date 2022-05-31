@@ -1,8 +1,8 @@
 package com.imantou.verify.strategy;
 
 
-import com.imantou.exception.metadata.MethodMetaData;
-import com.imantou.exception.utils.ParseDataUtils;
+import com.imantou.base.metadata.MethodMetaData;
+import com.imantou.base.utils.ParseDataUtils;
 import com.imantou.verify.Verify;
 
 import org.springframework.util.ObjectUtils;

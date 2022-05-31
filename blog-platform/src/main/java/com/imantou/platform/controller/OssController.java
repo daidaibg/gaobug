@@ -3,7 +3,7 @@ package com.imantou.platform.controller;
 
 import com.imantou.advice.exception.BusinessException;
 import com.imantou.advice.response.ResponseWrapped;
-import com.imantou.exception.utils.FileUtils;
+import com.imantou.base.utils.FileUtils;
 import com.imantou.platform.domain.SysOss;
 import com.imantou.platform.service.SysOssService;
 import org.springframework.beans.factory.annotation.Value;

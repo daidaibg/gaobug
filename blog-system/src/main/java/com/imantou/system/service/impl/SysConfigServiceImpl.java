@@ -2,9 +2,10 @@ package com.imantou.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import com.imantou.system.dao.SysConfigMapper;
+import com.imantou.system.domain.SysConfig;
 import com.imantou.system.service.SysConfigService;
-import imantou.common.dao.sys.SysConfigMapper;
-import imantou.common.domain.SysConfig;
+
 import org.springframework.stereotype.Service;
 
 /**

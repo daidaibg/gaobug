@@ -1,4 +1,4 @@
-package com.imantou.exception.utils;
+package com.imantou.base.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

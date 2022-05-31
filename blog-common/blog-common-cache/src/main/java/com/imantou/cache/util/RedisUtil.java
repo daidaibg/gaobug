@@ -4,8 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.imantou.advice.exception.BusinessException;
 
+import com.imantou.base.utils.SpringContextUtils;
 import com.imantou.cache.constant.CacheNames;
-import com.mall4j.cloud.common.util.SpringContextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;

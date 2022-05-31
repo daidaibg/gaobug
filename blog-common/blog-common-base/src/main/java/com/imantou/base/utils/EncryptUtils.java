@@ -1,4 +1,4 @@
-package com.imantou.exception.utils;
+package com.imantou.base.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

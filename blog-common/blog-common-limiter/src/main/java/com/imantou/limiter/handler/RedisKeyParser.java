@@ -1,6 +1,6 @@
 package com.imantou.limiter.handler;
 
-import com.imantou.exception.metadata.MethodMetaData;
+import com.imantou.base.metadata.MethodMetaData;
 import com.imantou.limiter.strategy.DefaultKeyGenerateStrategy;
 import com.imantou.limiter.strategy.IKeyGenerateStrategy;
 import com.imantou.limiter.strategy.Strategy;

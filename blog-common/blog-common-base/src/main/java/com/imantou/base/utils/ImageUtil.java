@@ -1,4 +1,4 @@
-package com.imantou.exception.utils;
+package com.imantou.base.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -27,10 +26,10 @@ public class ImageUtil {
 
     public ImageUtil() throws IOException {
         CAPTCHA_CACHE = new ConcurrentHashMap<>();
-        for (int i = 0; i < 5; i++) {
-            URL url = new URL("https://picsum.photos/360/210");
-            CAPTCHA_CACHE.put(i, ImageIO.read(url.openStream()));
-        }
+//        for (int i = 0; i < 5; i++) {
+//            URL url = new URL("https://picsum.photos/360/210");
+//            CAPTCHA_CACHE.put(i, ImageIO.read(url.openStream()));
+//        }
     }
 
     /**

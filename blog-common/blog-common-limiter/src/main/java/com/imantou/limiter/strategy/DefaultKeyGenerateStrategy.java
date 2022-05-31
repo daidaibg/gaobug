@@ -1,6 +1,6 @@
 package com.imantou.limiter.strategy;
 
-import com.imantou.exception.metadata.MethodMetaData;
+import com.imantou.base.metadata.MethodMetaData;
 import org.springframework.util.StringUtils;
 
 

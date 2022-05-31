@@ -1,8 +1,8 @@
 package com.imantou.verify.aspect;
 
 
-import com.imantou.exception.handler.IProceedHandler;
-import com.imantou.exception.metadata.MethodMetaData;
+import com.imantou.base.handler.IProceedHandler;
+import com.imantou.base.metadata.MethodMetaData;
 import com.imantou.verify.metadata.VerifyMethodMetaData;
 
 import lombok.AllArgsConstructor;

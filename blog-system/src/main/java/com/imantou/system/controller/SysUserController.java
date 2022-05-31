@@ -1,8 +1,9 @@
 package com.imantou.system.controller;
 
+import com.imantou.api.user.SystemUserClient;
+import com.imantou.system.domain.SysUser;
 import com.imantou.system.service.SysUserService;
-import imantou.common.domain.SysUser;
-import imantou.common.remote.SysUserClientApi;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,18 +14,17 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
-public class SysUserController implements SysUserClientApi {
+public class SysUserController{
 
     @Resource
     private SysUserService userService;
 
-    @Override
-    @GetMapping(value = "getUserByName/{userName}")
-    public SysUser getUserByName(@PathVariable String userName) {
-        return userService.lambdaQuery().eq(SysUser::getUsername, userName).last("limit 1").one();
-    }
+//    @Override
+//    @GetMapping(value = "getUserByName/{userName}")
+//    public SysUser getUserByName(@PathVariable String userName) {
+//        return userService.lambdaQuery().eq(SysUser::getUsername, userName).last("limit 1").one();
+//    }
 
-    @Override
     @GetMapping(value = "getUserPermissions/{userId}")
     public Set<String> getUserPermissions(@PathVariable Integer userId) {
         return null;

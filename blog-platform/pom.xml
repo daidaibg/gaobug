@@ -102,15 +102,34 @@
                             <!-- 解决乱码 -->
                             <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
                             <!-- main启动入口 -->
-                            <mainClass>SystemApplication</mainClass>
+                            <mainClass>com.imantou.platform.PlatformApplication</mainClass>
                             <!-- 设置为ZIP，此模式下spring-boot-maven-plugin会将Manifest.MF文件中的Main-Class设置为org.springframework.boot.loader.PropertiesLauncher -->
                             <layout>ZIP</layout>
                             <!-- 需要包含的jar包 -->
                             <includes>
-                                <!-- 通用模块 -->
                                 <dependency>
-                                    <groupId>imantou</groupId>
-                                    <artifactId>blog-common</artifactId>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-cache</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-database</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-verify</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-advice</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-api-user</artifactId>
+                                </dependency>
+                                <dependency>
+                                    <groupId>com.imantou</groupId>
+                                    <artifactId>blog-common-base</artifactId>
                                 </dependency>
                             </includes>
                         </configuration>
@@ -137,7 +156,7 @@
                                     <outputDirectory>${project.build.directory}/lib</outputDirectory>
                                     <!-- 需要排除的jar的 groupId -->
                                     <excludeGroupIds>
-                                        imantou
+                                        com.imantou
                                     </excludeGroupIds>
                                 </configuration>
                             </execution>

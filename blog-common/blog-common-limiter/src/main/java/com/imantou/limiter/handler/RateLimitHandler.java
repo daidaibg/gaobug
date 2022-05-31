@@ -1,9 +1,9 @@
 package com.imantou.limiter.handler;
 
-import com.imantou.exception.handler.IProceedHandler;
+import com.imantou.base.handler.IProceedHandler;
 import com.imantou.limiter.RateLimit;
 import com.imantou.limiter.exception.RateLimitException;
-import com.imantou.exception.metadata.MethodMetaData;
+import com.imantou.base.metadata.MethodMetaData;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

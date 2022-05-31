@@ -1,6 +1,6 @@
 package com.imantou.limiter.handler;
 
-import com.imantou.exception.handler.IProceedHandler;
+import com.imantou.base.handler.IProceedHandler;
 import com.imantou.limiter.context.DistributedContext;
 import com.imantou.limiter.extend.IDistributedLockListener;
 import com.imantou.limiter.DistributedLock;
@@ -9,7 +9,7 @@ import com.imantou.limiter.distributedlock.IDistributedLockTemplate;
 import com.imantou.limiter.exception.AcquireLockTimeoutException;
 import com.imantou.limiter.extend.IAcquireLockTimeoutHandler;
 import com.imantou.limiter.strategy.Strategy;
-import com.imantou.exception.metadata.MethodMetaData;
+import com.imantou.base.metadata.MethodMetaData;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

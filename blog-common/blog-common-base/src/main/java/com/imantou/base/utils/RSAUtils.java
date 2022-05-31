@@ -1,4 +1,4 @@
-package com.imantou.exception.utils;
+package com.imantou.base.utils;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import lombok.AllArgsConstructor;

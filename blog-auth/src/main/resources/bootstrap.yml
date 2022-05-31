@@ -2,7 +2,7 @@ server:
   port: 19801
 spring:
   application:
-    name: @artifactId@
+    name: blog-auth
   cloud:
     nacos:
       discovery:

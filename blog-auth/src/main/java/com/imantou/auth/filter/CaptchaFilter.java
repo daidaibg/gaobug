@@ -25,5 +25,6 @@ public class CaptchaFilter implements Filter {
 //        String captcha = servletRequest.getParameter("captcha");
 //        Assert.notNull(captcha, "验证内容不能为空");
 //        captchaService.verifyCaptcha(randomId, Integer.parseInt(captcha));
+        filterChain.doFilter(servletRequest,servletResponse);
     }
 }

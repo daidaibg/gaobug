@@ -1,7 +1,7 @@
-package com.imantou.exception.handler;
+package com.imantou.base.handler;
 
 
-import com.imantou.exception.metadata.MethodMetaData;
+import com.imantou.base.metadata.MethodMetaData;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**

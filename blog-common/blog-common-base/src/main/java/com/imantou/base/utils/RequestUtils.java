@@ -1,4 +1,4 @@
-package com.imantou.exception.utils;
+package com.imantou.base.utils;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;

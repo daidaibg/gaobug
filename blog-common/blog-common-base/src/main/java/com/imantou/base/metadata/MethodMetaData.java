@@ -1,4 +1,4 @@
-package com.imantou.exception.metadata;
+package com.imantou.base.metadata;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

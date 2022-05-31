@@ -1,4 +1,4 @@
-package com.mall4j.cloud.common.util;
+package com.imantou.base.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

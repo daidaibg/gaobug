@@ -1,10 +1,10 @@
 package com.imantou.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.imantou.system.dao.SysUserMapper;
+import com.imantou.system.domain.SysUser;
 import com.imantou.system.service.SysUserService;
 
-import imantou.common.dao.sys.SysUserMapper;
-import imantou.common.domain.SysUser;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

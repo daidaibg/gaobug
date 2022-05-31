@@ -2,7 +2,7 @@ package com.imantou.limiter.context;
 
 import com.imantou.limiter.extend.IDistributedLockListener;
 import com.imantou.limiter.distributedlock.IDistributedLockTemplate;
-import com.imantou.exception.metadata.MethodMetaData;
+import com.imantou.base.metadata.MethodMetaData;
 import com.imantou.limiter.extend.IAcquireLockTimeoutHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.util.Assert;

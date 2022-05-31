@@ -1,7 +1,7 @@
 package com.imantou.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import imantou.common.domain.SysOss;
+import com.imantou.system.domain.SysOss;
 
 /**
 * @author gaobug
