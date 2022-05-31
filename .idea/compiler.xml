@@ -7,32 +7,49 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="blog-user-api" />
         <module name="blog-security" />
-        <module name="blog-common" />
-        <module name="blog-auth-consumer" />
         <module name="blog-store" />
+        <module name="blog-auth-api" />
+        <module name="blog-app" />
+        <module name="blog-system-api" />
+        <module name="blog-base" />
+        <module name="blog-limiter" />
+        <module name="blog-app-api" />
+        <module name="blog-auth-consumer" />
+        <module name="blog-common-core" />
         <module name="blog-gateway" />
         <module name="blog-auth-provider" />
         <module name="blog-system" />
-        <module name="blog-app" />
-        <module name="blog-base" />
-        <module name="blog-limiter" />
+      </profile>
+      <profile name="Annotation profile for blog-cloud" enabled="true">
+        <sourceOutputDir name="../../blog-common-base/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../blog-common-base/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="blog-common-base" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="blog-api" options="" />
       <module name="blog-app" options="-parameters" />
+      <module name="blog-app-api" options="-parameters" />
+      <module name="blog-auth-api" options="-parameters" />
       <module name="blog-auth-consumer" options="-parameters" />
       <module name="blog-auth-provider" options="-parameters" />
       <module name="blog-base" options="-parameters" />
       <module name="blog-cloud" options="" />
-      <module name="blog-common" options="-parameters" />
+      <module name="blog-common" options="" />
+      <module name="blog-common-base" options="-parameters" />
+      <module name="blog-common-core" options="-parameters" />
       <module name="blog-gateway" options="-parameters" />
       <module name="blog-limiter" options="-parameters" />
       <module name="blog-security" options="-parameters" />
       <module name="blog-store" options="-parameters" />
       <module name="blog-system" options="-parameters" />
+      <module name="blog-system-api" options="-parameters" />
+      <module name="blog-user-api" options="-parameters" />
     </option>
   </component>
 </project>

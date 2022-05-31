@@ -24,6 +24,11 @@
         <module>blog-store</module>
         <module>blog-security</module>
         <module>blog-limiter</module>
+        <module>blog-api</module>
+
+        <module>blog-common/blog-common-core</module>
+        <module>blog-common-base</module>
+
     </modules>
 
     <parent>

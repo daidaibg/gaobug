@@ -77,14 +77,14 @@
                             <!-- 解决乱码 -->
                             <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
                             <!-- main启动入口 -->
-                            <mainClass>com.imantou.app.AppApplication</mainClass>
+                            <mainClass>imantou.app.AppApplication</mainClass>
                             <!-- 设置为ZIP，此模式下spring-boot-maven-plugin会将Manifest.MF文件中的Main-Class设置为org.springframework.boot.loader.PropertiesLauncher -->
                             <layout>ZIP</layout>
                             <!-- 需要包含的jar包 -->
                             <includes>
                                 <!-- 通用模块 -->
                                 <dependency>
-                                    <groupId>com.imantou</groupId>
+                                    <groupId>imantou</groupId>
                                     <artifactId>blog-common</artifactId>
                                 </dependency>
                             </includes>
@@ -112,7 +112,7 @@
                                     <outputDirectory>${project.build.directory}/lib</outputDirectory>
                                     <!-- 需要排除的jar的 groupId -->
                                     <excludeGroupIds>
-                                        com.imantou
+                                        imantou
                                     </excludeGroupIds>
                                 </configuration>
                             </execution>

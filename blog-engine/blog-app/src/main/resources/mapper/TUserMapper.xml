@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="generator.mapper.TUserMapper">
 
-    <resultMap id="BaseResultMap" type="com.imantou.common.domain.User">
+    <resultMap id="BaseResultMap" type="imantou.common.domain.User">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="username" column="username" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
