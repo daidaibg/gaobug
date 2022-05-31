@@ -1,7 +1,7 @@
 package com.imantou.platform.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import imantou.common.domain.BlogTag;
+import com.imantou.platform.domain.BlogTag;
 
 /**
 * @author gaobug

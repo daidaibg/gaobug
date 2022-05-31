@@ -3,7 +3,7 @@ package com.imantou.platform.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import imantou.common.domain.BlogCategory;
+import com.imantou.platform.domain.BlogCategory;
 
 /**
 * @author gaobug

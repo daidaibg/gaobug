@@ -1,6 +1,7 @@
 package com.imantou.advice.exception;
 
-import imantou.common.enums.ResultEnum;
+
+import com.imantou.advice.enums.ResultEnum;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;

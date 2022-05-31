@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import com.imantou.platform.domain.Blog;
 import com.imantou.platform.dto.BlogAddDTO;
 import com.imantou.platform.dto.BlogSearchDTO;
 import com.imantou.platform.dto.BlogUpdateDTO;
-import imantou.common.domain.Blog;
 
 /**
  * @author gaobug

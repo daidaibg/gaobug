@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import com.imantou.platform.domain.Blog;
 import com.imantou.platform.vo.BlogPageVO;
-import imantou.common.domain.Blog;
 
 /**
  * @author gaobug

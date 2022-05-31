@@ -11,11 +11,10 @@
 
     <artifactId>blog-api</artifactId>
     <packaging>pom</packaging>
+
     <modules>
-        <module>blog-auth-api</module>
-        <module>blog-app-api</module>
-        <module>blog-system-api</module>
-        <module>blog-user-api</module>
+        <module>blog-api-auth</module>
+        <module>blog-api-user</module>
     </modules>
 
     <properties>

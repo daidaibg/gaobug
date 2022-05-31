@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.imantou.platform.dao.BlogCategoryMapper;
+import com.imantou.platform.domain.BlogCategory;
 import com.imantou.platform.service.BlogCategoryService;
-import imantou.common.domain.BlogCategory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

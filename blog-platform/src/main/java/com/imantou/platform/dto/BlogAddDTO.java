@@ -3,8 +3,7 @@ package com.imantou.platform.dto;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import imantou.common.annotation.Verify;
+import com.imantou.verify.Verify;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,9 +12,7 @@ import java.util.Date;
 /**
  * 博客文章
  *
- * @TableName t_blog
  */
-@TableName(value = "t_blog")
 @Data
 public class BlogAddDTO implements Serializable {
     /**

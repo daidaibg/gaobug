@@ -17,18 +17,34 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <dependencies>
-        <!--集成公共模块-->
+        <!--用户模块-->
         <dependency>
             <groupId>com.imantou</groupId>
-            <artifactId>blog-common</artifactId>
+            <artifactId>blog-api-user</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- mysql -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <groupId>com.imantou</groupId>
+            <artifactId>blog-common-advice</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.imantou</groupId>
+            <artifactId>blog-common-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.imantou</groupId>
+            <artifactId>blog-common-cache</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.imantou</groupId>
+            <artifactId>blog-common-verify</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
 
         <!--nacos service discovery client依赖-->
         <dependency>
@@ -40,14 +56,18 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; Sentinel支持采用 Nacos 作为规则配置数据源，引入该适配依赖 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.csp</groupId>-->
+<!--            <artifactId>sentinel-datasource-nacos</artifactId>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-        <!-- Sentinel支持采用 Nacos 作为规则配置数据源，引入该适配依赖 -->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
         <!--spring cloud+dubbo 依赖-->
         <!--        <dependency>-->
@@ -58,10 +78,8 @@
         <!--            <groupId>com.alibaba.csp</groupId>-->
         <!--            <artifactId>sentinel-apache-dubbo-adapter</artifactId>-->
         <!--        </dependency>-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jdbc</artifactId>
-        </dependency>
+
+
     </dependencies>
 
     <profiles>
@@ -79,7 +97,7 @@
                             <!-- 解决乱码 -->
                             <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
                             <!-- main启动入口 -->
-                            <mainClass>imantou.user.AuthProviderApplication</mainClass>
+                            <mainClass>imantou.user.AuthApplication</mainClass>
                             <!-- 设置为ZIP，此模式下spring-boot-maven-plugin会将Manifest.MF文件中的Main-Class设置为org.springframework.boot.loader.PropertiesLauncher -->
                             <layout>ZIP</layout>
                             <!-- 需要包含的jar包 -->

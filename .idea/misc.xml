@@ -6,11 +6,11 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/blog-api/blog-auth-api/pom.xml" />
-        <option value="$PROJECT_DIR$/blog-api/blog-app-api/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/blog-api/blog-system-api/pom.xml" />
         <option value="$PROJECT_DIR$/blog-auth/blog-auth-consumer/pom.xml" />
         <option value="$PROJECT_DIR$/blog-auth/blog-auth-provider/pom.xml" />
         <option value="$PROJECT_DIR$/blog-base/pom.xml" />

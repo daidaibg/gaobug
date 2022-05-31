@@ -1,7 +1,7 @@
 package com.imantou.platform.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import imantou.common.domain.BlogTag;
+import com.imantou.platform.domain.BlogTag;
 
 /**
 * @author gaobug

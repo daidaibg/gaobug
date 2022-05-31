@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@EntityScan("com.imantou.common.entity")
-@MapperScan("com.imantou.app.dao")
+@EntityScan("com.imantou.platform.entity")
+@MapperScan("com.imantou.platform.dao")
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {"imantou"})
+@SpringBootApplication(scanBasePackages = {"com.imantou"})
 public class PlatformApplication {
     public static void main(String[] args) {
         SpringApplication.run(PlatformApplication.class, args);

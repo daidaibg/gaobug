@@ -1,8 +1,10 @@
 package com.imantou.platform.controller;
 
-import imantou.app.service.UserService;
-import imantou.common.domain.User;
-import imantou.common.response.ResponseWrapped;
+
+import com.imantou.advice.response.ResponseWrapped;
+import com.imantou.platform.domain.PlatformUser;
+import com.imantou.platform.service.UserService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,6 @@ public class UserController {
 
     @GetMapping(value = "getUserByName/{userName}")
     public ResponseWrapped<Object> getUserByName(@PathVariable String userName) {
-        return ResponseWrapped.success(userService.lambdaQuery().eq(User::getUsername, userName).last("limit 1").one());
+        return ResponseWrapped.success(userService.lambdaQuery().eq(PlatformUser::getUsername, userName).last("limit 1").one());
     }
 }

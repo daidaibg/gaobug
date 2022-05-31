@@ -30,6 +30,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.1</version>
+        </dependency>
         <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -84,7 +89,7 @@
                             <!-- 解决乱码 -->
                             <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
                             <!-- main启动入口 -->
-                            <mainClass>imantou.user.SystemApplication</mainClass>
+                            <mainClass>com.imantou.system.SystemApplication</mainClass>
                             <!-- 设置为ZIP，此模式下spring-boot-maven-plugin会将Manifest.MF文件中的Main-Class设置为org.springframework.boot.loader.PropertiesLauncher -->
                             <layout>ZIP</layout>
                             <!-- 需要包含的jar包 -->

@@ -1,7 +1,7 @@
 package com.imantou.platform.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import imantou.common.domain.User;
+import com.imantou.platform.domain.PlatformUser;
 
 /**
 * @author huang
@@ -9,7 +9,7 @@ import imantou.common.domain.User;
 * @createDate 2022-05-30 14:00:27
 * @Entity com.imantou.common.domain.TUser
 */
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<PlatformUser> {
 
 }
 

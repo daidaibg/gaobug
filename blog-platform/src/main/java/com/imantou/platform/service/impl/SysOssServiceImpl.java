@@ -2,8 +2,8 @@ package com.imantou.platform.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.imantou.platform.dao.SysOssMapper;
+import com.imantou.platform.domain.SysOss;
 import com.imantou.platform.service.SysOssService;
-import imantou.common.domain.SysOss;
 import org.springframework.stereotype.Service;
 
 /**

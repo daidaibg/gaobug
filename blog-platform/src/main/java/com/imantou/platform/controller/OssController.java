@@ -1,10 +1,11 @@
 package com.imantou.platform.controller;
 
-import com.imantou.utils.FileUtils;
-import imantou.app.service.SysOssService;
-import imantou.common.domain.SysOss;
-import imantou.common.exception.BusinessException;
-import imantou.common.response.ResponseWrapped;
+
+import com.imantou.advice.exception.BusinessException;
+import com.imantou.advice.response.ResponseWrapped;
+import com.imantou.exception.utils.FileUtils;
+import com.imantou.platform.domain.SysOss;
+import com.imantou.platform.service.SysOssService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PostMapping;

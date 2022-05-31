@@ -1,12 +1,14 @@
 package com.imantou.platform.controller;
 
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import imantou.app.dto.BlogAddDTO;
-import imantou.app.dto.BlogUpdateDTO;
-import imantou.app.service.BlogService;
-import imantou.common.domain.Blog;
-import imantou.common.response.PageWrapped;
-import imantou.common.response.ResponseWrapped;
+import com.imantou.advice.response.ResponseWrapped;
+import com.imantou.database.wrapped.PageWrapped;
+import com.imantou.platform.domain.Blog;
+import com.imantou.platform.dto.BlogAddDTO;
+import com.imantou.platform.dto.BlogUpdateDTO;
+import com.imantou.platform.service.BlogService;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 

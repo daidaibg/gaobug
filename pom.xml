@@ -15,6 +15,7 @@
         <module>blog-auth</module>
         <module>blog-platform</module>
         <module>blog-system</module>
+        <module>blog-auth</module>
     </modules>
 
     <parent>
@@ -47,6 +48,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
