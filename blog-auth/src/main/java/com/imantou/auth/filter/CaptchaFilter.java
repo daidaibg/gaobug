@@ -13,8 +13,7 @@ import java.io.IOException;
  */
 @Component
 public class CaptchaFilter implements Filter {
-    @Lazy
-    @Resource
+//    @Resource
     private CaptchaService captchaService;
 
     @Override

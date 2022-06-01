@@ -1,6 +1,6 @@
-package com.imantou.advice.exception;
+package com.imantou.response.exception;
 
-import com.imantou.advice.enums.ResultEnum;
+import com.imantou.response.enums.ResultEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

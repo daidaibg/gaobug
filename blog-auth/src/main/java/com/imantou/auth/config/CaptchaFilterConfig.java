@@ -12,10 +12,10 @@ import javax.servlet.DispatcherType;
 /**
  * 验证码过滤器配置
  */
-@Configuration
+//@Configuration
 public class CaptchaFilterConfig {
 
-    @Resource
+//    @Resource
     private CaptchaFilter captchaFilter;
 
     @Bean

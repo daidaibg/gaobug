@@ -1,8 +1,8 @@
 package com.imantou.auth.service.Impl;
 
 import cn.hutool.core.date.DateUtil;
-import com.imantou.advice.enums.ResultEnum;
-import com.imantou.advice.exception.BusinessException;
+import com.imantou.response.enums.ResultEnum;
+import com.imantou.response.exception.BusinessException;
 import com.imantou.api.user.PlatformUserClient;
 import com.imantou.api.user.SystemUserClient;
 import com.imantou.api.vo.PlatformUserVO;

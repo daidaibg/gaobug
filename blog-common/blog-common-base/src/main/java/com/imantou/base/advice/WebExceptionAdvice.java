@@ -1,11 +1,12 @@
-package com.imantou.advice;
+package com.imantou.base.advice;
 
 
-import com.imantou.advice.enums.ResultEnum;
+import com.imantou.base.exception.CaptchaException;
+import com.imantou.response.ResponseWrapped;
+import com.imantou.response.enums.ResultEnum;
 
-import com.imantou.advice.exception.BusinessException;
-import com.imantou.advice.exception.CaptchaException;
-import com.imantou.advice.response.ResponseWrapped;
+import com.imantou.response.exception.BusinessException;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.QueryTimeoutException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;

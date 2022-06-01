@@ -2,7 +2,7 @@ package com.imantou.cache.util;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.imantou.advice.exception.BusinessException;
+import com.imantou.response.exception.BusinessException;
 
 import com.imantou.base.utils.SpringContextUtils;
 import com.imantou.cache.constant.CacheNames;

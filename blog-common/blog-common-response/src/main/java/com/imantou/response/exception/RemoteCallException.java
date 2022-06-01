@@ -1,4 +1,4 @@
-package com.imantou.advice.exception;
+package com.imantou.response.exception;
 
 import org.springframework.http.HttpStatus;
 

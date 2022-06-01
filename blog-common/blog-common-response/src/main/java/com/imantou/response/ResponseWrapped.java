@@ -1,8 +1,8 @@
-package com.imantou.advice.response;
+package com.imantou.response;
 
 
-import com.imantou.advice.enums.ResultEnum;
-import com.imantou.advice.exception.BusinessException;
+import com.imantou.response.enums.ResultEnum;
+import com.imantou.response.exception.BusinessException;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 

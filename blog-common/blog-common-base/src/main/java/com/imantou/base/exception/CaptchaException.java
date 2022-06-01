@@ -1,7 +1,8 @@
-package com.imantou.advice.exception;
+package com.imantou.base.exception;
 
 
-import com.imantou.advice.enums.ResultEnum;
+import com.imantou.response.enums.ResultEnum;
+import com.imantou.response.exception.BusinessException;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;

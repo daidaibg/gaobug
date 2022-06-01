@@ -24,6 +24,7 @@
 .settings/
 .idea
 .idea/
+/.idea/
 *.iws
 *.iml
 *.ipr
@@ -72,3 +73,4 @@ gradle/wrapper/gradle-wrapper.properties
 /.nb-gradle/
 !**/src/main/**/build/
 !**/src/test/**/build/
+

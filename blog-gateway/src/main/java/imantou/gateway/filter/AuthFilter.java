@@ -1,29 +1,16 @@
 package imantou.gateway.filter;
 
-import com.alibaba.fastjson.JSON;
-import com.imantou.advice.response.ResponseWrapped;
 import com.imantou.api.auth.AuthClientApi;
-import com.imantou.api.vo.AuthTokenVO;
-import com.imantou.api.vo.JwtTokenVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
-import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 
 /**
  * 身份鉴权过滤器
@@ -60,13 +47,13 @@ public class AuthFilter implements GlobalFilter, Ordered {
         return chain.filter(exchange);
     }
 
-    private Mono<Void> doLoginVoidMono(ServerWebExchange exchange) {
-        ServerHttpResponse response = exchange.getResponse();
-        ResponseWrapped<Object> responseWrapped = ResponseWrapped.error(HttpStatus.UNAUTHORIZED);
-        DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(responseWrapped).getBytes(StandardCharsets.UTF_8));
-        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        return response.writeWith(Mono.just(buffer));
-    }
+//    private Mono<Void> doLoginVoidMono(ServerWebExchange exchange) {
+//        ServerHttpResponse response = exchange.getResponse();
+//        ResponseWrapped<Object> responseWrapped = ResponseWrapped.error(HttpStatus.UNAUTHORIZED);
+//        DataBuffer buffer = response.bufferFactory().wrap(JSON.toJSONString(responseWrapped).getBytes(StandardCharsets.UTF_8));
+//        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
+//        return response.writeWith(Mono.just(buffer));
+//    }
 
     @Override
     public int getOrder() {

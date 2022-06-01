@@ -1,6 +1,7 @@
 package com.imantou.auth.service;
 
-import com.imantou.auth.dto.RegisterForm;
+import com.imantou.response.ResponseWrapped;
+import com.imantou.auth.dto.PlatformRegisterDTO;
 
 /**
  * 登录服务接口
@@ -14,5 +15,5 @@ public interface RegisterService {
      *
      * @param form 注册表单
      */
-    String registerUser(RegisterForm form);
+    ResponseWrapped<Object> registerUser(PlatformRegisterDTO form);
 }

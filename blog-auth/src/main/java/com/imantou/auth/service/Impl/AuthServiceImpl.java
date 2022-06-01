@@ -1,7 +1,7 @@
 package com.imantou.auth.service.Impl;
 
-import com.imantou.advice.enums.ResultEnum;
-import com.imantou.advice.exception.BusinessException;
+import com.imantou.response.enums.ResultEnum;
+import com.imantou.response.exception.BusinessException;
 import com.imantou.auth.service.AuthService;
 import com.imantou.auth.vo.JwtTokenVO;
 import com.imantou.auth.vo.UserContext;

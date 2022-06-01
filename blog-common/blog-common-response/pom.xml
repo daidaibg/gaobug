@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>blog-common-advice</artifactId>
+    <artifactId>blog-common-response</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

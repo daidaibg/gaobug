@@ -1,8 +1,9 @@
 package com.imantou.auth.service.Impl;
 
 import cn.hutool.core.lang.generator.Generator;
-import com.imantou.advice.enums.ResultEnum;
-import com.imantou.advice.exception.CaptchaException;
+import com.imantou.base.exception.CaptchaException;
+import com.imantou.response.enums.ResultEnum;
+
 import com.imantou.auth.service.CaptchaService;
 import com.imantou.cache.util.RedisUtil;
 import com.imantou.base.utils.ImageUtil;

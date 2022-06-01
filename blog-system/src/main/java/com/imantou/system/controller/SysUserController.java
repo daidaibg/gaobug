@@ -1,7 +1,5 @@
 package com.imantou.system.controller;
 
-import com.imantou.api.user.SystemUserClient;
-import com.imantou.system.domain.SysUser;
 import com.imantou.system.service.SysUserService;
 
 import org.springframework.web.bind.annotation.GetMapping;

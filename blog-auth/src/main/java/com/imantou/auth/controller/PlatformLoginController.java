@@ -1,6 +1,6 @@
 package com.imantou.auth.controller;
 
-import com.imantou.advice.response.ResponseWrapped;
+import com.imantou.response.ResponseWrapped;
 import com.imantou.auth.dto.LoginForm;
 import com.imantou.auth.service.LoginService;
 import com.imantou.auth.vo.PlatformUserContextVO;
@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
  */
 @Slf4j
 @RestController
-@RequestMapping("/login/platform")
+@RequestMapping("/cs/user")
 public class PlatformLoginController {
     @Resource
     private LoginService loginService;
@@ -27,7 +27,7 @@ public class PlatformLoginController {
      * 登录
      */
     @PostMapping(value = "/login")
-    public ResponseWrapped<Object> appLogin(@RequestBody LoginForm form) {
+    public ResponseWrapped<Object> platformLogin(@RequestBody LoginForm form) {
         return ResponseWrapped.success(loginService.platformUserLogin(form));
     }
 
@@ -36,8 +36,7 @@ public class PlatformLoginController {
      */
     @GetMapping("/info")
     public ResponseWrapped<Object> getLoginUserInfo() throws ExecutionException, InterruptedException {
-        PlatformUserContextVO platformUserContextVO = loginService.getPlatformLoginUserInfo();
-        return ResponseWrapped.success();
+        return ResponseWrapped.success(loginService.getPlatformLoginUserInfo());
     }
 
     /**

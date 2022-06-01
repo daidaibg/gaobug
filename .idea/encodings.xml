@@ -5,12 +5,11 @@
     <file url="file://$PROJECT_DIR$/blog-api/blog-api-user/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-auth/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-auth/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/blog-common/blog-common-advice/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-common/blog-common-base/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-common/blog-common-cache/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/blog-common/blog-common-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-common/blog-common-database/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-common/blog-common-limiter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/blog-common/blog-common-response/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-common/blog-common-security/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-common/blog-common-store/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/blog-common/blog-common-verify/src/main/java" charset="UTF-8" />

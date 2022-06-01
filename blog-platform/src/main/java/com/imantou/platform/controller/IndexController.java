@@ -1,7 +1,7 @@
 package com.imantou.platform.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.imantou.advice.response.ResponseWrapped;
+import com.imantou.response.ResponseWrapped;
 import com.imantou.database.wrapped.PageWrapped;
 import com.imantou.platform.domain.Blog;
 import com.imantou.platform.dto.BlogSearchDTO;

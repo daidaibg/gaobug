@@ -1,9 +1,14 @@
 package com.imantou.api.user;
 
+
+import com.imantou.response.ResponseWrapped;
+import com.imantou.api.dto.PlatformUserDTO;
 import com.imantou.api.vo.PlatformUserVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 后台管理用户api
@@ -21,4 +26,11 @@ public interface PlatformUserClient {
     @GetMapping(value = "/platform/user/getUserByName/{userName}")
     PlatformUserVO getUserByName(@PathVariable String userName);
 
+    /**
+     * 保存注册新用户
+     *
+     * @param platformUserDTO 用户信息表单
+     */
+    @PostMapping(value = "/platform/user/registerUser")
+    ResponseWrapped<Object> registerUser(@RequestBody PlatformUserDTO platformUserDTO);
 }

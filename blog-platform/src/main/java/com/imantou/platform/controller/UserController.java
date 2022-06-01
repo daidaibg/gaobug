@@ -1,7 +1,7 @@
 package com.imantou.platform.controller;
 
 
-import com.imantou.advice.response.ResponseWrapped;
+import com.imantou.response.ResponseWrapped;
 import com.imantou.platform.domain.PlatformUser;
 import com.imantou.platform.service.UserService;
 

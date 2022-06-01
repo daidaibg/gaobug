@@ -10,12 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-        <module>blog-common-advice</module>
         <module>blog-common-base</module>
         <module>blog-common-cache</module>
         <module>blog-common-core</module>
         <module>blog-common-database</module>
         <module>blog-common-limiter</module>
+        <module>blog-common-response</module>
         <module>blog-common-security</module>
         <module>blog-common-store</module>
         <module>blog-common-verify</module>

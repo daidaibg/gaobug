@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.imantou.advice.exception.BusinessException;
+import com.imantou.response.exception.BusinessException;
 import com.imantou.platform.dao.BlogMapper;
 import com.imantou.platform.domain.Blog;
 import com.imantou.platform.dto.BlogAddDTO;

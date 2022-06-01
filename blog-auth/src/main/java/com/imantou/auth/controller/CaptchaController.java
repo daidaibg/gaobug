@@ -1,6 +1,6 @@
 package com.imantou.auth.controller;
 
-import com.imantou.advice.response.ResponseWrapped;
+import com.imantou.response.ResponseWrapped;
 import com.imantou.auth.service.CaptchaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

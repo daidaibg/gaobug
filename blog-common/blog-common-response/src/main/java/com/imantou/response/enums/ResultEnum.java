@@ -1,4 +1,4 @@
-package com.imantou.advice.enums;
+package com.imantou.response.enums;
 
 import lombok.Getter;
 
