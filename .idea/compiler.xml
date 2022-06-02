@@ -54,7 +54,7 @@
       <module name="blog-auth-consumer" options="-parameters" />
       <module name="blog-auth-provider" options="-parameters" />
       <module name="blog-base" options="-parameters" />
-      <module name="blog-cloud" options="" />
+      <module name="blog-cloud" options="-parameters" />
       <module name="blog-common" options="" />
       <module name="blog-common-base" options="-parameters" />
       <module name="blog-common-cache" options="-parameters" />

@@ -1,6 +1,7 @@
 package com.imantou.api.user;
 
 
+import com.imantou.api.dto.PlatformRegisterDTO;
 import com.imantou.response.ResponseWrapped;
 import com.imantou.api.dto.PlatformUserDTO;
 import com.imantou.api.vo.PlatformUserVO;
@@ -30,7 +31,8 @@ public interface PlatformUserClient {
      * 保存注册新用户
      *
      * @param platformUserDTO 用户信息表单
+     * @return 注册结果
      */
     @PostMapping(value = "/platform/user/registerUser")
-    ResponseWrapped<Object> registerUser(@RequestBody PlatformUserDTO platformUserDTO);
+    ResponseWrapped<Object> registerUser(@RequestBody PlatformRegisterDTO platformUserDTO);
 }

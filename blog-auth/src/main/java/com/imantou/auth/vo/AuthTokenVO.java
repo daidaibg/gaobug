@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.function.Supplier;
 
 /**
  * 登录令牌
@@ -13,9 +14,13 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 public class AuthTokenVO {
     public static final String AUTH_TOKEN = "auth_token";
+
+    public AuthTokenVO(String authToken, Date expiresTime) {
+        this.authToken = authToken;
+        this.expiresTime = expiresTime;
+    }
 
     /**
      * 登录令牌

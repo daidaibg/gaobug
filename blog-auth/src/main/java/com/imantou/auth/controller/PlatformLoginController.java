@@ -1,6 +1,7 @@
 package com.imantou.auth.controller;
 
 import com.imantou.auth.dto.LoginForm;
+import com.imantou.auth.dto.PlatformLoginForm;
 import com.imantou.auth.service.LoginService;
 import com.imantou.response.ResponseWrapped;
 import lombok.extern.slf4j.Slf4j;
@@ -25,10 +26,9 @@ public class PlatformLoginController {
      * 登录
      */
     @PostMapping(value = "/login")
-    public ResponseWrapped<Object> platformLogin(@RequestBody LoginForm form) {
+    public ResponseWrapped<Object> platformLogin(@RequestBody PlatformLoginForm form) {
         return ResponseWrapped.success(loginService.platformUserLogin(form));
     }
-
     /**
      * 获取登录用户信息
      */

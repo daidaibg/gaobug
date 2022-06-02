@@ -1,5 +1,10 @@
 package com.imantou.platform.api;
 
+import java.util.Date;
+
+import com.imantou.api.dto.PlatformRegisterDTO;
+import com.imantou.base.utils.EncryptUtils;
+import com.imantou.base.utils.SnowflakeUtils;
 import com.imantou.response.exception.BusinessException;
 import com.imantou.response.ResponseWrapped;
 import com.imantou.api.dto.PlatformUserDTO;
@@ -8,6 +13,8 @@ import com.imantou.api.vo.PlatformUserVO;
 import com.imantou.platform.domain.PlatformUser;
 import com.imantou.platform.service.UserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -17,8 +24,11 @@ import javax.annotation.Resource;
  *
  * @author gaobug
  */
+@RefreshScope
 @RestController
 public class PlatformUserApi implements PlatformUserClient {
+    @Value("${gaobug.url.avatar}")
+    private String avatar;
     @Resource
     private UserService userService;
 
@@ -34,17 +44,21 @@ public class PlatformUserApi implements PlatformUserClient {
     }
 
     @Override
-    public ResponseWrapped<Object> registerUser(PlatformUserDTO platformUserDTO) {
-        PlatformUser platformUserExist = userService.lambdaQuery()
-                .select(PlatformUser::getId)
-                .eq(PlatformUser::getUsername, platformUserDTO.getUsername())
-                .last("limit 1").one();
-        if (null != platformUserExist) {
-            throw new BusinessException("用户名已存在，请更换用户名");
-        }
-        platformUserExist = new PlatformUser();
-        BeanUtils.copyProperties(platformUserDTO, platformUserExist);
-        userService.save(platformUserExist);
+    public ResponseWrapped<Object> registerUser(PlatformRegisterDTO platformUserDTO) {
+        PlatformUser platformUserForSave = new PlatformUser();
+        platformUserForSave.setUsername(SnowflakeUtils.nextStr());
+        // 处理密码
+        String salt = SnowflakeUtils.nextStr();
+        platformUserForSave.setPassword(EncryptUtils.sha256(platformUserDTO.getPassword(), salt));
+        platformUserForSave.setSalt(salt);
+        platformUserForSave.setGender(0);
+        platformUserForSave.setAvatar(avatar);
+        platformUserForSave.setEmail(platformUserDTO.getEmail());
+        platformUserForSave.setBirthday(new Date());
+        platformUserForSave.setNickName("路人甲");
+        platformUserForSave.setCreateTime(new Date());
+        platformUserForSave.setUpdateTime(new Date());
+        userService.save(platformUserForSave);
         return ResponseWrapped.success();
     }
 }

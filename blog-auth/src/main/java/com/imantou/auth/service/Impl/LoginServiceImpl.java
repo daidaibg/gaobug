@@ -1,11 +1,11 @@
 package com.imantou.auth.service.Impl;
 
 import cn.hutool.core.date.DateUtil;
+import com.imantou.auth.dto.PlatformLoginForm;
+import com.imantou.auth.handler.LoginHandler;
 import com.imantou.response.enums.ResultEnum;
 import com.imantou.response.exception.BusinessException;
-import com.imantou.api.user.PlatformUserClient;
 import com.imantou.api.user.SystemUserClient;
-import com.imantou.api.vo.PlatformUserVO;
 import com.imantou.api.vo.SystemUserVO;
 import com.imantou.auth.dto.LoginForm;
 import com.imantou.auth.service.LoginService;
@@ -19,13 +19,17 @@ import com.imantou.cache.constant.RedisToken;
 import com.imantou.cache.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 登录服务
@@ -38,20 +42,20 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     private SystemUserClient systemUserClient;
     @Resource
-    private PlatformUserClient platformUserClient;
-
+    private List<LoginHandler> loginHandlers;
 
     @Override
-    public AuthTokenVO platformUserLogin(LoginForm form) {
-        PlatformUserVO user = platformUserClient.getUserByName(form.getUsername());
-        if (!Objects.equals(user.getPassword(), EncryptUtils.sha256(form.getPassword(), user.getSalt()))) {
-            throw new BusinessException(ResultEnum.ERROR_USER_PASSWORD);
-        }
-        // 缓存用户信息
-        PlatformUserContextVO userContext = new PlatformUserContextVO();
-        BeanUtils.copyProperties(user, userContext);
-        String token = SnowflakeUtils.nextStr();
-        RedisUtil.set(RedisToken.PLATFORM_AUTH_BUCKET + token, userContext, 43200L);
+    public AuthTokenVO platformUserLogin(PlatformLoginForm form) {
+        String token = loginHandlers.stream()
+                .filter(loginHandler -> loginHandler.supports(form.getLoginType()))
+                .findFirst()
+                .map(loginHandler -> {
+                    PlatformUserContextVO userContext = loginHandler.getLoginUser(form);
+                    String snowflakeToken = SnowflakeUtils.nextStr();
+                    // 缓存用户信息
+                    RedisUtil.set(RedisToken.PLATFORM_AUTH_BUCKET + snowflakeToken, userContext, 43200L);
+                    return snowflakeToken;
+                }).orElseThrow(() -> new BusinessException("登录失败"));
         return new AuthTokenVO(token, DateUtil.offsetHour(new Date(), 12));
     }
 

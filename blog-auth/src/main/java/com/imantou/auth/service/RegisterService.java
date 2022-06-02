@@ -1,7 +1,7 @@
 package com.imantou.auth.service;
 
+import com.imantou.api.dto.PlatformRegisterDTO;
 import com.imantou.response.ResponseWrapped;
-import com.imantou.auth.dto.PlatformRegisterDTO;
 
 /**
  * 登录服务接口

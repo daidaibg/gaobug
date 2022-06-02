@@ -1,6 +1,7 @@
 package com.imantou.auth.service;
 
 import com.imantou.auth.dto.LoginForm;
+import com.imantou.auth.dto.PlatformLoginForm;
 import com.imantou.auth.vo.AuthTokenVO;
 import com.imantou.auth.vo.PlatformUserContextVO;
 
@@ -19,7 +20,7 @@ public interface LoginService {
      * @param form 登录表单
      * @return 登录令牌
      */
-    AuthTokenVO platformUserLogin(LoginForm form);
+    AuthTokenVO platformUserLogin(PlatformLoginForm form);
 
     /**
      * 后台用户登录

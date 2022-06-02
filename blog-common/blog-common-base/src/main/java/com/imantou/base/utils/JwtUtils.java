@@ -29,7 +29,6 @@ public class JwtUtils {
             Date now = new Date();
             long expMillis = now.getTime() + EXPIRE;
             Date expDate = new Date(expMillis);
-
             Algorithm algorithmHS = Algorithm.HMAC256(SECRET);
             String token = JWT.create()
                     .withIssuer(ISSUER)
