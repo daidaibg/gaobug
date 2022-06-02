@@ -1,6 +1,7 @@
 package com.imantou.auth.handler;
 
 import com.imantou.api.user.PlatformUserClient;
+import com.imantou.api.vo.PlatformUserVO;
 import com.imantou.auth.dto.PlatformLoginForm;
 import com.imantou.auth.vo.PlatformUserContextVO;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class QqLoginHandler extends AbstractLoginHandler {
     private PlatformUserClient platformUserClient;
 
     @Override
-    public PlatformUserContextVO getLoginUser(PlatformLoginForm form) {
+    public PlatformUserVO getLoginUser(PlatformLoginForm form) {
         return null;
     }
 }

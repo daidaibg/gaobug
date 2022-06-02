@@ -1,23 +1,22 @@
 package com.imantou.platform.api;
 
-import java.util.Date;
-
-import com.imantou.api.dto.PlatformRegisterDTO;
-import com.imantou.base.utils.EncryptUtils;
-import com.imantou.base.utils.SnowflakeUtils;
-import com.imantou.response.exception.BusinessException;
-import com.imantou.response.ResponseWrapped;
-import com.imantou.api.dto.PlatformUserDTO;
+import cn.hutool.core.bean.BeanUtil;
+import com.imantou.api.dto.PlatformRegister;
 import com.imantou.api.user.PlatformUserClient;
 import com.imantou.api.vo.PlatformUserVO;
+import com.imantou.base.utils.EncryptUtils;
+import com.imantou.base.utils.SnowflakeUtils;
 import com.imantou.platform.domain.PlatformUser;
 import com.imantou.platform.service.UserService;
+import com.imantou.response.ResponseWrapped;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.Optional;
 
 /**
  * 博客平台用户api
@@ -37,28 +36,45 @@ public class PlatformUserApi implements PlatformUserClient {
         PlatformUser platformUser = userService.lambdaQuery()
                 .eq(PlatformUser::getUsername, userName)
                 .last("limit 1").one();
-        PlatformUserVO platformUserVO = new PlatformUserVO();
-        BeanUtils.copyProperties(platformUser, platformUserVO);
-        return platformUserVO;
+        return getPlatformUserVO(platformUser);
 
     }
 
     @Override
-    public ResponseWrapped<Object> registerUser(PlatformRegisterDTO platformUserDTO) {
+    public PlatformUserVO getUserByMobile(String mobile) {
+        PlatformUser platformUser = userService.lambdaQuery()
+                .eq(PlatformUser::getMobile, mobile)
+                .last("limit 1").one();
+        return getPlatformUserVO(platformUser);
+    }
+
+    private PlatformUserVO getPlatformUserVO(PlatformUser platformUser) {
+        if (null == platformUser) {
+            return null;
+        }
+        PlatformUserVO platformUserVO = new PlatformUserVO();
+        BeanUtils.copyProperties(platformUser, platformUserVO);
+        return platformUserVO;
+    }
+
+    @Override
+    public ResponseWrapped<PlatformUserVO> registerUser(PlatformRegister platformRegister) {
         PlatformUser platformUserForSave = new PlatformUser();
         platformUserForSave.setUsername(SnowflakeUtils.nextStr());
         // 处理密码
         String salt = SnowflakeUtils.nextStr();
-        platformUserForSave.setPassword(EncryptUtils.sha256(platformUserDTO.getPassword(), salt));
+        String password = Optional.ofNullable(platformRegister.getPassword()).orElse("www.gaobug.com");
+        platformUserForSave.setPassword(EncryptUtils.sha256(password, salt));
         platformUserForSave.setSalt(salt);
         platformUserForSave.setGender(0);
+        platformUserForSave.setMobile(platformRegister.getMobile());
         platformUserForSave.setAvatar(avatar);
-        platformUserForSave.setEmail(platformUserDTO.getEmail());
+        platformUserForSave.setEmail(platformRegister.getEmail());
         platformUserForSave.setBirthday(new Date());
         platformUserForSave.setNickName("路人甲");
         platformUserForSave.setCreateTime(new Date());
         platformUserForSave.setUpdateTime(new Date());
         userService.save(platformUserForSave);
-        return ResponseWrapped.success();
+        return new ResponseWrapped<>(BeanUtil.copyProperties(platformUserForSave, PlatformUserVO.class));
     }
 }

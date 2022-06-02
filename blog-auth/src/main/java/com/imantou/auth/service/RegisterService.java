@@ -15,5 +15,5 @@ public interface RegisterService {
      *
      * @param form 注册表单
      */
-    ResponseWrapped<Object> registerUser(PlatformRegisterDTO form);
+    void registerUser(PlatformRegisterDTO form);
 }

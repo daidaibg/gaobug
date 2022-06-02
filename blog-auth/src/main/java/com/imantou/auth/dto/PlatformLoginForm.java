@@ -11,7 +11,24 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PlatformLoginForm {
-    private String userIdentification;
-    private String identification;
+    /*账号密码登录*/
+    /**
+     * 账号
+     */
+    private String account;
+    /**
+     * 密码
+     */
+    private String password;
+    /*快捷登录*/
+    /**
+     * 手机号
+     */
+    private String mobile;
+    /**
+     * 验证码
+     */
+    private String code;
+
     private Integer loginType;
 }

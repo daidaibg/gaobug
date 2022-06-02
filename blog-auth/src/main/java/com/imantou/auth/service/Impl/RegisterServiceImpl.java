@@ -3,7 +3,6 @@ package com.imantou.auth.service.Impl;
 import com.imantou.api.dto.PlatformRegisterDTO;
 import com.imantou.api.user.PlatformUserClient;
 import com.imantou.auth.service.RegisterService;
-import com.imantou.response.ResponseWrapped;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,7 +18,7 @@ public class RegisterServiceImpl implements RegisterService {
     private PlatformUserClient platformUserClient;
 
     @Override
-    public ResponseWrapped<Object> registerUser(PlatformRegisterDTO form) {
-        return platformUserClient.registerUser(form);
+    public void registerUser(PlatformRegisterDTO form) {
+         platformUserClient.registerUser(form);
     }
 }
