@@ -1,13 +1,13 @@
 package com.imantou.auth.service.Impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
-import com.imantou.auth.dto.PlatformLoginForm;
-import com.imantou.auth.handler.LoginHandler;
-import com.imantou.response.enums.ResultEnum;
-import com.imantou.response.exception.BusinessException;
 import com.imantou.api.user.SystemUserClient;
+import com.imantou.api.vo.PlatformUserVO;
 import com.imantou.api.vo.SystemUserVO;
 import com.imantou.auth.dto.LoginForm;
+import com.imantou.auth.dto.PlatformLoginForm;
+import com.imantou.auth.handler.LoginHandler;
 import com.imantou.auth.service.LoginService;
 import com.imantou.auth.vo.AuthTokenVO;
 import com.imantou.auth.vo.PlatformUserContextVO;
@@ -17,19 +17,17 @@ import com.imantou.base.utils.SnowflakeUtils;
 import com.imantou.base.utils.UserContextUtils;
 import com.imantou.cache.constant.RedisToken;
 import com.imantou.cache.util.RedisUtil;
+import com.imantou.response.enums.ResultEnum;
+import com.imantou.response.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 登录服务
@@ -50,12 +48,13 @@ public class LoginServiceImpl implements LoginService {
                 .filter(loginHandler -> loginHandler.supports(form.getLoginType()))
                 .findFirst()
                 .map(loginHandler -> {
-                    PlatformUserContextVO userContext = loginHandler.getLoginUser(form);
+                    PlatformUserVO user = loginHandler.getLoginUser(form);
+                    PlatformUserContextVO userContext = BeanUtil.copyProperties(user, PlatformUserContextVO.class);
                     String snowflakeToken = SnowflakeUtils.nextStr();
                     // 缓存用户信息
                     RedisUtil.set(RedisToken.PLATFORM_AUTH_BUCKET + snowflakeToken, userContext, 43200L);
                     return snowflakeToken;
-                }).orElseThrow(() -> new BusinessException("登录失败"));
+                }).orElseThrow(() -> new BusinessException("暂不支持当前登录方式"));
         return new AuthTokenVO(token, DateUtil.offsetHour(new Date(), 12));
     }
 
@@ -67,8 +66,7 @@ public class LoginServiceImpl implements LoginService {
             throw new BusinessException(ResultEnum.ERROR_USER_PASSWORD);
         }
         // 缓存用户信息
-        UserContext userContext = new UserContext();
-        BeanUtils.copyProperties(user, userContext);
+        UserContext userContext = BeanUtil.copyProperties(user, UserContext.class);
         String token = SnowflakeUtils.nextStr();
         RedisUtil.set(token, userContext, 43200L);
         return new AuthTokenVO(token, DateUtil.offsetHour(new Date(), 12));

@@ -29,6 +29,7 @@ public class PlatformRegisterController {
      */
     @PostMapping(value = "/register")
     public ResponseWrapped<Object> registerUser(@Valid @RequestBody PlatformRegisterDTO form) {
-        return registerService.registerUser(form);
+        registerService.registerUser(form);
+        return ResponseWrapped.success();
     }
 }

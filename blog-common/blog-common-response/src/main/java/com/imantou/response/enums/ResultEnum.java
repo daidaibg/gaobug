@@ -39,6 +39,8 @@ public enum ResultEnum {
     ERROR_PASSWORD_MODIFY_SUCCESS(400, true, "修改密码成功！"),
 
     ERROR_DEVICE_NOT_FOUND(400, false, "未找到设备信息。"),
+    ERROR_CAPTCHA_OVERDUE(400, false, "错误次数过多或验证码过期，请稍后重试"),
+    ERROR_CAPTCHA_FAIL(400, false, "错误次数过多或验证码错误，请稍后重试"),
     ;
 
     private Integer code;
