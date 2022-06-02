@@ -1,10 +1,8 @@
 package com.imantou.auth.controller;
 
-import com.imantou.response.ResponseWrapped;
 import com.imantou.auth.dto.LoginForm;
 import com.imantou.auth.service.LoginService;
-import com.imantou.auth.vo.PlatformUserContextVO;
-
+import com.imantou.response.ResponseWrapped;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +16,7 @@ import java.util.concurrent.ExecutionException;
  */
 @Slf4j
 @RestController
-@RequestMapping("/cs/user")
+@RequestMapping("/auth/cs/user")
 public class PlatformLoginController {
     @Resource
     private LoginService loginService;

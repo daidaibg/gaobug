@@ -21,7 +21,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/oss")
+@RequestMapping("/platform/oss")
 @RefreshScope
 public class OssController {
 

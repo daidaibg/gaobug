@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @RestController
-@RequestMapping("/cs/user")
+@RequestMapping("/auth/cs/user")
 public class PlatformRegisterController {
     @Resource
     private RegisterService registerService;

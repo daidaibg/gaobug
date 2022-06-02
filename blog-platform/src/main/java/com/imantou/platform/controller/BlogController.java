@@ -23,7 +23,7 @@ public class BlogController {
     private BlogService blogService;
 
     /**
-     * 获取首页最新的博客
+     * 获取博客详情
      */
     @GetMapping("/info/{id}")
     public ResponseWrapped<Object> getBlogInfo(@PathVariable String id) {

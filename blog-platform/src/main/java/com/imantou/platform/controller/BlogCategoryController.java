@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  * 博客分类接口
  */
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/blog/category")
 public class BlogCategoryController {
     @Resource
     private BlogCategoryService blogCategoryService;
