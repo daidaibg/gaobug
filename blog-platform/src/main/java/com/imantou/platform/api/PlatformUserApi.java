@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * 博客平台用户api
@@ -62,9 +63,11 @@ public class PlatformUserApi implements PlatformUserClient {
         platformUserForSave.setUsername(SnowflakeUtils.nextStr());
         // 处理密码
         String salt = SnowflakeUtils.nextStr();
-        platformUserForSave.setPassword(EncryptUtils.sha256(platformRegister.getPassword(), salt));
+        String password = Optional.ofNullable(platformRegister.getPassword()).orElse("www.gaobug.com");
+        platformUserForSave.setPassword(EncryptUtils.sha256(password, salt));
         platformUserForSave.setSalt(salt);
         platformUserForSave.setGender(0);
+        platformUserForSave.setMobile(platformRegister.getMobile());
         platformUserForSave.setAvatar(avatar);
         platformUserForSave.setEmail(platformRegister.getEmail());
         platformUserForSave.setBirthday(new Date());
