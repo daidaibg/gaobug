@@ -1,4 +1,4 @@
-package com.imantou.base.utils;
+package com.imantou.utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

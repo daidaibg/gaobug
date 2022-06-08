@@ -6,27 +6,25 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr:  ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
-        group: DEV_GROUP
-        namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
+        server-addr: ${NACOS_HOST:localhost}:${NACOS_PORT:8848}
+#        namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
-        group: DEV_GROUP
-        namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
         file-extension: yml #指定yaml格式的配置
-#    sentinel:
-#      transport:
-#        dashboard: localhost:8080 #配置Sentinel dashboard地址
-#        port: 8719
-#      datasource:
-#        ds1:
-#          nacos:
-#            server-addr: ${spring.cloud.nacos.discovery.server-addr}
-#            dataId: cloudalibaba-sentinel-service
-#            namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
-#            groupId: DEV_GROUP
-#            data-type: json
-#            rule-type: flow
+#        namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
+    #    sentinel:
+    #      transport:
+    #        dashboard: localhost:8080 #配置Sentinel dashboard地址
+    #        port: 8719
+    #      datasource:
+    #        ds1:
+    #          nacos:
+    #            server-addr: ${spring.cloud.nacos.discovery.server-addr}
+    #            dataId: cloudalibaba-sentinel-service
+    #            namespace: 6cf37e65-a5ac-426a-bf87-6b0da29f0b9b
+    #            groupId: DEV_GROUP
+    #            data-type: json
+    #            rule-type: flow
     gateway:
       globalcors:
         cors-configurations:
@@ -45,3 +43,14 @@ spring:
 #feign:
 #  sentinel:
 #    enabled: true # 激活Sentinel对Feign的支持
+
+gaobug:
+  security:
+    request:
+      default:
+        ignorePathPatterns:
+          - /auth/cs/user/register #注册
+          - /auth/cs/user/login #登录
+          - /index/blog/list/* #博客首页列表
+        supportsAppIds:
+          - blog-platform

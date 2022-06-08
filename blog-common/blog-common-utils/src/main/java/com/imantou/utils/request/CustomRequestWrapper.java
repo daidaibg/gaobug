@@ -1,4 +1,4 @@
-package com.imantou.security.request;
+package com.imantou.utils.request;
 
 import org.springframework.util.StreamUtils;
 
@@ -10,15 +10,17 @@ import java.io.*;
 
 /**
  * 自定义 HttpServletRequestWrapper 来包装输入流
+ *
+ * @author hzq
  */
-public class ParamsSignRequestWrapper extends HttpServletRequestWrapper {
+public class CustomRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 缓存下来的HTTP body
      */
     private byte[] body;
 
-    public ParamsSignRequestWrapper(HttpServletRequest request) throws IOException {
+    public CustomRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
         body = StreamUtils.copyToByteArray(request.getInputStream());
     }

@@ -3,9 +3,9 @@ package com.imantou.platform.controller;
 
 import com.imantou.response.exception.BusinessException;
 import com.imantou.response.ResponseWrapped;
-import com.imantou.base.utils.FileUtils;
 import com.imantou.platform.domain.SysOss;
 import com.imantou.platform.service.SysOssService;
+import com.imantou.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PostMapping;

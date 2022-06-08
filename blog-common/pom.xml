@@ -18,6 +18,7 @@
         <module>blog-common-response</module>
         <module>blog-common-security</module>
         <module>blog-common-store</module>
+        <module>blog-common-utils</module>
         <module>blog-common-verify</module>
     </modules>
 

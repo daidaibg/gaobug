@@ -3,7 +3,7 @@ package com.imantou.verify.metadata;
 
 
 import com.imantou.base.metadata.AbstractMethodMetaData;
-import com.imantou.base.utils.MethodUtils;
+import com.imantou.utils.MethodUtils;
 
 import java.lang.reflect.Method;
 import java.util.function.Supplier;

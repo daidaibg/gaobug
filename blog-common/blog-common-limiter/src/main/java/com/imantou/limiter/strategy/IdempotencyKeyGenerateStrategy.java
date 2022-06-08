@@ -3,7 +3,7 @@ package com.imantou.limiter.strategy;
 
 import com.imantou.limiter.RateLimit;
 import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.base.utils.JacksonUtils;
+import com.imantou.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ObjectUtils;

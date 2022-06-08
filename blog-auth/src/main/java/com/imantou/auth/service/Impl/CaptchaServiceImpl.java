@@ -6,7 +6,7 @@ import com.imantou.response.enums.ResultEnum;
 
 import com.imantou.auth.service.CaptchaService;
 import com.imantou.cache.util.RedisUtil;
-import com.imantou.base.utils.ImageUtil;
+import com.imantou.utils.ImageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

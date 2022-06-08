@@ -1,6 +1,6 @@
 package com.imantou.base.metadata;
 
-import com.imantou.base.utils.MethodUtils;
+import com.imantou.utils.MethodUtils;
 import org.springframework.util.Assert;
 
 import java.lang.reflect.Method;

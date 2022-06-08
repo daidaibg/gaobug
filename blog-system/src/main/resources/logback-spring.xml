@@ -75,7 +75,7 @@
     <springProfile name="dev,test">
         <logger name="org.springframework.web" level="DEBUG"/>
         <logger name="org.springboot.sample" level="DEBUG" />
-        <logger name="imantou" level="DEBUG" />
+        <logger name="com.imantou" level="DEBUG" />
     </springProfile>
 
 </configuration>

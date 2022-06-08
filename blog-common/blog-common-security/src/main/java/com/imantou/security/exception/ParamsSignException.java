@@ -3,6 +3,7 @@ package com.imantou.security.exception;
 
 /**
  * 请求参数签名异常
+ * @author gaobug
  */
 public class ParamsSignException extends RuntimeException {
 

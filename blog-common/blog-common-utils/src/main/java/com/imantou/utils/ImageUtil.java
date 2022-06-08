@@ -1,4 +1,4 @@
-package com.imantou.base.utils;
+package com.imantou.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

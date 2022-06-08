@@ -6,10 +6,10 @@ import com.imantou.auth.service.AuthService;
 import com.imantou.auth.vo.JwtTokenVO;
 import com.imantou.auth.vo.UserContext;
 import com.imantou.cache.util.RedisUtil;
-import com.imantou.base.utils.JwtUtils;
-import com.imantou.base.utils.RequestUtils;
 
 
+import com.imantou.utils.JwtUtils;
+import com.imantou.utils.RequestUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

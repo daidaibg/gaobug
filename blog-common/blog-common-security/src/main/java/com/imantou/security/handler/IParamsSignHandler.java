@@ -4,22 +4,17 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 请求参数验签处理器接口类
+ *
+ * @author gaobug
  */
 public interface IParamsSignHandler {
 
     /**
-     * Get 请求验签
+     * 请求验签
      *
      * @param request {@link HttpServletRequest}
-     * @return
+     * @return 验签结果
      */
-    boolean doGet(HttpServletRequest request);
+    boolean doCheckSign(HttpServletRequest request);
 
-    /**
-     * Post 请求验签
-     *
-     * @param request {@link HttpServletRequest}
-     * @return
-     */
-    boolean doPost(HttpServletRequest request);
 }

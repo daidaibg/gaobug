@@ -1,18 +1,17 @@
 package com.imantou.security.handler;
 
-import com.imantou.security.exception.ParamsSignException;
-import org.springframework.util.StreamUtils;
+import com.imantou.response.constant.RequestHeader;
+import com.imantou.utils.HttpContextUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Enumeration;
 import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.function.Supplier;
 
 /**
  * 验签抽类
+ *
+ * @author gaobug
  */
 public abstract class AbstractParamsSignHandler implements IParamsSignHandler {
 
@@ -21,78 +20,40 @@ public abstract class AbstractParamsSignHandler implements IParamsSignHandler {
      *
      * @param request   {@link HttpServletRequest}
      * @param paramFunc 待验签参数返回函数
-     * @return
+     * @return 验签结果
      */
     protected boolean doCheck(HttpServletRequest request, Supplier<SortedMap<String, String>> paramFunc) {
-        String signParam = this.getSignParam();
-        String signValue = this.getHeaderOrParameter(request, signParam);
+        // 签名
+        String signValue = HttpContextUtils.getHeaderOrParameter(request, RequestHeader.SIGN_HEADER);
         if (!StringUtils.hasLength(signValue)) {
             return false;
         }
-
-        String timestampParam = this.getTimestampParam();
-        String timestampValue = this.getHeaderOrParameter(request, timestampParam);
+        // 时间戳
+        String timestampValue = HttpContextUtils.getHeaderOrParameter(request, RequestHeader.TIMESTAMP);
         if (!StringUtils.hasLength(timestampValue)) {
             return false;
         }
-
         // 转换为毫秒对比时间戳
-        if (this.getFailureTime() < System.currentTimeMillis() - Long.parseLong(timestampValue)) {
+        if (20000L < System.currentTimeMillis() - Long.parseLong(timestampValue)) {
             return false;
         }
-
         SortedMap<String, String> parameterMap = paramFunc.get();
-
         // 移除 时间戳、签名
-        if (null != parameterMap.get(signParam)) {
-            parameterMap.remove(signParam);
+        if (null != parameterMap.get(RequestHeader.SIGN_HEADER)) {
+            parameterMap.remove(RequestHeader.SIGN_HEADER);
         }
-        if (null != parameterMap.get(timestampParam)) {
-            parameterMap.remove(timestampParam);
+        if (null != parameterMap.get(RequestHeader.TIMESTAMP)) {
+            parameterMap.remove(RequestHeader.TIMESTAMP);
         }
-
         // 验证签名
         return this.checkSign(parameterMap, timestampValue, signValue);
     }
 
-    /**
-     * 请求头或者请求中查询指定参数
-     *
-     * @param request {@link HttpServletRequest}
-     * @param name    参数名称
-     * @return
-     */
-    protected String getHeaderOrParameter(HttpServletRequest request, String name) {
-        String value = request.getHeader(name);
-        return StringUtils.hasLength(value) ? value : request.getParameter(name);
+    @Override
+    public boolean doCheckSign(HttpServletRequest request) {
+        return doCheck(request, () -> HttpContextUtils.getRequestSortedParamsMap(request));
     }
 
-    @Override
-    public boolean doGet(HttpServletRequest request) {
-        // get check sign
-        return this.doCheck(request, () -> {
-            SortedMap<String, String> parameterMap = new TreeMap<>();
-            Enumeration<String> parameterNames = request.getParameterNames();
-            while (parameterNames.hasMoreElements()) {
-                String name = parameterNames.nextElement();
-                parameterMap.put(name, request.getParameter(name));
-            }
-            return parameterMap;
-        });
-    }
-
-    @Override
-    public boolean doPost(HttpServletRequest request) {
-        // post check sign
-        return this.doCheck(request, () -> {
-            try {
-                byte[] bodyBytes = StreamUtils.copyToByteArray(request.getInputStream());
-                return this.parse(new String(bodyBytes, request.getCharacterEncoding()));
-            } catch (IOException e) {
-                throw new ParamsSignException("request body copy error");
-            }
-        });
-    }
 
     /**
      * 验证参数签名
@@ -104,32 +65,4 @@ public abstract class AbstractParamsSignHandler implements IParamsSignHandler {
      */
     public abstract boolean checkSign(SortedMap<String, String> parameterMap, String timestamp, String sign);
 
-    /**
-     * 解析 json 字符串转换为 SortedMap
-     *
-     * @param jsonStr JSON字符串
-     * @return
-     */
-    public abstract SortedMap<String, String> parse(String jsonStr);
-
-    /**
-     * 签名
-     *
-     * @return
-     */
-    public abstract String getSignParam();
-
-    /**
-     * 时间戳
-     *
-     * @return
-     */
-    public abstract String getTimestampParam();
-
-    /**
-     * 失效时间
-     *
-     * @return
-     */
-    public abstract Long getFailureTime();
 }

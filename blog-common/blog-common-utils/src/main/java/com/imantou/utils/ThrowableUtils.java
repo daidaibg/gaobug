@@ -1,4 +1,4 @@
-package com.imantou.base.utils;
+package com.imantou.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

@@ -1,4 +1,4 @@
-package com.imantou.base.utils;
+package com.imantou.utils;
 
 
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="server_name" value="blog-auth" />
+    <property name="server_name" value="blog-platform" />
     <property name="log_dir" value="logs" />
     <property name="maxFileSize" value="1050MB" />
     <property name="maxHistory" value="30" />
@@ -10,6 +10,7 @@
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
             <pattern>%red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger.%method:%L) - %cyan(%msg%n)</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 

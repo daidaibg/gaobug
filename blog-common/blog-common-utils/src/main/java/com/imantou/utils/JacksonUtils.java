@@ -1,4 +1,4 @@
-package com.imantou.base.utils;
+package com.imantou.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonFactory;

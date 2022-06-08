@@ -3,7 +3,7 @@ server:
   port: 19724
 spring:
   application:
-    name: @artifactId@
+    name: blog-system
   cloud:
     nacos:
       discovery:

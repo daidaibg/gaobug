@@ -2,7 +2,7 @@ package com.imantou.limiter.metadata;
 
 import com.imantou.limiter.DistributedLock;
 import com.imantou.base.metadata.AbstractMethodMetaData;
-import com.imantou.base.utils.MethodUtils;
+import com.imantou.utils.MethodUtils;
 import org.springframework.util.Assert;
 
 import java.lang.annotation.Annotation;

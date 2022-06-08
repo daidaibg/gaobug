@@ -5,7 +5,7 @@ import com.imantou.limiter.metadata.DistributedLockMethodMetaData;
 import com.imantou.limiter.DistributedLock;
 import com.imantou.base.metadata.MethodMetaData;
 
-import com.imantou.base.utils.MethodUtils;
+import com.imantou.utils.MethodUtils;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

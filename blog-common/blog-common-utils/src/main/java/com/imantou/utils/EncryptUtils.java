@@ -1,9 +1,8 @@
-package com.imantou.base.utils;
+package com.imantou.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
 public class EncryptUtils {
     /**
      * SHA256加密

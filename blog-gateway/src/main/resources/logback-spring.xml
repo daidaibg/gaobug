@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="server_name" value="blog-app" />
+    <property name="server_name" value="blog-gateway" />
     <property name="log_dir" value="logs" />
     <property name="maxFileSize" value="1050MB" />
     <property name="maxHistory" value="30" />
@@ -76,7 +76,7 @@
     <springProfile name="dev,test">
         <logger name="org.springframework.web" level="DEBUG"/>
         <logger name="org.springboot.sample" level="DEBUG" />
-        <logger name="imantou" level="DEBUG" />
+        <logger name="com.imantou" level="DEBUG" />
     </springProfile>
 
 </configuration>

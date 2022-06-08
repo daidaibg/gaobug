@@ -1,4 +1,4 @@
-package com.imantou.base.utils;
+package com.imantou.utils;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;

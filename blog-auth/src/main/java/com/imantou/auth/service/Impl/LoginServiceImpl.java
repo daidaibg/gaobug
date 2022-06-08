@@ -12,13 +12,13 @@ import com.imantou.auth.service.LoginService;
 import com.imantou.auth.vo.AuthTokenVO;
 import com.imantou.auth.vo.PlatformUserContextVO;
 import com.imantou.auth.vo.UserContext;
-import com.imantou.base.utils.EncryptUtils;
 import com.imantou.base.utils.SnowflakeUtils;
-import com.imantou.base.utils.UserContextUtils;
 import com.imantou.cache.constant.RedisToken;
 import com.imantou.cache.util.RedisUtil;
 import com.imantou.response.enums.ResultEnum;
 import com.imantou.response.exception.BusinessException;
+import com.imantou.utils.EncryptUtils;
+import com.imantou.utils.UserContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
