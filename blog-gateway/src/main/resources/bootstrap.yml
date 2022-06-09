@@ -25,6 +25,10 @@ spring:
     #            groupId: DEV_GROUP
     #            data-type: json
     #            rule-type: flow
+        shared-configs[0]:
+          dataId: redis.yml
+          group: DEFAULT_GROUP
+          refresh: true
     gateway:
       globalcors:
         cors-configurations:

@@ -6,6 +6,7 @@ import com.imantou.cache.util.RedisUtil;
 import com.imantou.gateway.adapter.PathPatternsConfigAdapter;
 import com.imantou.response.ResponseWrapped;
 import com.imantou.response.constant.RequestHeader;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -29,6 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author gaobug
  */
+@Data
 @Slf4j
 @Component
 public class AuthFilter implements GlobalFilter, Ordered {

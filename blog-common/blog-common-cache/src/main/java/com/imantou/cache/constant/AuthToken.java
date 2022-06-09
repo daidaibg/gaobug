@@ -10,5 +10,5 @@ public interface AuthToken {
     /**
      * 登录令牌
      */
-    String AUTH_TOKEN_BUCKET = "auth:token:";
+    String AUTH_TOKEN_BUCKET = "blog:auth:token:";
 }
