@@ -41,7 +41,7 @@ public class BlogController {
     /**
      * 添加博客
      */
-    @PostMapping
+    @PostMapping("/add")
     public ResponseWrapped<Object> addBlog(@RequestBody BlogAddDTO blog) {
         blogService.addBlog(blog);
         return ResponseWrapped.success();
@@ -50,7 +50,7 @@ public class BlogController {
     /**
      * 更新博客
      */
-    @PutMapping
+    @PostMapping("/update")
     public ResponseWrapped<Object> updateBlog(@RequestBody BlogUpdateDTO blog) {
         blogService.updateBlog(blog);
         return ResponseWrapped.success();
@@ -59,7 +59,7 @@ public class BlogController {
     /**
      * 发布博客
      */
-    @PutMapping("/publish/{id}")
+    @PostMapping("/publish/{id}")
     public ResponseWrapped<Object> publishBlog(@PathVariable String id) {
         blogService.publishBlog(id);
         return ResponseWrapped.success();

@@ -5,6 +5,7 @@ import com.imantou.api.dto.PlatformRegister;
 import com.imantou.api.user.PlatformUserClient;
 import com.imantou.api.vo.PlatformUserVO;
 import com.imantou.auth.dto.PlatformLoginForm;
+import com.imantou.auth.enums.LoginType;
 import com.imantou.cache.constant.CaptchaCode;
 import com.imantou.cache.util.RedisUtil;
 import com.imantou.response.ResponseWrapped;
@@ -25,8 +26,14 @@ import java.util.Objects;
 @Slf4j
 @Service
 public class MobileLoginHandler extends AbstractLoginHandler {
+
     @Resource
     private PlatformUserClient platformUserClient;
+
+    @Override
+    public boolean supports(Integer loginType) {
+        return Objects.equals(loginType, LoginType.mobile.getType());
+    }
 
     @Override
     public PlatformUserVO getLoginUser(PlatformLoginForm form) {

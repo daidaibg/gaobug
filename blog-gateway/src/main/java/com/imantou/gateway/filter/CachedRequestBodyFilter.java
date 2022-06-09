@@ -61,7 +61,6 @@ public class CachedRequestBodyFilter implements GlobalFilter, Ordered {
      * 将requestBody中的内容copy一份，记录到exchange的一个自定义属性中
      */
     private Mono<Void> copyRequestBody(ServerWebExchange exchange, GatewayFilterChain chain) {
-        //
         // 如果已经缓存过，略过
         Object body = exchange.getAttribute(GatewayCachedContext.CACHE_REQUEST_BODY);
         if (null != body) {

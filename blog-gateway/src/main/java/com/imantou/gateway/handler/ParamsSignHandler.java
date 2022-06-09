@@ -46,6 +46,7 @@ public class ParamsSignHandler implements IParamsSignHandler {
             throw new ParamsSignException("参数验签失败");
         }
         SortedMap<String, String> parameterMap = sortedMapSupplier.get();
+        log.info("parameterMap：[{}]", parameterMap);
         // 移除 时间戳、签名
         if (null != parameterMap.get(RequestHeader.SIGN_HEADER)) {
             parameterMap.remove(RequestHeader.SIGN_HEADER);
@@ -62,6 +63,11 @@ public class ParamsSignHandler implements IParamsSignHandler {
         }
         // 混淆时间戳
         sb.append(timestampValue);
-        return Objects.equals(DigestUtils.md5DigestAsHex(sb.toString().getBytes(StandardCharsets.UTF_8)), signValue);
+        log.info("加密数据：[{}]", sb);
+        log.info("sign：[{}]", signValue);
+        String md5DigestAsHex = DigestUtils.md5DigestAsHex(sb.toString().getBytes(StandardCharsets.UTF_8));
+        log.info("md5DigestAsHex：[{}]", md5DigestAsHex);
+        log.info("对比结果：[{}]", Objects.equals(md5DigestAsHex, signValue));
+        return Objects.equals(md5DigestAsHex, signValue);
     }
 }
