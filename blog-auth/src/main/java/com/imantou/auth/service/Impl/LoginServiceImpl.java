@@ -14,7 +14,6 @@ import com.imantou.auth.vo.PlatformUserContextVO;
 import com.imantou.auth.vo.UserContext;
 import com.imantou.base.utils.SnowflakeUtils;
 import com.imantou.cache.constant.AuthToken;
-import com.imantou.cache.constant.RedisToken;
 import com.imantou.cache.util.RedisUtil;
 import com.imantou.response.enums.ResultEnum;
 import com.imantou.response.exception.BusinessException;
@@ -82,7 +81,7 @@ public class LoginServiceImpl implements LoginService {
 //        }
         //获取用户信息
         CompletableFuture<PlatformUserContextVO> userContextFuture = CompletableFuture
-                .supplyAsync(() -> RedisUtil.get(RedisToken.PLATFORM_AUTH_BUCKET + authToken));
+                .supplyAsync(() -> RedisUtil.get(AuthToken.AUTH_TOKEN_BUCKET + authToken));
         if (userContextFuture.get() == null) {
             throw new BusinessException(ResultEnum.LOGON_TOKEN_EXPIRE);
         }
