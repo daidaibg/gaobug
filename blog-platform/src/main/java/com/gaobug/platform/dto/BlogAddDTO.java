@@ -1,58 +1,40 @@
 package com.gaobug.platform.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.gaobug.verify.Verify;
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 博客文章
- *
+ * @author gaobug
  */
-@Data
-public class BlogAddDTO implements Serializable {
-    /**
-     * 数据主键
-     */
-    @TableId(type = IdType.AUTO)
-    private Long id;
+@Getter
+@Setter
+@ToString
+public class BlogAddDTO {
 
     /**
      * 博客标题
      */
-    @Verify(required = true, errorMsg = "帮我起个名吧~")
+    @Verify(required = true, errorMsg = "博客标题不能空")
     private String title;
 
     /**
      * 博客简介
      */
-    @Verify(required = true, errorMsg = "都不介绍一下我吗")
     private String summary;
 
     /**
      * 博客内容
      */
-    @Verify(required = true, errorMsg = "感觉心里空空的~")
+    @Verify(required = true, errorMsg = "博客内容不能为空")
     private String content;
 
     /**
      * 标签标识
      */
     private String tag;
-
-    /**
-     * 博客点击数
-     */
-    private Integer clickCount;
-
-    /**
-     * 博客收藏数
-     */
-    private Integer collectCount;
 
     /**
      * 封面图
@@ -63,12 +45,6 @@ public class BlogAddDTO implements Serializable {
      * 状态
      */
     private Integer status;
-
-    /**
-     * 作者
-     */
-    @Verify(required = true, errorMsg = "咦~主人去哪了？")
-    private String author;
 
     /**
      * 文章出处
@@ -99,17 +75,4 @@ public class BlogAddDTO implements Serializable {
      * 置顶（数字越大越靠前）
      */
     private Integer hot;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }
