@@ -1,6 +1,5 @@
 package com.gaobug.gateway.advice;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gaobug.response.ResponseWrapped;
 import com.gaobug.utils.JacksonUtils;
 import com.gaobug.utils.ThrowableUtils;

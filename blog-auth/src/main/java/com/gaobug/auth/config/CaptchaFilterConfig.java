@@ -3,10 +3,8 @@ package com.gaobug.auth.config;
 import com.gaobug.auth.filter.CaptchaFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
-import javax.annotation.Resource;
 import javax.servlet.DispatcherType;
 
 /**

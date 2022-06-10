@@ -4,14 +4,12 @@ package com.gaobug.gateway.handler;
 import com.alibaba.nacos.common.utils.JacksonUtils;
 import com.gaobug.gateway.exception.ParamsSignException;
 import com.gaobug.response.constant.RequestHeader;
-import com.gaobug.utils.HttpContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.SortedMap;

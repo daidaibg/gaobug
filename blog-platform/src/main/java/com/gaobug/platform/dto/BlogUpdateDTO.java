@@ -1,8 +1,6 @@
 package com.gaobug.platform.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.gaobug.verify.Verify;
 import lombok.Data;
 

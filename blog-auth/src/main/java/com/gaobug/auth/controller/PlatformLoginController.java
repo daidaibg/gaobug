@@ -1,6 +1,5 @@
 package com.gaobug.auth.controller;
 
-import com.gaobug.auth.dto.LoginForm;
 import com.gaobug.auth.dto.PlatformLoginForm;
 import com.gaobug.auth.service.LoginService;
 import com.gaobug.response.ResponseWrapped;
