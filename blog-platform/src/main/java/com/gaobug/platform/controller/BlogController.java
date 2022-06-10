@@ -27,6 +27,7 @@ public class BlogController {
     /**
      * 获取博客详情
      */
+    @BindUser
     @GetMapping("/info/{id}")
     public ResponseWrapped<Object> getBlogInfo(@PathVariable String id) {
         return ResponseWrapped.success(blogService.getById(id));
@@ -45,6 +46,7 @@ public class BlogController {
     /**
      * 添加博客
      */
+    @BindUser
     @PostMapping("/add")
     public ResponseWrapped<Object> addBlog(@RequestBody BlogAddDTO blog) {
         blogService.addBlog(blog);
@@ -54,6 +56,7 @@ public class BlogController {
     /**
      * 更新博客
      */
+    @BindUser
     @PostMapping("/update")
     public ResponseWrapped<Object> updateBlog(@RequestBody BlogUpdateDTO blog) {
         blogService.updateBlog(blog);
@@ -63,6 +66,7 @@ public class BlogController {
     /**
      * 发布博客
      */
+    @BindUser
     @PostMapping("/publish/{id}")
     public ResponseWrapped<Object> publishBlog(@PathVariable String id) {
         blogService.publishBlog(id);

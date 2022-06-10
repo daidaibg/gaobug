@@ -13,6 +13,7 @@ import com.gaobug.platform.dto.BlogSearchDTO;
 import com.gaobug.platform.dto.BlogUpdateDTO;
 import com.gaobug.platform.service.BlogService;
 import com.gaobug.platform.vo.BlogPageVO;
+import com.gaobug.utils.UserContextUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -125,6 +126,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         }
         if (Objects.equals(blogExist.getPublish(), 1)) {
             throw new BusinessException("文章已发布状态");
+        }
+        if (Objects.equals(blogExist.getAuthor(), JwtContext.getUserId())) {
+            throw new BusinessException("不是文章作者，不可编辑");
         }
         Blog blogForUpdate = new Blog();
         blogForUpdate.setId(blogExist.getId());

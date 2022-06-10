@@ -38,4 +38,12 @@ public class IndexController {
     public ResponseWrapped<Object> getSearchBlog(Page<Blog> page, BlogSearchDTO searchDTO) {
         return ResponseWrapped.success(new PageWrapped(blogService.getSearchBlogPage(page, searchDTO)));
     }
+
+    /**
+     * 获取博客详情
+     */
+    @GetMapping("/info/{id}")
+    public ResponseWrapped<Object> getBlogInfo(@PathVariable String id) {
+        return ResponseWrapped.success(blogService.getById(id));
+    }
 }
