@@ -1,6 +1,6 @@
-package com.imantou.limiter.strategy;
+package com.gaobug.limiter.strategy;
 
-import com.imantou.base.metadata.MethodMetaData;
+import com.gaobug.base.metadata.MethodMetaData;
 import org.springframework.util.StringUtils;
 
 

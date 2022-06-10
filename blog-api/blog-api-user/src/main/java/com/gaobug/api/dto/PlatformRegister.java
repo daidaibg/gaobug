@@ -1,4 +1,4 @@
-package com.imantou.api.dto;
+package com.gaobug.api.dto;
 
 /**
  * 平台用户注册表单

@@ -1,8 +1,8 @@
-package com.imantou.store;
+package com.gaobug.store;
 
-import com.imantou.store.autoconfigure.OssProperties;
-import com.imantou.store.model.OssMark;
-import com.imantou.store.model.OssMessage;
+import com.gaobug.store.autoconfigure.OssProperties;
+import com.gaobug.store.model.OssMark;
+import com.gaobug.store.model.OssMessage;
 
 import java.io.InputStream;
 import java.time.LocalDate;

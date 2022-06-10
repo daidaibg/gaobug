@@ -1,6 +1,6 @@
-package com.imantou.auth.filter;
+package com.gaobug.auth.filter;
 
-import com.imantou.auth.service.CaptchaService;
+import com.gaobug.auth.service.CaptchaService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 

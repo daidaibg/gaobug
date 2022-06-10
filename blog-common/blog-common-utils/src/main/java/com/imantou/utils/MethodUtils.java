@@ -1,4 +1,4 @@
-package com.imantou.utils;
+package com.gaobug.utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

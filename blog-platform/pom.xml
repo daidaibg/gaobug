@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>blog-cloud</artifactId>
-        <groupId>com.imantou</groupId>
+        <groupId>com.gaobug</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -18,37 +18,37 @@
     <dependencies>
         <!--缓存模块-->
         <dependency>
-            <groupId>com.imantou</groupId>
+            <groupId>com.gaobug</groupId>
             <artifactId>blog-common-cache</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.imantou</groupId>
+            <groupId>com.gaobug</groupId>
             <artifactId>blog-common-database</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.imantou</groupId>
+            <groupId>com.gaobug</groupId>
             <artifactId>blog-common-verify</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.imantou</groupId>
+            <groupId>com.gaobug</groupId>
             <artifactId>blog-common-response</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.imantou</groupId>
+            <groupId>com.gaobug</groupId>
             <artifactId>blog-api-user</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.imantou</groupId>
+            <groupId>com.gaobug</groupId>
             <artifactId>blog-common-utils</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.imantou</groupId>
+            <groupId>com.gaobug</groupId>
             <artifactId>blog-common-core</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
@@ -108,37 +108,37 @@
                             <!-- 解决乱码 -->
                             <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
                             <!-- main启动入口 -->
-                            <mainClass>com.imantou.platform.PlatformApplication</mainClass>
+                            <mainClass>com.gaobug.platform.PlatformApplication</mainClass>
                             <!-- 设置为ZIP，此模式下spring-boot-maven-plugin会将Manifest.MF文件中的Main-Class设置为org.springframework.boot.loader.PropertiesLauncher -->
                             <layout>ZIP</layout>
                             <!-- 需要包含的jar包 -->
                             <includes>
                                 <dependency>
-                                    <groupId>com.imantou</groupId>
+                                    <groupId>com.gaobug</groupId>
                                     <artifactId>blog-common-cache</artifactId>
                                 </dependency>
                                 <dependency>
-                                    <groupId>com.imantou</groupId>
+                                    <groupId>com.gaobug</groupId>
                                     <artifactId>blog-common-database</artifactId>
                                 </dependency>
                                 <dependency>
-                                    <groupId>com.imantou</groupId>
+                                    <groupId>com.gaobug</groupId>
                                     <artifactId>blog-common-verify</artifactId>
                                 </dependency>
                                 <dependency>
-                                    <groupId>com.imantou</groupId>
+                                    <groupId>com.gaobug</groupId>
                                     <artifactId>blog-common-response</artifactId>
                                 </dependency>
                                 <dependency>
-                                    <groupId>com.imantou</groupId>
+                                    <groupId>com.gaobug</groupId>
                                     <artifactId>blog-api-user</artifactId>
                                 </dependency>
                                 <dependency>
-                                    <groupId>com.imantou</groupId>
+                                    <groupId>com.gaobug</groupId>
                                     <artifactId>blog-common-base</artifactId>
                                 </dependency>
                                 <dependency>
-                                    <groupId>com.imantou</groupId>
+                                    <groupId>com.gaobug</groupId>
                                     <artifactId>blog-common-utils</artifactId>
                                 </dependency>
                             </includes>
@@ -166,7 +166,7 @@
                                     <outputDirectory>${project.build.directory}/lib</outputDirectory>
                                     <!-- 需要排除的jar的 groupId -->
                                     <excludeGroupIds>
-                                        com.imantou
+                                        com.gaobug
                                     </excludeGroupIds>
                                 </configuration>
                             </execution>

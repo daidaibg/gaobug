@@ -1,13 +1,13 @@
-package com.imantou.platform.service;
+package com.gaobug.platform.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import com.imantou.platform.domain.Blog;
-import com.imantou.platform.dto.BlogAddDTO;
-import com.imantou.platform.dto.BlogSearchDTO;
-import com.imantou.platform.dto.BlogUpdateDTO;
+import com.gaobug.platform.domain.Blog;
+import com.gaobug.platform.dto.BlogAddDTO;
+import com.gaobug.platform.dto.BlogSearchDTO;
+import com.gaobug.platform.dto.BlogUpdateDTO;
 
 /**
  * @author gaobug

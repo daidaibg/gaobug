@@ -1,9 +1,9 @@
-package com.imantou.verify.aspect;
+package com.gaobug.verify.aspect;
 
 
-import com.imantou.base.handler.IProceedHandler;
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.verify.metadata.VerifyMethodMetaData;
+import com.gaobug.base.handler.IProceedHandler;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.verify.metadata.VerifyMethodMetaData;
 
 import lombok.AllArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;

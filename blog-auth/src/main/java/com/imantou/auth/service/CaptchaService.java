@@ -1,4 +1,4 @@
-package com.imantou.auth.service;
+package com.gaobug.auth.service;
 
 import java.util.Map;
 

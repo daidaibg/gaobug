@@ -1,5 +1,5 @@
 
-package com.imantou.gateway.exception;
+package com.gaobug.gateway.exception;
 
 /**
  * 请求参数签名异常

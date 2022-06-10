@@ -1,4 +1,4 @@
-package com.imantou.platform.domain;
+package com.gaobug.platform.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

@@ -1,4 +1,4 @@
-package com.imantou.auth.handler;
+package com.gaobug.auth.handler;
 
 /**
  * 登录服务handler抽象类

@@ -1,4 +1,4 @@
-package com.imantou.platform.config;
+package com.gaobug.platform.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

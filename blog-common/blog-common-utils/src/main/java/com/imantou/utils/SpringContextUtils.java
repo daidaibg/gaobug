@@ -1,4 +1,4 @@
-package com.imantou.utils;
+package com.gaobug.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

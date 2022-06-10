@@ -1,4 +1,4 @@
-package com.imantou.response.exception;
+package com.gaobug.response.exception;
 
 import lombok.Getter;
 import lombok.Setter;

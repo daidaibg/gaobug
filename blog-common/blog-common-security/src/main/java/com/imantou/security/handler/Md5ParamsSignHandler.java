@@ -1,7 +1,7 @@
-package com.imantou.security.handler;
+package com.gaobug.security.handler;
 
 
-import com.imantou.utils.JacksonUtils;
+import com.gaobug.utils.JacksonUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;

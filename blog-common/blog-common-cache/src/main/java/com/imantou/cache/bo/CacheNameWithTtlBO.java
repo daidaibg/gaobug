@@ -1,4 +1,4 @@
-package com.imantou.cache.bo;
+package com.gaobug.cache.bo;
 
 /**
  * 通过 cacheName 配置 和 时间告诉缓存多久清楚一遍

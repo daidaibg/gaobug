@@ -1,7 +1,7 @@
-package com.imantou.limiter.strategy;
+package com.gaobug.limiter.strategy;
 
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.utils.RequestUtils;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.utils.RequestUtils;
 
 /**
  * ip策略

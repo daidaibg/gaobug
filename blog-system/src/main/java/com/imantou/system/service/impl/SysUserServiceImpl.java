@@ -1,9 +1,9 @@
-package com.imantou.system.service.impl;
+package com.gaobug.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.imantou.system.dao.SysUserMapper;
-import com.imantou.system.domain.SysUser;
-import com.imantou.system.service.SysUserService;
+import com.gaobug.system.dao.SysUserMapper;
+import com.gaobug.system.domain.SysUser;
+import com.gaobug.system.service.SysUserService;
 
 import org.springframework.stereotype.Service;
 

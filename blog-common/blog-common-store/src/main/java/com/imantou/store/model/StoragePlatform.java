@@ -1,4 +1,4 @@
-package com.imantou.store.model;
+package com.gaobug.store.model;
 
 import lombok.Getter;
 

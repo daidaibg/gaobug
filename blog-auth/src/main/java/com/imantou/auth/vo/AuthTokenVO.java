@@ -1,4 +1,4 @@
-package com.imantou.auth.vo;
+package com.gaobug.auth.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

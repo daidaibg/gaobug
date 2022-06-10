@@ -1,6 +1,6 @@
-package com.imantou.system.controller;
+package com.gaobug.system.controller;
 
-import com.imantou.system.service.SysUserService;
+import com.gaobug.system.service.SysUserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,4 +1,4 @@
-package com.imantou.base.config;
+package com.gaobug.base.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

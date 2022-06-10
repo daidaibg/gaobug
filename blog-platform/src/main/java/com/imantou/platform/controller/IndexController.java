@@ -1,11 +1,11 @@
-package com.imantou.platform.controller;
+package com.gaobug.platform.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.imantou.response.ResponseWrapped;
-import com.imantou.database.wrapped.PageWrapped;
-import com.imantou.platform.domain.Blog;
-import com.imantou.platform.dto.BlogSearchDTO;
-import com.imantou.platform.service.BlogService;
+import com.gaobug.response.ResponseWrapped;
+import com.gaobug.database.wrapped.PageWrapped;
+import com.gaobug.platform.domain.Blog;
+import com.gaobug.platform.dto.BlogSearchDTO;
+import com.gaobug.platform.service.BlogService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

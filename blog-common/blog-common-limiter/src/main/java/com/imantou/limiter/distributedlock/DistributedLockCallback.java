@@ -1,4 +1,4 @@
-package com.imantou.limiter.distributedlock;
+package com.gaobug.limiter.distributedlock;
 
 /**
  * 分布式锁处理接口

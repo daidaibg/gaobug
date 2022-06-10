@@ -1,10 +1,10 @@
-package com.imantou.limiter.context;
+package com.gaobug.limiter.context;
 
-import com.imantou.limiter.extend.IDistributedLockListener;
-import com.imantou.limiter.metadata.DistributedLockMethodMetaData;
-import com.imantou.limiter.distributedlock.IDistributedLockTemplate;
-import com.imantou.limiter.extend.IAcquireLockTimeoutHandler;
-import com.imantou.base.metadata.MethodMetaData;
+import com.gaobug.limiter.extend.IDistributedLockListener;
+import com.gaobug.limiter.metadata.DistributedLockMethodMetaData;
+import com.gaobug.limiter.distributedlock.IDistributedLockTemplate;
+import com.gaobug.limiter.extend.IAcquireLockTimeoutHandler;
+import com.gaobug.base.metadata.MethodMetaData;
 
 import java.util.List;
 

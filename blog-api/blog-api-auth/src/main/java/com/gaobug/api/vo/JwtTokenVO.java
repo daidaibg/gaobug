@@ -1,4 +1,4 @@
-package com.imantou.api.vo;
+package com.gaobug.api.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

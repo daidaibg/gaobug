@@ -1,12 +1,12 @@
-package com.imantou.auth.handler;
+package com.gaobug.auth.handler;
 
-import com.imantou.api.user.PlatformUserClient;
-import com.imantou.api.vo.PlatformUserVO;
-import com.imantou.auth.dto.PlatformLoginForm;
-import com.imantou.auth.enums.LoginType;
-import com.imantou.response.enums.ResultEnum;
-import com.imantou.response.exception.BusinessException;
-import com.imantou.utils.EncryptUtils;
+import com.gaobug.api.user.PlatformUserClient;
+import com.gaobug.api.vo.PlatformUserVO;
+import com.gaobug.auth.dto.PlatformLoginForm;
+import com.gaobug.auth.enums.LoginType;
+import com.gaobug.response.enums.ResultEnum;
+import com.gaobug.response.exception.BusinessException;
+import com.gaobug.utils.EncryptUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

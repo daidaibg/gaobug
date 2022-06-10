@@ -1,9 +1,9 @@
-package com.imantou.verify.handler;
+package com.gaobug.verify.handler;
 
 
-import com.imantou.base.handler.IProceedHandler;
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.verify.strategy.IVerifyStrategy;
+import com.gaobug.base.handler.IProceedHandler;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.verify.strategy.IVerifyStrategy;
 
 import lombok.AllArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;

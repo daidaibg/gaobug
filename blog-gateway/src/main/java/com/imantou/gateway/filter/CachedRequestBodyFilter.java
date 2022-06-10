@@ -1,7 +1,7 @@
-package com.imantou.gateway.filter;
+package com.gaobug.gateway.filter;
 
 
-import com.imantou.gateway.constant.GatewayCachedContext;
+import com.gaobug.gateway.constant.GatewayCachedContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;

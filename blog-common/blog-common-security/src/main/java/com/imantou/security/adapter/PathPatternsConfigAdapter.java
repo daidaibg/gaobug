@@ -1,4 +1,4 @@
-package com.imantou.security.adapter;
+package com.gaobug.security.adapter;
 
 import java.util.List;
 

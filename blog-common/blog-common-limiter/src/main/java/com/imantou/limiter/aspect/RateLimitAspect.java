@@ -1,10 +1,10 @@
-package com.imantou.limiter.aspect;
+package com.gaobug.limiter.aspect;
 
-import com.imantou.base.handler.IProceedHandler;
-import com.imantou.limiter.metadata.RateLimitMethodMetaData;
-import com.imantou.limiter.RateLimit;
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.utils.MethodUtils;
+import com.gaobug.base.handler.IProceedHandler;
+import com.gaobug.limiter.metadata.RateLimitMethodMetaData;
+import com.gaobug.limiter.RateLimit;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.utils.MethodUtils;
 import lombok.AllArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -35,7 +35,7 @@ public class RateLimitAspect {
      * @return {@link Object}
      * @throws Throwable 限流异常
      */
-    @Around("@annotation(imantou.limiter.annotation.RateLimit)")
+    @Around("@annotation(gaobug.limiter.annotation.RateLimit)")
     public Object interceptor(ProceedingJoinPoint pjp) throws Throwable {
         MethodMetaData methodMetadata = this.buildMethodMetadata(pjp);
         return rateLimitHandler.proceed(pjp, methodMetadata);

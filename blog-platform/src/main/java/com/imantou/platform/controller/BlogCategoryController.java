@@ -1,10 +1,10 @@
-package com.imantou.platform.controller;
+package com.gaobug.platform.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.imantou.response.ResponseWrapped;
-import com.imantou.database.wrapped.PageWrapped;
-import com.imantou.platform.domain.BlogCategory;
-import com.imantou.platform.service.BlogCategoryService;
+import com.gaobug.response.ResponseWrapped;
+import com.gaobug.database.wrapped.PageWrapped;
+import com.gaobug.platform.domain.BlogCategory;
+import com.gaobug.platform.service.BlogCategoryService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

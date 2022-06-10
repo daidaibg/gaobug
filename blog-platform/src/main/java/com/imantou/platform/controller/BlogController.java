@@ -1,15 +1,15 @@
-package com.imantou.platform.controller;
+package com.gaobug.platform.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.imantou.base.annotation.BindUser;
-import com.imantou.base.context.JwtContext;
-import com.imantou.response.ResponseWrapped;
-import com.imantou.database.wrapped.PageWrapped;
-import com.imantou.platform.domain.Blog;
-import com.imantou.platform.dto.BlogAddDTO;
-import com.imantou.platform.dto.BlogUpdateDTO;
-import com.imantou.platform.service.BlogService;
+import com.gaobug.base.annotation.BindUser;
+import com.gaobug.base.context.JwtContext;
+import com.gaobug.response.ResponseWrapped;
+import com.gaobug.database.wrapped.PageWrapped;
+import com.gaobug.platform.domain.Blog;
+import com.gaobug.platform.dto.BlogAddDTO;
+import com.gaobug.platform.dto.BlogUpdateDTO;
+import com.gaobug.platform.service.BlogService;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.imantou.auth.dto;
+package com.gaobug.auth.dto;
 
 import lombok.Getter;
 import lombok.Setter;

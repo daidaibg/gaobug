@@ -1,4 +1,4 @@
-package com.imantou.gateway.handler;
+package com.gaobug.gateway.handler;
 
 import org.springframework.http.HttpHeaders;
 

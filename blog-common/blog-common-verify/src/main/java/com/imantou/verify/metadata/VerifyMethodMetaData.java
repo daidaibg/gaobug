@@ -1,9 +1,9 @@
-package com.imantou.verify.metadata;
+package com.gaobug.verify.metadata;
 
 
 
-import com.imantou.base.metadata.AbstractMethodMetaData;
-import com.imantou.utils.MethodUtils;
+import com.gaobug.base.metadata.AbstractMethodMetaData;
+import com.gaobug.utils.MethodUtils;
 
 import java.lang.reflect.Method;
 import java.util.function.Supplier;

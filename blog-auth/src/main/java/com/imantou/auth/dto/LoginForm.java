@@ -1,6 +1,6 @@
-package com.imantou.auth.dto;
+package com.gaobug.auth.dto;
 
-import com.imantou.verify.Verify;
+import com.gaobug.verify.Verify;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

@@ -1,9 +1,9 @@
-package com.imantou.verify.strategy;
+package com.gaobug.verify.strategy;
 
 
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.utils.ParseDataUtils;
-import com.imantou.verify.Verify;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.utils.ParseDataUtils;
+import com.gaobug.verify.Verify;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;

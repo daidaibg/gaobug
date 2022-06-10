@@ -1,4 +1,4 @@
-package com.imantou.base.config;
+package com.gaobug.base.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.imantou.base.config;
+package com.gaobug.base.config;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.imantou.utils;
+package com.gaobug.utils;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;

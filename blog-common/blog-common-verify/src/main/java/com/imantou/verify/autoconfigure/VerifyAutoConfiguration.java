@@ -1,11 +1,11 @@
-package com.imantou.verify.autoconfigure;
+package com.gaobug.verify.autoconfigure;
 
 
-import com.imantou.verify.aspect.ParamVerifyAspect;
-import com.imantou.verify.handler.VerifyHandler;
-import com.imantou.verify.strategy.EntityFieldVerifyStrategy;
-import com.imantou.verify.strategy.IVerifyStrategy;
-import com.imantou.verify.strategy.MethodParamVerifyStrategy;
+import com.gaobug.verify.aspect.ParamVerifyAspect;
+import com.gaobug.verify.handler.VerifyHandler;
+import com.gaobug.verify.strategy.EntityFieldVerifyStrategy;
+import com.gaobug.verify.strategy.IVerifyStrategy;
+import com.gaobug.verify.strategy.MethodParamVerifyStrategy;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

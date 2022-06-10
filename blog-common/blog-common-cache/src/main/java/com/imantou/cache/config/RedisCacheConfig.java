@@ -1,4 +1,4 @@
-package com.imantou.cache.config;
+package com.gaobug.cache.config;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.imantou.cache.adapter.CacheTtlAdapter;
-import com.imantou.cache.bo.CacheNameWithTtlBO;
+import com.gaobug.cache.adapter.CacheTtlAdapter;
+import com.gaobug.cache.bo.CacheNameWithTtlBO;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;

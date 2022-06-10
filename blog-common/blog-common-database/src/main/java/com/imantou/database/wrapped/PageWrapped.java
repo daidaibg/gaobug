@@ -1,4 +1,4 @@
-package com.imantou.database.wrapped;
+package com.gaobug.database.wrapped;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Data;

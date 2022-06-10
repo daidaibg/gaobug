@@ -1,9 +1,9 @@
-package com.imantou.cache.util;
+package com.gaobug.cache.util;
 
-import com.imantou.cache.constant.CacheNames;
-import com.imantou.response.exception.BusinessException;
-import com.imantou.cache.constant.CharSequence;
-import com.imantou.utils.SpringContextUtils;
+import com.gaobug.cache.constant.CacheNames;
+import com.gaobug.response.exception.BusinessException;
+import com.gaobug.cache.constant.CharSequence;
+import com.gaobug.utils.SpringContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;

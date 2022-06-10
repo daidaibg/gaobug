@@ -1,6 +1,6 @@
-package com.imantou.system.controller;
+package com.gaobug.system.controller;
 
-import com.imantou.response.ResponseWrapped;
+import com.gaobug.response.ResponseWrapped;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

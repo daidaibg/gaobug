@@ -64,7 +64,7 @@
 
     <!--mybatis sql日志 日志的级别需要是DEBUG-->
     <!--日志打印的包的范围，及分类日志文件存储 -->
-    <logger name="imantou.*.dao" level="DEBUG" additivity="false"/>
+    <logger name="gaobug.*.dao" level="DEBUG" additivity="false"/>
 
     <!--控制台和日志文件输出级别-->
     <root level="INFO" additivity = "false">
@@ -76,7 +76,7 @@
     <springProfile name="dev,test">
         <logger name="org.springframework.web" level="DEBUG"/>
         <logger name="org.springboot.sample" level="DEBUG" />
-        <logger name="com.imantou" level="DEBUG" />
+        <logger name="com.gaobug" level="DEBUG" />
     </springProfile>
 
 </configuration>

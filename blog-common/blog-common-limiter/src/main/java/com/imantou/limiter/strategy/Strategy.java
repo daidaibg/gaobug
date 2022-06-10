@@ -1,4 +1,4 @@
-package com.imantou.limiter.strategy;
+package com.gaobug.limiter.strategy;
 
 /**
  * 策略枚举

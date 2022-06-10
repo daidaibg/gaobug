@@ -1,4 +1,4 @@
-package com.imantou.utils.request;
+package com.gaobug.utils.request;
 
 import org.springframework.util.StreamUtils;
 

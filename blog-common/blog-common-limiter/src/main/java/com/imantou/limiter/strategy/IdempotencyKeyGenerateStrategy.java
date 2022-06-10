@@ -1,9 +1,9 @@
-package com.imantou.limiter.strategy;
+package com.gaobug.limiter.strategy;
 
 
-import com.imantou.limiter.RateLimit;
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.utils.JacksonUtils;
+import com.gaobug.limiter.RateLimit;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ObjectUtils;

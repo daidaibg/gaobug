@@ -1,6 +1,6 @@
-package com.imantou.limiter.distributedlock;
+package com.gaobug.limiter.distributedlock;
 
-import com.imantou.limiter.registry.RedisLockRegistry;
+import com.gaobug.limiter.registry.RedisLockRegistry;
 
 import java.util.concurrent.TimeUnit;
 

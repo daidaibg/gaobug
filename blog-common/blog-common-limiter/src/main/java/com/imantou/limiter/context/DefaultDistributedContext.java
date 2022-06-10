@@ -1,9 +1,9 @@
-package com.imantou.limiter.context;
+package com.gaobug.limiter.context;
 
-import com.imantou.limiter.extend.IDistributedLockListener;
-import com.imantou.limiter.distributedlock.IDistributedLockTemplate;
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.limiter.extend.IAcquireLockTimeoutHandler;
+import com.gaobug.limiter.extend.IDistributedLockListener;
+import com.gaobug.limiter.distributedlock.IDistributedLockTemplate;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.limiter.extend.IAcquireLockTimeoutHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;

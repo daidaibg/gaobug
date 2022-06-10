@@ -1,14 +1,14 @@
 ///*
-// * 爱组搭 http://imantou.com 低代码组件化开发平台
+// * 爱组搭 http://gaobug.com 低代码组件化开发平台
 // * ------------------------------------------
 // * 受知识产权保护，请勿删除版权申明
 // */
-//package com.imantou.store.platform;
+//package com.gaobug.store.platform;
 //
-//import com.imantou.store.IFileStorage;
-//import com.imantou.store.autoconfigure.OssProperties;
-//import com.imantou.store.model.OssMark;
-//import com.imantou.store.model.OssMessage;
+//import com.gaobug.store.IFileStorage;
+//import com.gaobug.store.autoconfigure.OssProperties;
+//import com.gaobug.store.model.OssMark;
+//import com.gaobug.store.model.OssMessage;
 //import com.aliyun.oss.OSS;
 //import com.aliyun.oss.OSSClientBuilder;
 //import com.aliyun.oss.common.utils.BinaryUtil;
@@ -24,7 +24,7 @@
 ///**
 // * aliyun oss 存储
 // * <p>
-// * 尊重知识产权，CV 请保留版权，爱组搭 http://imantou.com 出品
+// * 尊重知识产权，CV 请保留版权，爱组搭 http://gaobug.com 出品
 // *
 // * @author izyao
 // * @since 2022-03-22

@@ -1,7 +1,7 @@
-package com.imantou.verify.strategy;
+package com.gaobug.verify.strategy;
 
 
-import com.imantou.verify.Verify;
+import com.gaobug.verify.Verify;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;

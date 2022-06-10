@@ -1,14 +1,14 @@
-package com.imantou.platform.api;
+package com.gaobug.platform.api;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.imantou.api.dto.PlatformRegister;
-import com.imantou.api.user.PlatformUserClient;
-import com.imantou.api.vo.PlatformUserVO;
-import com.imantou.base.utils.SnowflakeUtils;
-import com.imantou.platform.domain.PlatformUser;
-import com.imantou.platform.service.UserService;
-import com.imantou.response.ResponseWrapped;
-import com.imantou.utils.EncryptUtils;
+import com.gaobug.api.dto.PlatformRegister;
+import com.gaobug.api.user.PlatformUserClient;
+import com.gaobug.api.vo.PlatformUserVO;
+import com.gaobug.base.utils.SnowflakeUtils;
+import com.gaobug.platform.domain.PlatformUser;
+import com.gaobug.platform.service.UserService;
+import com.gaobug.response.ResponseWrapped;
+import com.gaobug.utils.EncryptUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

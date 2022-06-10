@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.imantou</groupId>
+        <groupId>com.gaobug</groupId>
         <artifactId>blog-cloud</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -14,12 +14,14 @@
         <module>blog-common-cache</module>
         <module>blog-common-core</module>
         <module>blog-common-database</module>
+        <module>blog-common-email</module>
         <module>blog-common-limiter</module>
         <module>blog-common-response</module>
         <module>blog-common-security</module>
         <module>blog-common-store</module>
         <module>blog-common-utils</module>
         <module>blog-common-verify</module>
+        <module>blog-common-sms</module>
     </modules>
 
     <artifactId>blog-common</artifactId>

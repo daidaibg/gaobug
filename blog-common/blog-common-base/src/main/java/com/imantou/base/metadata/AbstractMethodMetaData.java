@@ -1,6 +1,6 @@
-package com.imantou.base.metadata;
+package com.gaobug.base.metadata;
 
-import com.imantou.utils.MethodUtils;
+import com.gaobug.utils.MethodUtils;
 import org.springframework.util.Assert;
 
 import java.lang.reflect.Method;

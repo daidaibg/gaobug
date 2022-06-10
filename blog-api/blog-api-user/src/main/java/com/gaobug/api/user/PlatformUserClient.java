@@ -1,10 +1,9 @@
-package com.imantou.api.user;
+package com.gaobug.api.user;
 
 
-import com.imantou.api.dto.PlatformRegister;
-import com.imantou.api.dto.PlatformRegisterDTO;
-import com.imantou.api.vo.PlatformUserVO;
-import com.imantou.response.ResponseWrapped;
+import com.gaobug.api.dto.PlatformRegister;
+import com.gaobug.api.vo.PlatformUserVO;
+import com.gaobug.response.ResponseWrapped;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

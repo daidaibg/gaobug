@@ -1,7 +1,7 @@
-package com.imantou.cache.adapter;
+package com.gaobug.cache.adapter;
 
 
-import com.imantou.cache.bo.CacheNameWithTtlBO;
+import com.gaobug.cache.bo.CacheNameWithTtlBO;
 
 import java.util.List;
 

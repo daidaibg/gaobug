@@ -1,14 +1,14 @@
-package com.imantou.gateway.filter;
+package com.gaobug.gateway.filter;
 
 import com.alibaba.nacos.common.utils.JacksonUtils;
-import com.imantou.cache.constant.AuthToken;
-import com.imantou.cache.context.PlatformUserContext;
-import com.imantou.cache.util.RedisUtil;
-import com.imantou.gateway.adapter.PathPatternsConfigAdapter;
-import com.imantou.response.ResponseWrapped;
-import com.imantou.response.constant.RequestHeader;
-import com.imantou.response.exception.BusinessException;
-import com.imantou.utils.JwtUtils;
+import com.gaobug.cache.constant.AuthToken;
+import com.gaobug.cache.context.PlatformUserContext;
+import com.gaobug.cache.util.RedisUtil;
+import com.gaobug.gateway.adapter.PathPatternsConfigAdapter;
+import com.gaobug.response.ResponseWrapped;
+import com.gaobug.response.constant.RequestHeader;
+import com.gaobug.response.exception.BusinessException;
+import com.gaobug.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;

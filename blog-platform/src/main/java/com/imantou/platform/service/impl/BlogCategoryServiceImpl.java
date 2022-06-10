@@ -1,12 +1,12 @@
-package com.imantou.platform.service.impl;
+package com.gaobug.platform.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import com.imantou.platform.dao.BlogCategoryMapper;
-import com.imantou.platform.domain.BlogCategory;
-import com.imantou.platform.service.BlogCategoryService;
+import com.gaobug.platform.dao.BlogCategoryMapper;
+import com.gaobug.platform.domain.BlogCategory;
+import com.gaobug.platform.service.BlogCategoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

@@ -1,7 +1,7 @@
-package com.imantou.auth.service.Impl;
+package com.gaobug.auth.service.Impl;
 
-import com.imantou.auth.service.AuthService;
-import com.imantou.auth.vo.JwtTokenVO;
+import com.gaobug.auth.service.AuthService;
+import com.gaobug.auth.vo.JwtTokenVO;
 
 
 import org.springframework.stereotype.Service;

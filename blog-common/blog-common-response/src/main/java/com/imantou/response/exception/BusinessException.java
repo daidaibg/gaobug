@@ -1,6 +1,6 @@
-package com.imantou.response.exception;
+package com.gaobug.response.exception;
 
-import com.imantou.response.enums.ResultEnum;
+import com.gaobug.response.enums.ResultEnum;
 import lombok.*;
 
 import java.io.Serializable;

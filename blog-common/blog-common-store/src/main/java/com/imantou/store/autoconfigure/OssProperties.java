@@ -1,5 +1,5 @@
 
-package com.imantou.store.autoconfigure;
+package com.gaobug.store.autoconfigure;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = OssProperties.OSS_PREFIX)
 public class OssProperties {
 
-    public static final String OSS_PREFIX = "imantou.oss";
+    public static final String OSS_PREFIX = "gaobug.oss";
 
     private String platform;
 

@@ -1,6 +1,6 @@
-package com.imantou.api.auth;
+package com.gaobug.api.auth;
 
-import com.imantou.api.vo.JwtTokenVO;
+import com.gaobug.api.vo.JwtTokenVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

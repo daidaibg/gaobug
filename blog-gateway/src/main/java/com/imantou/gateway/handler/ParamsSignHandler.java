@@ -1,10 +1,10 @@
-package com.imantou.gateway.handler;
+package com.gaobug.gateway.handler;
 
 
 import com.alibaba.nacos.common.utils.JacksonUtils;
-import com.imantou.gateway.exception.ParamsSignException;
-import com.imantou.response.constant.RequestHeader;
-import com.imantou.utils.HttpContextUtils;
+import com.gaobug.gateway.exception.ParamsSignException;
+import com.gaobug.response.constant.RequestHeader;
+import com.gaobug.utils.HttpContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;

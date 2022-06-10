@@ -1,4 +1,4 @@
-package com.imantou.response.constant;
+package com.gaobug.response.constant;
 
 /**
  * @author hzq

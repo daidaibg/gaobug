@@ -1,4 +1,4 @@
-package com.imantou.cache.constant;
+package com.gaobug.cache.constant;
 
 /**
  * token前缀

@@ -1,15 +1,15 @@
-package com.imantou.limiter.handler;
+package com.gaobug.limiter.handler;
 
-import com.imantou.base.handler.IProceedHandler;
-import com.imantou.limiter.context.DistributedContext;
-import com.imantou.limiter.extend.IDistributedLockListener;
-import com.imantou.limiter.DistributedLock;
-import com.imantou.limiter.distributedlock.DistributedLockCallback;
-import com.imantou.limiter.distributedlock.IDistributedLockTemplate;
-import com.imantou.limiter.exception.AcquireLockTimeoutException;
-import com.imantou.limiter.extend.IAcquireLockTimeoutHandler;
-import com.imantou.limiter.strategy.Strategy;
-import com.imantou.base.metadata.MethodMetaData;
+import com.gaobug.base.handler.IProceedHandler;
+import com.gaobug.limiter.context.DistributedContext;
+import com.gaobug.limiter.extend.IDistributedLockListener;
+import com.gaobug.limiter.DistributedLock;
+import com.gaobug.limiter.distributedlock.DistributedLockCallback;
+import com.gaobug.limiter.distributedlock.IDistributedLockTemplate;
+import com.gaobug.limiter.exception.AcquireLockTimeoutException;
+import com.gaobug.limiter.extend.IAcquireLockTimeoutHandler;
+import com.gaobug.limiter.strategy.Strategy;
+import com.gaobug.base.metadata.MethodMetaData;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

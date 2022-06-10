@@ -1,7 +1,7 @@
-package com.imantou.auth.service;
+package com.gaobug.auth.service;
 
 
-import com.imantou.auth.vo.JwtTokenVO;
+import com.gaobug.auth.vo.JwtTokenVO;
 
 /**
  * @author gaobug

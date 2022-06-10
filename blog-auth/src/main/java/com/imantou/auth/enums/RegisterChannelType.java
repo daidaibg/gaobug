@@ -1,4 +1,4 @@
-package com.imantou.auth.enums;
+package com.gaobug.auth.enums;
 
 public enum RegisterChannelType {
 

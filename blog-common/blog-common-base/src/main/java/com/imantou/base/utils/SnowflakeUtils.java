@@ -1,8 +1,8 @@
-package com.imantou.base.utils;
+package com.gaobug.base.utils;
 
 import cn.hutool.core.lang.generator.Generator;
 import cn.hutool.core.lang.generator.SnowflakeGenerator;
-import com.imantou.utils.SpringContextUtils;
+import com.gaobug.utils.SpringContextUtils;
 
 /**
  * 雪花id生成工具类

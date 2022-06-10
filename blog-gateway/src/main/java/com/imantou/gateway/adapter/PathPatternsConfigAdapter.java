@@ -1,6 +1,6 @@
-package com.imantou.gateway.adapter;
+package com.gaobug.gateway.adapter;
 
-import com.imantou.response.exception.BusinessException;
+import com.gaobug.response.exception.BusinessException;
 
 import java.util.List;
 

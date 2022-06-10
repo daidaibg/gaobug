@@ -1,4 +1,4 @@
-package com.imantou.platform.controller;
+package com.gaobug.platform.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

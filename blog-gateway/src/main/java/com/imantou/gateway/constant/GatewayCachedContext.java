@@ -1,4 +1,4 @@
-package com.imantou.gateway.constant;
+package com.gaobug.gateway.constant;
 
 public interface GatewayCachedContext {
 

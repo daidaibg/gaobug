@@ -1,11 +1,11 @@
-package com.imantou.base.aspect;
+package com.gaobug.base.aspect;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.imantou.base.context.JwtContext;
-import com.imantou.response.constant.RequestHeader;
-import com.imantou.utils.HttpContextUtils;
-import com.imantou.utils.JwtUtils;
-import com.imantou.utils.RequestUtils;
+import com.gaobug.base.context.JwtContext;
+import com.gaobug.response.constant.RequestHeader;
+import com.gaobug.utils.HttpContextUtils;
+import com.gaobug.utils.JwtUtils;
+import com.gaobug.utils.RequestUtils;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class BindUserAspect {
 
-    @Pointcut("@annotation(com.imantou.base.annotation.BindUser)")
+    @Pointcut("@annotation(com.gaobug.base.annotation.BindUser)")
     public void bindUserLogCut() {
     }
 

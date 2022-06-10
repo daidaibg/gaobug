@@ -1,7 +1,7 @@
-package com.imantou.security.handler;
+package com.gaobug.security.handler;
 
-import com.imantou.response.constant.RequestHeader;
-import com.imantou.utils.HttpContextUtils;
+import com.gaobug.response.constant.RequestHeader;
+import com.gaobug.utils.HttpContextUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

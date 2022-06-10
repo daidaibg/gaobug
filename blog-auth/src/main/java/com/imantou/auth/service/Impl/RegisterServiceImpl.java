@@ -1,8 +1,8 @@
-package com.imantou.auth.service.Impl;
+package com.gaobug.auth.service.Impl;
 
-import com.imantou.api.dto.PlatformRegisterDTO;
-import com.imantou.api.user.PlatformUserClient;
-import com.imantou.auth.service.RegisterService;
+import com.gaobug.api.dto.PlatformRegisterDTO;
+import com.gaobug.api.user.PlatformUserClient;
+import com.gaobug.auth.service.RegisterService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

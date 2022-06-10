@@ -1,4 +1,4 @@
-package com.imantou.utils;
+package com.gaobug.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

@@ -1,6 +1,6 @@
-package com.imantou.auth.config;
+package com.gaobug.auth.config;
 
-import com.imantou.auth.filter.CaptchaFilter;
+import com.gaobug.auth.filter.CaptchaFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

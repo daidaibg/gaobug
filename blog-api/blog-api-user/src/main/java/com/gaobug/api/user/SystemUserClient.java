@@ -1,6 +1,6 @@
-package com.imantou.api.user;
+package com.gaobug.api.user;
 
-import com.imantou.api.vo.SystemUserVO;
+import com.gaobug.api.vo.SystemUserVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

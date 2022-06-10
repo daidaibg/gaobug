@@ -1,9 +1,9 @@
-package com.imantou.system.service.impl;
+package com.gaobug.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.imantou.system.dao.SysMenuMapper;
-import com.imantou.system.domain.SysMenu;
-import com.imantou.system.service.SysMenuService;
+import com.gaobug.system.dao.SysMenuMapper;
+import com.gaobug.system.domain.SysMenu;
+import com.gaobug.system.service.SysMenuService;
 
 
 import org.springframework.stereotype.Service;

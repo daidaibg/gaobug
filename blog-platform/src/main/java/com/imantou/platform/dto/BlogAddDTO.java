@@ -1,9 +1,9 @@
-package com.imantou.platform.dto;
+package com.gaobug.platform.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.imantou.verify.Verify;
+import com.gaobug.verify.Verify;
 import lombok.Data;
 
 import java.io.Serializable;

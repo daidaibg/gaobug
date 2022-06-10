@@ -1,8 +1,8 @@
-package com.imantou.auth.controller;
+package com.gaobug.auth.controller;
 
-import com.imantou.response.ResponseWrapped;
-import com.imantou.auth.dto.LoginForm;
-import com.imantou.auth.service.LoginService;
+import com.gaobug.response.ResponseWrapped;
+import com.gaobug.auth.dto.LoginForm;
+import com.gaobug.auth.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

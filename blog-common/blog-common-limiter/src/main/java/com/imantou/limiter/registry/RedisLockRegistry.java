@@ -1,6 +1,6 @@
-package com.imantou.limiter.registry;
+package com.gaobug.limiter.registry;
 
-import com.imantou.limiter.exception.CannotAcquireLockException;
+import com.gaobug.limiter.exception.CannotAcquireLockException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;

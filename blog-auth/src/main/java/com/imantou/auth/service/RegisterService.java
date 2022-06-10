@@ -1,7 +1,6 @@
-package com.imantou.auth.service;
+package com.gaobug.auth.service;
 
-import com.imantou.api.dto.PlatformRegisterDTO;
-import com.imantou.response.ResponseWrapped;
+import com.gaobug.api.dto.PlatformRegisterDTO;
 
 /**
  * 登录服务接口

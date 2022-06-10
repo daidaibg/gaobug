@@ -1,7 +1,7 @@
-package com.imantou.limiter.distributedlock;
+package com.gaobug.limiter.distributedlock;
 
-import com.imantou.limiter.exception.DistributedLockException;
-import com.imantou.limiter.registry.RedisLockRegistry;
+import com.gaobug.limiter.exception.DistributedLockException;
+import com.gaobug.limiter.registry.RedisLockRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

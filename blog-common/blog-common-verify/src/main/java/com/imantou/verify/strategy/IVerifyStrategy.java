@@ -1,7 +1,7 @@
-package com.imantou.verify.strategy;
+package com.gaobug.verify.strategy;
 
 
-import com.imantou.base.metadata.MethodMetaData;
+import com.gaobug.base.metadata.MethodMetaData;
 
 /**
  * 参数校验接口

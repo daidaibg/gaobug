@@ -1,4 +1,4 @@
-package com.imantou.limiter.exception;
+package com.gaobug.limiter.exception;
 
 /**
  * 限流异常

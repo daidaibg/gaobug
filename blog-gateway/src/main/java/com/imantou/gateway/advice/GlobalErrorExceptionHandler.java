@@ -1,9 +1,9 @@
-package com.imantou.gateway.advice;
+package com.gaobug.gateway.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.imantou.response.ResponseWrapped;
-import com.imantou.utils.JacksonUtils;
-import com.imantou.utils.ThrowableUtils;
+import com.gaobug.response.ResponseWrapped;
+import com.gaobug.utils.JacksonUtils;
+import com.gaobug.utils.ThrowableUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;

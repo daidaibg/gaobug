@@ -1,4 +1,4 @@
-package com.imantou.cache.util;
+package com.gaobug.cache.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;

@@ -1,11 +1,11 @@
-package com.imantou.limiter.metadata;
+package com.gaobug.limiter.metadata;
 
 
-import com.imantou.base.metadata.AbstractMethodMetaData;
-import com.imantou.utils.HttpContextUtils;
-import com.imantou.utils.MethodUtils;
-import com.imantou.limiter.RateLimit;
-import com.imantou.utils.RequestUtils;
+import com.gaobug.base.metadata.AbstractMethodMetaData;
+import com.gaobug.utils.HttpContextUtils;
+import com.gaobug.utils.MethodUtils;
+import com.gaobug.limiter.RateLimit;
+import com.gaobug.utils.RequestUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 

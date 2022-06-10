@@ -1,4 +1,4 @@
-package com.imantou.gateway.adapter;
+package com.gaobug.gateway.adapter;
 
 import lombok.Getter;
 import lombok.Setter;

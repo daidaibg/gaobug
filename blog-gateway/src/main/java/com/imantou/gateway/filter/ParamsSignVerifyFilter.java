@@ -1,10 +1,10 @@
-package com.imantou.gateway.filter;
+package com.gaobug.gateway.filter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.imantou.gateway.constant.GatewayCachedContext;
-import com.imantou.gateway.exception.ParamsSignException;
-import com.imantou.gateway.handler.IParamsSignHandler;
-import com.imantou.utils.JacksonUtils;
+import com.gaobug.gateway.constant.GatewayCachedContext;
+import com.gaobug.gateway.exception.ParamsSignException;
+import com.gaobug.gateway.handler.IParamsSignHandler;
+import com.gaobug.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;

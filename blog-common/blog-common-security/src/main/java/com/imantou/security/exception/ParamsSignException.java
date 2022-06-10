@@ -1,5 +1,5 @@
 
-package com.imantou.security.exception;
+package com.gaobug.security.exception;
 
 /**
  * 请求参数签名异常

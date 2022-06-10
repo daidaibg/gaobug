@@ -1,8 +1,8 @@
-package com.imantou.auth.handler;
+package com.gaobug.auth.handler;
 
-import com.imantou.api.user.PlatformUserClient;
-import com.imantou.api.vo.PlatformUserVO;
-import com.imantou.auth.dto.PlatformLoginForm;
+import com.gaobug.api.user.PlatformUserClient;
+import com.gaobug.api.vo.PlatformUserVO;
+import com.gaobug.auth.dto.PlatformLoginForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

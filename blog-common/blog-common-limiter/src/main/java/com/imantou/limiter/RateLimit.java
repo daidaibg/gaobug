@@ -1,9 +1,9 @@
-package com.imantou.limiter;
+package com.gaobug.limiter;
 
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.limiter.strategy.DefaultKeyGenerateStrategy;
-import com.imantou.limiter.strategy.IKeyGenerateStrategy;
-import com.imantou.limiter.strategy.Strategy;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.limiter.strategy.DefaultKeyGenerateStrategy;
+import com.gaobug.limiter.strategy.IKeyGenerateStrategy;
+import com.gaobug.limiter.strategy.Strategy;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,7 +1,7 @@
-package com.imantou.base.handler;
+package com.gaobug.base.handler;
 
 
-import com.imantou.base.metadata.MethodMetaData;
+import com.gaobug.base.metadata.MethodMetaData;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 /**

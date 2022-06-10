@@ -1,4 +1,4 @@
-package com.imantou.api.dto;
+package com.gaobug.api.dto;
 
 import lombok.Getter;
 import lombok.Setter;

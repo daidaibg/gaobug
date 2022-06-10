@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.imantou.platform.dao.BlogCategoryMapper">
+<mapper namespace="com.gaobug.platform.dao.BlogCategoryMapper">
 
-    <resultMap id="BaseResultMap" type="com.imantou.platform.domain.BlogCategory">
+    <resultMap id="BaseResultMap" type="com.gaobug.platform.domain.BlogCategory">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
             <result property="level" column="level" jdbcType="INTEGER"/>

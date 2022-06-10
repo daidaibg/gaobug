@@ -1,4 +1,4 @@
-package com.imantou.auth.enums;
+package com.gaobug.auth.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

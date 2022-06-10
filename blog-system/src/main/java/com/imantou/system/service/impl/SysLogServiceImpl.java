@@ -1,9 +1,9 @@
-package com.imantou.system.service.impl;
+package com.gaobug.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.imantou.system.dao.SysLogMapper;
-import com.imantou.system.domain.SysLog;
-import com.imantou.system.service.SysLogService;
+import com.gaobug.system.dao.SysLogMapper;
+import com.gaobug.system.domain.SysLog;
+import com.gaobug.system.service.SysLogService;
 import org.springframework.stereotype.Service;
 
 /**

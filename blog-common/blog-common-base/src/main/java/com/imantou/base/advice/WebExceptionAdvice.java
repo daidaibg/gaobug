@@ -1,14 +1,14 @@
-package com.imantou.base.advice;
+package com.gaobug.base.advice;
 
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.imantou.base.exception.CaptchaException;
-import com.imantou.response.ResponseWrapped;
-import com.imantou.response.enums.ResultEnum;
+import com.gaobug.base.exception.CaptchaException;
+import com.gaobug.response.ResponseWrapped;
+import com.gaobug.response.enums.ResultEnum;
 
-import com.imantou.response.exception.BusinessException;
+import com.gaobug.response.exception.BusinessException;
 
-import com.imantou.response.exception.NotContentException;
+import com.gaobug.response.exception.NotContentException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.QueryTimeoutException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -41,7 +41,7 @@ public class WebExceptionAdvice {
 //     */
 //    @ModelAttribute
 //    public void addAttributes(Model model) {
-//        model.addAttribute("author", "imantou");
+//        model.addAttribute("author", "gaobug");
 //    }
 
     /**

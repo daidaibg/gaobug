@@ -1,4 +1,4 @@
-package com.imantou.base.annotation;
+package com.gaobug.base.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

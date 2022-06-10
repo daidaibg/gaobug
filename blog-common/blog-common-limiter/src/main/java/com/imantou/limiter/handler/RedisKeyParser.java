@@ -1,9 +1,9 @@
-package com.imantou.limiter.handler;
+package com.gaobug.limiter.handler;
 
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.limiter.strategy.DefaultKeyGenerateStrategy;
-import com.imantou.limiter.strategy.IKeyGenerateStrategy;
-import com.imantou.limiter.strategy.Strategy;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.limiter.strategy.DefaultKeyGenerateStrategy;
+import com.gaobug.limiter.strategy.IKeyGenerateStrategy;
+import com.gaobug.limiter.strategy.Strategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.expression.MethodBasedEvaluationContext;
 import org.springframework.core.DefaultParameterNameDiscoverer;

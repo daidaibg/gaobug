@@ -1,9 +1,9 @@
-package com.imantou.store.platform;
+package com.gaobug.store.platform;
 
-import com.imantou.store.FileStorage;
-import com.imantou.store.autoconfigure.OssProperties;
-import com.imantou.store.model.OssMark;
-import com.imantou.store.model.OssMessage;
+import com.gaobug.store.FileStorage;
+import com.gaobug.store.autoconfigure.OssProperties;
+import com.gaobug.store.model.OssMark;
+import com.gaobug.store.model.OssMessage;
 
 import java.io.InputStream;
 

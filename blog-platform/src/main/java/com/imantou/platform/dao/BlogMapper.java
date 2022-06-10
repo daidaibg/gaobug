@@ -1,17 +1,17 @@
-package com.imantou.platform.dao;
+package com.gaobug.platform.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
-import com.imantou.platform.domain.Blog;
-import com.imantou.platform.vo.BlogPageVO;
+import com.gaobug.platform.domain.Blog;
+import com.gaobug.platform.vo.BlogPageVO;
 
 /**
  * @author gaobug
  * @description 针对表【t_blog(博客文章)】的数据库操作Mapper
  * @createDate 2022-05-23 13:39:11
- * @Entity com.imantou.common.domain.Blog
+ * @Entity com.gaobug.common.domain.Blog
  */
 public interface BlogMapper extends BaseMapper<Blog> {
 

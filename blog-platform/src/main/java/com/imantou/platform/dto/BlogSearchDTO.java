@@ -1,4 +1,4 @@
-package com.imantou.platform.dto;
+package com.gaobug.platform.dto;
 
 public class BlogSearchDTO {
 

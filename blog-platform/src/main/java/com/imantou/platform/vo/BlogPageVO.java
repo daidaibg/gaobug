@@ -1,4 +1,4 @@
-package com.imantou.platform.vo;
+package com.gaobug.platform.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

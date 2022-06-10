@@ -1,4 +1,4 @@
-package com.imantou.response.enums;
+package com.gaobug.response.enums;
 
 import lombok.Getter;
 

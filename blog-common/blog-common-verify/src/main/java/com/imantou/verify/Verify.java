@@ -1,4 +1,4 @@
-package com.imantou.verify;
+package com.gaobug.verify;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,7 +1,7 @@
-package com.imantou.system.dao;
+package com.gaobug.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.imantou.system.domain.SysOss;
+import com.gaobug.system.domain.SysOss;
 
 /**
 * @author gaobug

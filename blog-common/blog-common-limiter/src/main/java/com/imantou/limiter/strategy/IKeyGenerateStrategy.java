@@ -1,9 +1,9 @@
-package com.imantou.limiter.strategy;
+package com.gaobug.limiter.strategy;
 
-import com.imantou.limiter.DistributedLock;
-import com.imantou.limiter.RateLimit;
-import com.imantou.base.metadata.MethodMetaData;
-import com.imantou.utils.RequestUtils;
+import com.gaobug.limiter.DistributedLock;
+import com.gaobug.limiter.RateLimit;
+import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.utils.RequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;

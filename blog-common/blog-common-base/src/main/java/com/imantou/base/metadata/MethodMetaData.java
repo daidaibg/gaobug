@@ -1,4 +1,4 @@
-package com.imantou.base.metadata;
+package com.gaobug.base.metadata;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

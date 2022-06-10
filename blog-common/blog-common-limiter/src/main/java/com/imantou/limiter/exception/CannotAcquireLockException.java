@@ -1,4 +1,4 @@
-package com.imantou.limiter.exception;
+package com.gaobug.limiter.exception;
 
 import lombok.Getter;
 

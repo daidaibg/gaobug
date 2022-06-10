@@ -1,7 +1,7 @@
-package com.imantou.limiter.extend;
+package com.gaobug.limiter.extend;
 
-import com.imantou.limiter.metadata.DistributedLockMethodMetaData;
-import com.imantou.base.metadata.MethodMetaData;
+import com.gaobug.limiter.metadata.DistributedLockMethodMetaData;
+import com.gaobug.base.metadata.MethodMetaData;
 
 
 /**

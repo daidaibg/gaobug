@@ -1,11 +1,11 @@
-package com.imantou.limiter.aspect;
+package com.gaobug.limiter.aspect;
 
-import com.imantou.base.handler.IProceedHandler;
-import com.imantou.limiter.metadata.DistributedLockMethodMetaData;
-import com.imantou.limiter.DistributedLock;
-import com.imantou.base.metadata.MethodMetaData;
+import com.gaobug.base.handler.IProceedHandler;
+import com.gaobug.limiter.metadata.DistributedLockMethodMetaData;
+import com.gaobug.limiter.DistributedLock;
+import com.gaobug.base.metadata.MethodMetaData;
 
-import com.imantou.utils.MethodUtils;
+import com.gaobug.utils.MethodUtils;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -34,7 +34,7 @@ public class DistributedLockAspect {
      * @return {@link Object}
      * @throws Throwable 限流异常
      */
-    @Around("@annotation(com.imantou.limiter.DistributedLock)")
+    @Around("@annotation(com.gaobug.limiter.DistributedLock)")
     public Object interceptor(ProceedingJoinPoint pjp) throws Throwable {
         MethodMetaData methodMetadata = this.buildMethodMetadata(pjp);
         return redisLockHandler.proceed(pjp, methodMetadata);
