@@ -1,5 +1,8 @@
 package com.imantou.response.exception;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -8,6 +11,9 @@ import org.springframework.http.HttpStatus;
  * @author hzq
  * @date 2021/11/22
  */
+@Getter
+@Setter
+@ToString
 public class RemoteCallException extends BusinessException {
 
     public RemoteCallException(String message) {

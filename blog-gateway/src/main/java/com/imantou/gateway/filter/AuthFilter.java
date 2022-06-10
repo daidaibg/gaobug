@@ -1,15 +1,14 @@
 package com.imantou.gateway.filter;
 
 import com.alibaba.nacos.common.utils.JacksonUtils;
-import com.imantou.api.vo.PlatformUserVO;
 import com.imantou.cache.constant.AuthToken;
+import com.imantou.cache.context.PlatformUserContext;
 import com.imantou.cache.util.RedisUtil;
 import com.imantou.gateway.adapter.PathPatternsConfigAdapter;
 import com.imantou.response.ResponseWrapped;
 import com.imantou.response.constant.RequestHeader;
 import com.imantou.response.exception.BusinessException;
 import com.imantou.utils.JwtUtils;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -28,7 +27,6 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -36,7 +34,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author gaobug
  */
-@Data
 @Slf4j
 @Component
 public class AuthFilter implements GlobalFilter, Ordered {
@@ -60,7 +57,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         }
         // 校验登录令牌有效性
         String authTokenBucket = AuthToken.AUTH_TOKEN_BUCKET + authToken;
-        PlatformUserVO user = RedisUtil.get(authTokenBucket);
+        PlatformUserContext user = RedisUtil.get(authTokenBucket);
         if (null == user) {
             return this.doLoginVoidMono(exchange);
         }

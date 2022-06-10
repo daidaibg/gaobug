@@ -8,6 +8,7 @@ import com.imantou.response.enums.ResultEnum;
 
 import com.imantou.response.exception.BusinessException;
 
+import com.imantou.response.exception.NotContentException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.QueryTimeoutException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -48,13 +49,22 @@ public class WebExceptionAdvice {
      *
      * @param e
      */
+    @ExceptionHandler(value = NotContentException.class)
+    @ResponseBody
+    public ResponseWrapped<Object> exceptionHandler(NotContentException e) {
+        return ResponseWrapped.error(e);
+    }
+    /**
+     * 处理自定义异常
+     *
+     * @param e
+     */
     @ExceptionHandler(value = BusinessException.class)
     @ResponseBody
     public ResponseWrapped<Object> exceptionHandler(BusinessException e) {
         log.error("业务异常", e);
         return ResponseWrapped.error(e);
     }
-
     /**
      * 处理自定义异常
      *

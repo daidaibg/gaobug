@@ -3,7 +3,7 @@ package com.imantou.auth.service;
 import com.imantou.auth.dto.LoginForm;
 import com.imantou.auth.dto.PlatformLoginForm;
 import com.imantou.auth.vo.AuthTokenVO;
-import com.imantou.auth.vo.PlatformUserContextVO;
+import com.imantou.cache.context.PlatformUserContext;
 
 import java.util.concurrent.ExecutionException;
 
@@ -36,6 +36,6 @@ public interface LoginService {
      *
      * @return 平台登录用户基本信息
      */
-    PlatformUserContextVO getPlatformLoginUserInfo() throws ExecutionException, InterruptedException;
+    PlatformUserContext getPlatformLoginUserInfo() throws ExecutionException, InterruptedException;
 
 }

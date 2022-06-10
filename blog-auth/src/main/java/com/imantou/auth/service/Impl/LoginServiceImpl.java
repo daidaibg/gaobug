@@ -9,17 +9,17 @@ import com.imantou.auth.dto.PlatformLoginForm;
 import com.imantou.auth.handler.LoginHandler;
 import com.imantou.auth.service.LoginService;
 import com.imantou.auth.vo.AuthTokenVO;
-import com.imantou.auth.vo.PlatformUserContextVO;
 import com.imantou.base.utils.SnowflakeUtils;
 import com.imantou.cache.constant.AuthToken;
+import com.imantou.cache.context.PlatformUserContext;
 import com.imantou.cache.util.RedisUtil;
 import com.imantou.response.enums.ResultEnum;
 import com.imantou.response.exception.BusinessException;
+import com.imantou.response.exception.NotContentException;
 import com.imantou.utils.EncryptUtils;
-import com.imantou.utils.JacksonUtils;
-import com.imantou.utils.JwtUtils;
 import com.imantou.utils.UserContextUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -50,9 +50,11 @@ public class LoginServiceImpl implements LoginService {
                 .findFirst()
                 .map(loginHandler -> {
                     PlatformUserVO user = loginHandler.getLoginUser(form);
+                    PlatformUserContext userContext = new PlatformUserContext();
+                    BeanUtils.copyProperties(user, userContext);
                     String snowflakeToken = SnowflakeUtils.nextStr("platform");
                     // 缓存用户登录信息
-                    RedisUtil.set(AuthToken.AUTH_TOKEN_BUCKET + snowflakeToken, user, 43200000L);
+                    RedisUtil.set(AuthToken.AUTH_TOKEN_BUCKET + snowflakeToken, userContext, 43200000L);
                     return snowflakeToken;
                 }).orElseThrow(() -> new BusinessException("暂不支持当前登录方式"));
         return new AuthTokenVO(token, DateUtil.offsetHour(new Date(), 12));
@@ -72,28 +74,17 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public PlatformUserContextVO getPlatformLoginUserInfo() throws ExecutionException, InterruptedException {
+    public PlatformUserContext getPlatformLoginUserInfo() throws ExecutionException, InterruptedException {
         //获取用户信息
-        CompletableFuture<PlatformUserContextVO> userContextFuture = CompletableFuture
-                .supplyAsync(() -> {
-                    String authToken = UserContextUtils.getAuthToken();
-                    if (!StringUtils.hasText(authToken)) {
-                        return null;
-                    }
-                    String jwtToken = RedisUtil.get(AuthToken.AUTH_TOKEN_BUCKET + authToken);
-                    if (!StringUtils.hasText(jwtToken)) {
-                        return null;
-                    }
-                    String payloadUserJson = JwtUtils.getPayload(jwtToken);
-                    if (!StringUtils.hasText(jwtToken)) {
-                        return null;
-                    }
-                    return JacksonUtils.parse(payloadUserJson, PlatformUserContextVO.class);
-                });
-        if (userContextFuture.get() == null) {
-            return null;
+        final String authToken = UserContextUtils.getAuthToken();
+        if (!StringUtils.hasText(authToken)) {
+            throw new NotContentException();
         }
-        CompletableFuture<PlatformUserContextVO> userAllOfFuture = userContextFuture.thenApply(userContext -> {
+        PlatformUserContext userContext = RedisUtil.get(AuthToken.AUTH_TOKEN_BUCKET + authToken);
+        if (null == userContext) {
+            throw new NotContentException();
+        }
+        CompletableFuture<PlatformUserContext> userAllOfFuture = CompletableFuture.supplyAsync(() -> {
             // 阅读数
             CompletableFuture<Void> readFuture = CompletableFuture.runAsync(() -> {
                 userContext.setReadToday("5");

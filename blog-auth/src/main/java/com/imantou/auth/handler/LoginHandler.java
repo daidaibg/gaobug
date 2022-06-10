@@ -2,8 +2,6 @@ package com.imantou.auth.handler;
 
 import com.imantou.api.vo.PlatformUserVO;
 import com.imantou.auth.dto.PlatformLoginForm;
-import com.imantou.auth.vo.AuthTokenVO;
-import com.imantou.auth.vo.PlatformUserContextVO;
 
 /**
  * 登录服务handler接口

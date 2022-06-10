@@ -28,7 +28,6 @@ public class BlogController {
     /**
      * 获取博客详情
      */
-    @BindUser
     @GetMapping("/info/{id}")
     public ResponseWrapped<Object> getBlogInfo(@PathVariable String id) {
         return ResponseWrapped.success(blogService.getById(id));

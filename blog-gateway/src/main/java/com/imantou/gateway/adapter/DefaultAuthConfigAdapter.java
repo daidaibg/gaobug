@@ -5,12 +5,14 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
 
 /**
  * @author gaobug
@@ -20,6 +22,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RefreshScope
+@Configuration(proxyBeanMethods = false)
 @ConfigurationProperties(prefix = DefaultAuthConfigAdapter.PREFIX)
 public class DefaultAuthConfigAdapter implements PathPatternsConfigAdapter {
     /**

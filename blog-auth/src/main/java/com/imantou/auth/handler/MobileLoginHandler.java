@@ -12,6 +12,7 @@ import com.imantou.response.ResponseWrapped;
 import com.imantou.response.enums.ResultEnum;
 import com.imantou.response.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -49,7 +50,7 @@ public class MobileLoginHandler extends AbstractLoginHandler {
             PlatformRegister platformRegister = new PlatformMobileRegisterDTO();
             platformRegister.setMobile(form.getMobile());
             ResponseWrapped<PlatformUserVO> responseWrapped = platformUserClient.registerUser(platformRegister);
-            if (!responseWrapped.isSuccess()) {
+            if (Objects.equals(responseWrapped.getCode(), HttpStatus.OK.value())) {
                 throw new BusinessException(responseWrapped.getMsg());
             }
             return responseWrapped.getData();

@@ -1,4 +1,4 @@
-package com.imantou.auth.vo;
+package com.imantou.cache.context;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class PlatformUserContextVO implements Serializable {
+public class PlatformUserContext implements Serializable {
     /**
      * 数据主键
      */
