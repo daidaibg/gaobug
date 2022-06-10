@@ -14,6 +14,7 @@
             <result property="collectCount" column="collect_count" jdbcType="INTEGER"/>
             <result property="coverUrl" column="cover_url" jdbcType="BIGINT"/>
             <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="authorId" column="author_id" jdbcType="TINYINT"/>
             <result property="author" column="author" jdbcType="VARCHAR"/>
             <result property="articlesPart" column="articles_part" jdbcType="VARCHAR"/>
             <result property="categoryId" column="category_id" jdbcType="BIGINT"/>

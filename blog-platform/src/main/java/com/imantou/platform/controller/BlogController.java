@@ -2,12 +2,15 @@ package com.imantou.platform.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.imantou.base.annotation.BindUser;
+import com.imantou.base.context.JwtContext;
 import com.imantou.response.ResponseWrapped;
 import com.imantou.database.wrapped.PageWrapped;
 import com.imantou.platform.domain.Blog;
 import com.imantou.platform.dto.BlogAddDTO;
 import com.imantou.platform.dto.BlogUpdateDTO;
 import com.imantou.platform.service.BlogService;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -25,6 +28,7 @@ public class BlogController {
     /**
      * 获取博客详情
      */
+    @BindUser
     @GetMapping("/info/{id}")
     public ResponseWrapped<Object> getBlogInfo(@PathVariable String id) {
         return ResponseWrapped.success(blogService.getById(id));
@@ -33,8 +37,10 @@ public class BlogController {
     /**
      * 获取博客列表
      */
+    @BindUser
     @GetMapping("/page")
     public ResponseWrapped<Object> getBlogPage(Page<Blog> page, Blog blog) {
+        blog.setAuthor(JwtContext.getUserId());
         return ResponseWrapped.success(new PageWrapped(blogService.getBlogPageByUser(page, blog)));
     }
 

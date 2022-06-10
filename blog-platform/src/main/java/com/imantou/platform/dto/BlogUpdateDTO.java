@@ -19,7 +19,7 @@ public class BlogUpdateDTO implements Serializable {
     /**
      * 数据主键
      */
-    @TableId(type = IdType.AUTO)
+    @Verify(required = true, errorMsg = "文章标识不能为空~")
     private Long id;
 
     /**

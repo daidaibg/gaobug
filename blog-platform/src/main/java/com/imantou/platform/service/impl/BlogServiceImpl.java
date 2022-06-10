@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.imantou.base.context.JwtContext;
 import com.imantou.response.exception.BusinessException;
 import com.imantou.platform.dao.BlogMapper;
 import com.imantou.platform.domain.Blog;
@@ -14,6 +15,7 @@ import com.imantou.platform.service.BlogService;
 import com.imantou.platform.vo.BlogPageVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -97,6 +99,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     @Override
     public void addBlog(BlogAddDTO blog) {
         Blog blogForSave = new Blog();
+        blogForSave.setAuthor(JwtContext.getUserId());
         BeanUtils.copyProperties(blog, blogForSave);
         blogMapper.insert(blogForSave);
     }
@@ -104,6 +107,13 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     @Override
     public void updateBlog(BlogUpdateDTO blog) {
         Blog blogForUpdate = new Blog();
+        Blog blogExist = blogMapper.selectById(blog.getId());
+        if (null == blogExist) {
+            throw new BusinessException("文章信息不存在");
+        }
+        if (Objects.equals(JwtContext.getUserId(),blogExist.getAuthor())){
+            throw new BusinessException("不是文章作者，不可编辑");
+        }
         BeanUtils.copyProperties(blog, blogForUpdate);
         blogMapper.updateById(blogForUpdate);
     }

@@ -1,6 +1,7 @@
 package com.imantou.base.advice;
 
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.imantou.base.exception.CaptchaException;
 import com.imantou.response.ResponseWrapped;
 import com.imantou.response.enums.ResultEnum;
@@ -107,6 +108,17 @@ public class WebExceptionAdvice {
     }
 
     /**
+     * 处理jwt校验失败异常
+     */
+    @ExceptionHandler(value = JWTVerificationException.class)
+    @ResponseBody
+    public ResponseWrapped<Object> exceptionHandler(JWTVerificationException e) {
+        log.error("登录令牌校验失败", e);
+        return ResponseWrapped.error(ResultEnum.LOGON_TOKEN_EXPIRE);
+    }
+
+
+    /**
      * 处理非法参数异常
      */
     @ExceptionHandler(value = IllegalArgumentException.class)
@@ -155,5 +167,4 @@ public class WebExceptionAdvice {
         log.error("其他异常", e);
         return ResponseWrapped.error(ResultEnum.ERROR);
     }
-
 }

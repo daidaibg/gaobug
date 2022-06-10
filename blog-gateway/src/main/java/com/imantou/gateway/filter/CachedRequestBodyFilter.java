@@ -83,6 +83,6 @@ public class CachedRequestBodyFilter implements GlobalFilter, Ordered {
      */
     @Override
     public int getOrder() {
-        return HIGHEST_PRECEDENCE;
+        return HIGHEST_PRECEDENCE + 1;
     }
 }

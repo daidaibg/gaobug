@@ -66,7 +66,7 @@ public class Blog implements Serializable {
     /**
      * 作者
      */
-    private String author;
+    private Long author;
 
     /**
      * 文章出处

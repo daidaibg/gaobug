@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class RedisUtil {
 
     @SuppressWarnings("unchecked")
-    private static final RedisTemplate<String, Object> REDIS_TEMPLATE = SpringContextUtils.getBean("redisTemplate",
+    public static final RedisTemplate<String, Object> REDIS_TEMPLATE = SpringContextUtils.getBean("redisTemplate",
             RedisTemplate.class);
 
     public static final StringRedisTemplate STRING_REDIS_TEMPLATE = SpringContextUtils.getBean("stringRedisTemplate",

@@ -1,6 +1,5 @@
 package com.imantou.auth.service.Impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
 import com.imantou.api.user.SystemUserClient;
 import com.imantou.api.vo.PlatformUserVO;
@@ -11,16 +10,18 @@ import com.imantou.auth.handler.LoginHandler;
 import com.imantou.auth.service.LoginService;
 import com.imantou.auth.vo.AuthTokenVO;
 import com.imantou.auth.vo.PlatformUserContextVO;
-import com.imantou.auth.vo.UserContext;
 import com.imantou.base.utils.SnowflakeUtils;
 import com.imantou.cache.constant.AuthToken;
 import com.imantou.cache.util.RedisUtil;
 import com.imantou.response.enums.ResultEnum;
 import com.imantou.response.exception.BusinessException;
 import com.imantou.utils.EncryptUtils;
+import com.imantou.utils.JacksonUtils;
+import com.imantou.utils.JwtUtils;
 import com.imantou.utils.UserContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -49,10 +50,9 @@ public class LoginServiceImpl implements LoginService {
                 .findFirst()
                 .map(loginHandler -> {
                     PlatformUserVO user = loginHandler.getLoginUser(form);
-                    PlatformUserContextVO userContext = BeanUtil.copyProperties(user, PlatformUserContextVO.class);
-                    String snowflakeToken = SnowflakeUtils.nextStr();
-                    // 缓存用户信息
-                    RedisUtil.set(AuthToken.AUTH_TOKEN_BUCKET + snowflakeToken, userContext, 432000L);
+                    String snowflakeToken = SnowflakeUtils.nextStr("platform");
+                    // 缓存用户登录信息
+                    RedisUtil.set(AuthToken.AUTH_TOKEN_BUCKET + snowflakeToken, user, 43200000L);
                     return snowflakeToken;
                 }).orElseThrow(() -> new BusinessException("暂不支持当前登录方式"));
         return new AuthTokenVO(token, DateUtil.offsetHour(new Date(), 12));
@@ -65,50 +65,58 @@ public class LoginServiceImpl implements LoginService {
         if (!Objects.equals(user.getPassword(), EncryptUtils.sha256(form.getPassword(), user.getSalt()))) {
             throw new BusinessException(ResultEnum.ERROR_USER_PASSWORD);
         }
-        // 缓存用户信息
-        UserContext userContext = BeanUtil.copyProperties(user, UserContext.class);
+
         String token = SnowflakeUtils.nextStr();
-        RedisUtil.set(token, userContext, 43200L);
+
         return new AuthTokenVO(token, DateUtil.offsetHour(new Date(), 12));
     }
 
     @Override
     public PlatformUserContextVO getPlatformLoginUserInfo() throws ExecutionException, InterruptedException {
-        String authToken = UserContextUtils.getAuthToken();
-//        PlatformUserContextVO userContext = RedisUtil.get(RedisToken.PLATFORM_AUTH_BUCKET + authToken);
-//        if (userContext == null) {
-//            throw new BusinessException(ResultEnum.LOGON_TOKEN_EXPIRE);
-//        }
         //获取用户信息
         CompletableFuture<PlatformUserContextVO> userContextFuture = CompletableFuture
-                .supplyAsync(() -> RedisUtil.get(AuthToken.AUTH_TOKEN_BUCKET + authToken));
+                .supplyAsync(() -> {
+                    String authToken = UserContextUtils.getAuthToken();
+                    if (!StringUtils.hasText(authToken)) {
+                        return null;
+                    }
+                    String jwtToken = RedisUtil.get(AuthToken.AUTH_TOKEN_BUCKET + authToken);
+                    if (!StringUtils.hasText(jwtToken)) {
+                        return null;
+                    }
+                    String payloadUserJson = JwtUtils.getPayload(jwtToken);
+                    if (!StringUtils.hasText(jwtToken)) {
+                        return null;
+                    }
+                    return JacksonUtils.parse(payloadUserJson, PlatformUserContextVO.class);
+                });
         if (userContextFuture.get() == null) {
-            throw new BusinessException(ResultEnum.LOGON_TOKEN_EXPIRE);
+            return null;
         }
-        CompletableFuture<PlatformUserContextVO> userAllOfFuture = userContextFuture.thenApply(userContextResult -> {
+        CompletableFuture<PlatformUserContextVO> userAllOfFuture = userContextFuture.thenApply(userContext -> {
             // 阅读数
             CompletableFuture<Void> readFuture = CompletableFuture.runAsync(() -> {
-                userContextResult.setReadToday("5");
-                userContextResult.setReadYesterday("30");
+                userContext.setReadToday("5");
+                userContext.setReadYesterday("30");
             });
             // 点赞数
             CompletableFuture<Void> likeFuture = CompletableFuture.runAsync(() -> {
-                userContextResult.setLikeToday("20");
-                userContextResult.setLikeYesterday("18");
+                userContext.setLikeToday("20");
+                userContext.setLikeYesterday("18");
             });
             CompletableFuture<Void> myFuture = CompletableFuture.runAsync(() -> {
-                userContextResult.setMyArticle("60");
-                userContextResult.setMyAttention("160");
-                userContextResult.setMyCollection("24");
+                userContext.setMyArticle("60");
+                userContext.setMyAttention("160");
+                userContext.setMyCollection("24");
             });
             try {
                 CompletableFuture.allOf(readFuture, likeFuture, myFuture)
-                        .thenRun(() -> userContextResult.setLastTime(new Date()))
+                        .thenRun(() -> userContext.setLastTime(new Date()))
                         .get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
-            return userContextResult;
+            return userContext;
         });
         return userAllOfFuture.get();
     }

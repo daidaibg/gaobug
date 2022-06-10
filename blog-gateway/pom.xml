@@ -42,6 +42,18 @@
         </dependency>
         <dependency>
             <groupId>com.imantou</groupId>
+            <artifactId>blog-api-user</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.imantou</groupId>
             <artifactId>blog-common-response</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
@@ -91,6 +103,7 @@
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
         </dependency>
+
 
         <!--spring cloud+dubbo 依赖-->
         <!--        <dependency>-->

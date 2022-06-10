@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class PlatformUserContextVO {
+public class PlatformUserContextVO implements Serializable {
     /**
      * 数据主键
      */
@@ -89,4 +90,6 @@ public class PlatformUserContextVO {
      * 最后查询时间
      */
     private Date lastTime;
+
+    private static final long serialVersionUID = 1L;
 }

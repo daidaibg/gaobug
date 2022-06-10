@@ -4,5 +4,5 @@ public interface CaptchaCode {
     /**
      * 手机验证码
      */
-    String MOBILE_CODE_LOGIN = "Mobile:code:login:";
+    String MOBILE_CODE_LOGIN = "mobile:code:login:";
 }

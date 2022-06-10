@@ -1,11 +1,14 @@
 package com.imantou.gateway.filter;
 
 import com.alibaba.nacos.common.utils.JacksonUtils;
+import com.imantou.api.vo.PlatformUserVO;
 import com.imantou.cache.constant.AuthToken;
 import com.imantou.cache.util.RedisUtil;
 import com.imantou.gateway.adapter.PathPatternsConfigAdapter;
 import com.imantou.response.ResponseWrapped;
 import com.imantou.response.constant.RequestHeader;
+import com.imantou.response.exception.BusinessException;
+import com.imantou.utils.JwtUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -22,7 +25,10 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -47,19 +53,35 @@ public class AuthFilter implements GlobalFilter, Ordered {
         if (isRelease(appid, requestPath)) {
             return chain.filter(exchange);
         }
-        // 校验是否携带token
+        // 校验是否携带登录令牌
         String authToken = headers.getFirst(RequestHeader.AUTH_TOKEN_HEADER);
         if (!StringUtils.hasText(authToken)) {
             return this.doLoginVoidMono(exchange);
         }
-        // 校验token有效性
-        String jwtToken = RedisUtil.get(AuthToken.AUTH_TOKEN_BUCKET + authToken);
-        if (!StringUtils.hasText(jwtToken)) {
+        // 校验登录令牌有效性
+        String authTokenBucket = AuthToken.AUTH_TOKEN_BUCKET + authToken;
+        PlatformUserVO user = RedisUtil.get(authTokenBucket);
+        if (null == user) {
             return this.doLoginVoidMono(exchange);
         }
+        // 颁发jwt身份令牌
+        Map<String, Object> payloadClaims = new HashMap<>();
+        payloadClaims.put("id", user.getId());
+        payloadClaims.put("username", user.getUsername());
+        String jwtToken = JwtUtils.createToken(authToken, payloadClaims);
+        if (!StringUtils.hasText(jwtToken)) {
+            throw new BusinessException("身份信息令牌颁发失败");
+        }
         // 认证通过，请求头设置jwt身份信息令牌
-        request.getHeaders().add(RequestHeader.AUTH_JWT_HEADER, jwtToken);
-        return chain.filter(exchange);
+        ServerWebExchange serverWebExchange = exchange
+                .mutate()
+                .request(exchange
+                        .getRequest()
+                        .mutate()
+                        .header(RequestHeader.AUTH_JWT_HEADER, jwtToken)
+                        .build())
+                .build();
+        return chain.filter(serverWebExchange);
     }
 
     /**
@@ -96,6 +118,6 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return HIGHEST_PRECEDENCE - 1;
+        return HIGHEST_PRECEDENCE;
     }
 }

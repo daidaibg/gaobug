@@ -6,9 +6,12 @@ package com.imantou.cache.constant;
  * @author gaobug
  */
 public interface AuthToken {
-
+    /**
+     * jwt令牌
+     */
+    String AUTH_JWT_BUCKET = "auth:jwt:";
     /**
      * 登录令牌
      */
-    String AUTH_TOKEN_BUCKET = "blog:auth:token:";
+    String AUTH_TOKEN_BUCKET = "auth:token:";
 }

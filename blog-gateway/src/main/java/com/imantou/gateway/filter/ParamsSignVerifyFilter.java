@@ -24,7 +24,6 @@ import reactor.core.publisher.Mono;
 import javax.annotation.Resource;
 import java.util.Map;
 import java.util.Objects;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
@@ -90,6 +89,6 @@ public class ParamsSignVerifyFilter implements GlobalFilter, Ordered {
      */
     @Override
     public int getOrder() {
-        return HIGHEST_PRECEDENCE + 2;
+        return HIGHEST_PRECEDENCE + 3;
     }
 }

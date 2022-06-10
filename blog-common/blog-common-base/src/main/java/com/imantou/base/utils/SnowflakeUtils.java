@@ -19,4 +19,8 @@ public class SnowflakeUtils {
     public static String nextStr() {
         return snowflakeGenerator.next().toString();
     }
+
+    public static String nextStr(String system) {
+        return String.join("-", system, snowflakeGenerator.next().toString());
+    }
 }
