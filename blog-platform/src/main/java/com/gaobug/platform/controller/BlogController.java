@@ -62,7 +62,15 @@ public class BlogController {
         blogService.updateBlog(blog);
         return ResponseWrapped.success();
     }
-
+    /**
+     * 删除博客
+     */
+    @BindUser
+    @PostMapping("/del/{id}")
+    public ResponseWrapped<Object> delBlog(@PathVariable String id) {
+        blogService.removeById(id);
+        return ResponseWrapped.success();
+    }
     /**
      * 发布博客
      */

@@ -49,8 +49,11 @@ public class BlogPageVO {
     /**
      * 作者
      */
-    private String author;
-
+    private Long author;
+    /**
+     * 作者
+     */
+    private String authorName = "gaobug";
     /**
      * 排序字段
      */
