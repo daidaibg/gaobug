@@ -111,7 +111,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         if (null == blogExist) {
             throw new BusinessException("文章信息不存在");
         }
-        if (Objects.equals(JwtContext.getUserId(),blogExist.getAuthor())){
+        if (!Objects.equals(JwtContext.getUserId(),blogExist.getAuthor())){
             throw new BusinessException("不是文章作者，不可编辑");
         }
         BeanUtils.copyProperties(blog, blogForUpdate);
