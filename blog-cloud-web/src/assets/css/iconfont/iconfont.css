@@ -1,0 +1,68 @@
+
+
+@font-face {
+  font-family: "dd"; /* Project id 3424605 */
+  src: url('//at.alicdn.com/t/font_3424605_flnphanl10a.woff2?t=1654136603171') format('woff2'),
+       url('//at.alicdn.com/t/font_3424605_flnphanl10a.woff?t=1654136603171') format('woff'),
+       url('//at.alicdn.com/t/font_3424605_flnphanl10a.ttf?t=1654136603171') format('truetype');
+}
+
+
+  [class*=" dd-icon-"],
+  [class^=dd-icon-] {
+    font-family: "dd" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  
+  .dd-icon-wode-wode:before {
+    content: "\e60d";
+  }
+  
+  .dd-icon-home:before {
+    content: "\e62a";
+  }
+  
+  .dd-icon-tuichu:before {
+    content: "\e6bc";
+  }
+  
+  .dd-icon-zhuye:before {
+    content: "\e663";
+  }
+  
+  .dd-icon-tuceng:before {
+    content: "\e63b";
+  }
+  
+  .dd-icon-shouye:before {
+    content: "\e8c6";
+  }
+  
+  .dd-icon-guanzhu:before {
+    content: "\e655";
+  }
+  
+  .dd-icon-shoucang:before {
+    content: "\e6ca";
+  }
+  
+  .dd-icon-wenzhang:before {
+    content: "\e625";
+  }
+  
+  .dd-icon-dianzan:before {
+    content: "\ec7f";
+  }
+  
+  .dd-icon-liulan:before {
+    content: "\e68b";
+  }
+  
+  .dd-icon-pinglun:before {
+    content: "\e8b4";
+  }
+  

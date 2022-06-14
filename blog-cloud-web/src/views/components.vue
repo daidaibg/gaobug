@@ -1,0 +1,32 @@
+
+<template>
+
+    <Header />
+  <router-view />
+</template>
+<script setup lang="ts">
+import Header from '@/components/header/Header.vue'
+</script>
+<style lang="scss" scoped>
+.page-container_wrap {
+  width: 100%;
+  height: calc(100% - 80px);
+  position: relative;
+  flex: 1;
+}
+
+.page-container {
+  padding: 0 0px;
+
+  .el-main {
+    height: 100%;
+    padding-bottom: 100px;
+    padding-top: 50px;
+    box-sizing: border-box;
+  }
+}
+
+
+
+
+</style>
