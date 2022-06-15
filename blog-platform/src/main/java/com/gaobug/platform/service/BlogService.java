@@ -8,6 +8,7 @@ import com.gaobug.platform.domain.Blog;
 import com.gaobug.platform.dto.BlogAddDTO;
 import com.gaobug.platform.dto.BlogSearchDTO;
 import com.gaobug.platform.dto.BlogUpdateDTO;
+import com.gaobug.platform.vo.BlogVO;
 
 /**
  * @author gaobug
@@ -63,4 +64,11 @@ public interface BlogService extends IService<Blog> {
      */
     void publishBlog(String id);
 
+    /**
+     * 获取博客详情
+     *
+     * @param id 博客标识
+     * @return 博客详情
+     */
+    BlogVO getBlogInfo(String id);
 }

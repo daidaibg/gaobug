@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class BlogPageVO {
+public class BlogVO {
     /**
      * 数据主键
      */
@@ -32,6 +32,16 @@ public class BlogPageVO {
     private String content;
 
     /**
+     * 分类标识
+     */
+    private String categoryId;
+
+    /**
+     * 分类名称
+     */
+    private String categoryName;
+
+    /**
      * 博客点击数
      */
     private Integer clickCount;
@@ -50,10 +60,16 @@ public class BlogPageVO {
      * 作者
      */
     private Long author;
+
     /**
      * 作者
      */
-    private String authorName = "gaobug";
+    private String authorName;
+
+    /**
+     * 是否作者
+     */
+    private Boolean isAuthor;
     /**
      * 排序字段
      */

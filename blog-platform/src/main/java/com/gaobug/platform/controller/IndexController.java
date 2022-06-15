@@ -1,6 +1,7 @@
 package com.gaobug.platform.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.gaobug.platform.vo.BlogVO;
 import com.gaobug.response.ResponseWrapped;
 import com.gaobug.database.wrapped.PageWrapped;
 import com.gaobug.platform.domain.Blog;
@@ -44,6 +45,6 @@ public class IndexController {
      */
     @GetMapping("/info/{id}")
     public ResponseWrapped<Object> getBlogInfo(@PathVariable String id) {
-        return ResponseWrapped.success(blogService.getById(id));
+        return ResponseWrapped.success(blogService.getBlogInfo(id));
     }
 }

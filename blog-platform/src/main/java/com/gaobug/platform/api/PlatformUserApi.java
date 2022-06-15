@@ -81,7 +81,7 @@ public class PlatformUserApi implements PlatformUserClient {
             }
         }
         PlatformUser platformUserForSave = new PlatformUser();
-        platformUserForSave.setAccount(SnowflakeUtils.nextStr());
+        BeanUtil.copyProperties(platformRegister, platformUserForSave);
         // 处理密码
         String salt = SnowflakeUtils.nextStr();
         String password = Optional.ofNullable(platformRegister.getPassword()).orElse("www.gaobug.com");
