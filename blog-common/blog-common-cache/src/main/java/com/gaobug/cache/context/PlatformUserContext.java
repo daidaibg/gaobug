@@ -22,7 +22,7 @@ public class PlatformUserContext implements Serializable {
     /**
      * 用户名
      */
-    private String username;
+    private String account;
 
     /**
      * 性别(1:男2:女)

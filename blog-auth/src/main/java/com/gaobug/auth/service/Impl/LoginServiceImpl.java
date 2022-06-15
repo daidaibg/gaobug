@@ -62,7 +62,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public AuthTokenVO systemLogin(String randomId, LoginForm form) {
-        SystemUserVO user = systemUserClient.getUserByName(form.getUsername());
+        SystemUserVO user = systemUserClient.getUserByName(form.getAccount());
         //账号不存在、密码错误
         if (!Objects.equals(user.getPassword(), EncryptUtils.sha256(form.getPassword(), user.getSalt()))) {
             throw new BusinessException(ResultEnum.ERROR_USER_PASSWORD);

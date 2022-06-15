@@ -25,7 +25,7 @@ public class PlatformUser implements Serializable {
     /**
      * 用户名
      */
-    private String username;
+    private String account;
 
     /**
      * 密码

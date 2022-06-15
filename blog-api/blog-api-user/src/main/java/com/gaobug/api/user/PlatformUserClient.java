@@ -1,9 +1,8 @@
 package com.gaobug.api.user;
 
 
-import com.gaobug.api.dto.PlatformRegister;
+import com.gaobug.api.dto.UserRegisterDTO;
 import com.gaobug.api.vo.PlatformUserVO;
-import com.gaobug.response.ResponseWrapped;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,11 +19,12 @@ public interface PlatformUserClient {
     /**
      * 根据用户名获取用户信息
      *
-     * @param userName 用户名
+     * @param account 用户名或邮箱
      * @return 用户信息
      */
-    @GetMapping(value = "/platform/user/getUserByName/{userName}")
-    PlatformUserVO getUserByName(@PathVariable String userName);
+    @GetMapping(value = "/platform/user/getUserByName/{account}")
+    PlatformUserVO getUserByAccountOrEmail(@PathVariable String account);
+
     /**
      * 根据手机号获取用户信息
      *
@@ -32,15 +32,14 @@ public interface PlatformUserClient {
      * @return 用户信息
      */
     @GetMapping(value = "/platform/user/getUserByMobile/{mobile}")
-    PlatformUserVO getUserByMobile( @PathVariable String mobile);
+    PlatformUserVO getUserByMobile(@PathVariable String mobile);
+
     /**
      * 保存注册新用户
      *
      * @param platformRegister 用户信息表单
      * @return 注册结果
      */
-    @PostMapping(value = "/platform/user/registerUser")
-    ResponseWrapped<PlatformUserVO> registerUser(@RequestBody PlatformRegister platformRegister);
-
-
+    @PostMapping(value = "/platform/user/register")
+    PlatformUserVO saveRegisterUser(@RequestBody UserRegisterDTO platformRegister);
 }

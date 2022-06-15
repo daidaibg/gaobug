@@ -64,7 +64,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         // 颁发jwt身份令牌
         Map<String, Object> payloadClaims = new HashMap<>();
         payloadClaims.put("id", user.getId());
-        payloadClaims.put("username", user.getUsername());
+        payloadClaims.put("account", user.getAccount());
         String jwtToken = JwtUtils.createToken(authToken, payloadClaims);
         if (!StringUtils.hasText(jwtToken)) {
             throw new BusinessException("身份信息令牌颁发失败");

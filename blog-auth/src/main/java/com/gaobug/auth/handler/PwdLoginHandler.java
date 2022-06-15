@@ -35,7 +35,7 @@ public class PwdLoginHandler extends AbstractLoginHandler {
         if (!StringUtils.hasText(form.getAccount()) || !StringUtils.hasText(form.getPassword())) {
             throw new BusinessException(ResultEnum.ERROR_USER_PASSWORD);
         }
-        PlatformUserVO user = platformUserClient.getUserByName(form.getAccount());
+        PlatformUserVO user = platformUserClient.getUserByAccountOrEmail(form.getAccount());
         if (null == user) {
             throw new BusinessException(ResultEnum.ERROR_USER_PASSWORD);
         }
