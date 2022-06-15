@@ -6,7 +6,7 @@ blog-cloud-web与blog-cloud-admin 文件夹内包含：**干净**(不含后端�
 
 ## 👍 流行且稳定的技术栈
 
-前端：我们的Vue3使用了`Setup`、状态管理使用了`vuex`、并使用了`TypeScript、Vite、Element plus`等可以为你的知识面添砖加瓦的技术栈。（后期考虑换成Pinia，尤大亲自推荐）
+前端：我们的Vue3使用了`Setup`、状态管理使用了Pinia、并使用了`TypeScript、Vite、Element plus`等可以为你的知识面添砖加瓦的技术栈。
 
 后端：我们
 
@@ -20,7 +20,9 @@ blog-cloud-web与blog-cloud-admin 文件夹内包含：**干净**(不含后端�
 
 ## 💖 解疑问
 
-解答探讨学习和开发中的各种问题，现在入群，您就是鼻祖：群名称：搞bug 反馈交流群
+解答探讨学习和开发中的各种问题，现在入群，您就是鼻祖：
+
+群名称：搞bug 反馈交流群
 
 群  号：464449906
 

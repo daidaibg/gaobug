@@ -1,12 +1,9 @@
 <script setup lang='ts'>
 import { ElCarousel, ElCarouselItem } from "element-plus"
-import { useStore } from "vuex"
-import { computed } from "vue";
+import { useUserStore } from '@/store'
+const userStore = useUserStore()
 
-const store = useStore()
-const userData: any = computed(() => {
-    return store.state.userStore.userData
-})
+
 </script>
 
 <template>
@@ -15,18 +12,18 @@ const userData: any = computed(() => {
             <div class="carousel_item flex">
                 <dl class="today_item flex items-center flex-col justify-center">
                     <dt class="title">今日阅读数</dt>
-                    <dd class="today_num">{{ userData.readToday }}</dd>
+                    <dd class="today_num">{{ userStore.getUserData.readToday }}</dd>
                     <dd class="yestoday">
                         <span>昨日数据</span>
-                        <i class="not-italic">{{ userData.readYesterday }}</i>
+                        <i class="not-italic">{{ userStore.getUserData.readYesterday }}</i>
                     </dd>
                 </dl>
                 <dl class="today_item flex items-center flex-col justify-center">
                     <dt class="title">今日新增赞数</dt>
-                    <dd class="today_num">{{ userData.likeToday }}</dd>
+                    <dd class="today_num">{{ userStore.getUserData.likeToday }}</dd>
                     <dd class="yestoday flex">
                         <span>昨日数据</span>
-                        <i class="not-italic">{{ userData.likeYesterday }}</i>
+                        <i class="not-italic">{{ userStore.getUserData.likeYesterday }}</i>
                     </dd>
                 </dl>
 

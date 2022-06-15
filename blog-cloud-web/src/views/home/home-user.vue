@@ -1,20 +1,17 @@
 <script setup lang='ts'>
 import HomeCarousel from "./home-carousel.vue"
-import { ElAffix } from "element-plus"
+import { ElAffix, ElTooltip } from "element-plus"
 import { useRouter } from "vue-router"
-import { reactive } from "@vue/reactivity";
-import { useStore } from "vuex"
-import {todayTime} from "@/utils"
-import { computed } from "vue";
-const store = useStore()
+import { todayTime } from "@/utils"
+import { useUserStore } from '@/store'
+const userStore = useUserStore()
+
 
 const router = useRouter()
 const goRouter = (path: string) => {
     router.push(path)
 }
-const userData: any = computed(()=>{
-    return store.state.userStore.userData
-})
+
 const userDataList = [
     {
         name: "home.article",
@@ -42,8 +39,8 @@ const goPage = (item: any) => {
         goRouter(item.url)
     }
 }
-const openModelLogin = ()=>{
-    store.commit("userStore/onModelLogin")
+const openModelLogin = () => {
+    userStore.onModelLogin()
 }
 
 
@@ -51,13 +48,17 @@ const openModelLogin = ()=>{
 
 <template>
     <el-affix :offset="81" target="body">
-        <template v-if="store.state.userStore.isLogin">
+        <template v-if="userStore.getIslogin">
             <div class='user-info container-bg box-border box-shadow-0'>
                 <div class="user-info_header flex items-center justify-between">
                     <div class="flex items-center">
                         <i class="yh-icons-user-solid user_info_icon"></i>
-                        <span class="username ml-2">{{userData.nickName}}</span>
-                        <span class="grade ml-2" style="font-size:12px ;"> ✨</span> 
+                        <el-tooltip :content="userStore.getUserData.nickName" placement="top"  >
+                            <span class="username ml-2 truncate">
+                                {{ userStore.getUserData.nickName }}
+                            </span>
+                        </el-tooltip>
+                        <span class="grade ml-1" style="font-size:12px ;"> ✨</span>
                         <!-- ⭐✨-->
                     </div>
                     <div class="cursor-pointer yh-brand-color-hover go-release" @click="goRouter('/write/essay')">
@@ -75,16 +76,16 @@ const openModelLogin = ()=>{
                         <i class="user_data_icon" :class="item.icon"></i>
                         <span class="name ml-1">{{ $t(item.name) }}</span>
                     </div>
-                    <div class="num flex items-center justify-center">{{  userData[item.key] | 0 }}</div>
+                    <div class="num flex items-center justify-center">{{ userStore.getUserData[item.key] || 0 }}</div>
                 </div>
             </div>
         </template>
         <template v-else>
             <div class="container-bg box-shadow-0 nologin user-info">
-                 <div class="user-info_header flex items-center justify-between">
+                <div class="user-info_header flex items-center justify-between">
                     <div class="flex items-center">
                         <i class="yh-icons-message-solid user_info_icon"></i>
-                        <span class="username ml-2">{{todayTime()}}</span>
+                        <span class="username ml-2">{{ todayTime() }}</span>
                     </div>
                     <div class="cursor-pointer yh-brand-color-hover go-release" @click="openModelLogin">
                         发布文章
@@ -119,6 +120,7 @@ $border-radius: 4px;
 
         .username {
             color: var(--yh-text-color-secondary);
+            width: 90px;
         }
 
         .grade {
@@ -163,10 +165,11 @@ $border-radius: 4px;
         }
     }
 }
-.nologin{ 
-    .tips{ 
+
+.nologin {
+    .tips {
         font-size: 14px;
-        color: var( --yh-text-color-primary);
+        color: var(--yh-text-color-primary);
         text-align: center;
     }
 }

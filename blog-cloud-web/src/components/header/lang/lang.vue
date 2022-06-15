@@ -1,16 +1,12 @@
 
 <script setup lang='ts'>
-import {ref,Ref,  computed } from 'vue'
+import { useLangStore } from '@/store'
+import { LangEnum } from '@/enums'
 import { ElPopover } from 'element-plus'
 import { langList } from '@/i18n'
-import {useStore} from 'vuex'
-const store = useStore()
-const disabled:Ref<boolean>  = ref(false)
-const active = computed(() => {
-  return store.state.langStore.lang
-})
-const handleZh = (key: string) => {
-  store.commit("langStore/changeLang",key)
+const langStore = useLangStore()
+const handleZh = (key: LangEnum) => {
+  langStore.changeLang(key)
 }
 </script>
 <template>
@@ -26,7 +22,7 @@ const handleZh = (key: string) => {
       </div>
     </template>
     <ul class="langlist">
-      <li v-for="item in langList" :key="item.key" :class="{ activeclass: active == item.key }" @click="handleZh(item.key)">
+      <li v-for="item in langList" :key="item.key" :class="{ activeclass: langStore.getLang == item.key }" @click="handleZh(item.key)">
         {{ item.label }}</li>
     </ul>
   </el-popover>

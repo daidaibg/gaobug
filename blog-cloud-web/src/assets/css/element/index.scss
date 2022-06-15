@@ -1,7 +1,7 @@
 /*
  * @Author: wei
  * @description: 修改element主题和变量
- * @LastEditTime: 2022-06-13 15:56:32
+ * @LastEditTime: 2022-06-15 14:57:26
  */
 // https://github.dev/element-plus/unplugin-element-plus
 
@@ -130,6 +130,15 @@
     background: var(--el-bg-color-overlay);
     border: 1px solid var(--el-border-color-light);
 }
+// tooltip颜色重置
+.el-popper.is-gb-tooltip {
+    color:var(--el-text-color-regular) ;
+    background:var(--el-bg-color-overlay) ; 
+    border: 1px solid var(--el-border-color-light) ;
+}
+.el-popper.is-light {
+    color:var(--el-text-color-regular) ;
+}
 
 html .el-popover.el-popper {
     min-width: 100px;
@@ -143,9 +152,11 @@ html .el-popover.el-popper {
     background-color: var(--yh-bg-color-container);
     box-shadow: var(--yh-shadow-3), var(--yh-shadow-inset-top), var(--yh-shadow-inset-right), var(--yh-shadow-inset-bottom), var(--yh-shadow-inset-left);
     border: none;
+
     .el-message__icon {
         font-size: 20px;
     }
+
     &.el-message--info .el-message__icon {
         color: var(--yh-brand-color);
     }
@@ -153,33 +164,47 @@ html .el-popover.el-popper {
     &.el-message--success .el-message__icon {
         color: var(--yh-success-color);
     }
+
     &.el-message--warning .el-message__icon {
         color: var(--yh-warning-color);
     }
+
     &.el-message--error .el-message__icon {
         color: var(--yh-error-color);
     }
+
     .el-message__content {
         color: var(--yh-text-color-primary);
     }
 }
 
-.el-button.button-no-active{
-    &:active,&:focus{
+.el-button.button-no-active {
+
+    &:active,
+    &:focus {
         background-color: var(--el-button-bg-color);
         border-color: var(--el-button-bg-color);
         outline: 0;
     }
-   &:hover{
-     background-color: var(--yh-brand-color-hover);
-     border-color: var(--yh-brand-color-hover);
 
-   }
+    &:hover {
+        background-color: var(--yh-brand-color-hover);
+        border-color: var(--yh-brand-color-hover);
+
+    }
 }
 
-.message-box-default{
-   .el-message-box__status.el-icon{
+.message-box-default {
+    .el-message-box__status.el-icon {
         color: var(--yh-brand-color);
         --el-messagebox-color: var(--yh-brand-color);
     }
 }
+
+.el-overlay .el-overlay-message-box {
+    .el-message-box {
+        margin-top: -20vh;
+    }
+}
+
+

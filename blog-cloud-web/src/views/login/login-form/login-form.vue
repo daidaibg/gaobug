@@ -1,17 +1,19 @@
 <script setup lang='ts'>
+
 import { computed, reactive, ref } from "vue"
-import { useStore } from "vuex"
+import { useUserStore } from '@/store'
+
 import type { FormInstance } from 'element-plus'
 import { ElForm, ElFormItem, ElInput, ElMessage } from 'element-plus'
 import { useRouter } from "vue-router"
 import { currentPOST } from "@/api"
-import { setLocalStorage } from "@/utils"
+import { setLocalStorage ,validatePhone} from "@/utils"
 import { StorageEnum } from "@/enums"
-import { validatePhone } from "@/utils"
 const router = useRouter()
+const userStore = useUserStore()
+
 const formRef = ref<FormInstance>()//密码登录表单
 const formRefPhone = ref<FormInstance>();//手机号登录表单
-const store = useStore()
 const formLoading = ref(false)
 const titleActive = ref(2);//默认手机登录 1 手机 2 免密
 const loginForm = reactive({
@@ -54,7 +56,7 @@ const rules = reactive({
     }],
 })
 const close = () => {
-    store.commit("userStore/offModelLogin")
+    userStore.offModelLogin()
 }
 const register = () => {
     router.push("register")
@@ -109,7 +111,7 @@ const submit = (formEl: FormInstance | undefined) => {
             currentPOST('login', { account: loginForm.account, password: loginForm.password, "loginType": "1" }).then(async res => {
                 if (res.code === 200) {
                     setLocalStorage(StorageEnum.GB_TOKEN_STORE, res.data.authToken)
-                    store.dispatch("userStore/getUserInfo")
+                    userStore.getUserInfo()
                     // 如果是弹窗形式展示的就需要关闭弹窗
                     if (props.isModel) {
                         

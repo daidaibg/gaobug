@@ -1,11 +1,11 @@
 <script setup lang='ts'>
+import { useUserStore } from '@/store'
 import { ElPopover } from 'element-plus'
-import { useStore } from "vuex"
 import { useRouter } from "vue-router"
 const router = useRouter()
-const store = useStore()
+const userStore = useUserStore()
 const layout = () => {
-   store.commit("userStore/userOffline")
+   userStore.userOffline()
     router.push("/login")
 }
 const userSetting = (path: string) => {
@@ -16,8 +16,8 @@ const userSetting = (path: string) => {
 
 <template>
     <div class='header_user'>
-        <el-popover width="120px" trigger="hover" popper-class="user_pop" v-if="store.state.userStore.isLogin">
-            <template #reference> <img :src="store.state.userStore.userData.avatar" alt=""
+        <el-popover width="120px" trigger="hover" popper-class="user_pop" v-if="userStore.getIslogin">
+            <template #reference> <img :src="userStore.getUserData.avatar" alt=""
                     class="user_img" /></template>
             <ul class="user_list">
                 <li>

@@ -1,11 +1,12 @@
 <script setup lang='ts'>
 import { ElInput } from "element-plus"
 import { reactive } from "vue"
-import { useStore } from "vuex"
 import { genders } from "./profile"
-const store = useStore()
+import { useUserStore } from '@/store'
+const userStore = useUserStore()
+
 const getUserDataKey = (key: string) => {
-  return store.state.userStore.userData[key]
+  return userStore.getUserData[key]
 }
 const forData = reactive({
   nickName: getUserDataKey('nickName'),

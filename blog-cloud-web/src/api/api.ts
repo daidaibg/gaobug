@@ -1,18 +1,20 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-10 15:22:15
+ * @LastEditTime: 2022-06-15 10:48:13
  */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { useUserStore } from '@/store'
+
 import UtilVar from "../config/UtilVar";
 import router from "../router/index"
 import { getLocalStorage } from "@/utils"
 import { StorageEnum, RequestEnum } from "@/enums"
-import store from "@/store"
 import signMd5Utils from "./signMd5Utils"
 // console.log(router);
 let baseUrl = UtilVar.baseUrl
 const CancelToken = axios.CancelToken;
+
 export { baseUrl };
 // axios.defaults.withCredentials = true;
 // 添加请求拦截器
@@ -56,7 +58,8 @@ axios.interceptors.response.use((response: AxiosResponse) => {
     }
     if (response.data.code == UtilVar.code) {
         // router.push("/login")
-        store.commit("userStore/userOffline")//下线 
+        const {userOffline} = useUserStore()
+        userOffline()//下线 
         return response.data
     }
     return response.data

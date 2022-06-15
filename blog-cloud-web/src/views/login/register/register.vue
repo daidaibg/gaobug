@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-12-13 14:58:20
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-02 17:20:11
+ * @LastEditTime: 2022-06-15 14:05:53
  * @FilePath: \web-pc\src\views\Login\Retrieve.vue
 -->
 <template>
@@ -10,7 +10,6 @@
     <div class="flex-center flex justify-center items-center flex-col">
       <el-steps :space="400" :active="state.active" finish-status="success" process-status="finish" align-center>
         <el-step title="验证邮箱" :icon="Message">
-
         </el-step>
         <el-step title="填写密码" :icon="Lock">
         </el-step>
@@ -21,13 +20,13 @@
 
         <el-form class="retrieve-form" :model="state.loginForm" :rules="state.rules" ref="formRef" size="large">
           <el-form-item prop="email">
-            <el-input v-model="state.loginForm.email" :prefix-icon="Message" placeholder="请输入邮箱（目前不做验证可以随意输入）"
-              @blur="state.isBindUser = true">
+            <el-input v-model="state.loginForm.email" :prefix-icon="Message" placeholder="请输入邮箱">
             </el-input>
+            
           </el-form-item>
           <el-form-item class="captcha" prop="captcha">
             <div class="captcha_inner flex justify-between items-center">
-              <el-input v-model="state.loginForm.captcha" placeholder="验证码（同上）" maxlength="6"></el-input>
+              <el-input v-model="state.loginForm.captcha" placeholder="验证码（填1234）" maxlength="6"></el-input>
               <p @click="GetCode">{{ state.countdown }}</p>
             </div>
           </el-form-item>
@@ -42,7 +41,7 @@
           <!-- @input="$refs.loginForm.validateField('checkPass')"  -->
         </el-form>
         <div class="tips flex justify-between">
-          <yh-button size="large" :loading="state.loading" style="width: 30%" @click="back()" variant="outline">返回
+          <yh-button size="large" style="width: 30%" @click="back()" variant="outline">返回
           </yh-button>
           <yh-button size="large" theme="primary" :loading="state.loading" class="flex-1 ml-4"
             @click="nextStep(formRef)" v-if="state.active == 0">下一步</yh-button>
@@ -61,31 +60,14 @@ import { reactive, ref } from "vue"
 import { ElMessage, ElStep, ElSteps, ElForm, ElFormItem, ElInput } from "element-plus"
 import { useRouter } from "vue-router"
 import { Message, Lock } from '@element-plus/icons-vue'
+import { validateEmailReg, validatePassword } from "@/utils"
 const formRef: any = ref()
 const router = useRouter()
-var validatePass = (rule: any, value: any, callback: any) => {
-  if (value === "") {
-    callback(new Error("请输入密码"));
-  } else {
-    // if (state.loginForm.checkPass !== "") {
-    //   formRef.validateField("checkPass");
-    // }
-    callback();
-  }
-};
 var validatePass2 = (rule: any, value: any, callback: any) => {
   if (value === "") {
     callback(new Error("请再次输入密码"));
   } else if (value !== state.loginForm.pass) {
     callback(new Error("两次输入密码不一致!"));
-  } else {
-    callback();
-  }
-};
-var vaildemail = (rule: any, value: any, callback: any) => {
-  // console.log(state.isBindUser)
-  if (!state.isBindUser) {
-    callback(new Error("该邮箱未绑定用户!"));
   } else {
     callback();
   }
@@ -100,18 +82,18 @@ const state = reactive({
     captcha: "",
   },
   rules: {
-    pass: [{ validator: validatePass, trigger: "blur" }],
+    pass: [
+      { required: true, message: "请输入密码", trigger: "blur" },
+      { validator: validatePassword, trigger: "change" }],
     checkPass: [{ validator: validatePass2, trigger: "change" }],
     email: [
       { required: true, message: "请输入邮箱", trigger: "blur" },
-      // { validator: validateEmailReg, trigger: "change" },
-      { validator: vaildemail, trigger: "blur" },
+      { validator: validateEmailReg, trigger: "change" },
     ],
     captcha: [{ required: true, message: "请输入验证码", trigger: "blur" }],
   },
   getCode: false,
   countdown: "获取验证码",
-  isBindUser: true,
 })
 
 const back = () => {
@@ -129,18 +111,18 @@ const nextStep = (formEl: any) => {
 
   });
 }
+// 保存
 function save(formEl: any) {
   formEl.validate((valid: boolean) => {
     if (valid) {
       state.loading = true;
-      currentPOST("register",{
-        username: state.loginForm.email,
+      currentPOST("registerEmail", {
+        email: state.loginForm.email,
         password: state.loginForm.pass,
-        avatar:"https://www.gaobug.com/img/avatar/avatar.png",
-        email:"无"
+        code: state.loginForm.captcha,
       }).then((res) => {
         state.loading = false;
-        if (res.success) {
+        if (res.code == 200) {
           ElMessage.success("注册成功");
           router.push("/login");
         } else {
@@ -158,7 +140,6 @@ function save(formEl: any) {
 async function GetCode() {
   if (state.getCode) return;
   state.getCode = true;
-  state.isBindUser = true;
   state.countdown = "发送中...";
   // await getCaptchaCode({
   //   email: state.loginForm.email,
@@ -170,7 +151,6 @@ async function GetCode() {
   //     state.$message.error(res.msg);
   //     state.getCode = false;
   //     if (res.msg.indexOf("绑定") != -1) {
-  //       state.isBindUser = false;
   //     }
   //   }
   // });
@@ -201,7 +181,7 @@ function sendeSuccess() {
   // height: calc(100vh - $header-height);
   height: 100vh;
   background-color: var(--yh-bg-color-container);
-
+  
   >.flex-center {
     height: 100%;
   }
@@ -246,26 +226,6 @@ function sendeSuccess() {
         background: var(--yh-brand-color-light);
       }
     }
-  }
-}
-
-.headers {
-  background: $primary-color;
-  ;
-  // height: $index-height;
-  display: flex;
-  align-items: center;
-
-  .lseft {
-    cursor: pointer;
-  }
-
-  h1 {
-    font-size: 22px;
-    font-weight: 900;
-    color: rgb(255, 255, 255);
-    letter-spacing: 2px;
-    text-indent: 40px;
   }
 }
 </style>

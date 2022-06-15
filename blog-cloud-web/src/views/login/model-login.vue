@@ -1,12 +1,10 @@
 <script setup lang='ts'>
+import { useUserStore } from '@/store'
 import { computed, reactive, ref } from "vue"
-import { useStore } from "vuex"
 import LoginForm from "./login-form"
-const store = useStore()
-store.dispatch("userStore/getUserInfo")
-const modelLoginShow = computed(() => {
-    return store.state.userStore.modelLoginShow
-})
+const userStore = useUserStore()
+
+userStore.getUserInfo()
 
 defineExpose({
 })
@@ -14,7 +12,7 @@ defineExpose({
 </script>
 
 <template>
-    <div class='model-login flex justify-center items-center ' v-if="modelLoginShow">
+    <div class='model-login flex justify-center items-center ' v-if="userStore.getModelLoginShow">
         <login-form isModel></login-form>
     </div>
 </template>

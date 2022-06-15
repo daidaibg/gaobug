@@ -2,7 +2,7 @@
 import { ref, reactive } from "vue"
 import { ElTabs, ElTabPane, ElMessage, ElPagination, ElDropdown, ElDropdownItem, ElMessageBox } from 'element-plus'
 import type { TabsPaneContext } from 'element-plus'
-import { currentGET } from "@/api"
+import { currentGET ,currentPOSTPath} from "@/api"
 import { articlesType, articlesListType } from "./articles-type"
 import { useRouter } from "vue-router"
 
@@ -15,6 +15,7 @@ const blogData: articlesType = reactive({
     list: [],
     publish: "1"
 })
+//获取自己博客
 const getBlog = () => {
     blogData.list = []
     blogData.total = 0
@@ -51,7 +52,7 @@ const jumpEdit = (path: string, item: articlesListType) => {
 }
 //点击按钮
 const command = (commandName: string | undefined, item: any) => {
-    console.log(commandName, item);
+    // console.log(commandName, item);
     ElMessageBox.confirm(
         '确定要删除该文章吗?',
         {
@@ -64,7 +65,15 @@ const command = (commandName: string | undefined, item: any) => {
         }
     )
         .then(() => {
-
+            currentPOSTPath("deleteBlog",item.id).then(res=>{
+                if(res.code===200){
+                    getBlog()
+                     ElMessage.success("删除成功")
+                     
+                }else{
+                    ElMessage.error(res.msg)
+                }
+            })
         })
         .catch(() => {
             //   取消删除
@@ -74,7 +83,7 @@ getBlog()
 </script>
 
 <template>
-    <div class="headers flex items-center">
+    <div class="articles-header flex items-center">
         <el-tabs v-model="blogData.publish" class="articles-tabs" @tab-click="tabClick">
             <el-tab-pane label="文章" name="1">
                 <ul class="articles_list">
@@ -193,7 +202,7 @@ $color-brand: var(--yh-brand-color);
 $color-secondary: var(--yh-text-color-secondary);
 $color-primary: var(--yh-text-color-primary);
 
-.headers {
+.articles-header {
     :deep(.el-tabs) {
         // height: 48px;
         width: 100%;

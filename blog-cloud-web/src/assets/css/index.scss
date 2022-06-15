@@ -120,12 +120,15 @@ html{
   width: 100%;
   height: 100%;
   overflow: hidden;
+  
 }
 body{
   width: 100%;
   height: 100%;
-  overflow-y: auto;
+  // overflow-y: auto;
+  overflow-y:overlay;
   position: relative;
+  z-index: 0;
 
 }
  .dark body{

@@ -1,10 +1,11 @@
 <script setup lang='ts'>
-import { ElInput } from "element-plus"
+import { useUserStore } from '@/store'
+
 import { reactive } from "vue"
-import { useStore } from "vuex"
-const store = useStore()
+const userStore = useUserStore()
+
 const getUserDataKey = (key: string) => {
-    return store.state.userStore.userData[key]
+    return userStore.getUserData[key]
 }
 const formData = reactive({
     email: getUserDataKey('email'),

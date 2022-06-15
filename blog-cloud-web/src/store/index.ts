@@ -1,20 +1,15 @@
-import { createStore } from 'vuex'
-import langStore from './modules/lang-store'
-import themeStore from './modules/theme/theme-store'
-import userStore from "./modules/user/user-store"
-export default createStore({
-  modules:{
-    langStore,
-    themeStore,
-    userStore
-  },
 
-  state:{
-    
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  
-})
+import type { App } from 'vue';
+import { createPinia } from 'pinia';
+export * from "./modules/lang/lang-store"
+export * from "./modules/theme/theme-store"
+export * from "./modules/user/user-store"
+
+const store = createPinia();
+
+export function setupStore(app: App<Element>) {
+  app.use(store);
+}
+
+export default {store} ;
+

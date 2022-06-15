@@ -1,6 +1,5 @@
 <script setup lang='ts'>
 import { ref, Ref } from "vue"
-import { useStore } from "vuex"
 import { useRoute } from "vue-router"
 import { currentGETPath } from "@/api"
 import { ElMessage, ElAffix } from 'element-plus'
@@ -9,9 +8,10 @@ import { HeadList } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import { useTitle } from '@vueuse/core'
 import {mdEditorConfig} from "@/config"
+import { userThemeStore } from '@/store'
+const themeStore = userThemeStore()
 const title = useTitle()
 const route = useRoute()
-const store = useStore()
 const previewTheme = ref("github")
 // 'default' | 'github' | 'vuepress' | 'mk-cute' | 'smart-blue' | 'cyanosis'
 const mdText = ref('')//内容
@@ -63,7 +63,7 @@ mdEditorConfig(MdEditor)
                     </div>
                 </div>
             </div>
-            <md-editor :theme="store.state.themeStore.theme" :preview-theme="previewTheme" editor-id="edit2preview"
+            <md-editor :theme="themeStore.getTheme" :preview-theme="previewTheme" editor-id="edit2preview"
                 showCodeRowNumber class="previewmd mt-6" preview-only v-model="mdText" @GetCatalog="onGetCatalog">
             </md-editor>
         </div>
@@ -71,7 +71,7 @@ mdEditorConfig(MdEditor)
         <div class="catalog blog-cloud_info flex-shrink-0  ">
             <el-affix :offset="81" target="body">
                 <div class="catalog_wrap container-bg box-border px-3 pb-2 box-shadow-0">
-                    <header class="py-2 headers">
+                    <header class="py-2 logs-header">
                         目录
                     </header>
                     <yh-anchor container="body" class="catalog_list mt-1" :targetOffset="80">
@@ -122,7 +122,7 @@ mdEditorConfig(MdEditor)
             border-radius: $border-radius;
             max-height: 450px;
 
-            .headers {
+            .logs-header {
                 border-bottom: 1px solid var(--yh-border-level-1-color);
                 color: var(--yh-text-color-primary);
 

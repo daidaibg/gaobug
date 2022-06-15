@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import  User  from "@/components/header/user";
+import User from "@/components/header/user";
 import MdEditor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
 import { ref, computed, reactive, toRefs } from "vue";
-import { useStore } from "vuex";
 import { toolbars, onUploadImg, tagsList, beforeAvatarUpload, onUploadCover } from "./write-essay";
 import { ElInput, ElMessage, ElDialog, ElForm, ElFormItem, ElSelect, ElOption, ElRadioGroup, ElRadioButton, ElUpload } from "element-plus";
 import type { FormInstance, FormRules, UploadRequestOptions } from 'element-plus'
@@ -12,13 +11,15 @@ import Emoji from "@/components/md-edits/emoji/emoji.vue";
 import Read from "@/components/md-edits/read/read.vue";
 import { useRouter, useRoute } from "vue-router";
 import { StateType, FormDataType } from "./write-essay-type"
-import {mdEditorConfig} from "@/config"
+import { mdEditorConfig } from "@/config"
+import { userThemeStore } from '@/store'
+const themeStore = userThemeStore()
+
 
 const router = useRouter();
 const route = useRoute();
 // const { ModalToolbar, DropdownToolbar, NormalToolbar } = MdEditor;
 
-const store = useStore();
 const editorId = "editor-preview";
 const ruleFormRef = ref<FormInstance>()
 const state: StateType = reactive({
@@ -53,7 +54,7 @@ const fabu = () => {
     if (title.value == "") {
         ElMessage.warning("请输入标题!");
         return;
-    }else if (content.value.length < 10) {
+    } else if (content.value.length < 10) {
         ElMessage.warning("文章内容太短！");
         return;
     }
@@ -64,24 +65,9 @@ const publish = (formEl: FormInstance | undefined) => {
     if (!formEl) return
     formEl.validate((valid) => {
         if (valid) {
-            // console.log(content.value);
-            let param: any = {
-                title: title.value,
-                content: content.value,
-                publish: 1, //是否发布0：否，1：是
-                ...formData,
-            };
-            let type = 'addBlog';//新增
-            if (state.id) {
-                param.id = state.id
-                type = "updataBlog"
-            }
-            currentPOST(type, param).then((res) => {
-                if (res.code === 200) {
-                    ElMessage.success('发布成功')
+            saveOrUpdate(1, '发布成功').then((res) => {
+                if (res) {
                     router.push('/blogs/manage/article')
-                } else {
-                    ElMessage.error(res.msg);
                 }
             });
         } else {
@@ -92,28 +78,33 @@ const publish = (formEl: FormInstance | undefined) => {
 };
 //保存草稿
 const save = () => {
-    if(title.value==""){
-        title.value="【无标题】"
+    if (title.value == "") {
+        title.value = "【无标题】"
     }
+    saveOrUpdate(0, "保存草稿成功")
+};
+//提交或则新增 处理参数并且提交调接口
+const saveOrUpdate = async (publish: Number, successMsg: string) => {
     let type = 'addBlog';//新增
     let param: any = {
         title: title.value,
         content: content.value,
-        publish: 0, //是否发布0：否，1：是
         ...formData,
+        publish: publish, //是否发布0：否，1：是
     };
     if (state.id) {
         param.id = state.id
         type = 'updataBlog';//更新
     }
-    currentPOST(type, param).then((res) => {
-        if (res.code === 200) {
-            ElMessage.success('保存草稿箱成功')
-        } else {
-            ElMessage.error(res.msg);
-        }
-    });
-};
+    const res = await currentPOST(type, param);
+    if (res.code === 200) {
+        ElMessage.success(successMsg);
+        return true;
+    } else {
+        ElMessage.error(res.msg);
+        return false;
+    }
+}
 //获取分类列表
 const getCategory = () => {
     currentGET("category", { size: 20 }).then(res => {
@@ -210,11 +201,11 @@ init()
             <user></user>
         </header>
         <md-editor v-model="content" :toolbars="toolbars" class="flex-1 mb-1" showCodeRowNumber
-            :previewTheme="previewTheme" :theme="store.state.themeStore.theme" @Save="save" @uploadImg="onUploadImg"
+            :previewTheme="previewTheme" :theme="themeStore.getTheme" @Save="save" @uploadImg="onUploadImg"
             :editor-id="editorId">
             <template #defToolbars>
                 <Emoji :editor-id="editorId" @onChange="onEmojiChange" />
-                <Read :md-text="content" :previewTheme="previewTheme" :theme="store.state.themeStore.them" />
+                <Read :md-text="content" :previewTheme="previewTheme" :theme="themeStore.getTheme" />
                 <!-- <normal-toolbar>
                     <template #trigger>
                         test

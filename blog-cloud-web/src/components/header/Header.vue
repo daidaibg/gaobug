@@ -2,15 +2,14 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-10 15:34:43
+ * @LastEditTime: 2022-06-14 17:57:05
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
-  <header class="headers box-shadow-bootom">
+  <header class="headers box-shadow-bootom" >
     <div class="header_inner">
       <div class="left">
         <logo></logo>
-
         <ul class="header_list flex items-center">
           <li v-for="(item, i) in headerList" :key="i">
             <a :href="item.path" :class="{ active: active == item.path }" @click.prevent="jump(item.path)">{{
@@ -48,9 +47,9 @@ import { Lang } from "./lang";
 import { GitHub } from "./github";
 import { Theme } from "./theme";
 import { Logo } from "./logo";
-import  User  from "./user";
+import User from "./user";
 
-
+import { useElementSize } from '@vueuse/core'
 import {
   ElDropdown,
   ElDropdownMenu,
@@ -60,6 +59,10 @@ import {
 import { Operation } from "@element-plus/icons-vue";
 import { reactive, ref, Ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
+
+
+
+
 
 const route = useRoute();
 const router = useRouter()
@@ -110,9 +113,8 @@ const jump = (path: string) => {
   width: 100%;
   height: 60px;
   z-index: 990;
-  right: $header-right;
+  // right: 0;
   box-shadow: var(--yh-shadow-inset-bottom);
-
   .header_inner {
     max-width: 1440px;
     margin: auto;

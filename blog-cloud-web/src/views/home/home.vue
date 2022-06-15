@@ -83,7 +83,7 @@ getBlogList()
                 <li v-for="item in state.blogList" :key="item.oid" class="blog-list_item cursor-pointer"
                     @click="jumpDetail(item)">
                     <header class="blog-list_header flex items-center">
-                        <span class="name">{{ item.author }}</span>
+                        <span class="name">{{ item.authorName }}</span>
                         <span class="time">{{ item.publishTime }}</span>
                         <span class="sortName">{{ item.category || '-' }}</span>
                     </header>

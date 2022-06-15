@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-12-23 11:18:37
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-01 15:46:04
+ * @LastEditTime: 2022-06-14 15:22:47
  * @FilePath: \web-pc-svn\src\api\modules\index.js
  */
 
@@ -29,8 +29,11 @@ export const currentPUT = (key:Keys, param: any) => {
 export const currentPUTPath = (key:Keys,type:Keys, param: any) => {
   return PUT(urlObj[key]+type, param);
 };
-export const currentPOST = (key:Keys, param: any) => {
-  return POST(urlObj[key], param);
+export const currentPOST = (key:Keys, param?: any) => {
+  return POST(urlObj[key], param||{});
+};
+export const currentPOSTPath = (key:Keys,type:Keys,param?: any) => {
+  return POST(urlObj[key]+type, param||{});
 };
 //通用上传
 export const currentFILEPOST = (key:Keys, param?: any) => {

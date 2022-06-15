@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import { setupStore } from '@/store'
 import setDirectives from "./directives";
 import CodeLight from '@/components/codes/code-highlights.vue'
 import CodeWrap from '@/components/codes/Code-wrap.vue'
@@ -16,6 +16,8 @@ import "./assets/css/index.scss";
 const app=createApp(App)
 // 注册所有自定义指令
 setDirectives(app);
+// 挂载状态管理
+setupStore(app)
 // console.log(YhPlus);
 // 注册自定义组件
 app.component('code-light',CodeLight)
@@ -23,4 +25,5 @@ app.component('code-wrap',CodeWrap)
 app.component("TableParam",TableParam)
 app.use(YhPlus);
 app.use(i18n);
-app.use(store).use(router).mount('#app')
+
+app.use(router).mount('#app')

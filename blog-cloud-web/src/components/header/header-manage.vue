@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-10 15:34:50
+ * @LastEditTime: 2022-06-14 17:57:13
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -25,14 +25,9 @@
 import { Lang } from "./lang";
 import { GitHub } from "./github";
 import { Theme } from "./theme";
-import  User  from "./user";
+import User from "./user";
 
-import {
-  ElDropdown,
-  ElDropdownMenu,
-  ElIcon,
-} from "element-plus";
-import { Operation } from "@element-plus/icons-vue";
+
 import { useRoute } from "vue-router";
 import { Logo } from "./logo";
 
@@ -49,13 +44,14 @@ const route = useRoute();
   padding: 0 24px;
   background: var(--yh-bg-color-container);
   box-shadow: var(--yh-shoadow-bootom);
-    position: fixed;
+  position: fixed;
   top: 0;
   width: 100%;
   height: 60px;
   z-index: 990;
-  right: $header-right;
+  // right: $header-right;
   box-shadow: var(--yh-shadow-inset-bottom);
+
   .header_inner {
     max-width: 1440px;
     margin: auto;

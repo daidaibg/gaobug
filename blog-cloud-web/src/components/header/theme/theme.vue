@@ -1,17 +1,14 @@
 <script setup lang='ts'>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { userThemeStore } from '@/store'
 import { ThemeEnum } from '@/enums'
-const store = useStore()
-const activetheme = computed(() => {
-    return store.state.themeStore.theme;
-});
+
+const themeStore = userThemeStore()
 const selectTheme = (type: ThemeEnum) => {
-    store.commit('themeStore/changeTheme', type)
+    themeStore.changeTheme(type)
 };
 </script>
 <template>
-    <div class="actionTheme" :class="'actionTheme-' + activetheme">
+    <div class="actionTheme" :class="'actionTheme-' + themeStore.getTheme">
         <div class="actionTheme-tabs__block" style="width: 28px" ></div>
         <div @click="selectTheme(ThemeEnum.LIGHT)" data-theme="light"  class="sun action_item"
            >

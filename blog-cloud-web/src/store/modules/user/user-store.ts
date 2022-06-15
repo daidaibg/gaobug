@@ -1,43 +1,57 @@
+import { defineStore } from 'pinia'
 import {currentGET} from "@/api"
 import {clearLocalStorage} from "@/utils"
 import {StorageEnum} from "@/enums"
 import {ElMessage} from "element-plus"
-export default {
-    namespaced: true,
-    name: "userStore",
-    state: {
+import {userStoreType,userDataType} from "./user-store-type"
+export * from "./user-store-type"
+
+export const useUserStore = defineStore( {
+    id: "useUserStore",
+    state:():userStoreType=> ({
         isLogin: false,//是否登录
         modelLoginShow: false,
-        userData:{},
+        userData:{
+            nickName:"",//昵称
+        },
+    }),
+    getters:{
+        getUserData():userDataType{
+            return this.userData
+        },
+        getIslogin():boolean{
+            return this.isLogin
+        },
+        getModelLoginShow():boolean{
+            return this.modelLoginShow
+        }
     },
-    mutations: {
-        //上线
-        userOnline(state: any) {
-            state.isLogin = true
+    actions: {
+        userOnline() {
+            this.isLogin = true
         },
           //下线清除用户信息
-          userOffline(state:any){
-            state.isLogin=false
-            state.userData={}
+          userOffline(){
+            this.isLogin=false
+            this.userData={
+                nickName:""
+            }
             clearLocalStorage(StorageEnum.GB_TOKEN_STORE)
         },
         //打开登陆弹窗
-        onModelLogin(state: any) {
-            state.modelLoginShow = true
+        onModelLogin() {
+            this.modelLoginShow = true
         },
         //关闭登陆弹窗
-        offModelLogin(state: any) {
-            state.modelLoginShow = false
+        offModelLogin() {
+            this.modelLoginShow = false
         },
-     
-    },
-    actions: {
-        getUserInfo({state}:any){
+        getUserInfo(){
             currentGET('userInfo').then(res=>{
                 console.log("userData",res);
                 if(res.code==200){
-                    state.isLogin=true
-                    state.userData=res.data
+                    this.isLogin=true
+                    this.userData=res.data
                 }else if(res.code ==204){  //请求成功但没内容
                     // ElMessage.error(res.msg)
                 }else{
@@ -47,7 +61,7 @@ export default {
         }
     },
 
-};
+});
 
     // /**
     //  * 数据主键
