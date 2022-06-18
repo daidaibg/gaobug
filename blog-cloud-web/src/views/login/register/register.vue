@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-12-13 14:58:20
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-15 14:05:53
+ * @LastEditTime: 2022-06-18 10:53:13
  * @FilePath: \web-pc\src\views\Login\Retrieve.vue
 -->
 <template>
@@ -26,7 +26,7 @@
           </el-form-item>
           <el-form-item class="captcha" prop="captcha">
             <div class="captcha_inner flex justify-between items-center">
-              <el-input v-model="state.loginForm.captcha" placeholder="验证码（填1234）" maxlength="6"></el-input>
+              <el-input v-model="state.loginForm.captcha" placeholder="验证码" maxlength="6"></el-input>
               <p @click="GetCode">{{ state.countdown }}</p>
             </div>
           </el-form-item>
@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import { currentPOST } from "@/api";
+import { currentPOST ,currentGET} from "@/api";
 import { reactive, ref } from "vue"
 import { ElMessage, ElStep, ElSteps, ElForm, ElFormItem, ElInput } from "element-plus"
 import { useRouter } from "vue-router"
@@ -141,20 +141,19 @@ async function GetCode() {
   if (state.getCode) return;
   state.getCode = true;
   state.countdown = "发送中...";
-  // await getCaptchaCode({
-  //   email: state.loginForm.email,
-  // }).then((res) => {
-  //   if (res.success) {
-  //     state.sendeSuccess();
-  //   } else {
-  //     state.countdown = "重新获取";
-  //     state.$message.error(res.msg);
-  //     state.getCode = false;
-  //     if (res.msg.indexOf("绑定") != -1) {
-  //     }
-  //   }
-  // });
-  // state.$refs.loginForm.validateField("email");
+  await currentGET("captchaEmail",{
+    email: state.loginForm.email,
+  }).then((res) => {
+    if (res.code===200) {
+      sendeSuccess();
+    } else {
+      state.countdown = "重新获取";
+      ElMessage.error(res.msg);
+      state.getCode = false;
+      if (res.msg.indexOf("绑定") != -1) {
+      }
+    }
+  });
 }
 function sendeSuccess() {
   ElMessage({
@@ -162,7 +161,7 @@ function sendeSuccess() {
     type: "success",
   });
 
-  let s = 60;
+  let s = 30;
   state.countdown = s + "s";
   let interval = setInterval(() => {
     s--;

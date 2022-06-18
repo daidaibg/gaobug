@@ -3,7 +3,7 @@
 import HomeUser from "./home-user.vue"
 import { reactive, ref, toRefs, } from "vue"
 import { currentGETPath } from "@/api"
-import { ElMessage, ElImage, ElBacktop } from "element-plus"
+import { ElMessage, ElImage, ElBacktop ,ElTooltip} from "element-plus"
 import { HomeBlogState } from "./home-types"
 import { typelist } from "./home-config"
 import { useInfiniteScroll } from '@vueuse/core'
@@ -85,7 +85,7 @@ getBlogList()
                     <header class="blog-list_header flex items-center">
                         <span class="name">{{ item.authorName }}</span>
                         <span class="time">{{ item.publishTime }}</span>
-                        <span class="sortName">{{ item.category || '-' }}</span>
+                        <span class="sortName">{{ item.categoryName || '-' }}</span>
                     </header>
                     <div class="flex blog-list_body justify-between items-center">
                         <div class="info-box">

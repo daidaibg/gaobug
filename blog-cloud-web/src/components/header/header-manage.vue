@@ -2,11 +2,11 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-14 17:57:13
+ * @LastEditTime: 2022-06-16 10:59:17
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
-  <header class="headers box-shadow-bootom">
+  <header class="headers box-shadow-bootom headers-root">
     <div class="header_inner">
       <div class="left flex">
         <logo></logo>
@@ -36,6 +36,7 @@ const route = useRoute();
 </script>
 
 <style lang="scss" scoped>
+
 .headers {
   flex: 1;
   width: 100%;

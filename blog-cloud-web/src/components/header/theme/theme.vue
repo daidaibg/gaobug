@@ -8,7 +8,7 @@ const selectTheme = (type: ThemeEnum) => {
 };
 </script>
 <template>
-    <div class="actionTheme" :class="'actionTheme-' + themeStore.getTheme">
+    <div class="actionTheme actionTheme-root" :class="'actionTheme-' + themeStore.getTheme">
         <div class="actionTheme-tabs__block" style="width: 28px" ></div>
         <div @click="selectTheme(ThemeEnum.LIGHT)" data-theme="light"  class="sun action_item"
            >

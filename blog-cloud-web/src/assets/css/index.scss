@@ -1,7 +1,5 @@
 @charset "UTF-8";
 @import "./element/index.scss";
-@import "./theme/codehight/light.scss";
-@import "./theme/codehight/dark.scss";
 @import "./iconfont/iconfont.css";
 
 :root:not([theme-mode=dark]) {
@@ -17,40 +15,29 @@
   --yh-brand-color-9: #0034b5;
   --yh-brand-color-10: #001f97;
   // 重置主色调 end
-
-  // ele
-  --el-color-primary: var(--yh-brand-color-8);
- // ele end
-
-  --yh-shadow: 0 1px 3px rgb(0, 0, 0, 4%);
-
- --yh-shoadow-bootom:  0 2px 3px  rgba(0 ,0 ,0 , 0.05);
-
-  --menu-one-title: var(--yh-font-gray-1);
-  --menu-two-title: var(--yh-font-gray-2);
-  --code-bg: #f3f3f3;
-  --code-bg-line: #f9fafc;
-  --code-bg: #f5f7fa;
-
-  --code-bg-line-border: #eaeefb;
-  --header-bottom-color: #dcdfe6;
-  --bg-color-tab-select: #fff;
   --border-radius: 3px;
-  --text-disabled: rgba(0, 0, 0, .26);
-  --anim-time-fn-easing: cubic-bezier(.38, 0, .24, 1);
-  --anim-duration-moderate: .24s;
-  --bg-color-component: #eee;
-  --header-logo-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px,
-    rgba(255, 255, 255, 0.2) 1px 3px 3px;
-  --text-primary: rgba(0, 0, 0, .9);
-
-
   --dd-color-content: #86909c;
   --dd-font-gray-1: rgba(0, 0, 0, .8);
-
   --dd-scrollbar-color: rgba(0, 0, 0, .1);
   --dd-scroll-track-color: #fff;
-  --dd-color-secondary-brand : rgb(99, 133, 166);
+  --dd-color-secondary-brand: rgb(99, 133, 166);
+
+  .headers-root {
+    --header-logo-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px,
+      rgba(255, 255, 255, 0.2) 1px 3px 3px;
+    --header-bottom-color: #dcdfe6;
+    --yh-shoadow-bootom: 0 2px 3px rgba(0, 0, 0, 0.05);
+
+  }
+
+  .actionTheme {
+    --bg-color-tab-select: #fff;
+    --anim-time-fn-easing: cubic-bezier(.38, 0, .24, 1);
+    --anim-duration-moderate: .24s;
+    --text-disabled: rgba(0, 0, 0, .26);
+    --bg-color-component: #eee;
+
+  }
 }
 
 :root[theme-mode=dark] {
@@ -64,34 +51,32 @@
   --yh-brand-color-8: #4582e6;
   --yh-brand-color-9: #699ef5;
   --yh-brand-color-10: #96bbf8;
-  // ele
-  --el-color-primary: var(--yh-brand-color-8);
- // ele end
-  --yh-shadow: var(--yh-shadow-1);
-   --yh-shoadow-bootom:  var(--yh-shadow-1);
 
-  --menu-one-title: var(--yh-font-white-1);
-  --menu-two-title: var(--yh-font-white-1);
-  --code-bg: #2c2c2c;
-  --code-bg-line: #444444;
-  --code-bg-line-border: #5e5e5e;
-  --header-bottom-color: #666666;
-  --bg-color-tab-select: #4b4b4b;
-  --text-disabled: rgba(255, 255, 255, .22);
-  --anim-time-fn-easing: cubic-bezier(.38, 0, .24, 1);
-  --anim-duration-moderate: .24s;
-  --bg-color-component: #383838;
-  --header-logo-shadow: rgba(0, 0, 0, 0.5) 0 5px 6px,
-    rgba(0, 0, 0, 0.2) 1px 3px 3px;
-  --text-primary: rgba(255, 255, 255, .9);
   --dd-color-content: var(--yh-gray-color-9);
   --dd-font-gray-1: var(--yh-font-white-2);
 
   --dd-scrollbar-color: rgba(255, 255, 255, .1);
   --dd-scroll-track-color: #333;
-  --dd-color-secondary-brand :#819ece ;
-}
+  --dd-color-secondary-brand: #819ece;
 
+  .headers-root {
+    --header-logo-shadow: rgba(0, 0, 0, 0.5) 0 5px 6px,
+      rgba(0, 0, 0, 0.2) 1px 3px 3px;
+    --header-bottom-color: #666666;
+    --yh-shoadow-bootom: var(--yh-shadow-1);
+
+  }
+
+  .actionTheme-root {
+    --bg-color-tab-select: #4b4b4b;
+    --anim-time-fn-easing: cubic-bezier(.38, 0, .24, 1);
+    --anim-duration-moderate: .24s;
+    --text-disabled: rgba(255, 255, 255, .22);
+    --bg-color-component: #383838;
+
+
+  }
+}
 
 
 
@@ -116,35 +101,39 @@
 
 
 
-html{
+html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  
+
 }
-body{
+
+body {
   width: 100%;
   height: 100%;
   // overflow-y: auto;
-  overflow-y:overlay;
+  overflow-y: overlay;
   position: relative;
   z-index: 0;
 
 }
- .dark body{
+
+.dark body {
   &::-webkit-scrollbar-track {
-    background-color:var(--yh-bg-color-secondarycontainer);
+    background-color: var(--yh-bg-color-secondarycontainer);
   }
+
   /*滚动条的滑块按钮*/
   &::-webkit-scrollbar-thumb {
     background-color: var(--dd-scroll-track-color);
   }
 }
+
 #app {
   width: 100%;
   min-height: 100%;
   // font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
 }
 
 .container-bg {
@@ -175,8 +164,16 @@ body{
   color: var(--yh-brand-color-hover);
 }
 
+.gb-text-color-primary {
+  color: var(--yh-text-color-primary);
+}
+
+.gb-text-color-secondary {
+  color: var(--yh-text-color-secondary);
+}
+
 //文章管理页面  content内容
-.gaobug{
+.gaobug {
   max-width: 1200px;
   padding-top: $header-top;
   padding-bottom: 16px;
@@ -184,7 +181,8 @@ body{
   min-height: 100vh;
   position: relative;
 }
-.gaobug-contents{
+
+.gaobug-contents {
   height: $content-height;
   width: 100%;
 }

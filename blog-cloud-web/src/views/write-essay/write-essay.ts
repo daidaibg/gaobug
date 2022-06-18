@@ -23,15 +23,15 @@ export const onUploadImg = async (files: any, callback: Function) => {
   callback(res);
 };
 // 上传封面
-export const onUploadCover = async (option:any) => {
+export const onUploadCover = async (option: any) => {
   const form = new FormData();
   form.append("file", option.file);
- return  uploadImg(form,option)
+  return uploadImg(form, option)
 
 };
 //上传前
 export const beforeAvatarUpload = (rawFile: any, ElMessage: any) => {
-  if ( !['image/jpeg', 'image/png','image/gif' ].includes(rawFile.type) ) {
+  if (!['image/jpeg', 'image/png', 'image/gif'].includes(rawFile.type)) {
     ElMessage.warning("格式必须为JPG,PNG或GIF!")
     return false
   } else if (rawFile.size / 1024 / 1024 > 10) {
@@ -47,6 +47,21 @@ export const tagsList = [
   },
   {
     name: 'java',
+  },
+  {
+    name: 'TS',
+  },
+  {
+    name: 'vue3',
+  },
+  {
+    name: 'vue2',
+  },
+  {
+    name: 'css',
+  },
+  {
+    name: 'html',
   },
 ]
 

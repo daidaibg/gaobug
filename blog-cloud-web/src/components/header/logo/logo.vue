@@ -7,7 +7,7 @@ const goHome=()=>{
 </script>
 
 <template>
-    <div class="logo cursor-pointer" @click="goHome">
+    <div class="logo cursor-pointer headers-root" @click="goHome">
           <!-- <img src="../assets/img/logo.png" alt="" /> -->
         <p>搞bug</p>
     </div>

@@ -7,7 +7,7 @@ import MdEditor from "md-editor-v3"
 import { HeadList } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import { useTitle } from '@vueuse/core'
-import {mdEditorConfig} from "@/config"
+import { mdEditorConfig } from "@/config"
 import { userThemeStore } from '@/store'
 const themeStore = userThemeStore()
 const title = useTitle()
@@ -45,32 +45,64 @@ mdEditorConfig(MdEditor)
             <div class="details_title" id="1">
                 {{ blogDetails.title }}
             </div>
-            <div class="user_info my-3 flex items-center">
+            <div class="user_info mt-3 flex items-center">
                 <div class="user_info_avatar mr-2">
                     <img src="../../assets/img/avatar.png" alt="">
                 </div>
                 <div>
                     <div class="flex mb-0.5">
-                        <span> {{ blogDetails.author }}</span>
-                        <span class="ml-2"> {{ blogDetails.updateTime }}
+                        <span> {{ blogDetails.authorName }}</span>
+                        <span class="mx-2">·</span>
+                        <span class=""> {{ blogDetails.createTime }}
                         </span>
                         <span class="mx-2">·</span>
                         阅读{{ 0 }}
                     </div>
                     <div class="flex">
-                        <span>分类：{{ blogDetails.category || "-" }}</span>
+                        <span>分类：{{ blogDetails.categoryName || "-" }}</span>
                         <span class="ml-2">标签：{{ blogDetails.tag }}</span>
                     </div>
                 </div>
+                <div class="attention" v-if="!blogDetails.isAuthor">
+                    <yh-button theme="primary" size="medium" variant="outline">关注</yh-button>
+                </div>
+            </div>
+            <div class="cover-summy flex  mt-4">
+                <img :src="blogDetails.coverUrl" alt="" class="cover" v-if="blogDetails.coverUrl">
+                <p class="summy break-all">{{ blogDetails.summary }}</p>
             </div>
             <md-editor :theme="themeStore.getTheme" :preview-theme="previewTheme" editor-id="edit2preview"
-                showCodeRowNumber class="previewmd mt-6" preview-only v-model="mdText" @GetCatalog="onGetCatalog">
+                showCodeRowNumber class="previewmd mt-8" preview-only v-model="mdText" @GetCatalog="onGetCatalog">
             </md-editor>
         </div>
 
         <div class="catalog blog-cloud_info flex-shrink-0  ">
             <el-affix :offset="81" target="body">
-                <div class="catalog_wrap container-bg box-border px-3 pb-2 box-shadow-0">
+                <div class="author_info container-bg mb-4 box-border px-3 py-2">
+                    <div class="author_header flex items-center">
+                        <img src="../../assets/img/avatar.png" :alt="blogDetails.authorName" class="author_img">
+                        <div class="user_name truncate flex-1">
+                            {{ blogDetails.authorName }}
+                        </div>
+                    </div>
+                    <ul class="user_num_list flex justify-around mt-3">
+                        <li class="item">
+                            <p class="num">0</p>
+                            <p class="description">文章</p>
+                        </li>
+                        <li class="item">
+                            <p class="num">0</p>
+                            <p class="description">粉丝</p>
+                        </li>
+                        <li class="item">
+                            <p class="num">0</p>
+                            <p class="description">获赞</p>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="catalog_wrap container-bg box-border px-3 pb-2 box-shadow-0"
+                    v-show="catalogList.length > 0">
                     <header class="py-2 logs-header">
                         目录
                     </header>
@@ -89,7 +121,8 @@ mdEditorConfig(MdEditor)
     .conetnt {
         min-height: $content-height;
         border-radius: $border-radius;
-        width: calc( 100% - $right-margin-width);
+        width: calc(100% - $right-margin-width);
+
         .details_title {
             font-size: 1.8em;
             word-wrap: break-word;
@@ -101,16 +134,36 @@ mdEditorConfig(MdEditor)
         }
 
         .user_info {
-            color: var(--yh-text-color-secondary);
+            color: var(--yh-text-color-placeholder);
             font-size: 14px;
             position: relative;
 
             .user_info_avatar {
                 img {
                     width: 40px;
-                    height: 40px;
+                    height: 40px;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
                     border-radius: 50%;
                 }
+            }
+
+            .attention {
+                position: absolute;
+                right: 0;
+            }
+        }
+
+        //封面与简介
+        .cover-summy {
+            .cover {
+                width: 240px;
+                height: 160px;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+            .summy {
+                margin-left: 16px;
+                color: var(--yh-text-color-secondary);
             }
         }
     }
@@ -163,6 +216,47 @@ mdEditorConfig(MdEditor)
                 }
             }
         }
+
+        //作者信息
+        .author_info {
+            border-radius: $border-radius;
+            .author_header {
+                width: 100%;
+                line-height: 1;
+                .author_img {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    margin-right: 6px;
+                }
+
+                .user_name {
+                    color: var(--yh-text-color-secondary);
+                    span {
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            .user_num_list {
+                .item {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    .num {
+                        color: var(--yh-text-color-secondary);
+                    }
+
+                    .description {
+                         color: var(--yh-text-color-placeholder);
+                         font-size: 14px;
+                    }
+                }
+
+            }
+        }
     }
 
     :deep(.md-dark) {
@@ -196,5 +290,4 @@ mdEditorConfig(MdEditor)
 
     }
 }
-
 </style>

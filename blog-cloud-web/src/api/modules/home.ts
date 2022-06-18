@@ -17,4 +17,5 @@ export default {
     "login":"/auth/cs/user/login",//登录
     "register":"/auth/cs/user/register",//注册
     "registerEmail":"/auth/cs/user/register",//邮箱注册
+    "captchaEmail":"/captcha/email",//验证码
 }
