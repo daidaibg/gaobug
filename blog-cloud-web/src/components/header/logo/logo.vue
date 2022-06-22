@@ -25,10 +25,10 @@ const goHome=()=>{
     p {
       font-size: 24px;
       font-weight: 900;
-      color: var(--yh-brand-color-8);
+      color: var(--yh-brand-color);
       margin-left: 12px;
       color: transparent;
-      background-color: var(--yh-brand-color-8);
+      background-color: var(--yh-brand-color);
       text-shadow: var(--header-logo-shadow);
       -webkit-background-clip: text;
       font-family: STXinwei, FZShuTi, "微软雅黑", "黑体", "宋体";

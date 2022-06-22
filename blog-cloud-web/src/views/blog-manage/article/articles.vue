@@ -30,7 +30,7 @@ const getBlog = () => {
             blogData.list = res.data.records
             blogData.total = res.data.total
         } else (
-            ElMessage.error(res.code)
+            ElMessage.error(res.msg)
         )
     })
 }

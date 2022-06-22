@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-16 10:59:17
+ * @LastEditTime: 2022-06-21 15:48:07
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -50,7 +50,6 @@ const route = useRoute();
   width: 100%;
   height: 60px;
   z-index: 990;
-  // right: $header-right;
   box-shadow: var(--yh-shadow-inset-bottom);
 
   .header_inner {
@@ -75,10 +74,10 @@ const route = useRoute();
     p {
       font-size: 24px;
       font-weight: 900;
-      color: var(--yh-brand-color-8);
+      color: var(--yh-brand-color);
       margin-left: 12px;
       color: transparent;
-      background-color: var(--yh-brand-color-8);
+      background-color: var(--yh-brand-color);
       text-shadow: var(--header-logo-shadow);
       -webkit-background-clip: text;
       font-family: STXinwei, FZShuTi, "微软雅黑", "黑体", "宋体";
@@ -121,16 +120,16 @@ const route = useRoute();
 
         a,
         .item-inner {
-          color: var(--yh-brand-color-8);
+          color: var(--yh-brand-color);
         }
       }
     }
 
     .activeItem {
-      border-color: var(--yh-brand-color-8);
+      border-color: var(--yh-brand-color);
 
       a {
-        color: var(--yh-brand-color-8);
+        color: var(--yh-brand-color);
       }
     }
   }

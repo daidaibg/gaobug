@@ -73,10 +73,10 @@ const userSetting = (path: string) => {
         }
 
         &.activeclass {
-            color: var(--yh-brand-color-8);
+            color: var(--yh-brand-color);
 
             .icon {
-                color: var(--yh-brand-color-8);
+                color: var(--yh-brand-color);
             }
 
         }
@@ -88,10 +88,10 @@ const userSetting = (path: string) => {
     }
 
     li:hover {
-        color: var(--yh-brand-color-8);
+        color: var(--yh-brand-color);
 
         .icon {
-            color: var(--yh-brand-color-8);
+            color: var(--yh-brand-color);
         }
     }
 }

@@ -25,7 +25,7 @@
     "vue": "^3.2.37",
     "vue-i18n": "^9.1.10",
     "vue-router": "^4.0.15",
-    "yhht-plus": "^0.0.18"
+    "yhht-plus": "^0.0.20"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.4.0",

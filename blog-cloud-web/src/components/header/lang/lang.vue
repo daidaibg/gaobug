@@ -44,12 +44,12 @@ const handleZh = (key: LangEnum) => {
     cursor: pointer;
 
     &.activeclass {
-      color: var(--yh-brand-color-8);
+      color: var(--yh-brand-color);
     }
   }
 
   li:hover {
-    color: var(--yh-brand-color-8);
+    color: var(--yh-brand-color);
   }
 }
 

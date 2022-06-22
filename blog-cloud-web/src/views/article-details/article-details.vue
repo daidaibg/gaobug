@@ -9,6 +9,9 @@ import 'md-editor-v3/lib/style.css';
 import { useTitle } from '@vueuse/core'
 import { mdEditorConfig } from "@/config"
 import { userThemeStore } from '@/store'
+import Backtop from "@/components/backtop"
+import Actions from "./actions"
+import Comment from "./comment"
 const themeStore = userThemeStore()
 const title = useTitle()
 const route = useRoute()
@@ -34,94 +37,115 @@ const getDetail = () => {
         }
     })
 }
-
+if (route.params.id) {
+    blogDetails.id = route.params.id
+}
 getDetail()
 mdEditorConfig(MdEditor)
 </script>
 
 <template>
-    <div class='gaobug flex justify-between items-start details  '>
-        <div class="container-bg  box-border px-6 py-3 conetnt">
-            <div class="details_title" id="1">
-                {{ blogDetails.title }}
-            </div>
-            <div class="user_info mt-3 flex items-center">
-                <div class="user_info_avatar mr-2">
-                    <img src="../../assets/img/avatar.png" alt="">
+    <div class='gaobug   details  '>
+        <div class="details_inner">
+            <div class="container-bg  box-border px-6 py-3 conetnt">
+                <div class="details_title" id="1">
+                    {{ blogDetails.title }}
                 </div>
-                <div>
-                    <div class="flex mb-0.5">
-                        <span> {{ blogDetails.authorName }}</span>
-                        <span class="mx-2">·</span>
-                        <span class=""> {{ blogDetails.createTime }}
-                        </span>
-                        <span class="mx-2">·</span>
-                        阅读{{ 0 }}
+                <div class="user_info mt-3 flex items-center">
+                    <div class="user_info_avatar mr-2">
+                        <img src="../../assets/img/avatar.png" alt="">
                     </div>
-                    <div class="flex">
-                        <span>分类：{{ blogDetails.categoryName || "-" }}</span>
-                        <span class="ml-2">标签：{{ blogDetails.tag }}</span>
-                    </div>
-                </div>
-                <div class="attention" v-if="!blogDetails.isAuthor">
-                    <yh-button theme="primary" size="medium" variant="outline">关注</yh-button>
-                </div>
-            </div>
-            <div class="cover-summy flex  mt-4">
-                <img :src="blogDetails.coverUrl" alt="" class="cover" v-if="blogDetails.coverUrl">
-                <p class="summy break-all">{{ blogDetails.summary }}</p>
-            </div>
-            <md-editor :theme="themeStore.getTheme" :preview-theme="previewTheme" editor-id="edit2preview"
-                showCodeRowNumber class="previewmd mt-8" preview-only v-model="mdText" @GetCatalog="onGetCatalog">
-            </md-editor>
-        </div>
-
-        <div class="catalog blog-cloud_info flex-shrink-0  ">
-            <el-affix :offset="81" target="body">
-                <div class="author_info container-bg mb-4 box-border px-3 py-2">
-                    <div class="author_header flex items-center">
-                        <img src="../../assets/img/avatar.png" :alt="blogDetails.authorName" class="author_img">
-                        <div class="user_name truncate flex-1">
-                            {{ blogDetails.authorName }}
+                    <div>
+                        <div class="flex mb-0.5">
+                            <span> {{ blogDetails.authorName }}</span>
+                            <span class="mx-2">·</span>
+                            <span class=""> {{ blogDetails.createTime }}
+                            </span>
+                            <span class="mx-2">·</span>
+                            阅读{{ 0 }}
+                        </div>
+                        <div class="flex">
+                            <span>分类：{{ blogDetails.categoryName || "-" }}</span>
+                            <span class="ml-2">标签：{{ blogDetails.tag }}</span>
                         </div>
                     </div>
-                    <ul class="user_num_list flex justify-around mt-3">
-                        <li class="item">
-                            <p class="num">0</p>
-                            <p class="description">文章</p>
-                        </li>
-                        <li class="item">
-                            <p class="num">0</p>
-                            <p class="description">粉丝</p>
-                        </li>
-                        <li class="item">
-                            <p class="num">0</p>
-                            <p class="description">获赞</p>
-                        </li>
+                    <div class="attention" v-if="!blogDetails.isAuthor">
+                        <yh-button theme="primary" size="medium" variant="outline">关注</yh-button>
+                    </div>
+                </div>
+                <div class="cover-summy flex  mt-4">
+                    <img :src="blogDetails.coverUrl" alt="" class="cover" v-if="blogDetails.coverUrl">
+                    <p class="summy break-all">{{ blogDetails.summary }}</p>
+                </div>
+                <md-editor :theme="themeStore.getTheme" :preview-theme="previewTheme" editor-id="edit2preview"
+                    showCodeRowNumber class="previewmd mt-8" preview-only v-model="mdText" @GetCatalog="onGetCatalog">
+                </md-editor>
 
-                    </ul>
+            </div>
+
+            <div class="catalog blog-cloud_info flex-shrink-0  ">
+                <!-- <el-affix :offset="81" target="body">
+            </el-affix> -->
+                <div class="silder_inner">
+
+
+                    <div class="author_info container-bg mb-4 box-border px-3 py-2">
+                        <div class="author_header flex items-center">
+                            <img src="../../assets/img/avatar.png" :alt="blogDetails.authorName" class="author_img">
+                            <div class="user_name truncate flex-1">
+                                {{ blogDetails.authorName }}
+                            </div>
+                        </div>
+                        <ul class="user_num_list flex justify-around mt-3">
+                            <li class="item">
+                                <p class="num">0</p>
+                                <p class="description">文章</p>
+                            </li>
+                            <li class="item">
+                                <p class="num">0</p>
+                                <p class="description">粉丝</p>
+                            </li>
+                            <li class="item">
+                                <p class="num">0</p>
+                                <p class="description">获赞</p>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="catalog_wrap container-bg box-border px-3 pb-2 box-shadow-0"
+                        v-show="catalogList.length > 0">
+                        <header class="py-2 logs-header">
+                            目录
+                        </header>
+                        <yh-anchor class="catalog_list mt-1" :targetOffset="80">
+                            <yh-anchor-item :href="`#gaobug-heade-${i}`" :title="item.text"
+                                v-for="(item, i) in catalogList" :key="i" :class="'catalog_list_' + item.level">
+                            </yh-anchor-item>
+                        </yh-anchor>
+                    </div>
                 </div>
-                <div class="catalog_wrap container-bg box-border px-3 pb-2 box-shadow-0"
-                    v-show="catalogList.length > 0">
-                    <header class="py-2 logs-header">
-                        目录
-                    </header>
-                    <yh-anchor container="body" class="catalog_list mt-1" :targetOffset="80">
-                        <yh-anchor-item :href="`#gaobug-heade-${i}`" :title="item.text" v-for="(item, i) in catalogList"
-                            :key="i" :class="'catalog_list_' + item.level"></yh-anchor-item>
-                    </yh-anchor>
-                </div>
-            </el-affix>
+            </div>
+            <comment :article-id="blogDetails.id" :avatarUrl="'//www.gaobug.com/img/avatar/avatar.png'"/>
         </div>
+        <actions :article-id="blogDetails.id" :collectCount="blogDetails.collectCount" :likeNum="blogDetails.clickCount"
+            :commentNum="blogDetails.openComment"></actions>
+
     </div>
+
+
+    <backtop>
+    </backtop>
 </template>
 
 <style scoped lang='scss'>
 .details {
+    position: relative;
+    .details_inner{
+          width: calc(100% - $right-margin-width);
+    }
     .conetnt {
         min-height: $content-height;
         border-radius: $border-radius;
-        width: calc(100% - $right-margin-width);
 
         .details_title {
             font-size: 1.8em;
@@ -139,9 +163,11 @@ mdEditorConfig(MdEditor)
             position: relative;
 
             .user_info_avatar {
+                flex-shrink: 0;
+
                 img {
                     width: 40px;
-                    height: 40px;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                    height: 40px;
                     border-radius: 50%;
                 }
             }
@@ -170,6 +196,16 @@ mdEditorConfig(MdEditor)
 
     .catalog {
         width: $right-width;
+        position: absolute;
+        right: 16px;
+        top: 80px;
+        height: auto;
+
+        .silder_inner {
+            width: $right-width;
+            position: fixed;
+            top: 80px;
+        }
 
         .catalog_wrap {
             border-radius: $border-radius;
@@ -220,9 +256,11 @@ mdEditorConfig(MdEditor)
         //作者信息
         .author_info {
             border-radius: $border-radius;
+
             .author_header {
                 width: 100%;
                 line-height: 1;
+
                 .author_img {
                     width: 40px;
                     height: 40px;
@@ -232,6 +270,8 @@ mdEditorConfig(MdEditor)
 
                 .user_name {
                     color: var(--yh-text-color-secondary);
+                    line-height: 1.4;
+
                     span {
                         font-size: 16px;
                     }
@@ -250,8 +290,8 @@ mdEditorConfig(MdEditor)
                     }
 
                     .description {
-                         color: var(--yh-text-color-placeholder);
-                         font-size: 14px;
+                        color: var(--yh-text-color-placeholder);
+                        font-size: 14px;
                     }
                 }
 

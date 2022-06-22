@@ -1,7 +1,7 @@
 /*
  * @Author: wei
  * @description: 修改element主题和变量
- * @LastEditTime: 2022-06-15 14:57:26
+ * @LastEditTime: 2022-06-21 15:45:45
  */
 // https://github.dev/element-plus/unplugin-element-plus
 
@@ -14,10 +14,14 @@
 // );
 
 :root {
-    --el-color-primary: var(--yh-brand-color-8);
+    --el-color-primary: var(--yh-brand-color);
     --el-color-primary-light-3: var(--yh-brand-color-7) --el-color-primary-light-5:var(--yh-brand-color-5);
     --el-color-primary-light-7: var(--yh-brand-color-3) --el-color-primary-light-8: #d9ecff;
     --el-color-primary-light-9: #ecf5ff;
+    
+    .el-textarea__inner{
+        --el-input-focus-border-color:var(--yh-brand-color);
+    }
 }
 
 :root[theme-mode=dark] {

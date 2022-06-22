@@ -4,7 +4,15 @@ module.exports = {
   // enabled: true,
   // darkMode: false, 
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        '16': '16px',
+      },
+      borderRadius: {
+        '6': '6px',
+      }
+    },
+  
   },
   plugins: [],
 

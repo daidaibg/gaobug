@@ -214,7 +214,7 @@ function sendeSuccess() {
       margin-left: 18px;
       flex: 1;
       cursor: pointer;
-      border: solid 1px var(--yh-brand-color-8);
+      border: solid 1px var(--yh-brand-color);
       border-radius: 6px;
       height: 30px;
       color: var(--yh-brand-color);

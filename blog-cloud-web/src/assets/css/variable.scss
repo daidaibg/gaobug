@@ -5,10 +5,7 @@ $primary-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 $baidu-shadow:1px 2px 1px rgba(0, 0, 0, 0.15);
 $gaode-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
 0 2px 6px 0 rgba(0, 0, 0, 0.19);
-
-
-$primary-color:var(-yh-brand-color-10);
-
+$primary-color:var(--yh-brand-color);
 $header-height:60px;
 $header-top:80px;
 $content-height:calc(100vh - 96px);
@@ -16,4 +13,5 @@ $page-height:calc(100vh - 60px);
 $right-width:240px;
 $right-margin-width:256px;
 $border-radius:4px;
-$header-right:8px;
+
+$base-spacing:16px;

@@ -214,16 +214,16 @@ const jump = (path: string) => {
 
         a,
         .item-inner {
-          color: var(--yh-brand-color-8);
+          color: var(--yh-brand-color);
         }
       }
     }
 
     .activeItem {
-      border-color: var(--yh-brand-color-8);
+      border-color: var(--yh-brand-color);
 
       a {
-        color: var(--yh-brand-color-8);
+        color: var(--yh-brand-color);
       }
     }
   }
