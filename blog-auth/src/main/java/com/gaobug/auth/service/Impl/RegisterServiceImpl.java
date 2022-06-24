@@ -5,6 +5,8 @@ import com.gaobug.api.user.PlatformUserClient;
 import com.gaobug.api.vo.PlatformUserVO;
 import com.gaobug.auth.service.RegisterService;
 import com.gaobug.base.utils.SnowflakeUtils;
+import com.gaobug.cache.constant.CaptchaCode;
+import com.gaobug.cache.util.RedisUtil;
 import com.gaobug.response.enums.ResultEnum;
 import com.gaobug.response.exception.BusinessException;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,8 @@ public class RegisterServiceImpl implements RegisterService {
         Assert.hasLength(platformRegister.getEmail(), "邮箱不能为空");
         Assert.hasLength(platformRegister.getPassword(), "密码不能为空");
         Assert.hasLength(platformRegister.getCode(), "验证码不能为空");
-        if (!Objects.equals(platformRegister.getCode(), "1234")) {
+        String code = RedisUtil.get(CaptchaCode.CAPTCHA_EMAIL_REGISTER + platformRegister.getEmail());
+        if (!Objects.equals(platformRegister.getCode(), code)) {
             throw new BusinessException(ResultEnum.ERROR_CAPTCHA_FAIL);
         }
         PlatformUserVO userRegisterDTO = getUserRegisterDTO(platformRegister, "email" + SnowflakeUtils.next());

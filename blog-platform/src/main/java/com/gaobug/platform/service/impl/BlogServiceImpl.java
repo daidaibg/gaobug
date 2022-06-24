@@ -7,14 +7,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gaobug.base.context.JwtContext;
 import com.gaobug.platform.domain.BlogCategory;
 import com.gaobug.platform.domain.PlatformUser;
+import com.gaobug.platform.dto.*;
 import com.gaobug.platform.service.BlogCategoryService;
 import com.gaobug.platform.service.UserService;
 import com.gaobug.response.exception.BusinessException;
 import com.gaobug.platform.dao.BlogMapper;
 import com.gaobug.platform.domain.Blog;
-import com.gaobug.platform.dto.BlogAddDTO;
-import com.gaobug.platform.dto.BlogSearchDTO;
-import com.gaobug.platform.dto.BlogUpdateDTO;
 import com.gaobug.platform.service.BlogService;
 import com.gaobug.platform.vo.BlogVO;
 import org.springframework.beans.BeanUtils;
@@ -159,13 +157,23 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         if (null != blogCategory) {
             blogVO.setCategoryName(blogCategory.getCategoryName());
         }
-        if (null != JwtContext.getDecodedJWT()) {
+        if (null != JwtContext.getJWTPayload()) {
             blogVO.setIsAuthor(Objects.equals(blogExist.getAuthor(), JwtContext.getUserId()));
         } else {
             blogVO.setIsAuthor(false);
         }
         BeanUtils.copyProperties(blogExist, blogVO);
         return blogVO;
+    }
+
+    @Override
+    public void likeBlog(BlogLikeDTO blogLikeDTO) {
+
+    }
+
+    @Override
+    public void collectBlog(BlogCollectDTO blogCollectDTO) {
+
     }
 }
 

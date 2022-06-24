@@ -1,10 +1,8 @@
 package com.gaobug.verify.aspect;
 
-
-import com.gaobug.base.handler.IProceedHandler;
-import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.verify.handler.IProceedHandler;
+import com.gaobug.verify.metadata.MethodMetaData;
 import com.gaobug.verify.metadata.VerifyMethodMetaData;
-
 import lombok.AllArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

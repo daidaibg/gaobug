@@ -6,7 +6,7 @@ import com.gaobug.auth.dto.PlatformLoginForm;
 import com.gaobug.auth.enums.LoginType;
 import com.gaobug.response.enums.ResultEnum;
 import com.gaobug.response.exception.BusinessException;
-import com.gaobug.utils.EncryptUtils;
+import com.gaobug.utils.security.EncryptUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>blog-cloud</artifactId>
         <groupId>com.gaobug</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -21,28 +21,12 @@
         <dependency>
             <groupId>com.gaobug</groupId>
             <artifactId>blog-api-user</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gaobug</groupId>
-            <artifactId>blog-common-response</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.gaobug</groupId>
             <artifactId>blog-common-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gaobug</groupId>
-            <artifactId>blog-common-cache</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gaobug</groupId>
-            <artifactId>blog-common-verify</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>1.0</version>
         </dependency>
         <!-- mysql -->
         <dependency>
@@ -55,11 +39,7 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.5.1</version>
         </dependency>
-        <!-- web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+
         <!--nacos service discovery client依赖-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -78,12 +58,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.gaobug</groupId>
-            <artifactId>blog-common-response</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+
 
         <!--spring cloud+dubbo 依赖-->
         <!--        <dependency>-->

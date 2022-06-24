@@ -1,16 +1,14 @@
 package com.gaobug.platform.api;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gaobug.api.dto.UserRegisterDTO;
 import com.gaobug.api.user.PlatformUserClient;
 import com.gaobug.api.vo.PlatformUserVO;
 import com.gaobug.base.utils.SnowflakeUtils;
 import com.gaobug.platform.domain.PlatformUser;
 import com.gaobug.platform.service.UserService;
-import com.gaobug.response.ResponseWrapped;
 import com.gaobug.response.exception.BusinessException;
-import com.gaobug.utils.EncryptUtils;
+import com.gaobug.utils.security.EncryptUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

@@ -2,8 +2,8 @@ package com.gaobug.gateway.handler;
 
 
 import com.alibaba.nacos.common.utils.JacksonUtils;
+import com.gaobug.base.constant.RequestHeader;
 import com.gaobug.gateway.exception.ParamsSignException;
-import com.gaobug.response.constant.RequestHeader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;

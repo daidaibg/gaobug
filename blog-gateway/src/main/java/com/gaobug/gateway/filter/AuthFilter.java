@@ -1,14 +1,15 @@
 package com.gaobug.gateway.filter;
 
+import cn.hutool.jwt.JWTUtil;
 import com.alibaba.nacos.common.utils.JacksonUtils;
-import com.gaobug.cache.constant.AuthToken;
-import com.gaobug.cache.context.PlatformUserContext;
-import com.gaobug.cache.util.RedisUtil;
+
+import com.gaobug.base.cache.constant.AuthToken;
+import com.gaobug.base.cache.context.PlatformUserContext;
+import com.gaobug.base.constant.RequestHeader;
+import com.gaobug.base.exception.BusinessException;
+import com.gaobug.base.response.ResponseWrapped;
+import com.gaobug.base.utils.redis.RedisUtil;
 import com.gaobug.gateway.adapter.PathPatternsConfigAdapter;
-import com.gaobug.response.ResponseWrapped;
-import com.gaobug.response.constant.RequestHeader;
-import com.gaobug.response.exception.BusinessException;
-import com.gaobug.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -22,8 +23,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-
 import javax.annotation.Resource;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,8 @@ public class AuthFilter implements GlobalFilter, Ordered {
         Map<String, Object> payloadClaims = new HashMap<>();
         payloadClaims.put("id", user.getId());
         payloadClaims.put("account", user.getAccount());
-        String jwtToken = JwtUtils.createToken(authToken, payloadClaims);
+        String jwtToken = JWTUtil.createToken(payloadClaims, "gaobug".getBytes(StandardCharsets.UTF_8));
+//        String jwtToken = JwtUtils.createToken(authToken, payloadClaims);
         if (!StringUtils.hasText(jwtToken)) {
             throw new BusinessException("身份信息令牌颁发失败");
         }

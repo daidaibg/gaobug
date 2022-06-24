@@ -9,15 +9,13 @@ import com.gaobug.auth.dto.PlatformLoginForm;
 import com.gaobug.auth.handler.LoginHandler;
 import com.gaobug.auth.service.LoginService;
 import com.gaobug.auth.vo.AuthTokenVO;
-import com.gaobug.base.utils.SnowflakeUtils;
 import com.gaobug.cache.constant.AuthToken;
 import com.gaobug.cache.context.PlatformUserContext;
 import com.gaobug.cache.util.RedisUtil;
 import com.gaobug.response.enums.ResultEnum;
 import com.gaobug.response.exception.BusinessException;
 import com.gaobug.response.exception.NotContentException;
-import com.gaobug.utils.EncryptUtils;
-import com.gaobug.utils.UserContextUtils;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;

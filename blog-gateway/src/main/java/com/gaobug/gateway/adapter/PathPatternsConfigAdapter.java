@@ -1,6 +1,7 @@
 package com.gaobug.gateway.adapter;
 
-import com.gaobug.response.exception.BusinessException;
+
+import com.gaobug.base.exception.BusinessException;
 
 import java.util.List;
 

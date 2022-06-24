@@ -1,7 +1,6 @@
 package com.gaobug.verify.strategy;
 
-
-import com.gaobug.base.metadata.MethodMetaData;
+import com.gaobug.verify.metadata.MethodMetaData;
 
 /**
  * 参数校验接口

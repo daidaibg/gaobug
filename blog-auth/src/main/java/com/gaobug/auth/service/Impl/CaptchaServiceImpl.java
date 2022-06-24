@@ -6,7 +6,7 @@ import com.gaobug.response.enums.ResultEnum;
 
 import com.gaobug.auth.service.CaptchaService;
 import com.gaobug.cache.util.RedisUtil;
-import com.gaobug.utils.ImageUtil;
+import com.gaobug.utils.file.ImageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

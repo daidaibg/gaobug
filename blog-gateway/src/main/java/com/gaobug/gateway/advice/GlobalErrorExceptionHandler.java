@@ -1,8 +1,9 @@
 package com.gaobug.gateway.advice;
 
-import com.gaobug.response.ResponseWrapped;
-import com.gaobug.utils.JacksonUtils;
-import com.gaobug.utils.ThrowableUtils;
+
+import com.gaobug.base.response.ResponseWrapped;
+import com.gaobug.base.utils.parse.JacksonUtils;
+import com.gaobug.base.utils.spring.ThrowableUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
