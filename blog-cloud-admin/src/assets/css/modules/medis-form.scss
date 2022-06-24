@@ -1,0 +1,19 @@
+@media screen and (min-width: 992px) and (max-width: 1400px) {
+    .edit_form {
+        .el-form-item {
+            width: 280px;
+            margin-right: 20px;
+            min-width: 280px;
+        }
+     
+    }
+}
+@media screen and (max-width: 992px) {
+    .edit_form {
+        .el-form-item {
+            width: 360px;
+            margin-right: 60px;
+            min-width: 280px;
+        }
+    }
+}
