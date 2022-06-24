@@ -17,6 +17,7 @@ const goHome=()=>{
   .logo {
     display: flex;
     align-items: center;
+      flex-shrink: 0;
     img {
       height: 40px;
       margin-left: 0px;
@@ -25,6 +26,8 @@ const goHome=()=>{
     p {
       font-size: 24px;
       font-weight: 900;
+       width: 70px;
+      flex-shrink: 0;
       color: var(--yh-brand-color);
       margin-left: 12px;
       color: transparent;

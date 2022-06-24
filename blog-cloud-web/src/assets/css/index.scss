@@ -203,3 +203,22 @@ body {
   margin: 0 2px;
   vertical-align: sub;
 }
+
+
+@media screen and (max-width:960px) {
+  $header-top:66px;
+
+  .gaobug {
+    padding: $header-top 0 0 0;
+  }
+  //960以下要消失的元素
+  .small-screen-hide{
+    display: none;
+  }
+  .yh-button.yh-button--size-medium{
+    height:28px;
+    line-height: 26px;
+    padding:0 12px;
+  }
+
+}

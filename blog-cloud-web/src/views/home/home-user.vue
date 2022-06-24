@@ -47,13 +47,14 @@ const openModelLogin = () => {
 </script>
 
 <template>
-    <el-affix :offset="81" target="body">
+    <!-- <el-affix :offset="81" target="body"> -->
+    <div class="home_right_wrap">
         <template v-if="userStore.getIslogin">
             <div class='user-info container-bg box-border box-shadow-0'>
                 <div class="user-info_header flex items-center justify-between">
                     <div class="flex items-center user-info_header_left">
                         <i class="yh-icons-user-solid user_info_icon"></i>
-                        <el-tooltip :content="userStore.getUserData.nickName" placement="top"  >
+                        <el-tooltip :content="userStore.getUserData.nickName" placement="top">
                             <span class="username ml-2 truncate">
                                 {{ userStore.getUserData.nickName }}
                             </span>
@@ -98,12 +99,19 @@ const openModelLogin = () => {
                 </div>
             </div>
         </template>
-    </el-affix>
+
+
+    </div>
+    <!-- </el-affix> -->
 </template>
 
 <style scoped lang='scss'>
 $border-radius: 4px;
-
+.home_right_wrap{
+    position: fixed;
+    top: 80px;
+    width: $right-width;
+}
 .user-info {
     padding: 0 16px 8px 16px;
     border-radius: $border-radius;
@@ -112,7 +120,7 @@ $border-radius: 4px;
         height: 52px;
         line-height: 20px;
         font-size: 14px;
-    
+
         .user_info_icon {
             font-size: 18px;
             color: var(--yh-text-color-secondary);

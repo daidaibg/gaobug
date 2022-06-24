@@ -5,10 +5,7 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AnchorH3: typeof import('./src/components/anchor-h3/anchor-h3.vue')['default']
     Backtop: typeof import('./src/components/backtop/backtop.vue')['default']
-    CodeHighlights: typeof import('./src/components/codes/code-highlights.vue')['default']
-    CodeWrap: typeof import('./src/components/codes/Code-wrap.vue')['default']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElImage: typeof import('element-plus/es')['ElImage']
@@ -17,17 +14,14 @@ declare module '@vue/runtime-core' {
     Emoji: typeof import('./src/components/md-edits/emoji/emoji.vue')['default']
     Github: typeof import('./src/components/header/github/github.vue')['default']
     Header: typeof import('./src/components/header/Header.vue')['default']
-    HeaderManage: typeof import('./src/components/header/header-manage.vue')['default']
     I18n: typeof import('./src/components/I18n/index.vue')['default']
     Lang: typeof import('./src/components/header/lang/lang.vue')['default']
     Logo: typeof import('./src/components/header/logo/logo.vue')['default']
     Manage: typeof import('./src/components/manage/manage.vue')['default']
     Menus: typeof import('./src/components/menus/menus.vue')['default']
     Read: typeof import('./src/components/md-edits/read/read.vue')['default']
-    RightAnchor: typeof import('./src/components/right-anchor/right-anchor.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TableCode: typeof import('./src/components/scFormTable/table-code.vue')['default']
     Theme: typeof import('./src/components/header/theme/theme.vue')['default']
     UploadImg: typeof import('./src/components/upload/upload-img.vue')['default']
     User: typeof import('./src/components/header/user/user.vue')['default']

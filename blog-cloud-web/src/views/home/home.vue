@@ -12,7 +12,7 @@ import { TypeList } from "./home-types"
 import { useRouter } from "vue-router"
 import Backtop from "@/components/backtop"
 const router = useRouter()
-const state: HomeBlogState = reactive({
+const state = reactive<HomeBlogState>({
     blogList: [],
     blogPage: {
         current: 1, size: 15
@@ -88,11 +88,13 @@ getBlogList()
                         <span class="time">{{ item.publishTime }}</span>
                         <span class="sortName">{{ item.categoryName || '-' }}</span>
                     </header>
-                    <div class="flex blog-list_body justify-between items-center">
+                    <h2 class="info-box_title">
+                        {{ item.title }}
+                    </h2>
+                    <div class="flex blog-list_body justify-between ">
+
                         <div class="info-box">
-                            <h2 class="info-box_title">
-                                {{ item.title }}
-                            </h2>
+
                             <div class="info-box_content">
                                 {{ item.summary }}
                             </div>
@@ -118,7 +120,7 @@ getBlogList()
                 </li>
             </ul>
         </div>
-        <div class="blog-cloud_info flex-shrink-0 ml-4 ">
+        <div class="blog-cloud_info flex-shrink-0 ml-4 small-screen-hide">
             <home-user></home-user>
         </div>
     </div>
@@ -153,6 +155,7 @@ $font-gray-1: var(--dd-font-gray-1);
             line-height: 1;
             color: $color-placeholder;
             cursor: pointer;
+            position: relative;
 
             &:hover {
                 color: $color-brand;
@@ -165,6 +168,7 @@ $font-gray-1: var(--dd-font-gray-1);
             &:last-child {
                 border-right: none;
             }
+
         }
     }
 
@@ -183,11 +187,21 @@ $font-gray-1: var(--dd-font-gray-1);
     &_item {
         box-sizing: border-box;
         padding: 10px 20px 12px;
-
-        border-bottom: 1px solid $border-color;
+        // border-bottom: 1px solid $border-color;
+        position: relative;
 
         &:hover {
             background-color: var(--yh-bg-color-container-hover);
+        }
+
+        &::after {
+            content: " ";
+            position: absolute;
+            width: calc(100% - 40px);
+            height: 1px;
+            background: $border-color;
+            bottom: 0;
+            left: 20px;
         }
     }
 
@@ -221,13 +235,27 @@ $font-gray-1: var(--dd-font-gray-1);
         }
     }
 
+    .info-box_title {
+        color: $color-primary;
+        line-height: 1;
+        font-weight: 900;
+        margin: 8px 0;
+    }
+
     &_body {
+
+
         .info-box {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
             &_action {
                 font-size: 12px;
-                margin: 10px 0;
+                // margin: 10px 0;
+
+                margin-top: 10px;
 
                 &-item {
                     display: flex;
@@ -258,16 +286,12 @@ $font-gray-1: var(--dd-font-gray-1);
                 }
             }
 
-            &_title {
-                color: $color-primary;
-                line-height: 1.6;
-                font-weight: 900;
-                margin: 8px 0;
-            }
 
             &_content {
+                flex: 1;
+                flex-shrink: 0;
                 color: $color-content;
-                margin-bottom: 8px;
+                // margin-bottom: 8px;
                 font-size: 14px;
             }
         }
@@ -276,9 +300,21 @@ $font-gray-1: var(--dd-font-gray-1);
             flex: 0 0 auto;
             width: 120px;
             height: 80px;
-            margin: -20px 10px 0 24px;
-
+            margin: 0px 10px 0 16px;
             border-radius: $border-radius;
+        }
+    }
+}
+
+@media screen and (max-width:960px) {
+    .info-box {
+        .info-box_content {
+            max-height: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
         }
     }
 }

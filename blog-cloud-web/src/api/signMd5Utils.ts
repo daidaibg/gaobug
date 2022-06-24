@@ -37,9 +37,12 @@ export default class signMd5Utils {
      * @returns {{}} 将url中请求参数组装成json对象(url的?后面的参数)
      */
     static parseQueryString(url:any) {
-        let urlReg = /^[^\?]+\?([\w\W]+)$/,
-            paramReg = /([^&=]+)=([\w\W]*?)(&|$|#)/g,
-            urlArray = urlReg.exec(url),
+
+        // let urlReg1 =  /^[^\?]+\?([\w\W]+)$/;
+        //     paramReg = /([^&=]+)=([\w\W]*?)(&|$|#)/g;
+         let urlReg =new RegExp("^[^\\?]+\\?([\\w\\W]+)$","g"),
+            paramReg = new RegExp("([^&=]+)=([\\w\\W]*?)(&|$|#)","g");
+         let   urlArray = urlReg.exec(url),
             result:any = {};
         if (urlArray && urlArray[1]) {
             let paramString = urlArray[1], paramResult;

@@ -1,10 +1,10 @@
 <script setup lang='ts'>
-import Header from "@/components/header/header-manage.vue"
+import Header from "@/components/header/header.vue"
 
 </script>
 
 <template>
-    <Header></Header>
+    <Header :tabShow="false"></Header>
     <div class="blog-manage gaobug ">
         <div class="menu_wrap">
             <slot></slot>

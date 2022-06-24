@@ -2,15 +2,15 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-14 17:57:05
+ * @LastEditTime: 2022-06-23 14:39:14
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
-  <header class="headers box-shadow-bootom" >
+  <header class="headers box-shadow-bootom">
     <div class="header_inner">
       <div class="left">
         <logo></logo>
-        <ul class="header_list flex items-center">
+        <ul class="header_list flex items-center" v-if="tabShow">
           <li v-for="(item, i) in headerList" :key="i">
             <a :href="item.path" :class="{ active: active == item.path }" @click.prevent="jump(item.path)">{{
                 item.translation ? $t(item.name) : item.name
@@ -62,7 +62,12 @@ import { useRoute, useRouter } from "vue-router";
 
 
 
-
+const props =defineProps({
+    tabShow:{
+      type:Boolean,
+      default:true
+    }
+})
 
 const route = useRoute();
 const router = useRouter()
@@ -115,6 +120,7 @@ const jump = (path: string) => {
   z-index: 990;
   // right: 0;
   box-shadow: var(--yh-shadow-inset-bottom);
+
   .header_inner {
     max-width: 1440px;
     margin: auto;
@@ -227,5 +233,22 @@ const jump = (path: string) => {
       }
     }
   }
+}
+
+@media screen and (max-width:960px) {
+  .headers {
+    height: 50px;
+    padding: 0 8px;
+    :deep(.logo){
+      p{
+        margin-left:6px ;
+      }
+      
+    }
+    .header_list{
+      display: none;
+    }
+  }
+
 }
 </style>
