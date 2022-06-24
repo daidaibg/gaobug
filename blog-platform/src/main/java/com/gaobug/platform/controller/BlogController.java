@@ -1,12 +1,11 @@
 package com.gaobug.platform.controller;
 
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gaobug.base.annotation.BindUser;
 import com.gaobug.base.context.JwtContext;
+import com.gaobug.base.response.ResponseWrapped;
 import com.gaobug.platform.dto.BlogCollectDTO;
 import com.gaobug.platform.dto.BlogLikeDTO;
-import com.gaobug.response.ResponseWrapped;
 import com.gaobug.database.wrapped.PageWrapped;
 import com.gaobug.platform.domain.Blog;
 import com.gaobug.platform.dto.BlogAddDTO;

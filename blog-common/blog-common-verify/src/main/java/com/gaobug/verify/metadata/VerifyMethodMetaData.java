@@ -1,6 +1,7 @@
 package com.gaobug.verify.metadata;
 
-import com.gaobug.base.utils.spring.MethodUtils;
+import com.gaobug.verify.utils.MethodUtils;
+
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 

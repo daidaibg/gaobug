@@ -1,6 +1,6 @@
 package com.gaobug.system.controller;
 
-import com.gaobug.response.ResponseWrapped;
+import com.gaobug.base.response.ResponseWrapped;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

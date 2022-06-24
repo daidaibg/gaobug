@@ -1,6 +1,5 @@
 package com.gaobug.platform.controller;
 
-
 import com.gaobug.base.cache.constant.CaptchaCode;
 import com.gaobug.base.response.ResponseWrapped;
 import com.gaobug.base.utils.redis.RedisUtil;

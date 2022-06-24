@@ -2,7 +2,7 @@ package com.gaobug.auth.controller;
 
 import com.gaobug.api.dto.UserRegisterDTO;
 import com.gaobug.auth.service.RegisterService;
-import com.gaobug.response.ResponseWrapped;
+import com.gaobug.base.response.ResponseWrapped;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

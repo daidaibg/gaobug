@@ -1,6 +1,5 @@
 package com.gaobug.verify.utils;
 
-import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
@@ -34,9 +33,11 @@ public class ParseDataUtils {
             return parseFloat(value);
         } else if (Double.class.equals(parameterTypes) || Double.TYPE.equals(parameterTypes)) {
             return parseDouble(value);
-        } else if (Date.class.equals(parameterTypes)) {
-            return DateUtil.parse(value);
-        } else {
+        }
+//        else if (Date.class.equals(parameterTypes)) {
+//            return DateUtil.parse(value);
+//        }
+        else {
             throw new RuntimeException("request illegal type, type=" + parameterTypes);
         }
     }
@@ -105,16 +106,16 @@ public class ParseDataUtils {
             throw new RuntimeException("parseDouble but input illegal input=" + value, e);
         }
     }
-
-    public static Date parseDate(String value) {
-        try {
-            DateUtil.parse("");
-            String datePattern = "yyyy-MM-dd HH:mm:ss";
-            SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
-            return dateFormat.parse(value);
-        } catch (ParseException e) {
-            throw new RuntimeException("parseDate but input illegal input=" + value, e);
-        }
-    }
+//
+//    public static Date parseDate(String value) {
+//        try {
+//            DateUtil.parse("");
+//            String datePattern = "yyyy-MM-dd HH:mm:ss";
+//            SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
+//            return dateFormat.parse(value);
+//        } catch (ParseException e) {
+//            throw new RuntimeException("parseDate but input illegal input=" + value, e);
+//        }
+//    }
 
 }

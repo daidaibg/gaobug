@@ -1,11 +1,8 @@
 package com.gaobug.verify.strategy;
 
-
-
-import com.gaobug.base.utils.parse.ParseDataUtils;
 import com.gaobug.verify.Verify;
-
 import com.gaobug.verify.metadata.MethodMetaData;
+import com.gaobug.verify.utils.ParseDataUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;

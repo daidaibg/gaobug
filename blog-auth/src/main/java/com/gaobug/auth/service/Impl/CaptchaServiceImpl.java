@@ -1,12 +1,11 @@
 package com.gaobug.auth.service.Impl;
 
 import cn.hutool.core.lang.generator.Generator;
-import com.gaobug.base.exception.CaptchaException;
-import com.gaobug.response.enums.ResultEnum;
-
 import com.gaobug.auth.service.CaptchaService;
-import com.gaobug.cache.util.RedisUtil;
-import com.gaobug.utils.file.ImageUtil;
+import com.gaobug.base.enums.ResultEnum;
+import com.gaobug.base.exception.CaptchaException;
+import com.gaobug.base.utils.file.ImageUtil;
+import com.gaobug.base.utils.redis.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

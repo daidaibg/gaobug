@@ -4,11 +4,11 @@ import com.gaobug.api.dto.UserRegisterDTO;
 import com.gaobug.api.user.PlatformUserClient;
 import com.gaobug.api.vo.PlatformUserVO;
 import com.gaobug.auth.service.RegisterService;
-import com.gaobug.base.utils.SnowflakeUtils;
-import com.gaobug.cache.constant.CaptchaCode;
-import com.gaobug.cache.util.RedisUtil;
-import com.gaobug.response.enums.ResultEnum;
-import com.gaobug.response.exception.BusinessException;
+import com.gaobug.base.cache.constant.CaptchaCode;
+import com.gaobug.base.enums.ResultEnum;
+import com.gaobug.base.exception.BusinessException;
+import com.gaobug.base.utils.other.SnowflakeUtils;
+import com.gaobug.base.utils.redis.RedisUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
