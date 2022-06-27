@@ -8,11 +8,11 @@ const selectTheme = (type: ThemeEnum) => {
 };
 </script>
 <template>
-    <div class="actionTheme actionTheme-root" :class="'actionTheme-' + themeStore.getTheme">
-        <div class="actionTheme-tabs__block" style="width: 28px" ></div>
-        <div @click="selectTheme(ThemeEnum.LIGHT)" data-theme="light"  class="sun action_item"
+    <div class="actionTheme actionTheme-root theme_click" :class="'actionTheme-' + themeStore.getTheme">
+        <div class="actionTheme-tabs__block theme_click" style="width: 28px" ></div>
+        <div @click="selectTheme(ThemeEnum.LIGHT)" data-theme="light"  class="sun action_item theme_click"
            >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="theme_click">
                 <path fill="currentColor"
                     d="M9.99996 3.15217C10.5252 3.15217 10.951 2.72636 10.951 2.20109C10.951 1.67582 10.5252 1.25 9.99996 1.25C9.47469 1.25 9.04887 1.67582 9.04887 2.20109C9.04887 2.72636 9.47469 3.15217 9.99996 3.15217Z">
                 </path>

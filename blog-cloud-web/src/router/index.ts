@@ -29,6 +29,16 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: '/message/board',
+        name: "/message/board",
+        component: () => import(/* webpackChunkName: "Components" */ '../views/nav-page/message-board'),
+        meta: {
+          title: "留言板",
+          noSplice: true
+        }
+      },
+
+      {
         path: '/login',
         name: '/login',
         component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue'),
@@ -55,7 +65,7 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
 
- 
+
   {
     path: '/blogs/manage',
     name: '/blogs/manage',
@@ -72,7 +82,7 @@ const routes: Array<RouteRecordRaw> = [
       }
     ],
   },
-   
+
   {
     path: '/user/setting',
     name: 'user/setting',

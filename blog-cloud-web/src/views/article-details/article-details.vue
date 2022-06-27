@@ -17,7 +17,7 @@ const themeStore = userThemeStore()
 const title = useTitle()
 const route = useRoute()
 const previewTheme = ref<PreviewThemeType>("github")
-const mdText = ref('')//内容
+const mdText = ref<string>('')//内容
 const blogDetails = ref<BlogDetailsType>({})//详情 
 const catalogList = ref<HeadList[]>([])  //目录
 const onGetCatalog = (list: HeadList[]) => {

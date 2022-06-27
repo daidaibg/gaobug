@@ -8,7 +8,7 @@ import { useRouter } from "vue-router"
 
 
 const router = useRouter()
-const blogData: articlesType = reactive({
+const blogData  = reactive<articlesType>({
     current: 1,
     size: 15,
     total: 0,

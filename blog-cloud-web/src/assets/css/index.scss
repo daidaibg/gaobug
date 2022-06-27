@@ -112,8 +112,9 @@
 
 html {
   // width: 100%;
-  // height: 100%;
+  min-height: 100%;
   // overflow: hidden;
+  background-color: var(--yh-bg-color-secondarycontainer);
 
 }
 
@@ -205,6 +206,12 @@ body {
 }
 
 
+@media screen and (min-width:960px) {
+  .medium-screen-hide{
+    display: none;
+  }
+
+}
 @media screen and (max-width:960px) {
   $header-top:66px;
 

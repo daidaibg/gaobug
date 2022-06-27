@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-23 14:39:14
+ * @LastEditTime: 2022-06-27 09:33:40
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -10,33 +10,41 @@
     <div class="header_inner">
       <div class="left">
         <logo></logo>
-        <ul class="header_list flex items-center" v-if="tabShow">
-          <li v-for="(item, i) in headerList" :key="i">
-            <a :href="item.path" :class="{ active: active == item.path }" @click.prevent="jump(item.path)">{{
-                item.translation ? $t(item.name) : item.name
-            }}</a>
-          </li>
-        </ul>
+        <div class="header_list_wrap" v-if="tabShow">
+          <p class="medium-screen-hide medium-active cursor-pointer" :mode-data="active" @click.stop="showHideminShow">
+            {{ activeData.translation ? $t(activeData.name) : activeData.name }}
+          </p>
+          <transition name="el-fade-in">
+            <div class="header-nav-small" v-show="minShow" ref="nav_target" :class="{ navHideClass: navHide }">
+              <header-nav :HeaderList="headerList" :active="active" :jump="jump">
+                <div class="medium-screen-hide">
+                  <Theme></Theme>
+                </div>
+              </header-nav>
+            </div>
+          </transition>
+        </div>
+        <div class="small-screen-hide header_list_wrap" v-if="tabShow">
+          <header-nav :HeaderList="headerList" :active="active" :jump="jump"></header-nav>
+        </div>
+
       </div>
       <div class="right">
-        <div class="phoneTab" style="display: none;">
+        <div class="phoneTab" style="display: none">
           <el-dropdown trigger="click" @command="command">
             <el-icon size="28px">
               <operation style="margin-right: 8px" />
             </el-icon>
             <template #dropdown>
-              <el-dropdown-menu>
-
-              </el-dropdown-menu>
+              <el-dropdown-menu> </el-dropdown-menu>
             </template>
           </el-dropdown>
         </div>
-        <Theme></Theme>
-
+        <div class="small-screen-hide">
+          <Theme></Theme>
+        </div>
         <Lang></Lang>
         <User></User>
-
-
         <!-- <GitHub /> -->
       </div>
     </div>
@@ -44,12 +52,10 @@
 </template>
 <script lang="ts" setup>
 import { Lang } from "./lang";
-import { GitHub } from "./github";
 import { Theme } from "./theme";
 import { Logo } from "./logo";
 import User from "./user";
-
-import { useElementSize } from '@vueuse/core'
+import HeaderNav from "./nav"
 import {
   ElDropdown,
   ElDropdownMenu,
@@ -57,53 +63,85 @@ import {
   ElIcon,
 } from "element-plus";
 import { Operation } from "@element-plus/icons-vue";
-import { reactive, ref, Ref, computed } from "vue";
+import { reactive, ref, Ref, computed, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { HeaderListType } from "./type";
+import Props from "./props";
+import { on, off } from "yhht-plus/utils"
+const router = useRouter();
 
-
-
-const props =defineProps({
-    tabShow:{
-      type:Boolean,
-      default:true
-    }
-})
-
+defineProps(Props);
 const route = useRoute();
-const router = useRouter()
-const headerList = ref([
+const nav_target = ref(null)
+const activeData = ref<HeaderListType>({
+  name: "",
+  path: "",
+});
+const navHide = ref<boolean>(false)
+const minShow = ref<boolean>(false)
+const showHideminShow = async () => {
+  if (navHide.value) {
+    return
+  }
+  if (minShow.value) {
+    off(document, "click", hideMinshow)
+
+  } else {
+    on(document, "click", hideMinshow)
+  }
+  minShow.value = !minShow.value
+
+}
+const hideMinshow = (e: Event) => {
+  minShow.value = false
+  off(document, "click", hideMinshow)
+
+}
+const headerList = ref<HeaderListType[]>([
   {
     name: "header.home",
     translation: true,
-    path: '/'
+    path: "/",
   },
   {
     name: "分类",
-    path: '#'
+    path: "#",
   },
   {
     name: "标签",
-    path: '#'
+    path: "#",
   },
   {
     name: "专题",
-    path: '#'
+    path: "#",
   },
   {
     name: "留言",
-    path: '#'
+    path: "/message/board",
   },
-])
+]);
 const active = computed(() => {
-  return route.path
-})
+  const path: string = route.path;
+  headerList.value.forEach((item: HeaderListType) => {
+    try {
+      if (item.path === path) {
+        activeData.value = item;
+        throw new Error("终止forEach");
+      }
+    } catch (error) {
+      return;
+    }
+  });
+  return path;
+});
+
 const command = (type: string) => {
   console.log(type);
   // this.$router.push(type);
 };
 const jump = (path: string) => {
-  router.push(path)
-}
+  router.push(path);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -128,68 +166,28 @@ const jump = (path: string) => {
     justify-content: space-between;
     height: 100%;
     // border-bottom: 1px solid var(--header-bottom-color);
-
   }
-
-
 
   .left {
     display: flex;
     align-items: center;
-
   }
 
-  .header_list {
-    margin-left: 16px;
+  .header_list_wrap {
+    position: relative;
     height: 100%;
 
-    li {
-      text-align: center;
-      flex-shrink: 0;
-      display: flex;
-      justify-content: center;
+
+    .medium-active {
       height: 100%;
+      color: var(--yh-brand-color);
       font-size: 14px;
+      position: relative;
       padding: 0 16px;
-
-      a {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        color: var(--yh-text-color-secondary);
-        position: relative;
-
-        &::before {
-          width: 100%;
-          content: "";
-          position: absolute;
-          top: auto;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          height: 2px;
-          background-color: var(--yh-brand-color);
-          display: none;
-        }
-
-        &:hover {
-          color: var(--yh-text-color-primary);
-
-          &::before {
-            display: inline;
-          }
-        }
-
-        &.active {
-          color: var(--yh-brand-color);
-          //  &::before {
-          //   display: inline;
-          // }
-        }
-      }
-
     }
   }
+
+
 
   .right {
     display: flex;
@@ -224,31 +222,65 @@ const jump = (path: string) => {
         }
       }
     }
-
-    .activeItem {
-      border-color: var(--yh-brand-color);
-
-      a {
-        color: var(--yh-brand-color);
-      }
-    }
   }
 }
 
-@media screen and (max-width:960px) {
+.navHideClass {
+  transition: opacity .24s;
+  opacity: 0;
+}
+
+@media screen and (max-width: 960px) {
   .headers {
     height: 50px;
     padding: 0 8px;
-    :deep(.logo){
-      p{
-        margin-left:6px ;
+
+    :deep(.logo) {
+      p {
+        margin-left: 6px;
       }
-      
     }
-    .header_list{
-      display: none;
+
+    .medium-active {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-nav-small :deep(.header_list) {
+      padding: 8px;
+      position: absolute;
+      flex-direction: column;
+      background-color: var(--yh-bg-color-container);
+      left: -30px;
+      top: 80%;
+      width: 90px;
+      height: auto;
+      box-shadow: var(--yh-shadow-1);
+      border-radius: 6px;
+      border: solid 1px var(--yh-border-level-1-color);
+      li {
+
+        padding: 4px 0px;
+
+        a {
+          padding: 2px 0;
+          width: 100%;
+        }
+      }
+    }
+
+    :deep(.actionTheme) {
+      height: 24px;
+      border-radius: 3px;
+
+      .actionTheme-tabs__block {
+        border-radius: 2px;
+      }
+
+      .action_item {
+        height: 20px;
+      }
     }
   }
-
 }
 </style>

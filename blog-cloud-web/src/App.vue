@@ -12,11 +12,3 @@ import ModelLogin from "./views/login/model-login.vue"
    <model-login ref="modelLogin"></model-login>
 </template>
 
-<style lang="scss">
-
-#app{
-  // background: var(--yh-bg-color-container);
-  background-color: var(--yh-bg-color-secondarycontainer);
-  
-}
-</style>

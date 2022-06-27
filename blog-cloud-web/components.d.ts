@@ -19,6 +19,7 @@ declare module '@vue/runtime-core' {
     Logo: typeof import('./src/components/header/logo/logo.vue')['default']
     Manage: typeof import('./src/components/manage/manage.vue')['default']
     Menus: typeof import('./src/components/menus/menus.vue')['default']
+    Nav: typeof import('./src/components/header/nav/nav.vue')['default']
     Read: typeof import('./src/components/md-edits/read/read.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
