@@ -17,11 +17,11 @@ public interface SystemUserClient {
     /**
      * 根据用户名获取用户信息
      *
-     * @param userName 用户名
+     * @param account 用户名
      * @return 用户信息
      */
-    @GetMapping(value = "/getUserByName/{userName}")
-    SystemUserVO getUserByName(@PathVariable String userName);
+    @GetMapping(value = "/getUserByName/{account}")
+    SystemUserVO getUserByName(@PathVariable String account);
 
     /**
      * 获取用户权限

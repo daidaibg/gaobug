@@ -1,11 +1,10 @@
 package com.gaobug.platform.controller;
 
-
-import com.gaobug.response.exception.BusinessException;
-import com.gaobug.response.ResponseWrapped;
+import com.gaobug.base.exception.BusinessException;
+import com.gaobug.base.response.ResponseWrapped;
+import com.gaobug.base.utils.file.FileUtils;
 import com.gaobug.platform.domain.SysOss;
 import com.gaobug.platform.service.SysOssService;
-import com.gaobug.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PostMapping;

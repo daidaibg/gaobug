@@ -1,8 +1,8 @@
 package com.gaobug.auth.controller;
 
-import com.gaobug.api.dto.PlatformRegisterDTO;
+import com.gaobug.api.dto.UserRegisterDTO;
 import com.gaobug.auth.service.RegisterService;
-import com.gaobug.response.ResponseWrapped;
+import com.gaobug.base.response.ResponseWrapped;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 
 /**
  * 平台用户登录相关接口
@@ -28,8 +27,7 @@ public class PlatformRegisterController {
      * 注册
      */
     @PostMapping(value = "/register")
-    public ResponseWrapped<Object> registerUser(@Valid @RequestBody PlatformRegisterDTO form) {
-        registerService.registerUser(form);
-        return ResponseWrapped.success();
+    public ResponseWrapped<Object> registerUserByEmail(@RequestBody UserRegisterDTO form) {
+        return ResponseWrapped.success(registerService.registerUserByEmail(form));
     }
 }

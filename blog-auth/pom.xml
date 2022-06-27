@@ -5,7 +5,7 @@
     <parent>
         <artifactId>blog-cloud</artifactId>
         <groupId>com.gaobug</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -22,33 +22,14 @@
         <dependency>
             <groupId>com.gaobug</groupId>
             <artifactId>blog-api-user</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gaobug</groupId>
-            <artifactId>blog-common-response</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.gaobug</groupId>
             <artifactId>blog-common-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.gaobug</groupId>
-            <artifactId>blog-common-cache</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gaobug</groupId>
-            <artifactId>blog-common-verify</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.gaobug</groupId>
-            <artifactId>blog-common-utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+
         <!--nacos service discovery client依赖-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

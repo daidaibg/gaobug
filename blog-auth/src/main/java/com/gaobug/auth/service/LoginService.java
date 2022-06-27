@@ -3,7 +3,7 @@ package com.gaobug.auth.service;
 import com.gaobug.auth.dto.LoginForm;
 import com.gaobug.auth.dto.PlatformLoginForm;
 import com.gaobug.auth.vo.AuthTokenVO;
-import com.gaobug.cache.context.PlatformUserContext;
+import com.gaobug.base.cache.context.PlatformUserContext;
 
 import java.util.concurrent.ExecutionException;
 

@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @ToString
 public class PlatformUserDTO {
-    private String username;
+    private String account;
     private String nickName;
     private String password;
     private String salt;

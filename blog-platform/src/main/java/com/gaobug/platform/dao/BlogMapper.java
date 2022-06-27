@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.gaobug.platform.domain.Blog;
-import com.gaobug.platform.vo.BlogPageVO;
+import com.gaobug.platform.vo.BlogVO;
 
 /**
  * @author gaobug
@@ -21,7 +21,7 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * @param page 分页条件 {@link Page}
      * @return 分页列表
      */
-    IPage<BlogPageVO> selectRecommendBlogPage(Page<Blog> page);
+    IPage<BlogVO> selectRecommendBlogPage(Page<Blog> page);
 
     /**
      * 查询最新博客列表
@@ -29,7 +29,7 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * @param page 分页条件 {@link Page}
      * @return 分页列表
      */
-    IPage<BlogPageVO> selectNewestBlogPage(Page<Blog> page);
+    IPage<BlogVO> selectNewestBlogPage(Page<Blog> page);
 
     /**
      * 查询最热博客列表
@@ -37,7 +37,7 @@ public interface BlogMapper extends BaseMapper<Blog> {
      * @param page 分页条件 {@link Page}
      * @return 分页列表
      */
-    IPage<BlogPageVO> selectHotBlogPage(Page<Blog> page);
+    IPage<BlogVO> selectHotBlogPage(Page<Blog> page);
 }
 
 

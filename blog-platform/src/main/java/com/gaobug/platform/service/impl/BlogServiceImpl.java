@@ -5,15 +5,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gaobug.base.context.JwtContext;
-import com.gaobug.response.exception.BusinessException;
+import com.gaobug.base.exception.BusinessException;
+import com.gaobug.platform.domain.BlogCategory;
+import com.gaobug.platform.domain.PlatformUser;
+import com.gaobug.platform.dto.*;
+import com.gaobug.platform.service.BlogCategoryService;
+import com.gaobug.platform.service.UserService;
 import com.gaobug.platform.dao.BlogMapper;
 import com.gaobug.platform.domain.Blog;
-import com.gaobug.platform.dto.BlogAddDTO;
-import com.gaobug.platform.dto.BlogSearchDTO;
-import com.gaobug.platform.dto.BlogUpdateDTO;
 import com.gaobug.platform.service.BlogService;
-import com.gaobug.platform.vo.BlogPageVO;
-import com.gaobug.utils.UserContextUtils;
+import com.gaobug.platform.vo.BlogVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -30,10 +31,14 @@ import java.util.Objects;
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements BlogService {
     @Resource
     private BlogMapper blogMapper;
+    @Resource
+    private BlogCategoryService blogCategoryService;
+    @Resource
+    private UserService userService;
 
     @Override
     public IPage<?> getIndexBlogPage(String type, Page<Blog> page) {
-        IPage<BlogPageVO> blogPageVOIPage;
+        IPage<BlogVO> blogPageVOIPage;
         switch (type) {
             case "1":
                 // 推荐
@@ -93,7 +98,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
 
     @Override
     public IPage<?> getBlogPageByUser(Page<Blog> page, Blog blog) {
-        return blogMapper.selectPage(page, new QueryWrapper<>(blog));
+        return blogMapper.selectPage(page, new QueryWrapper<>(blog).orderByDesc("create_time"));
     }
 
     @Override
@@ -111,7 +116,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         if (null == blogExist) {
             throw new BusinessException("文章信息不存在");
         }
-        if (Objects.equals(JwtContext.getUserId(),blogExist.getAuthor())){
+        if (!Objects.equals(JwtContext.getUserId(), blogExist.getAuthor())) {
             throw new BusinessException("不是文章作者，不可编辑");
         }
         BeanUtils.copyProperties(blog, blogForUpdate);
@@ -135,6 +140,40 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         blogForUpdate.setPublish(1);
         blogForUpdate.setUpdateTime(new Date());
         blogMapper.updateById(blogForUpdate);
+    }
+
+    @Override
+    public BlogVO getBlogInfo(String id) {
+        Blog blogExist = blogMapper.selectById(id);
+        if (null == blogExist) {
+            throw new BusinessException("博客信息不存在");
+        }
+        BlogVO blogVO = new BlogVO();
+        PlatformUser platformUser = userService.getById(blogExist.getAuthor());
+        if (null != platformUser) {
+            blogVO.setAuthorName(platformUser.getNickName());
+        }
+        BlogCategory blogCategory = blogCategoryService.getById(blogExist.getCategoryId());
+        if (null != blogCategory) {
+            blogVO.setCategoryName(blogCategory.getCategoryName());
+        }
+        if (null != JwtContext.getJWTPayload()) {
+            blogVO.setIsAuthor(Objects.equals(blogExist.getAuthor(), JwtContext.getUserId()));
+        } else {
+            blogVO.setIsAuthor(false);
+        }
+        BeanUtils.copyProperties(blogExist, blogVO);
+        return blogVO;
+    }
+
+    @Override
+    public void likeBlog(BlogLikeDTO blogLikeDTO) {
+
+    }
+
+    @Override
+    public void collectBlog(BlogCollectDTO blogCollectDTO) {
+
     }
 }
 

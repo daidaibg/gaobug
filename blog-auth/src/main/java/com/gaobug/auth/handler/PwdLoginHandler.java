@@ -4,9 +4,9 @@ import com.gaobug.api.user.PlatformUserClient;
 import com.gaobug.api.vo.PlatformUserVO;
 import com.gaobug.auth.dto.PlatformLoginForm;
 import com.gaobug.auth.enums.LoginType;
-import com.gaobug.response.enums.ResultEnum;
-import com.gaobug.response.exception.BusinessException;
-import com.gaobug.utils.EncryptUtils;
+import com.gaobug.base.enums.ResultEnum;
+import com.gaobug.base.exception.BusinessException;
+import com.gaobug.base.utils.security.EncryptUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -35,7 +35,7 @@ public class PwdLoginHandler extends AbstractLoginHandler {
         if (!StringUtils.hasText(form.getAccount()) || !StringUtils.hasText(form.getPassword())) {
             throw new BusinessException(ResultEnum.ERROR_USER_PASSWORD);
         }
-        PlatformUserVO user = platformUserClient.getUserByName(form.getAccount());
+        PlatformUserVO user = platformUserClient.getUserByAccountOrEmail(form.getAccount());
         if (null == user) {
             throw new BusinessException(ResultEnum.ERROR_USER_PASSWORD);
         }

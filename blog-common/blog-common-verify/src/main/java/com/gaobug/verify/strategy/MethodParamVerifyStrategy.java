@@ -1,10 +1,8 @@
 package com.gaobug.verify.strategy;
 
-
-import com.gaobug.base.metadata.MethodMetaData;
-import com.gaobug.utils.ParseDataUtils;
 import com.gaobug.verify.Verify;
-
+import com.gaobug.verify.metadata.MethodMetaData;
+import com.gaobug.verify.utils.ParseDataUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 

@@ -1,6 +1,7 @@
 package com.gaobug.auth.service;
 
-import com.gaobug.api.dto.PlatformRegisterDTO;
+import com.gaobug.api.dto.UserRegisterDTO;
+import com.gaobug.api.vo.PlatformUserVO;
 
 /**
  * 登录服务接口
@@ -10,9 +11,16 @@ import com.gaobug.api.dto.PlatformRegisterDTO;
 public interface RegisterService {
 
     /**
-     * 平台用户注册
+     * 邮箱注册
      *
-     * @param form 注册表单
+     * @param platformRegister 注册表单
      */
-    void registerUser(PlatformRegisterDTO form);
+    PlatformUserVO registerUserByEmail(UserRegisterDTO platformRegister);
+
+    /**
+     * 手机注册
+     *
+     * @param platformRegister 注册表单
+     */
+    PlatformUserVO registerUserByMobile(UserRegisterDTO platformRegister);
 }

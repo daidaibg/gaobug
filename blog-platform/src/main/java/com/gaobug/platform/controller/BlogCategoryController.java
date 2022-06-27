@@ -1,7 +1,7 @@
 package com.gaobug.platform.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.gaobug.response.ResponseWrapped;
+import com.gaobug.base.response.ResponseWrapped;
 import com.gaobug.database.wrapped.PageWrapped;
 import com.gaobug.platform.domain.BlogCategory;
 import com.gaobug.platform.service.BlogCategoryService;

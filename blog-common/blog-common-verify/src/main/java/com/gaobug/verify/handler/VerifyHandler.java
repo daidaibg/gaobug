@@ -1,8 +1,8 @@
 package com.gaobug.verify.handler;
 
 
-import com.gaobug.base.handler.IProceedHandler;
-import com.gaobug.base.metadata.MethodMetaData;
+
+import com.gaobug.verify.metadata.MethodMetaData;
 import com.gaobug.verify.strategy.IVerifyStrategy;
 
 import lombok.AllArgsConstructor;

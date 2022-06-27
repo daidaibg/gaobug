@@ -1,9 +1,6 @@
 package com.gaobug.verify.metadata;
 
-
-
-import com.gaobug.base.metadata.AbstractMethodMetaData;
-import com.gaobug.utils.MethodUtils;
+import com.gaobug.verify.utils.MethodUtils;
 
 import java.lang.reflect.Method;
 import java.util.function.Supplier;

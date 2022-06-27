@@ -7,7 +7,7 @@
     <groupId>com.gaobug</groupId>
     <artifactId>blog-cloud</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <modules>
         <module>blog-api</module>
         <module>blog-common</module>

@@ -24,4 +24,19 @@ spring:
           dataId: other.yml
           group: DEFAULT_GROUP
           refresh: true
-
+  mail:
+    host: smtp.exmail.qq.com
+    port: 465
+    username: gaobug@gaobug.com
+    password: Qv6gjahbgAtcdjR7
+    properties:
+      mail:
+        smtp:
+          enable: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+    #         ssl:
+    #           enable :true
+    default-encoding: utf-8
+    protocol: smtp

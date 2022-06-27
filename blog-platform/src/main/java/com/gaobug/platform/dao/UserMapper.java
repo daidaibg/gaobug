@@ -11,6 +11,7 @@ import com.gaobug.platform.domain.PlatformUser;
 */
 public interface UserMapper extends BaseMapper<PlatformUser> {
 
+    PlatformUser selectUserByAccountOrEmail(String account);
 }
 
 

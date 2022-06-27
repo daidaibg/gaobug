@@ -8,6 +8,8 @@ import com.gaobug.platform.service.UserService;
 
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * @author huang
  * @description 针对表【t_user(用户表)】的数据库操作Service实现
@@ -15,7 +17,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, PlatformUser> implements UserService {
+    @Resource
+    private UserMapper userMapper;
 
+    @Override
+    public PlatformUser getUserByAccountOrEmail(String account) {
+        return userMapper.selectUserByAccountOrEmail(account);
+    }
 }
 
 

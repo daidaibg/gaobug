@@ -1,10 +1,11 @@
 package com.gaobug.platform.controller;
 
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gaobug.base.annotation.BindUser;
 import com.gaobug.base.context.JwtContext;
-import com.gaobug.response.ResponseWrapped;
+import com.gaobug.base.response.ResponseWrapped;
+import com.gaobug.platform.dto.BlogCollectDTO;
+import com.gaobug.platform.dto.BlogLikeDTO;
 import com.gaobug.database.wrapped.PageWrapped;
 import com.gaobug.platform.domain.Blog;
 import com.gaobug.platform.dto.BlogAddDTO;
@@ -62,6 +63,7 @@ public class BlogController {
         blogService.updateBlog(blog);
         return ResponseWrapped.success();
     }
+
     /**
      * 删除博客
      */
@@ -71,6 +73,7 @@ public class BlogController {
         blogService.removeById(id);
         return ResponseWrapped.success();
     }
+
     /**
      * 发布博客
      */
@@ -78,6 +81,26 @@ public class BlogController {
     @PostMapping("/publish/{id}")
     public ResponseWrapped<Object> publishBlog(@PathVariable String id) {
         blogService.publishBlog(id);
+        return ResponseWrapped.success();
+    }
+
+    /**
+     * 点赞博客
+     */
+    @BindUser
+    @PostMapping("/like")
+    public ResponseWrapped<Object> likeBlog(@RequestBody BlogLikeDTO blogLikeDTO) {
+        blogService.likeBlog(blogLikeDTO);
+        return ResponseWrapped.success();
+    }
+
+    /**
+     * 点赞博客
+     */
+    @BindUser
+    @PostMapping("/collect")
+    public ResponseWrapped<Object> collectBlog(@RequestBody BlogCollectDTO blogCollectDTO) {
+        blogService.collectBlog(blogCollectDTO);
         return ResponseWrapped.success();
     }
 }

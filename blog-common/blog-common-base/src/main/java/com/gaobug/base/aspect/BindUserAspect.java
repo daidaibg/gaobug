@@ -1,11 +1,13 @@
 package com.gaobug.base.aspect;
 
-import com.auth0.jwt.interfaces.DecodedJWT;
+
+import cn.hutool.jwt.JWT;
+import cn.hutool.jwt.JWTPayload;
+import cn.hutool.jwt.JWTUtil;
+import com.gaobug.base.constant.RequestHeader;
 import com.gaobug.base.context.JwtContext;
-import com.gaobug.response.constant.RequestHeader;
-import com.gaobug.utils.HttpContextUtils;
-import com.gaobug.utils.JwtUtils;
-import com.gaobug.utils.RequestUtils;
+import com.gaobug.base.utils.http.HttpContextUtils;
+import com.gaobug.base.utils.http.RequestUtils;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -33,8 +35,9 @@ public class BindUserAspect {
         HttpServletRequest request = RequestUtils.getRequest();
         Assert.notNull(request, "HttpServletRequest can't be null");
         final String jwtUserJsonToken = HttpContextUtils.getHeaderOrParameter(request, RequestHeader.AUTH_JWT_HEADER);
-        DecodedJWT decodedJWT = JwtUtils.getDecodedJWT(jwtUserJsonToken);
-        JwtContext.putDecodedJWT(decodedJWT);
+        JWT jwt = JWTUtil.parseToken(jwtUserJsonToken);
+        JWTPayload payload = jwt.getPayload();
+        JwtContext.putJWTPayload(payload);
     }
 
     @AfterReturning("bindUserLogCut()")

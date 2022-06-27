@@ -1,8 +1,8 @@
 package com.gaobug.auth.controller;
 
-import com.gaobug.response.ResponseWrapped;
 import com.gaobug.auth.dto.LoginForm;
 import com.gaobug.auth.service.LoginService;
+import com.gaobug.base.response.ResponseWrapped;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

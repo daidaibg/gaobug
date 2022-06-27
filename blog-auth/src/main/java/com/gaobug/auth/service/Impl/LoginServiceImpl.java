@@ -9,15 +9,17 @@ import com.gaobug.auth.dto.PlatformLoginForm;
 import com.gaobug.auth.handler.LoginHandler;
 import com.gaobug.auth.service.LoginService;
 import com.gaobug.auth.vo.AuthTokenVO;
-import com.gaobug.base.utils.SnowflakeUtils;
-import com.gaobug.cache.constant.AuthToken;
-import com.gaobug.cache.context.PlatformUserContext;
-import com.gaobug.cache.util.RedisUtil;
-import com.gaobug.response.enums.ResultEnum;
-import com.gaobug.response.exception.BusinessException;
-import com.gaobug.response.exception.NotContentException;
-import com.gaobug.utils.EncryptUtils;
-import com.gaobug.utils.UserContextUtils;
+
+
+import com.gaobug.base.cache.constant.AuthToken;
+import com.gaobug.base.cache.context.PlatformUserContext;
+import com.gaobug.base.enums.ResultEnum;
+import com.gaobug.base.exception.BusinessException;
+import com.gaobug.base.exception.NotContentException;
+import com.gaobug.base.utils.other.SnowflakeUtils;
+import com.gaobug.base.utils.other.UserContextUtils;
+import com.gaobug.base.utils.redis.RedisUtil;
+import com.gaobug.base.utils.security.EncryptUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -62,7 +64,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public AuthTokenVO systemLogin(String randomId, LoginForm form) {
-        SystemUserVO user = systemUserClient.getUserByName(form.getUsername());
+        SystemUserVO user = systemUserClient.getUserByName(form.getAccount());
         //账号不存在、密码错误
         if (!Objects.equals(user.getPassword(), EncryptUtils.sha256(form.getPassword(), user.getSalt()))) {
             throw new BusinessException(ResultEnum.ERROR_USER_PASSWORD);

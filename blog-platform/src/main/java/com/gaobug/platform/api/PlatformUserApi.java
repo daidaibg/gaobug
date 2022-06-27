@@ -1,17 +1,18 @@
 package com.gaobug.platform.api;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.gaobug.api.dto.PlatformRegister;
+import com.gaobug.api.dto.UserRegisterDTO;
 import com.gaobug.api.user.PlatformUserClient;
 import com.gaobug.api.vo.PlatformUserVO;
-import com.gaobug.base.utils.SnowflakeUtils;
+import com.gaobug.base.exception.BusinessException;
+import com.gaobug.base.utils.other.SnowflakeUtils;
+import com.gaobug.base.utils.security.EncryptUtils;
 import com.gaobug.platform.domain.PlatformUser;
 import com.gaobug.platform.service.UserService;
-import com.gaobug.response.ResponseWrapped;
-import com.gaobug.utils.EncryptUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -32,12 +33,9 @@ public class PlatformUserApi implements PlatformUserClient {
     private UserService userService;
 
     @Override
-    public PlatformUserVO getUserByName(String userName) {
-        PlatformUser platformUser = userService.lambdaQuery()
-                .eq(PlatformUser::getUsername, userName)
-                .last("limit 1").one();
+    public PlatformUserVO getUserByAccountOrEmail(String account) {
+        PlatformUser platformUser = userService.getUserByAccountOrEmail(account);
         return getPlatformUserVO(platformUser);
-
     }
 
     @Override
@@ -58,23 +56,39 @@ public class PlatformUserApi implements PlatformUserClient {
     }
 
     @Override
-    public ResponseWrapped<PlatformUserVO> registerUser(PlatformRegister platformRegister) {
+    public PlatformUserVO saveRegisterUser(UserRegisterDTO platformRegister) {
+        if (StringUtils.hasText(platformRegister.getEmail())) {
+            PlatformUser one = userService.lambdaQuery()
+                    .select(PlatformUser::getId)
+                    .eq(PlatformUser::getEmail, platformRegister.getEmail())
+                    .last("limit 1")
+                    .one();
+            if (null != one) {
+                throw new BusinessException("邮箱已被注册");
+            }
+        }
+
+        if (StringUtils.hasText(platformRegister.getMobile())) {
+            PlatformUser one = userService.lambdaQuery()
+                    .select(PlatformUser::getId)
+                    .eq(PlatformUser::getMobile, platformRegister.getMobile())
+                    .last("limit 1")
+                    .one();
+            if (null != one) {
+                throw new BusinessException("手机已被注册");
+            }
+        }
         PlatformUser platformUserForSave = new PlatformUser();
-        platformUserForSave.setUsername(SnowflakeUtils.nextStr());
+        BeanUtil.copyProperties(platformRegister, platformUserForSave);
         // 处理密码
         String salt = SnowflakeUtils.nextStr();
         String password = Optional.ofNullable(platformRegister.getPassword()).orElse("www.gaobug.com");
         platformUserForSave.setPassword(EncryptUtils.sha256(password, salt));
         platformUserForSave.setSalt(salt);
-        platformUserForSave.setGender(0);
-        platformUserForSave.setMobile(platformRegister.getMobile());
         platformUserForSave.setAvatar(avatar);
-        platformUserForSave.setEmail(platformRegister.getEmail());
-        platformUserForSave.setBirthday(new Date());
-        platformUserForSave.setNickName("路人甲");
         platformUserForSave.setCreateTime(new Date());
         platformUserForSave.setUpdateTime(new Date());
         userService.save(platformUserForSave);
-        return new ResponseWrapped<>(BeanUtil.copyProperties(platformUserForSave, PlatformUserVO.class));
+        return BeanUtil.copyProperties(platformUserForSave, PlatformUserVO.class);
     }
 }
