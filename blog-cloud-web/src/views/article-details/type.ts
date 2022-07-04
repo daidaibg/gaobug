@@ -24,6 +24,7 @@ export interface ActionProps {
   likeNum?: BlogDetailsType["clickCount"],
   commentNum?: BlogDetailsType["openComment"],
   collectCount?: BlogDetailsType["collectCount"],
+  onLike:Function
 }
 
 export interface CommentProps {

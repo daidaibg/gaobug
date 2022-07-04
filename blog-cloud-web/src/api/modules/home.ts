@@ -13,6 +13,7 @@ export default {
     "blogDetail":'/blog/info/',//博客详情  需要登录
     "indexBlogDetail":'/index/info/',//博客详情  不需要登录
     "updataBlog":'/blog/update',//更新博客
+    "blogLike":"/blog/like",//点赞
 
     "login":"/auth/cs/user/login",//登录
     "register":"/auth/cs/user/register",//注册

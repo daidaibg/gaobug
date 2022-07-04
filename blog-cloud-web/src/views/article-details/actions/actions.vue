@@ -1,10 +1,29 @@
 <script setup lang='ts'>
 import Props from "./props"
-import {TARGET_CONTAINER} from "../type"
-import { scrollTo,getScrollContainer,getScroll } from "yhht-plus/utils"
+import { TARGET_CONTAINER } from "../type"
+import { scrollTo, getScrollContainer, getScroll } from "yhht-plus/utils"
+import { blogLike } from "@/utils"
+
 const props = defineProps(Props)
-const goComment =async (): Promise<void> => {
-    const comment:TARGET_CONTAINER =  getAnchorTarget("comment")
+
+const emits = defineEmits<{
+    (e: 'like', res: any): void
+}>()
+//点赞
+const onLike = () => {
+    blogLike({
+        "targetId": props.articleId,
+        "targetType": 1,
+        "likeFlag": 1
+    }, {
+        success: (res: any) => {
+            console.log(res);
+            emits('like',res)
+        }
+    })
+}
+const goComment = async (): Promise<void> => {
+    const comment: TARGET_CONTAINER = getAnchorTarget("comment")
     if (!comment) return;
     const scrollContainer = window
     const scrollTop = getScroll(scrollContainer);
@@ -24,28 +43,32 @@ const getAnchorTarget = (id: string): HTMLElement | undefined => {
     }
     return anchor;
 };
- function getOffsetTop(target: HTMLElement, container: TARGET_CONTAINER): number {
-  const { top } = target.getBoundingClientRect();
-  if (container === window) {
-    // 减去document的边框
-    return top - document.documentElement.clientTop;
-  }
-  return top - (container as HTMLElement).getBoundingClientRect().top;
+function getOffsetTop(target: HTMLElement, container: TARGET_CONTAINER): number {
+    const { top } = target.getBoundingClientRect();
+    if (container === window) {
+        // 减去document的边框
+        return top - document.documentElement.clientTop;
+    }
+    return top - (container as HTMLElement).getBoundingClientRect().top;
 }
+
 </script>
 
 <template>
     <div class='detail-actions detail-root'>
-        <div :badge="likeNum" class=" action_item">
+        <div class=" action_item" @click="onLike">
             <i class="dd-icon-dianzan_kuai icon"></i>
+            <span class="badge" v-show="likeNum != 0">{{ likeNum }}</span>
         </div>
-        <div :badge="commentNum" class=" action_item" @click="goComment">
+        <div class=" action_item" @click="goComment">
             <i class="dd-icon-pinglun1 icon"></i>
+            <span class="badge" v-show="commentNum != 0">{{ commentNum }}</span>
         </div>
-        <div :badge="collectCount" class=" action_item">
+        <div class=" action_item">
             <i class="dd-icon-shoucang1 icon"></i>
+            <span class="badge" v-show="collectCount != 0">{{ collectCount }}</span>
         </div>
-     
+
     </div>
 </template>
 
@@ -74,7 +97,7 @@ const getAnchorTarget = (id: string): HTMLElement | undefined => {
             color: var(--yh-text-color-placeholder);
         }
 
-        &::after {
+        .badge {
             content: attr(badge);
             position: absolute;
             top: 0;

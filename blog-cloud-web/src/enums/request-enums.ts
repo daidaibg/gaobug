@@ -8,4 +8,7 @@ export enum RequestEnum {
        // 时间戳 key
     GB_TIMESTAMP_KEY="timestamp"
 }
-
+export enum ReqCodeEnum {
+    Unauthorized =401,// token过期
+    Success =200,//成功
+}

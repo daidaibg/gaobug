@@ -25,7 +25,7 @@ defineExpose({
     top: 0;
     left: 0;
     background-color: var(--yh-mask-active);
-    z-index: 9999;
+    z-index: 999;
 
 }
 </style>

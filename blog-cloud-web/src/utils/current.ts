@@ -1,6 +1,8 @@
 
 import {clearLocalStorage} from "./storage"
 import {StorageEnum} from "@/enums"
+import { useUserStore } from '@/store'
+
 export const clearnUserData = () => {
     clearLocalStorage(StorageEnum.GB_TOKEN_STORE)
 }
@@ -16,4 +18,19 @@ export  const todayTime = () => {
         hoursTip = "晚上好"
     }
     return  hoursTip
+}
+//是否登录显示登录弹窗
+export const isLoginShowDislog=()=>{
+    const userStore = useUserStore()
+    if(userStore.isLogin){
+        return true 
+    }else{
+        userStore.onModelLogin()
+        return false
+    }
+}
+// 展示登录弹窗
+export const showLoginDislog = ()=>{
+    const userStore = useUserStore()
+    userStore.onModelLogin()
 }

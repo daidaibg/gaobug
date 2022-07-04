@@ -2,14 +2,14 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-27 09:33:40
+ * @LastEditTime: 2022-07-04 11:55:30
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
   <header class="headers box-shadow-bootom">
     <div class="header_inner">
       <div class="left">
-        <logo></logo>
+        <logo :theme="themeStore.getTheme"></logo>
         <div class="header_list_wrap" v-if="tabShow">
           <p class="medium-screen-hide medium-active cursor-pointer" :mode-data="active" @click.stop="showHideminShow">
             {{ activeData.translation ? $t(activeData.name) : activeData.name }}
@@ -68,6 +68,9 @@ import { useRoute, useRouter } from "vue-router";
 import { HeaderListType } from "./type";
 import Props from "./props";
 import { on, off } from "yhht-plus/utils"
+import { userThemeStore } from '@/store'
+
+const themeStore = userThemeStore()
 const router = useRouter();
 
 defineProps(Props);
@@ -121,7 +124,10 @@ const headerList = ref<HeaderListType[]>([
   },
 ]);
 const active = computed(() => {
-  const path: string = route.path;
+  let path: string = route.path;
+  if( path.indexOf("/article/details")!=-1){
+    path="/"
+  }
   headerList.value.forEach((item: HeaderListType) => {
     try {
       if (item.path === path) {

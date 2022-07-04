@@ -1,6 +1,6 @@
 
 export interface userDataType {
-    [key:string]:string|undefined|null|number,
+    [key:string]:string|undefined,
     nickName:string|undefined
 }
 export interface userStoreType {

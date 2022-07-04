@@ -16,5 +16,5 @@ export default {
   collectCount:{
     likeNum:[String, Number] as PropType<ActionProps['collectCount']>,
     default:0
-  }
+  },
 }

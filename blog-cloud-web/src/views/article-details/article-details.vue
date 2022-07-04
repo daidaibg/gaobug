@@ -13,6 +13,7 @@ import Backtop from "@/components/backtop"
 import Actions from "./actions"
 import Comment from "./comment"
 import { PreviewThemeType, BlogDetailsType } from "./type"
+
 const themeStore = userThemeStore()
 const title = useTitle()
 const route = useRoute()
@@ -24,6 +25,10 @@ const onGetCatalog = (list: HeadList[]) => {
     // console.log(list);
     catalogList.value = list
 };
+//点赞和取消点赞成功
+const like = (res:any)=>{
+    getDetail()
+}
 //获取详情
 const getDetail = () => {
     currentGETPath('indexBlogDetail', route.params.id).then(res => {
@@ -43,6 +48,7 @@ if (id) {
     getDetail()
     mdEditorConfig(MdEditor)
 }
+
 
 </script>
 
@@ -127,7 +133,7 @@ if (id) {
                     </div>
                 </div>
             </div>
-            <comment :article-id="blogDetails.id" :avatarUrl="'//www.gaobug.com/img/avatar/avatar.png'" />
+            <comment :article-id="blogDetails.id" :avatarUrl="'//www.gaobug.com/img/avatar/avatar.png'" @like="like"/>
         </div>
         <actions :article-id="blogDetails.id" :collectCount="blogDetails.collectCount" :likeNum="blogDetails.clickCount"
             :commentNum="blogDetails.openComment"></actions>

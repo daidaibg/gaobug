@@ -10,6 +10,7 @@ import { useInfiniteScroll } from '@vueuse/core'
 import { getScrollContainer } from "yhht-plus/utils/index"
 import { TypeList } from "./home-types"
 import { useRouter } from "vue-router"
+import { blogLike } from "@/utils"
 import Backtop from "@/components/backtop"
 const router = useRouter()
 const state = reactive<HomeBlogState>({
@@ -21,16 +22,32 @@ const state = reactive<HomeBlogState>({
 })
 const active = ref("")
 active.value = typelist[0].type
+// 点赞
+const onLike = (item: any) => {
 
+    console.log(item);
+    blogLike({
+        "targetId": item.id,
+        "targetType": 1,
+        "likeFlag": 1
+    },{
+        success:(res:any)=>{
+        }
+    })
+}
+
+//切换首页类型
 const onToggleType = (item: TypeList) => {
     if (active.value === item.type) return;
     state.blogPage.current = 1
     active.value = item.type
     getBlogList()
 }
+// 跳转详情
 const jumpDetail = (item: any) => {
     router.push({ path: "/article/details/" + item.id })
 }
+// 获取博客列表
 const getBlogList = () => {
     state.loading = true
     currentGETPath('home1', active.value, { ...state.blogPage }).then(res => {
@@ -60,12 +77,13 @@ const getBlogList = () => {
         }
     })
 }
+// 无限滚动
 useInfiniteScroll(getScrollContainer('body'), (e) => {
     if (state.loading || state.loading === "end") return
     state.blogPage.current++
     getBlogList()
 }, { distance: 20 })
-
+// 页面初始化触发方法
 getBlogList()
 </script>
 
@@ -103,13 +121,13 @@ getBlogList()
                                     <i class="dd-icon-liulan icon"></i>
                                     <span>{{ item.clickCount }}</span>
                                 </div>
-                                <div class="info-box_action-item hovers">
+                                <div class="info-box_action-item hovers" @click.stop="onLike(item)">
                                     <i class="dd-icon-dianzan icon"></i>
-                                    <span>{{ item.collectCount }}</span>
+                                    <span>{{ item.likeCount }}</span>
                                 </div>
                                 <div class="info-box_action-item hovers">
                                     <i class="dd-icon-pinglun icon"></i>
-                                    <span>{{ item.comment || 0 }}</span>
+                                    <span>{{ item.commentCount }}</span>
                                 </div>
                             </div>
                         </div>
