@@ -44,6 +44,11 @@
     --bages-color: var(--yh-font-white-1);
 
   }
+
+   //容器的变量
+   .box-variable {
+    --gb-container-hover:#f9f9f9;
+  }
 }
 
 :root[theme-mode=dark] {
@@ -85,6 +90,10 @@
     --bages-bg: var(--yh-gray-color-11);
     --bages-color: var(--yh-gray-color-5);
   }
+  //容器的变量
+  .box-variable {
+    --gb-container-hover: var(--yh-gray-color-12);
+  }
 }
 
 
@@ -114,8 +123,12 @@ html {
   // width: 100%;
   min-height: 100%;
   // overflow: hidden;
-  background-color: var(--yh-bg-color-secondarycontainer);
+  // background-color: var(--yh-bg-color-secondarycontainer);
+  background-color: var(--yh-gray-color-1);
+}
 
+html[theme-mode=dark] {
+  background-color: var(--yh-gray-color-14);
 }
 
 body {
@@ -146,40 +159,13 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
 }
 
+// 主要容器背景
 .container-bg {
   background: var(--yh-bg-color-container);
 }
 
 .box-shadow-0 {
   box-shadow: var(--yh-shadow);
-}
-
-.box-shadow-1 {
-  box-shadow: var(--yh-shadow-1);
-}
-
-.box-shadow-2 {
-  box-shadow: var(--yh-shadow-2);
-}
-
-.box-shadow-3 {
-  box-shadow: var(--yh-shadow-3);
-}
-
-.yh-brand-color {
-  color: var(--yh-brand-color);
-}
-
-.yh-brand-color-hover {
-  color: var(--yh-brand-color-hover);
-}
-
-.gb-text-color-primary {
-  color: var(--yh-text-color-primary);
-}
-
-.gb-text-color-secondary {
-  color: var(--yh-text-color-secondary);
 }
 
 //文章管理页面  content内容
@@ -207,25 +193,58 @@ body {
 
 
 @media screen and (min-width:960px) {
-  .medium-screen-hide{
+  .medium-screen-hide {
     display: none;
   }
 
 }
+
 @media screen and (max-width:960px) {
-  $header-top:66px;
+  $header-top: 66px;
 
   .gaobug {
     padding: $header-top 0 0 0;
   }
+
   //960以下要消失的元素
-  .small-screen-hide{
+  .small-screen-hide {
     display: none;
   }
-  .yh-button.yh-button--size-medium{
-    height:28px;
+
+  .yh-button.yh-button--size-medium {
+    height: 28px;
     line-height: 26px;
-    padding:0 12px;
+    padding: 0 12px;
   }
 
+}
+
+
+/* 页面切换动画-s */
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  will-change: transform;
+  transition: all 0.3s ease;
+}
+
+// slide-right
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+// slide-left
+.slide-left-enter-from {
+  @extend .slide-right-leave-to;
+}
+
+.slide-left-leave-to {
+  @extend .slide-right-enter-from;
 }

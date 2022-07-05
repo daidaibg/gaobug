@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-04 11:55:30
+ * @LastEditTime: 2022-07-05 14:24:18
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -125,6 +125,7 @@ const headerList = ref<HeaderListType[]>([
 ]);
 const active = computed(() => {
   let path: string = route.path;
+  //如果是详情页的话渲染首页
   if( path.indexOf("/article/details")!=-1){
     path="/"
   }

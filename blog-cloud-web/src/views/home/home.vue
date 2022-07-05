@@ -99,7 +99,7 @@ getBlogList()
                 </ul>
             </div>
             <ul class="blog-list">
-                <li v-for="item in state.blogList" :key="item.oid" class="blog-list_item cursor-pointer"
+                <li v-for="item in state.blogList" :key="item.oid" class="blog-list_item cursor-pointer box-variable"
                     @click="jumpDetail(item)">
                     <header class="blog-list_header flex items-center">
                         <span class="name">{{ item.authorName }}</span>
@@ -202,14 +202,15 @@ $font-gray-1: var(--dd-font-gray-1);
 }
 
 .blog-list {
-    &_item {
+    .blog-list_item {
         box-sizing: border-box;
         padding: 10px 20px 12px;
         // border-bottom: 1px solid $border-color;
         position: relative;
 
         &:hover {
-            background-color: var(--yh-bg-color-container-hover);
+            // background-color: var(--yh-bg-color-container-hover);
+            background-color: var(--gb-container-hover);
         }
 
         &::after {
@@ -222,7 +223,6 @@ $font-gray-1: var(--dd-font-gray-1);
             left: 20px;
         }
     }
-
     &_header {
         height: 22px;
         font-size: 14px;

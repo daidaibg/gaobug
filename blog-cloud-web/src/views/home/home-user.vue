@@ -62,7 +62,7 @@ const openModelLogin = () => {
                         <span class="grade ml-1" style="font-size:12px ;"> ✨</span>
                         <!-- ⭐✨-->
                     </div>
-                    <div class="cursor-pointer yh-brand-color-hover go-release" @click="goRouter('/write/essay')">
+                    <div class="cursor-pointer  go-release" @click="goRouter('/write/essay')">
                         去发布
                         <i class="yh-icons-edit"></i>
                     </div>
@@ -137,7 +137,9 @@ $border-radius: 4px;
         }
     }
 
-    .go-release {}
+    .go-release {
+         color: var(--yh-brand-color-hover);
+    }
 }
 
 .user_data {
