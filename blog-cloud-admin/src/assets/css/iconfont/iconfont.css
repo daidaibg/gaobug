@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "gaobug-icon"; /* Project id 3502949 */
+  src: url('iconfont.woff2?t=1657072487134') format('woff2'),
+       url('iconfont.woff?t=1657072487134') format('woff'),
+       url('iconfont.ttf?t=1657072487134') format('truetype');
+}
+
+.gaobug-icon {
+  font-family: "gaobug-icon" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.gb-icon-kongzhitai:before {
+  content: "\e672";
+}
+
+.gb-icon-guanliwenzhang:before {
+  content: "\e671";
+}
+
+.gb-icon-xitongshezhi:before {
+  content: "\e618";
+}
+

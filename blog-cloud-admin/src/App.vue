@@ -1,26 +1,17 @@
-<!--
- * @Author: daidai
- * @Date: 2021-12-06 10:52:57
- * @LastEditors: daidai
- * @LastEditTime: 2022-02-23 14:30:03
--->
-<template>
-  <div id="app">
-    <router-view/>
-  </div>
-</template>
-<script >
-export default {
-  data() {
-    return {
-      
-    }
-  },
-  mounted() {
-    document.documentElement.setAttribute("data-theme","light")
-  },
-}
+<script setup lang="ts">
+import {ElConfigProvider} from "element-plus"
+import { useLangStore } from '@/store'
+import { computed } from "@vue/reactivity";
+const langStore = useLangStore()
+// console.log(langStore);
+const locale:any =computed(()=>{
+   return langStore
+})
 </script>
-<style lang="scss">
 
-</style>
+<template>
+   <el-config-provider :locale="locale">
+        <router-view></router-view>
+    </el-config-provider>
+</template>
+

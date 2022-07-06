@@ -1,8 +1,222 @@
-@import './reset.scss';
-@import './theme/index.css';
-@import '../iconfont//iconfont.css';
-@import './base.scss';
-@import './ele-reset.scss';
-@import './public.scss';
+@charset "UTF-8";
+@import "./element/index.scss";
+@import "./iconfont/index.css";
+:root{
+  --main-space: 16px;
+  --border-radius: 6px;
 
+ 
+}
+:root:not([theme-mode=dark]) {
+  // 重置主色调 start
+  --yh-brand-color-1: #ecf2fe;
+  --yh-brand-color-2: #d4e3fc;
+  --yh-brand-color-3: #bbd3fb;
+  --yh-brand-color-4: #96bbf8;
+  --yh-brand-color-5: #699ef5;
+  --yh-brand-color-6: #4787f0;
+  --yh-brand-color-7: #266fe8;
+  --yh-brand-color: #0052d9;
+  --yh-brand-color-9: #0034b5;
+  --yh-brand-color-10: #001f97;
+  // 重置主色调 end
+
+  --dd-scrollbar-color: rgba(0, 0, 0, .1);
+  --dd-scroll-track-color: #fff;
+  --dd-color-secondary-brand: rgb(99, 133, 166);
+
+  //自定义
+  .headers-root {
+    --header-logo-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px,
+      rgba(255, 255, 255, 0.2) 1px 3px 3px;
+    --header-bottom-color: #dcdfe6;
+    --yh-shoadow-bootom: 0 2px 3px rgba(0, 0, 0, 0.05);
+
+  }
+  .actionTheme {
+    --bg-color-tab-select: #fff;
+    --anim-time-fn-easing: cubic-bezier(.38, 0, .24, 1);
+    --anim-duration-moderate: .24s;
+    --text-disabled: rgba(0, 0, 0, .26);
+    --bg-color-component: #eee;
+
+  }
+   //容器的变量
+   .box-variable {
+  }
+
+  --gb-bg-page:#f5f5f5;
+
+}
+
+:root[theme-mode=dark] {
+  --yh-brand-color-1: #1b2f51;
+  --yh-brand-color-2: #173463;
+  --yh-brand-color-3: #143975;
+  --yh-brand-color-4: #103d88;
+  --yh-brand-color-5: #0d429a;
+  --yh-brand-color-6: #054bbe;
+  --yh-brand-color-7: #2667d4;
+  --yh-brand-color: #4582e6;
+  --yh-brand-color-9: #699ef5;
+  --yh-brand-color-10: #96bbf8;
+
+  --dd-scrollbar-color: rgba(255, 255, 255, .1);
+  --dd-scroll-track-color: #333;
+  --dd-color-secondary-brand: #819ece;
+
+  .headers-root {
+    --header-logo-shadow: rgba(0, 0, 0, 0.5) 0 5px 6px,
+      rgba(0, 0, 0, 0.2) 1px 3px 3px;
+    --header-bottom-color: #666666;
+    --yh-shoadow-bootom: var(--yh-shadow-1);
+
+  }
+
+  .actionTheme-root {
+    --bg-color-tab-select: #4b4b4b;
+    --anim-time-fn-easing: cubic-bezier(.38, 0, .24, 1);
+    --anim-duration-moderate: .24s;
+    --text-disabled: rgba(255, 255, 255, .22);
+    --bg-color-component: #383838;
+  }
+
+
+  //容器的变量
+  .box-variable {
+  }
+
+
+  --gb-bg-page:var(--yh-bg-color-page);
+}
+
+
+
+/*滚动条整体部分,必须要设置*/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/*滚动条的轨道*/
+::-webkit-scrollbar-track {
+  background-color: var(--dd-scroll-track-color);
+}
+
+/*滚动条的滑块按钮*/
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: var(--dd-scrollbar-color);
+  transition: all .2s ease-in-out;
+}
+
+
+
+
+html,body,#app {
+  width: 100%;
+  height: 100%;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+  'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  background-color: var(--gb-bg-page);
+  font-size: 14px;
+  overflow: hidden;
+  position: relative;
+  color: var(--yh-text-color-primary);
+}
+
+.dark {
+  ::-webkit-scrollbar-track {
+    background-color: var(--yh-bg-color-secondarycontainer);
+  }
+
+  /*滚动条的滑块按钮*/
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--dd-scroll-track-color);
+  }
+}
+
+
+
+// 主要容器背景
+.container-bg {
+  background: var(--yh-bg-color-container);
+}
+
+.box-shadow-0 {
+  box-shadow: var(--yh-shadow);
+}
+
+//文章管理页面  content内容
+.gaobug {
+  max-width: 1200px;
+  padding: $header-top 16px 16px;
+  margin: auto;
+  min-height: 100vh;
+  position: relative;
+}
+
+.gaobug-contents {
+  height: $content-height;
+  width: 100%;
+}
+
+
+.emoji {
+  display: inline;
+  width: 20px;
+  height: 20px;
+  margin: 0 2px;
+  vertical-align: sub;
+}
+
+
+@media screen and (min-width:960px) {
+  .medium-screen-hide {
+    display: none;
+  }
+
+}
+
+@media screen and (max-width:960px) {
+  $header-top: 66px;
+
+  .gaobug {
+    padding: $header-top 0 0 0;
+  }
+
+  //960以下要消失的元素
+  .small-screen-hide {
+    display: none;
+  }
+
+  .yh-button.yh-button--size-medium {
+    height: 28px;
+    line-height: 26px;
+    padding: 0 12px;
+  }
+
+}
+
+
+// /* 页面切换动画-s */
+.slide-right-enter-active,
+.slide-right-leave-active {
+  // will-change: transform;
+  transition: all 0.3s  cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+// slide-right
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
+}
 
