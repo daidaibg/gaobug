@@ -30,6 +30,20 @@ blog-cloud-web与blog-cloud-admin 文件夹内包含：**干净**(不含后端�
 
 [https://www.gaobug.com](https://www.gaobug.com)
 
+## 项目地址
+
+### github地址
+
+**前端地址**[https://github.com/daidaibg/gaobug](https://github.com/daidaibg/gaobug)
+
+**后端地址github暂无,gitee有**
+
+### gitee地址
+
+**前端地址** [https://gitee.com/daidaibg/blog-cloud](https://gitee.com/daidaibg/blog-cloud)
+
+**后端地址** [https://gitee.com/gaobug/blog-cloud](https://gitee.com/gaobug/blog-cloud)
+
 # 前端项目
 
 ## 博客页面 
