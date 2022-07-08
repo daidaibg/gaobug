@@ -76,21 +76,21 @@ const toLastTab = () => {
     if (lastTab) {
         router.push(lastTab.path)
     } else {
-        router.push('/admin')
+        router.push('/home')
     }
 }
+//关闭一个标签
+const closeTab = (route: viewMenu, idx: number) => {
 
-const closeTab = (route: viewMenu) => {
-    // navTabs.closeTab(route)
-    // proxy.eventBus.emit('onTabViewClose', route)
-    // if (navTabs.state.activeRoute?.path === route.path) {
-    //     toLastTab()
-    // } else {
-    //     navTabs.setActiveRoute(navTabs.state.activeRoute as viewMenu)
-    //     nextTick(() => {
-    //         selectNavTab(tabsRefs.value[navTabs.state.activeIndex])
-    //     })
-    // }
+    navTabs.value.tabsView.splice(idx, 1)
+    if (navTabs.value.activeRoute?.path === route.path) {
+        toLastTab()
+    } else {
+        setActiveRoute(navTabs.value.activeRoute as viewMenu)
+        nextTick(() => {
+            selectNavTab(tabsRefs.value[navTabs.value.activeIndex])
+        })
+    }
 
     // contextmenuRef.value.onHideContextmenu()
 }
@@ -100,7 +100,8 @@ const closeAllTab = () => {
     // let firstRoute = getFirstRoute(navTabs.state.tabsViewRoutes)
     // if (firstRoute) routePush(firstRoute.name)
 }
-const setActiveRoute = (route: RouteLocationNormalized | viewMenu, currentRoute: any): void => {
+// 设置当前选中路由标签
+const setActiveRoute = (route: RouteLocationNormalized | viewMenu, currentRoute?: any): void => {
     const currentRouteIndex: number = navTabs.value.tabsView.findIndex((item: viewMenu) => {
         return item.path === route.path
     })
@@ -108,7 +109,7 @@ const setActiveRoute = (route: RouteLocationNormalized | viewMenu, currentRoute:
     navTabs.value.activeRoute = currentRoute
     navTabs.value.activeIndex = currentRouteIndex
 }
-
+//更新选中标签
 const updateTab = (newRoute: RouteLocationNormalized | viewMenu) => {
     const currentRoute = findMenu(menuNavStore.menusViewRoutes, newRoute.path)
     if (!currentRoute) return
@@ -151,8 +152,8 @@ onMounted(() => {
             :class="navTabs.activeIndex == idx ? 'active' : ''" :ref="tabsRefs.set" :key="idx">
             {{ item.title }}
             <transition @after-leave="selectNavTab(tabsRefs[navTabs.activeIndex])" name="el-fade-in">
-                <i v-show="navTabs.tabsView.length > 1" class="close-icon yh-icons-close" @click.stop="closeTab(item)" size="15"
-                   ></i>
+                <i v-show="navTabs.tabsView.length > 1" class="close-icon yh-icons-close"
+                    @click.stop="closeTab(item, idx)" size="15"></i>
             </transition>
         </div>
         <div :style="activeBoxStyle" class="nav-tabs-active-box"></div>
@@ -168,6 +169,7 @@ onMounted(() => {
     display: flex;
     height: 100%;
     position: relative;
+    flex: 1;
 
     &::-webkit-scrollbar {
         height: 5px;
@@ -208,7 +210,7 @@ onMounted(() => {
     .close-icon {
         padding: 2px;
         margin: 2px 0 0 4px;
-        font-size:12px;
+        font-size: 12px;
     }
 
     .close-icon:hover {
@@ -218,7 +220,7 @@ onMounted(() => {
     }
 
     &.active {
-        color: var(--yh-text-color-primary)
+        // color: var(--yh-text-color-primary)
     }
 
     &:hover {
@@ -228,7 +230,7 @@ onMounted(() => {
 }
 
 .nav-tabs-active-box {
-
+    
     position: absolute;
     height: 40px;
     border-radius: var(--el-border-radius-base);
