@@ -51,9 +51,9 @@ const routes: Array<RouteRecordRaw> = [
 
 
 ]
-
+console.log(import.meta.env);
 const router = createRouter({
-  history: createWebHistory('/admin/'),
+  history: createWebHistory(import.meta.env.BASE_URL as string),
   // history: createWebHashHistory(),
   routes,
   // scrollBehavior(to, from, saveScrollPosition) {
