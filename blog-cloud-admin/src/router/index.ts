@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory('/admin/'),
   // history: createWebHashHistory(),
   routes,
   // scrollBehavior(to, from, saveScrollPosition) {

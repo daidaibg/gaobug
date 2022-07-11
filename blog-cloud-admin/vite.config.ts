@@ -29,7 +29,7 @@ export default defineConfig({
   })
   ],
   publicDir: "public",
-  base: '/',
+  base: '/admin/',
   // base : './',
   server: {
     host: '0.0.0.0',
