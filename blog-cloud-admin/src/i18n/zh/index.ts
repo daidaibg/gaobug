@@ -1,5 +1,9 @@
 import zh from '../language/zh.json'
-
+const zhModules:any =import.meta.globEager('./*.ts') 
+const modules:any = {}
+for (const key in zhModules) {
+  modules[key.replace(/(\.\/|\.ts)/g, '')] = zhModules[key].default
+}
 const global = {
   // 头部
   doc: '说明文档',
@@ -12,4 +16,5 @@ const global = {
 export default {
   global,
   ...zh,
+  ...modules
 }
