@@ -5,6 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "moduleResolution": "node",
+    // "composite": true,
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
@@ -26,6 +27,7 @@
     },
     "types": ["node","vite/client" ]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "types/env.d.ts","types/*.d.ts"],
+  "exclude": ["node_modules", "dist"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","types/*.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

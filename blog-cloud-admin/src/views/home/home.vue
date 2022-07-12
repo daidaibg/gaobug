@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import CountUp from "@/components/count-up";
+
 import { ref } from "vue";
+
 const homeInfo = ref<any>({
   userNum: 921,
   wzNum: 1998,

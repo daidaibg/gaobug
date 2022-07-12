@@ -28,25 +28,25 @@ const routes: Array<RouteRecordRaw> = [
           title: "用户管理",
         }
       },
-      {
-        path: '/login',
-        name: '/login',
-        component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue'),
-        meta: {
-          title: "登录"
-        }
-      },
-      {
-        path: '/register',
-        name: '/register',
-        component: () => import(/* webpackChunkName: "login" */ '../views/login/register/index'),
-        meta: {
-          title: "注册"
-        }
-      },
+
     ]
   },
-
+  {
+    path: '/login',
+    name: '/login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue'),
+    meta: {
+      title: "登录"
+    }
+  },
+  {
+    path: '/register',
+    name: '/register',
+    component: () => import(/* webpackChunkName: "login" */ '../views/login/register/index'),
+    meta: {
+      title: "注册"
+    }
+  },
 
 
 
@@ -65,7 +65,7 @@ const router = createRouter({
 // ---------------------- 路由拦截 方法 -----------------------------------//
 router.beforeEach((to, from, next) => {
   // console.log(to,from);
-  let text = ' | 搞bug'
+  let text = ' - 搞bug'
   if (to.meta.noSplice) {
     text = ''
   }

@@ -125,7 +125,7 @@ const router = createRouter({
 // ---------------------- 路由拦截 方法 -----------------------------------//
 router.beforeEach((to, from, next) => {
   // console.log(to,from);
-  let text = ' | 搞bug'
+  let text = ' - 搞bug'
   if (to.meta.noSplice) {
     text = ''
   }

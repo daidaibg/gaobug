@@ -1,14 +1,10 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from "path";
-import externalGlobals from "rollup-plugin-external-globals";
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
-
 import ElementPlus from 'unplugin-element-plus/vite'
 import Components from 'unplugin-vue-components/vite'
-
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(),
@@ -75,14 +71,6 @@ export default defineConfig({
     outDir: 'dist',
     chunkSizeWarningLimit: 500,
     rollupOptions: {
-      external: [
-        'highlight.js'
-      ],
-      plugins: [
-        externalGlobals({
-          'highlight.js': 'hljs'
-        }),
-      ],
       output: {
         // globals: {
         //   'highlight.js': 'hljs',  //暂不支持 使用上边plugins.externalGlobals方式

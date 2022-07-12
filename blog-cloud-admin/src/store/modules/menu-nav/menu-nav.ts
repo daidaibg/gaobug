@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { MenuNavStateType } from "../interface"
+import { MenuNavStateType } from "../../interface"
 export const useMenuNavStore = defineStore({
   id: "useMenuNavStore",
   state: (): MenuNavStateType => {

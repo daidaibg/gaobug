@@ -34,3 +34,13 @@ export const showLoginDislog = ()=>{
     const userStore = useUserStore()
     userStore.onModelLogin()
 }
+
+
+/**
+ * 是否是外部链接
+ * @param {string} path
+ * @return {Boolean}
+ */
+ export function isExternal(path: string) {
+    return /^(https?|ftp|mailto|tel):/.test(path)
+}
