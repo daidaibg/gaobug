@@ -45,6 +45,14 @@ export const useMenuNavStore = defineStore({
             {
               title: "用户管理",
               path: "/sys/user",
+            },
+            {
+              title: "角色管理",
+              path: "/sys/role",
+            },
+            {
+              title: "菜单管理",
+              path: "/sys/menu",
             }
           ],
         }

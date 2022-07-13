@@ -7,6 +7,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Backtop: typeof import('./src/components/backtop/backtop.vue')['default']
     CountUp: typeof import('./src/components/count-up/count-up.vue')['default']
+    Default: typeof import('./src/components/loading/default/default.vue')['default']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']

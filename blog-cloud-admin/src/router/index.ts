@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/home',
         name: "/home",
-        component: () => import(/* webpackChunkName: "Components" */ '../views/home/home.vue'),
+        component: () => import(/* webpackChunkName: "sys" */ '../views/home/home.vue'),
         meta: {
           title: "搞bug-管理系统",
           noSplice: true
@@ -23,12 +23,27 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/sys/user',
         name: "/sys/user",
-        component: () => import(/* webpackChunkName: "Components" */ '../views/sys/user/user.vue'),
+        component: () => import(/* webpackChunkName: "sys" */ '../views/sys/user/user.vue'),
         meta: {
           title: "用户管理",
         }
       },
-
+      {
+        path: '/sys/role',
+        name: "/sys/role",
+        component: () => import(/* webpackChunkName: "sys" */ '../views/sys/role/role.vue'),
+        meta: {
+          title: "角色管理",
+        }
+      },
+      {
+        path: '/sys/menu',
+        name: "/sys/menu",
+        component: () => import(/* webpackChunkName: "sys" */ '../views/sys/menu/menu.vue'),
+        meta: {
+          title: "菜单管理",
+        }
+      },
     ]
   },
   {

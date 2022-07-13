@@ -139,67 +139,14 @@ html,body,#app {
   }
 }
 
-
-
-// 主要容器背景
-.container-bg {
-  background: var(--yh-bg-color-container);
-}
-
-.box-shadow-0 {
-  box-shadow: var(--yh-shadow);
-}
-
-//文章管理页面  content内容
-.gaobug {
-  max-width: 1200px;
-  padding: $header-top 16px 16px;
-  margin: auto;
-  min-height: 100vh;
-  position: relative;
-}
-
-.gaobug-contents {
-  height: $content-height;
-  width: 100%;
+.gb-content {
+  background-color: var(--yh-bg-color-container);
+  box-sizing: border-box;  
 }
 
 
-.emoji {
-  display: inline;
-  width: 20px;
-  height: 20px;
-  margin: 0 2px;
-  vertical-align: sub;
-}
 
 
-@media screen and (min-width:960px) {
-  .medium-screen-hide {
-    display: none;
-  }
-
-}
-
-@media screen and (max-width:960px) {
-  $header-top: 66px;
-
-  .gaobug {
-    padding: $header-top 0 0 0;
-  }
-
-  //960以下要消失的元素
-  .small-screen-hide {
-    display: none;
-  }
-
-  .yh-button.yh-button--size-medium {
-    height: 28px;
-    line-height: 26px;
-    padding: 0 12px;
-  }
-
-}
 
 
 // /* 页面切换动画-s */

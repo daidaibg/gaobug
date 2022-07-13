@@ -15,6 +15,7 @@ import { ElMain } from "element-plus"
 <style scoped lang='scss'>
 .layout-main{
   padding:16px var(--main-space);
+  position: relative;
   // height: ;
 }
 </style>

@@ -7,7 +7,8 @@
     "dev": "vite",
     "start": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "new": "plop --plopfile ./plop/plopfile.js"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
@@ -34,6 +35,7 @@
     "@types/node": "^18.0.3",
     "@vitejs/plugin-vue": "^2.3.3",
     "autoprefixer": "^10.4.7",
+    "plop": "^3.1.1",
     "postcss": "^8.4.14",
     "rollup-plugin-external-globals": "^0.6.1",
     "sass": "^1.52.3",
