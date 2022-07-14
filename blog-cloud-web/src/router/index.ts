@@ -111,10 +111,9 @@ const routes: Array<RouteRecordRaw> = [
     ],
   }
 ]
-
+// console.log(import.meta.env.MODE);
 const router = createRouter({
-  history: createWebHistory('/'),
-  // history: createWebHashHistory(),
+  history:import.meta.env.MODE==='hash'?createWebHashHistory() :createWebHistory(import.meta.env.BASE_URL as string),
   routes,
   // scrollBehavior(to, from, saveScrollPosition) {
   //   return { left: 0, top: 0 };
