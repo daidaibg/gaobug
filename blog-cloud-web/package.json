@@ -5,8 +5,10 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "dev:hash": "vite --mode hash",
     "start": "vite",
     "build": "vite build",
+    "build:hash": "vite build --mode hash",
     "preview": "vite preview"
   },
   "dependencies": {

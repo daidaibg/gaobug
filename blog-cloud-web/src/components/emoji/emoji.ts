@@ -1,11 +1,4 @@
-export interface EmojiListType {
-    name:string,
-    path:string
-}
-export interface emojiObjType {
-    [key:string]:string,
-
-}
+import {EmojiListType,EmojiObjType} from "./type"
 export const emojiList:EmojiListType[] =[
     {
         "name": "微笑",
@@ -573,7 +566,7 @@ export const emojiList:EmojiListType[] =[
     }
 ]
 
-export const emojiObj: emojiObjType = {}
+export const emojiObj: EmojiObjType = {}
 emojiList.forEach(item => {
     emojiObj["[" + item.name + "]"] = item.path
 })

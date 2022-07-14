@@ -6,12 +6,13 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Backtop: typeof import('./src/components/backtop/backtop.vue')['default']
+    CommentInput: typeof import('./src/components/comment-input/comment-input.vue')['default']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
-    Emoji: typeof import('./src/components/md-edits/emoji/emoji.vue')['default']
+    Emoji: typeof import('./src/components/emoji/emoji.vue')['default']
     Github: typeof import('./src/components/header/github/github.vue')['default']
     Header: typeof import('./src/components/header/Header.vue')['default']
     I18n: typeof import('./src/components/I18n/index.vue')['default']

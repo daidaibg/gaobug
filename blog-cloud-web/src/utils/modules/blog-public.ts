@@ -1,3 +1,9 @@
+/*
+ * @Author: wei
+ * @description: 
+ * @LastEditTime: 2022-07-14 09:47:43
+ */
+
 import { currentPOST } from "@/api"
 import { ElMessage } from "element-plus"
 import { ReqCodeEnum } from "@/enums"
@@ -15,6 +21,13 @@ export interface BlogLikeOptionType {
     "error"?:Function,//请求失败回调 
     "Unauthorized"?:Function,//未登录回调
 }
+
+/**
+ * @description: 点赞
+ * @param {BlogLikeParamType} param
+ * @param {BlogLikeOptionType} option
+ * @return {*}
+ */
 export const blogLike = (param: BlogLikeParamType, option: BlogLikeOptionType) => {
     let loginFlag = isLoginShowDislog()
     if (!loginFlag || flag) return
@@ -24,7 +37,12 @@ export const blogLike = (param: BlogLikeParamType, option: BlogLikeOptionType) =
         handleReqBody(res, option)
     })
 }
-//处理请求返回的值
+/**
+ * @description: 处理请求返回的值
+ * @param {any} res
+ * @param {BlogLikeOptionType} option
+ * @return {*}
+ */
 export const handleReqBody = (res: any, option: BlogLikeOptionType) => {
     console.log(res);
 
