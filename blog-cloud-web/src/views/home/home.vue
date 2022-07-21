@@ -10,7 +10,7 @@ import { useInfiniteScroll } from '@vueuse/core'
 import { getScrollContainer } from "yhht-plus/utils/index"
 import { TypeList } from "./home-types"
 import { useRouter } from "vue-router"
-import { blogLike } from "@/utils"
+import {useBlogAction} from "@/hook/modules/use-blog-action"
 import Backtop from "@/components/backtop"
 const router = useRouter()
 const state = reactive<HomeBlogState>({
@@ -21,6 +21,8 @@ const state = reactive<HomeBlogState>({
     loading: false,
 })
 const active = ref("")
+const {blogLike} =useBlogAction()
+
 active.value = typelist[0].type
 // 点赞
 const onLike = (item: any) => {

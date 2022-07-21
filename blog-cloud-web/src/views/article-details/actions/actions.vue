@@ -2,8 +2,8 @@
 import Props from "./props"
 import { TARGET_CONTAINER } from "../type"
 import { scrollTo, getScrollContainer, getScroll } from "yhht-plus/utils"
-import { blogLike } from "@/utils"
-
+import {useBlogAction} from "@/hook/modules/use-blog-action"
+const {blogLike} =useBlogAction()
 const props = defineProps(Props)
 
 const emits = defineEmits<{
@@ -17,7 +17,7 @@ const onLike = () => {
         "likeFlag": 1
     }, {
         success: (res: any) => {
-            console.log(res);
+            // console.log(res);
             emits('like',res)
         }
     })

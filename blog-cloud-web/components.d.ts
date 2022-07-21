@@ -6,6 +6,7 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Backtop: typeof import('./src/components/backtop/backtop.vue')['default']
+    BlogSearch: typeof import('./src/components/header/blog-search/blog-search.vue')['default']
     CommentInput: typeof import('./src/components/comment-input/comment-input.vue')['default']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
@@ -19,6 +20,7 @@ declare module '@vue/runtime-core' {
     Lang: typeof import('./src/components/header/lang/lang.vue')['default']
     Logo: typeof import('./src/components/header/logo/logo.vue')['default']
     Manage: typeof import('./src/components/manage/manage.vue')['default']
+    MdEmoji: typeof import('./src/components/md-edits/md-emoji/md-emoji.vue')['default']
     Menus: typeof import('./src/components/menus/menus.vue')['default']
     Nav: typeof import('./src/components/header/nav/nav.vue')['default']
     Read: typeof import('./src/components/md-edits/read/read.vue')['default']

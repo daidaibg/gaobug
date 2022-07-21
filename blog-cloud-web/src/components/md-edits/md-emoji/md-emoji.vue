@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue';
-import { emojis } from './emoji';
+import { emojis } from './md-emoji';
 import MdEditor from "md-editor-v3"
 
 const {DropdownToolbar} = MdEditor;

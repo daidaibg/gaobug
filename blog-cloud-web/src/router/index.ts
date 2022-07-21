@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/components',
     name: 'components',
-    component: () => import(/* webpackChunkName: "Components" */ '../views/components.vue'),
+    component: () => import(/* webpackChunkName: "Components" */ '../views/layout/blog-layout/components.vue'),
     children: [
       {
         path: '/article/details/:id',

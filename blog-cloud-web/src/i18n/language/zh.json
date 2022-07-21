@@ -1,7 +1,8 @@
 {
     "header": {
         "language": "中文",
-        "home":"首页"
+        "home":"首页",
+        "BBS":"留言"
     },
     "home":{
         "recommend":"推荐",

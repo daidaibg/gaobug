@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-05 14:24:18
+ * @LastEditTime: 2022-07-21 12:04:17
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -10,25 +10,46 @@
     <div class="header_inner">
       <div class="left">
         <logo :theme="themeStore.getTheme"></logo>
-        <div class="header_list_wrap" v-if="tabShow">
-          <p class="medium-screen-hide medium-active cursor-pointer" :mode-data="active" @click.stop="showHideminShow">
-            {{ activeData.translation ? $t(activeData.name) : activeData.name }}
-          </p>
-          <transition name="el-fade-in">
-            <div class="header-nav-small" v-show="minShow" ref="nav_target" :class="{ navHideClass: navHide }">
-              <header-nav :HeaderList="headerList" :active="active" :jump="jump">
-                <div class="medium-screen-hide">
-                  <Theme></Theme>
-                </div>
-              </header-nav>
-            </div>
-          </transition>
-        </div>
-        <div class="small-screen-hide header_list_wrap" v-if="tabShow">
-          <header-nav :HeaderList="headerList" :active="active" :jump="jump"></header-nav>
-        </div>
-
+        <template v-if="tabShow">
+          <div class="header_list_wrap">
+            <p
+              class="medium-screen-hide medium-active cursor-pointer"
+              :mode-data="active"
+              @click.stop="showHideminShow"
+            >
+              {{
+                activeData.translation ? $t(activeData.name) : activeData.name
+              }}
+            </p>
+            <transition name="el-fade-in">
+              <div
+                class="header-nav-small medium-screen-hide"
+                v-show="minShow"
+                ref="nav_target"
+                :class="{ navHideClass: navHide }"
+              >
+                <header-nav
+                  :HeaderList="headerList"
+                  :active="active"
+                  :jump="jump"
+                >
+                  <div class="medium-screen-hide">
+                    <Theme></Theme>
+                  </div>
+                </header-nav>
+              </div>
+            </transition>
+          </div>
+          <div class="small-screen-hide header_list_wrap">
+            <header-nav
+              :HeaderList="headerList"
+              :active="active"
+              :jump="jump"
+            ></header-nav>
+          </div>
+        </template>
       </div>
+      <blog-search></blog-search>
       <div class="right">
         <div class="phoneTab" style="display: none">
           <el-dropdown trigger="click" @command="command">
@@ -55,7 +76,8 @@ import { Lang } from "./lang";
 import { Theme } from "./theme";
 import { Logo } from "./logo";
 import User from "./user";
-import HeaderNav from "./nav"
+import HeaderNav from "./nav";
+import BlogSearch from "./blog-search";
 import {
   ElDropdown,
   ElDropdownMenu,
@@ -67,39 +89,36 @@ import { reactive, ref, Ref, computed, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { HeaderListType } from "./type";
 import Props from "./props";
-import { on, off } from "yhht-plus/utils"
-import { userThemeStore } from '@/store'
+import { on, off } from "yhht-plus/utils";
+import { userThemeStore } from "@/store";
 
-const themeStore = userThemeStore()
+const themeStore = userThemeStore();
 const router = useRouter();
 
 defineProps(Props);
 const route = useRoute();
-const nav_target = ref(null)
+const nav_target = ref(null);
 const activeData = ref<HeaderListType>({
   name: "",
   path: "",
 });
-const navHide = ref<boolean>(false)
-const minShow = ref<boolean>(false)
+const navHide = ref<boolean>(false);
+const minShow = ref<boolean>(false);
 const showHideminShow = async () => {
   if (navHide.value) {
-    return
+    return;
   }
   if (minShow.value) {
-    off(document, "click", hideMinshow)
-
+    off(document, "click", hideMinshow);
   } else {
-    on(document, "click", hideMinshow)
+    on(document, "click", hideMinshow);
   }
-  minShow.value = !minShow.value
-
-}
+  minShow.value = !minShow.value;
+};
 const hideMinshow = (e: Event) => {
-  minShow.value = false
-  off(document, "click", hideMinshow)
-
-}
+  minShow.value = false;
+  off(document, "click", hideMinshow);
+};
 const headerList = ref<HeaderListType[]>([
   {
     name: "header.home",
@@ -119,15 +138,16 @@ const headerList = ref<HeaderListType[]>([
     path: "#",
   },
   {
-    name: "留言",
+    name: "header.BBS",
+    translation: true,
     path: "/message/board",
   },
 ]);
 const active = computed(() => {
   let path: string = route.path;
   //如果是详情页的话渲染首页
-  if( path.indexOf("/article/details")!=-1){
-    path="/"
+  if (path.indexOf("/article/details") != -1) {
+    path = "/";
   }
   headerList.value.forEach((item: HeaderListType) => {
     try {
@@ -172,18 +192,19 @@ const jump = (path: string) => {
     display: flex;
     justify-content: space-between;
     height: 100%;
+    align-items: center;
     // border-bottom: 1px solid var(--header-bottom-color);
   }
 
   .left {
     display: flex;
     align-items: center;
+    height: 100%;
   }
 
   .header_list_wrap {
     position: relative;
     height: 100%;
-
 
     .medium-active {
       height: 100%;
@@ -193,8 +214,6 @@ const jump = (path: string) => {
       padding: 0 16px;
     }
   }
-
-
 
   .right {
     display: flex;
@@ -222,7 +241,6 @@ const jump = (path: string) => {
       cursor: pointer;
 
       &:hover {
-
         a,
         .item-inner {
           color: var(--yh-brand-color);
@@ -233,7 +251,7 @@ const jump = (path: string) => {
 }
 
 .navHideClass {
-  transition: opacity .24s;
+  transition: opacity 0.24s;
   opacity: 0;
 }
 
@@ -251,6 +269,7 @@ const jump = (path: string) => {
     .medium-active {
       display: flex;
       align-items: center;
+      flex-shrink: 0;
     }
 
     .header-nav-small :deep(.header_list) {
@@ -259,14 +278,14 @@ const jump = (path: string) => {
       flex-direction: column;
       background-color: var(--yh-bg-color-container);
       left: -30px;
-      top: 80%;
+      top: 90%;
       width: 90px;
       height: auto;
       box-shadow: var(--yh-shadow-1);
       border-radius: 6px;
       border: solid 1px var(--yh-border-level-1-color);
-      li {
 
+      li {
         padding: 4px 0px;
 
         a {
@@ -287,6 +306,24 @@ const jump = (path: string) => {
       .action_item {
         height: 20px;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .headers {
+     .header-nav-small :deep(.header_list){
+      left: -40px;
+     }
+   .header_list_wrap .medium-active {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      white-space: nowrap;
+      padding: 8px;
+    }
+    :deep(.blog-search){
+      flex: 1;
     }
   }
 }

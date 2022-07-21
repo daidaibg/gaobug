@@ -7,7 +7,7 @@ import { toolbars, onUploadImg, tagsList, beforeAvatarUpload, onUploadCover } fr
 import { ElInput, ElMessage, ElDialog, ElForm, ElFormItem, ElSelect, ElOption, ElRadioGroup, ElRadioButton, ElUpload } from "element-plus";
 import type { FormInstance, FormRules, UploadRequestOptions } from 'element-plus'
 import { currentPOST, currentGET, currentGETPath } from "@/api";
-import Emoji from "@/components/md-edits/emoji/emoji.vue";
+import MdEmoji from "@/components/md-edits/md-emoji/md-emoji.vue";
 import Read from "@/components/md-edits/read/read.vue";
 import { useRouter, useRoute } from "vue-router";
 import { StateType, FormDataType } from "./write-essay-type"
@@ -204,7 +204,7 @@ init()
             :previewTheme="previewTheme" :theme="themeStore.getTheme" @Save="save" @uploadImg="onUploadImg"
             :editor-id="editorId">
             <template #defToolbars>
-                <Emoji :editor-id="editorId" @onChange="onEmojiChange" />
+                <MdEmoji :editor-id="editorId" @onChange="onEmojiChange" />
                 <Read :md-text="content" :previewTheme="previewTheme" :theme="themeStore.getTheme" />
                 <!-- <normal-toolbar>
                     <template #trigger>
