@@ -4,6 +4,8 @@ import Props from "./props";
 import {  ElAvatar } from "element-plus";
 import {emojiObj } from "@/components/emoji/emoji";
 import CommentInput from "@/components/comment-input"
+import {handleCommen} from "@/utils/current"
+
 // console.log(emojiList);
 const props = defineProps(Props);
 // const text=`我是假的，现在还不能评论[看]<p class="a" id='a'>我是p标签</p>`
@@ -29,37 +31,10 @@ const commentList = ref<CommentListType[]>([
 const onComment= (CommentVal:string)=>{
     console.log(CommentVal);
     commentList.value.push({
-        content:CommentVal,
+        content:handleCommen(CommentVal) ,
     })
 }
-const handleStr = (str: string) => {
-  // console.log(str);
-  if (!str) {
-    return "";
-  } else {
-    str = str
-      .replace(/&/g, "&amp;")
-      .replace(/\</g, "&lt;")
-      .replace(/\>/g, "&gt;")
-      .replace(/\"/g, "&quot;")
-      .replace(/'/g, "&apos;");
-    let pattern1 = /\[[\u4e00-\u9fa5]+\]/g;
-    let pattern2 = /\[[\u4e00-\u9fa5]+\]/;
-    let content = str.match(pattern1);
-    // console.log(pattern1,content);
-    let newStr = str;
-    if (content) {
-      for (let i = 0; i < content.length; i++) {
-        if (Object.prototype.hasOwnProperty.call(emojiObj, content[i])) {
-          let imoj = `<img src="${emojiObj[content[i]]}" class="emoji"/>`;
-          newStr = newStr.replace(pattern2, imoj);
-        }
-      }
-    }
-    // console.log(newStr);
-    return newStr;
-  }
-};
+
 </script>
 
 <template>
@@ -100,7 +75,7 @@ const handleStr = (str: string) => {
             <span class="name"> {{ "test用户" }}</span>
             <span class="time"> {{ "刚刚" }}</span>
           </div>
-          <p v-html="handleStr(item.content)" class="discuss_item"></p>
+          <p v-html="item.content" class="discuss_item"></p>
           <div class="info-box_action flex items-center">
             <div class="info-box_action-item hovers">
               <i class="dd-icon-dianzan icon"></i>

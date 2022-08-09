@@ -7,6 +7,14 @@ import { ref, nextTick } from "vue";
 const commentEdit = ref();//input dom
 const emojiTarget = ref(); //emoji dom
 const inputVal = ref<string>("");
+const props = defineProps({
+  autosize: {
+    type:Object,
+    default:()=>{
+    return  { minRows: 2, maxRows: 6 }
+    }
+  }
+});
 const emits = defineEmits<{
      (event: "comment",  CommentVal: string): void;
 }>()
@@ -77,7 +85,7 @@ const getCursortPosition = (obj: any) => {
   <div class="input_inner">
     <el-input
       v-model="inputVal"
-      :autosize="{ minRows: 2, maxRows: 6 }"
+      :autosize="autosize"
       type="textarea"
       placeholder="请输入评论"
       ref="commentEdit"
