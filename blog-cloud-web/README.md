@@ -48,5 +48,5 @@ npm run build
 npm run build:hash
 ```
 
-## 目录结构
+## 面对to c的个人博客平台
 
