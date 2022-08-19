@@ -13,6 +13,7 @@ import Backtop from "@/components/backtop"
 import Actions from "./actions"
 import Comment from "./comment"
 import { PreviewThemeType, BlogDetailsType } from "./type"
+import {useMetaContent} from "@/hook"
 
 const themeStore = userThemeStore()
 const title = useTitle()
@@ -21,6 +22,8 @@ const previewTheme = ref<PreviewThemeType>("github")
 const mdText = ref<string>('')//内容
 const blogDetails = ref<BlogDetailsType>({})//详情 
 const catalogList = ref<HeadList[]>([])  //目录
+
+const {setMetaTagContent} =useMetaContent()
 const onGetCatalog = (list: HeadList[]) => {
     // console.log(list);
     catalogList.value = list
@@ -37,11 +40,15 @@ const getDetail = () => {
             blogDetails.value = res.data
             mdText.value = res.data.content
             title.value = res.data.title // change current title
+            setMetaTagContent('description',res.data.summary==""?res.data.title:res.data.summary )
+            setMetaTagContent('keywords',res.data.title)
+
         } else {
             ElMessage.error(res.msg)
         }
     })
 }
+
 let id: BlogDetailsType["id"] = route.params.id
 if (id) {
     blogDetails.value.id = id
@@ -341,7 +348,7 @@ if (id) {
     }
 }
 
-@media screen and (min-width:960px) and(max-width:1320px) {
+@media screen and (min-width:960px) and (max-width:1320px) {
     .details {
         margin-left: 70px;
     }
