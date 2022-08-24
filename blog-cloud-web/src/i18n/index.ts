@@ -24,6 +24,9 @@ const i18n = createI18n({
   fallbackLocale: langStorage?.lang || lang,
   // 关闭控制台警告
   // silentFallbackWarn: true,
+  // CompositionAPI
+  allowComposition: true, 
+  //注册全局
   globalInjection:true,
   // legacy:false,
   // messages

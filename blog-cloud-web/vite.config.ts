@@ -20,10 +20,9 @@ export default defineConfig(({ command, mode }) => {
     vueI18n({
       // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
       compositionOnly: false,
-
       // you need to set i18n resource including paths !
       runtimeOnly: false,
-      include: resolve(__dirname, './src/i18n/language')
+      include: resolve(__dirname, './src/i18n/language/**')
     }),
     ElementPlus({
       useSource: true
