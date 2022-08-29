@@ -98,6 +98,10 @@ const saveOrUpdate = async (publish: Number, successMsg: string) => {
     }
     const res = await currentPOST(type, param);
     if (res.code === 200) {
+        //保存草稿时需要存储id 后端暂无返回id
+        if(publish===0){
+
+        }
         ElMessage.success(successMsg);
         return true;
     } else {
@@ -167,6 +171,7 @@ const getDetail = () => {
             formData.tag = res.data.tag
             formData.categoryId = res.data.categoryId
             formData.coverUrl = res.data.coverUrl
+            console.log(state);
         } else {
             ElMessage.error(res.msg)
         }
@@ -180,7 +185,6 @@ const init = () => {
         state.id = route.query.articleId
         getDetail()
     }
-
 }
 init()
 
