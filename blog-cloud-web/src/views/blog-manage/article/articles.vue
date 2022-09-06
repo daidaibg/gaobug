@@ -15,10 +15,9 @@ const blogData  = reactive<articlesType>({
     list: [],
     publish: "1"
 })
-//获取自己博客
+//获取自己博客列表
 const getBlog = () => {
     blogData.list = []
-    blogData.total = 0
     let param = {
         current: blogData.current,
         size: blogData.size,
@@ -35,6 +34,7 @@ const getBlog = () => {
     })
 }
 const currentChange = (current: number) => {
+    console.log(current);
     blogData.current = current
     getBlog()
 }
