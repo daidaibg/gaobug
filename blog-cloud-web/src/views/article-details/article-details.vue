@@ -12,13 +12,14 @@ import { userThemeStore } from '@/store'
 import Backtop from "@/components/backtop"
 import Actions from "./actions"
 import Comment from "./comment"
-import { PreviewThemeType, BlogDetailsType } from "./type"
+import { PreviewThemeType, BlogDetailsType ,CodeTheme} from "./type"
 import {useMetaContent} from "@/hook"
 
 const themeStore = userThemeStore()
 const title = useTitle()
 const route = useRoute()
 const previewTheme = ref<PreviewThemeType>("github")
+const codeTheme = ref<CodeTheme>("atom")
 const mdText = ref<string>('')//内容
 const blogDetails = ref<BlogDetailsType>({})//详情 
 const catalogList = ref<HeadList[]>([])  //目录
@@ -92,7 +93,7 @@ if (id) {
                     <img :src="blogDetails.coverUrl" alt="" class="cover" v-if="blogDetails.coverUrl">
                     <p class="summy break-all">{{ blogDetails.summary }}</p>
                 </div>
-                <md-editor :theme="themeStore.getTheme" :preview-theme="previewTheme" editor-id="edit2preview"
+                <md-editor :theme="themeStore.getTheme" :previewTheme="previewTheme" editor-id="edit2preview" :code-theme="codeTheme"
                     showCodeRowNumber class="previewmd mt-8" preview-only v-model="mdText" @GetCatalog="onGetCatalog">
                 </md-editor>
 
