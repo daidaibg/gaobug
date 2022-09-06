@@ -55,16 +55,16 @@ function getOffsetTop(target: HTMLElement, container: TARGET_CONTAINER): number 
 </script>
 
 <template>
-    <div class='detail-actions detail-root'>
-        <div class=" action_item" @click="onLike">
+    <div class="detail-actions detail-root">
+        <div class="action_item" @click="onLike">
             <i class="dd-icon-dianzan_kuai icon"></i>
             <span class="badge" v-show="likeNum != 0">{{ likeNum }}</span>
         </div>
-        <div class=" action_item" @click="goComment">
+        <div class="action_item" @click="goComment">
             <i class="dd-icon-pinglun1 icon"></i>
             <span class="badge" v-show="commentNum != 0">{{ commentNum }}</span>
         </div>
-        <div class=" action_item">
+        <div class="action_item">
             <i class="dd-icon-shoucang1 icon"></i>
             <span class="badge" v-show="collectCount != 0">{{ collectCount }}</span>
         </div>

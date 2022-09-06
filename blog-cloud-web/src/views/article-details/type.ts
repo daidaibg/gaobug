@@ -17,7 +17,7 @@ export interface BlogDetailsType {
   tag?: string,
   openComment?: number,
   collectCount?: number,
-  clickCount?: number,
+  clickCount?: number
 }
 export interface ActionProps {
   articleId?: BlogDetailsType["id"],
@@ -29,7 +29,7 @@ export interface ActionProps {
 
 export interface CommentProps {
   articleId?: BlogDetailsType["id"],
-  avatarUrl?: BlogDetailsType['coverUrl'],
+  avatarUrl?: BlogDetailsType['coverUrl']
 }
 
 export type PreviewThemeType = 'default' | 'github' | 'vuepress' | 'mk-cute' | 'smart-blue' | 'cyanosis'
