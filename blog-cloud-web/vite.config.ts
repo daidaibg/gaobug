@@ -78,11 +78,11 @@ export default defineConfig(({ command, mode }) => {
       chunkSizeWarningLimit: 500,
       rollupOptions: {
         external: [
-          'highlight.js'
+          // 'highlight.js'
         ],
         plugins: [
           externalGlobals({
-            'highlight.js': 'hljs'
+            // 'highlight.js': 'hljs'
           }),
         ],
         output: {

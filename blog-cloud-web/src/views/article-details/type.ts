@@ -33,3 +33,5 @@ export interface CommentProps {
 }
 
 export type PreviewThemeType = 'default' | 'github' | 'vuepress' | 'mk-cute' | 'smart-blue' | 'cyanosis'
+
+export type CodeTheme = 'atom'|'a11y'|'github'|'gradient'|'kimbie'|'paraiso'|'qtcreator'|'stackoverflow'
