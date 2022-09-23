@@ -25,7 +25,7 @@
         "src/api/*"
       ],
     },
-    "types": ["node","vite/client" ]
+    "types": ["node","vite/client" ,"element-plus/global"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "types/env.d.ts","types/*.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

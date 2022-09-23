@@ -5,14 +5,14 @@ import externalGlobals from "rollup-plugin-external-globals";
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 
 import ElementPlus from 'unplugin-element-plus/vite'
+import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
 
-  const env = loadEnv(mode, process.cwd(), '')
-  console.log(command, mode
-  );
+  // const env = loadEnv(mode, process.cwd(), '')
+  // console.log(command, mode);
   return {
     plugins: [vue(),
     vueI18n({
@@ -25,8 +25,12 @@ export default defineConfig(({ command, mode }) => {
     ElementPlus({
       useSource: true
     }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
     Components({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [ElementPlusResolver({
+      })]
     }),
     ],
     publicDir: "public",

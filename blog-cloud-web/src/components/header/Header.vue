@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-07-21 12:04:17
+ * @LastEditTime: 2022-09-23 11:06:58
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -78,12 +78,12 @@ import { Logo } from "./logo";
 import User from "./user";
 import HeaderNav from "./nav";
 import BlogSearch from "./blog-search";
-import {
-  ElDropdown,
-  ElDropdownMenu,
-  ElDropdownItem,
-  ElIcon,
-} from "element-plus";
+// import {
+//   ElDropdown,
+//   ElDropdownMenu,
+//   ElDropdownItem,
+//   ElIcon,
+// } from "element-plus";
 import { Operation } from "@element-plus/icons-vue";
 import { reactive, ref, Ref, computed, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";

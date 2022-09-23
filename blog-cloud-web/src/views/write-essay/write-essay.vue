@@ -4,7 +4,9 @@ import MdEditor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
 import { ref, computed, reactive, toRefs } from "vue";
 import { toolbars, onUploadImg, tagsList, beforeAvatarUpload, onUploadCover } from "./write-essay";
-import { ElInput, ElMessage, ElDialog, ElForm, ElFormItem, ElSelect, ElOption, ElRadioGroup, ElRadioButton, ElUpload } from "element-plus";
+// import { ElInput, ElMessage, ElDialog, ElForm, ElFormItem, ElSelect, ElOption, ElRadioGroup, ElRadioButton, ElUpload } from "element-plus";
+import {ElMessage, ElDialog, } from "element-plus";
+
 import type { FormInstance, FormRules, UploadRequestOptions } from 'element-plus'
 import { currentPOST, currentGET, currentGETPath } from "@/api";
 import MdEmoji from "@/components/md-edits/md-emoji/md-emoji.vue";
@@ -105,7 +107,7 @@ const saveOrUpdate = async (publish: Number, successMsg: string) => {
         ElMessage.success(successMsg);
         return true;
     } else {
-        ElMessage.error(res.msg);
+        ElMessage.error({ message:res.msg});
         return false;
     }
 }
@@ -226,7 +228,7 @@ init()
     </div>
     <div class="dialog_wrap">
         <el-dialog title="发布文章" :model-value="state.dialogVisible" width="600px" :before-close="saveHandleClose"
-            custom-class="publish_dialog">
+            class="publish_dialog">
             <el-form label-position="right" label-width="96px" :model="formData" style="max-width: 460px" :rules="rules"
                 ref="ruleFormRef">
                 <el-form-item label="文章分类：" prop="categoryId">

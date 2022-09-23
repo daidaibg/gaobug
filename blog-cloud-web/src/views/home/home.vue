@@ -2,11 +2,11 @@
 import HomeUser from "./home-user.vue";
 import { reactive, ref, toRefs } from "vue";
 import { currentGETPath } from "@/api";
-import { ElMessage, ElImage, ElBacktop, ElTooltip } from "element-plus";
+// import { ElMessage, ElImage, ElBacktop, ElTooltip } from "element-plus";
+import { ElMessage } from "element-plus";
 import { HomeBlogState } from "./home-types";
 import { typelist } from "./home-config";
 import { useInfiniteScroll } from "@vueuse/core";
-import { getScrollContainer } from "yhht-plus/utils/index";
 import { TypeList } from "./home-types";
 import { useRouter } from "vue-router";
 import { useBlogAction } from "@/hook/modules/use-blog-action";
@@ -22,7 +22,6 @@ const state = reactive<HomeBlogState>({
 });
 const active = ref("");
 const { blogLike } = useBlogAction();
-
 active.value = typelist[0].type;
 // 点赞
 const onLike = (item: any) => {

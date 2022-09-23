@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { ElCarousel, ElCarouselItem } from "element-plus"
+// import { ElCarousel, ElCarouselItem } from "element-plus"
 import { useUserStore } from '@/store'
 const userStore = useUserStore()
 

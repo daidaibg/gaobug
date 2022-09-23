@@ -1,6 +1,7 @@
 interface Window {
   // 语言
-  $t: any
+  $t: any,
+  $message: any
 }
 
 declare type Recordable<T = any> = Record<string, T>
