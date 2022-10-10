@@ -50,3 +50,4 @@ npm run build:hash
 
 ###  目录结构
 src/view   文件目录
+
