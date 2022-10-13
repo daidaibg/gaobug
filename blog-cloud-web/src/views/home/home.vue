@@ -96,7 +96,7 @@ getBlogList();
 </script>
 
 <template>
-  <div class="gaobug flex justify-between items-start">
+  <div class="gaobug flex justify-between items-start index-body">
     <div class="blog-cloud_content flex-1 box-shadow-0 container-bg">
       <div class="list-header">
         <ul class="list-header_wrap flex">
@@ -344,5 +344,8 @@ $font-gray-1: var(--dd-font-gray-1);
       -webkit-box-orient: vertical;
     }
   }
+}
+
+.index-body{
 }
 </style>

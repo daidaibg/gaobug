@@ -157,7 +157,22 @@ body {
   min-height: 100%;
   // font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+
+
 }
+.light{
+  #app{
+    background: url("../../assets/img/bg.jpeg") no-repeat;
+  }
+  .headers{
+    // background-image: radial-gradient(transparent 1px,#ffffff 1px) !important;
+    // background-size: 4px 4px !important;
+    // backdrop-filter: saturate(50%) blur(4px) !important;
+    backdrop-filter:blur(8px) !important;
+    background: transparent !important;
+  }
+}
+
 
 // 主要容器背景
 .container-bg {
