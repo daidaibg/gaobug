@@ -1,7 +1,7 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-15 10:48:13
+ * @LastEditTime: 2022-10-14 15:20:30
  */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useUserStore } from '@/store'
@@ -58,7 +58,7 @@ axios.interceptors.response.use((response: AxiosResponse) => {
     }
     if (response.data.code == UtilVar.code) {
         // router.push("/login")
-        const {userOffline} = useUserStore()
+        const { userOffline } = useUserStore()
         userOffline()//下线 
         return response.data
     }
@@ -76,13 +76,22 @@ axios.interceptors.response.use((response: AxiosResponse) => {
     return Promise.reject(err)
 })
 
-//是否加密，请求头
-let configs_ENC: any = {
-    headers: { 'enc': UtilVar.ENC }
-}
+
 //判断是否是加密参数，是的话处理
 let isEncryptionParam = (params: Params) => {
     return params
+}
+//签名参数
+const getSign = (params: Params) => {
+    let timestamp = Date.now()
+    params = isEncryptionParam(params)
+    let sign = signMd5Utils.getSign(params, timestamp);
+    let headers = {
+        'enc': UtilVar.ENC,//是否加密
+        [RequestEnum.GB_SIGN_KEY]: sign,
+        [RequestEnum.GB_TIMESTAMP_KEY]: timestamp
+    }
+    return { headers, encParams: params, timestamp, sign }
 }
 /**
  * @description: get 请求方法
@@ -92,16 +101,10 @@ let isEncryptionParam = (params: Params) => {
  */
 export const GET = async (url: string, params: Params): Promise<any> => {
     try {
-        let timestamp = Date.now()
-        params = isEncryptionParam(params)
-        let sign = signMd5Utils.getSign(params, timestamp);
-        // console.log(sign);
+        const { headers, encParams } = getSign(params)
         const data = await axios.get(`${baseUrl}${url}`, {
-            params: params,
-            headers: {
-                [RequestEnum.GB_SIGN_KEY]: sign,
-                [RequestEnum.GB_TIMESTAMP_KEY]: timestamp
-            }
+            params: encParams,
+            headers,
         });
         return data;
     } catch (error) {
@@ -116,15 +119,10 @@ export const GET = async (url: string, params: Params): Promise<any> => {
  */
 export const POST = async (url: string, params: Params): Promise<any> => {
     try {
-        let timestamp = Date.now()
-        params = isEncryptionParam(params)
-        let sign = signMd5Utils.getSign(params, timestamp);
-        const data = await axios.post(`${baseUrl}${url}`, params,
+        const { headers, encParams } = getSign(params)
+        const data = await axios.post(`${baseUrl}${url}`, encParams,
             {
-                headers: {
-                    [RequestEnum.GB_SIGN_KEY]: sign,
-                    [RequestEnum.GB_TIMESTAMP_KEY]: timestamp
-                }
+                headers
             }
         );
         return data;
