@@ -48,7 +48,7 @@ export const useUserStore = defineStore( {
         },
         getUserInfo(){
             currentGET('userInfo').then(res=>{
-                console.log("userData",res);
+                // console.log("userData",res);
                 if(res.code==200){
                     this.isLogin=true
                     this.userData=res.data
