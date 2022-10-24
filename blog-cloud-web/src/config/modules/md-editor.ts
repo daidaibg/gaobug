@@ -1,10 +1,11 @@
-const getId = (text: string, level: string | number, raw: any, index: number) => {
-    return `gaobug-heade-${index}`;
-};
+import screenfull from 'screenfull';
+
+// const getId = (text: string, level: string | number, raw: any, index: number) => {
+//     return `gaobug-heade-${index}`;
+// };
 let mdEditorConfigFlag = false
 export const cdnBase = '/cdns';
 // 代码高亮cdn链接
-export const highlightUrl = `${cdnBase}/highlight.min.js`;
 export const mdEditorConfig = (MdEditor: any) => {
     if (mdEditorConfigFlag) return
     console.log("mdEditorConfigFlag", mdEditorConfigFlag);
@@ -14,11 +15,15 @@ export const mdEditorConfig = (MdEditor: any) => {
             editorExtensions: {
                 iconfont: "https://www.gaobug.com/static/js/toobar_svg.js",
                 highlight: {
-                    js: highlightUrl
+                    js: `${cdnBase}/highlight.min.js`
                 },
-                katex:{
+                katex: {
                     js: `${cdnBase}/KaTeX/0.16.2/katex.min.js`,
                     css: `${cdnBase}/KaTeX/0.16.2/katex.min.css`
+                },
+                screenfull: {
+                    // instance:()=> import("screenfull")
+                    instance:screenfull
                 },
                 css: {
                     // a11y: {
