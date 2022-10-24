@@ -8,6 +8,7 @@ export type TARGET_CONTAINER = HTMLElement | Window | undefined;
 export interface BlogDetailsType {
   id?: string | string[],
   title?: string | number,
+  author?:string | number,
   authorName?: string,
   createTime?: string,
   categoryName?: string,
