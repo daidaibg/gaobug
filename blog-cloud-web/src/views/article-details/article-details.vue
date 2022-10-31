@@ -366,10 +366,10 @@ const goEditArticle =()=>{
     --md-border-hover-color: var(--yh-border-level-3-color);
     --md-border-active-color: var(--yh-border-level-3-color);
     --md-modal-mask: var(--yh-mask-active);
-    --md-scrollbar-bg-color: var(--yh-scrollbar-color);
-    --md-scrollbar-thumb-color: var(--yh-scrollbar-color);
-    --md-scrollbar-thumb-hover-color: var(--yh-scrollbar-color);
-    --md-scrollbar-thumb-avtive-color: var(--yh-scrollbar-color);
+    --md-scrollbar-bg-color: var(--dd-scrollbar-color);
+    --md-scrollbar-thumb-color: var(--dd-scrollbar-color);
+    --md-scrollbar-thumb-hover-color: var(--dd-scrollbar-color);
+    --md-scrollbar-thumb-avtive-color: var(--dd-scrollbar-color);
   }
 
   :deep(.md-content) {
