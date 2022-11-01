@@ -31,9 +31,9 @@ const goHome=()=>{
     }
 
     // p {
-    //   font-size: 24px;
+    //   font-size: 48px;
     //   font-weight: 900;
-    //    width: 70px;
+    //    width: 140px;
     //   flex-shrink: 0;
     //   color: var(--yh-brand-color);
     //   margin-left: 12px;
