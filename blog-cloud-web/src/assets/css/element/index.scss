@@ -1,7 +1,7 @@
 /*
  * @Author: wei
  * @description: 修改element主题和变量
- * @LastEditTime: 2022-09-23 11:58:24
+ * @LastEditTime: 2022-11-11 09:19:45
  */
 // https://github.dev/element-plus/unplugin-element-plus
 
@@ -27,7 +27,7 @@
   }
 }
 
-:root[theme-mode="dark"] {
+:root[theme-mode=dark] {
   --el-color-primary: var(--yh-brand-color);
   --el-color-primary-light-3: var(--yh-brand-color-7);
   --el-color-primary-light-5: var(--yh-brand-color-5);

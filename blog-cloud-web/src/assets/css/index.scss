@@ -2,7 +2,7 @@
 @import "./element/index.scss";
 @import "./iconfont/index.css";
 
-:root:not([theme-mode=dark]) {
+:root:not([theme-mode="dark"]) {
   // 重置主色调 start
   --yh-brand-color-1: #ecf2fe;
   --yh-brand-color-2: #d4e3fc;
@@ -14,11 +14,12 @@
   --yh-brand-color: #0052d9;
   --yh-brand-color-9: #0034b5;
   --yh-brand-color-10: #001f97;
+
   // 重置主色调 end
   --border-radius: 3px;
   --dd-color-content: #86909c;
-  --dd-font-gray-1: rgba(0, 0, 0, .8);
-  --dd-scrollbar-color: rgba(0, 0, 0, .1);
+  --dd-font-gray-1: rgba(0, 0, 0, 0.8);
+  --dd-scrollbar-color: rgba(0, 0, 0, 0.1);
   --dd-scroll-track-color: #fff;
   --dd-color-secondary-brand: rgb(99, 133, 166);
 
@@ -27,31 +28,29 @@
       rgba(255, 255, 255, 0.2) 1px 3px 3px;
     --header-bottom-color: #dcdfe6;
     --yh-shoadow-bootom: 0 2px 3px rgba(0, 0, 0, 0.05);
-
   }
 
   .actionTheme {
     --bg-color-tab-select: #fff;
-    --anim-time-fn-easing: cubic-bezier(.38, 0, .24, 1);
-    --anim-duration-moderate: .24s;
-    --text-disabled: rgba(0, 0, 0, .26);
+    --anim-time-fn-easing: cubic-bezier(0.38, 0, 0.24, 1);
+    --anim-duration-moderate: 0.24s;
+    --text-disabled: rgba(0, 0, 0, 0.26);
     --bg-color-component: #eee;
-
   }
 
   .detail-root {
     --bages-bg: var(--yh-gray-color-5);
     --bages-color: var(--yh-font-white-1);
-
   }
 
-   //容器的变量
-   .box-variable {
-    --gb-container-hover:#f9f9f9;
+  //容器的变量
+  .box-variable {
+    --gb-container-hover: #f9f9f9;
   }
 }
 
-:root[theme-mode=dark] {
+
+:root[theme-mode="dark"] {
   --yh-brand-color-1: #1b2f51;
   --yh-brand-color-2: #173463;
   --yh-brand-color-3: #143975;
@@ -66,7 +65,7 @@
   --dd-color-content: var(--yh-gray-color-9);
   --dd-font-gray-1: var(--yh-font-white-2);
 
-  --dd-scrollbar-color: rgba(255, 255, 255, .1);
+  --dd-scrollbar-color: rgba(255, 255, 255, 0.1);
   --dd-scroll-track-color: #333;
 
   --dd-color-secondary-brand: #819ece;
@@ -76,14 +75,13 @@
       rgba(0, 0, 0, 0.2) 1px 3px 3px;
     --header-bottom-color: #666666;
     --yh-shoadow-bootom: var(--yh-shadow-1);
-
   }
 
   .actionTheme-root {
     --bg-color-tab-select: #4b4b4b;
-    --anim-time-fn-easing: cubic-bezier(.38, 0, .24, 1);
-    --anim-duration-moderate: .24s;
-    --text-disabled: rgba(255, 255, 255, .22);
+    --anim-time-fn-easing: cubic-bezier(0.38, 0, 0.24, 1);
+    --anim-duration-moderate: 0.24s;
+    --text-disabled: rgba(255, 255, 255, 0.22);
     --bg-color-component: #383838;
   }
 
@@ -96,8 +94,6 @@
     --gb-container-hover: var(--yh-gray-color-12);
   }
 }
-
-
 
 /*滚动条整体部分,必须要设置*/
 ::-webkit-scrollbar {
@@ -114,11 +110,8 @@
 ::-webkit-scrollbar-thumb {
   border-radius: 6px;
   background-color: var(--dd-scrollbar-color);
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
-
-
-
 
 html {
   // width: 100%;
@@ -128,7 +121,7 @@ html {
   background-color: var(--yh-gray-color-1);
 }
 
-html[theme-mode=dark] {
+html[theme-mode="dark"] {
   background-color: var(--yh-gray-color-14);
 }
 
@@ -139,7 +132,6 @@ body {
   // overflow-y: overlay;
   // position: relative;
   // z-index: 0;
-
 }
 
 .dark {
@@ -157,23 +149,16 @@ body {
   width: 100%;
   min-height: 100%;
   // font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
-
-
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC,
+    Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei,
+    sans-serif;
 }
-.light{
-  #app{
+.light {
+  #app {
     // background: url("../../assets/img/bg.jpeg") no-repeat;
   }
-  .headers{
-    // background-image: radial-gradient(transparent 1px,#ffffff 1px) !important;
-    // background-size: 4px 4px !important;
-    // backdrop-filter: saturate(50%) blur(4px) !important;
-    backdrop-filter:blur(8px) !important;
-    background: transparent !important;
-  }
+ 
 }
-
 
 // 主要容器背景
 .container-bg {
@@ -198,7 +183,6 @@ body {
   width: 100%;
 }
 
-
 .emoji {
   display: inline;
   width: 20px;
@@ -207,15 +191,13 @@ body {
   vertical-align: sub;
 }
 
-
-@media screen and (min-width:960px) {
+@media screen and (min-width: 960px) {
   .medium-screen-hide {
     display: none;
   }
-
 }
 
-@media screen and (max-width:960px) {
+@media screen and (max-width: 960px) {
   $header-top: 66px;
 
   .gaobug {
@@ -232,9 +214,7 @@ body {
     line-height: 26px;
     padding: 0 12px;
   }
-
 }
-
 
 /* 页面切换动画-s */
 .slide-right-enter-active,

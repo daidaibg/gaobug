@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-09-23 11:06:58
+ * @LastEditTime: 2022-11-11 09:41:03
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -254,7 +254,14 @@ const jump = (path: string) => {
   transition: opacity 0.24s;
   opacity: 0;
 }
-
+.light .headers {
+  // background-image: radial-gradient(transparent 1px,#ffffff 1px) !important;
+  // background-size: 4px 4px !important;
+  // backdrop-filter: saturate(50%) blur(4px) !important;
+  backdrop-filter: blur(8px) !important;
+  // background: transparent !important;
+  background-color: rgba(255, 255, 255, .6);
+}
 @media screen and (max-width: 960px) {
   .headers {
     height: 50px;
@@ -312,17 +319,17 @@ const jump = (path: string) => {
 
 @media screen and (max-width: 475px) {
   .headers {
-     .header-nav-small :deep(.header_list){
+    .header-nav-small :deep(.header_list) {
       left: -40px;
-     }
-   .header_list_wrap .medium-active {
+    }
+    .header_list_wrap .medium-active {
       display: flex;
       align-items: center;
       flex-shrink: 0;
       white-space: nowrap;
       padding: 8px;
     }
-    :deep(.blog-search){
+    :deep(.blog-search) {
       flex: 1;
     }
   }
