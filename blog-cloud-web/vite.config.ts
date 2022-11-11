@@ -37,7 +37,7 @@ export default defineConfig(({ command, mode }) => {
     base: mode === "hash" ? './' : "/",
     server: {
       host: '0.0.0.0',
-      port: 8110,
+      port: 8118,
       open: false,
       strictPort: false,
       // proxy: { // 代理 

@@ -136,5 +136,7 @@ router.beforeEach((to, from, next) => {
   next();
 })
 // --------------------------- 路由拦截 方法---------------------------------------------- //
+router.afterEach((to, from) => {
 
+})
 export default router
