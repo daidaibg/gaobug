@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-11 09:41:03
+ * @LastEditTime: 2022-11-14 17:44:13
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -124,14 +124,6 @@ const headerList = ref<HeaderListType[]>([
     name: "header.home",
     translation: true,
     path: "/",
-  },
-  {
-    name: "分类",
-    path: "#",
-  },
-  {
-    name: "标签",
-    path: "#",
   },
   {
     name: "专题",

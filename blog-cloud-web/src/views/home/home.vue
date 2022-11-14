@@ -97,6 +97,11 @@ getBlogList();
 
 <template>
   <div class="gaobug flex justify-between items-start index-body">
+    <!-- 分类 s -->
+    <div class="classify container-bg">
+
+    </div>
+    <!-- 分类 e -->
     <div class="blog-cloud_content flex-1 box-shadow-0 container-bg">
       <div class="list-header">
         <ul class="list-header_wrap flex">
