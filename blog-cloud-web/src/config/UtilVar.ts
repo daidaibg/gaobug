@@ -27,6 +27,6 @@ const runtimeType:any = {
     }
     
 }
-// console.log(import.meta.env)
+console.log(import.meta.env)
 runtimeType[import.meta.env.MODE]&&runtimeType[import.meta.env.MODE]()
 export default UtilVar
