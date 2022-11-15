@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-14 17:44:13
+ * @LastEditTime: 2022-11-15 15:52:51
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -173,7 +173,7 @@ const jump = (path: string) => {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 60px;
+  height: var( --header-height);
   z-index: 990;
   // right: 0;
   box-shadow: var(--yh-shadow-inset-bottom);
@@ -256,7 +256,6 @@ const jump = (path: string) => {
 }
 @media screen and (max-width: 960px) {
   .headers {
-    height: 50px;
     padding: 0 8px;
 
     :deep(.logo) {

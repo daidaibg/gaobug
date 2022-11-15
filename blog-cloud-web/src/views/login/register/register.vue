@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import { currentPOST ,currentGET} from "@/api";
+import { currentPOST ,currencyGET} from "@/api";
 import { reactive, ref } from "vue"
 import { ElMessage, ElStep, ElSteps, ElForm, ElFormItem, ElInput } from "element-plus"
 import { useRouter } from "vue-router"
@@ -141,7 +141,7 @@ async function GetCode() {
   if (state.getCode) return;
   state.getCode = true;
   state.countdown = "发送中...";
-  await currentGET("captchaEmail",{
+  await currencyGET("captchaEmail",{
     email: state.loginForm.email,
   }).then((res) => {
     if (res.code===200) {

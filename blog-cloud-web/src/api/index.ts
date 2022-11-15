@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-12-23 11:18:37
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-14 15:22:47
+ * @LastEditTime: 2022-11-14 18:05:07
  * @FilePath: \web-pc-svn\src\api\modules\index.js
  */
 
@@ -17,7 +17,7 @@ export const urlObj:urlObj = {
 };
 
 type Keys=string | number
-export const currentGET = (key:Keys, param?: any) => {
+export const currencyGET = (key:Keys, param?: any) => {
   return GET(urlObj[key], param||{});
 };
 export const currentGETPath = (key:Keys,type:string|string[], param?: any) => {
@@ -56,5 +56,5 @@ export const currentApi = {
 
   currentExport,
   currentPOST,
-  currentGET,
+  currencyGET,
 };

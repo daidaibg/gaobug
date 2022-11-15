@@ -17,3 +17,9 @@ export interface TypeList {
 }
 
 
+export interface ClassifyListType {
+    id: string | number;
+    categoryName: string;
+  }
+
+

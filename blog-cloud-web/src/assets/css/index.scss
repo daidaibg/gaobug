@@ -1,7 +1,9 @@
 @charset "UTF-8";
 @import "./element/index.scss";
 @import "./iconfont/index.css";
-
+:root{
+  --header-height:60px;
+}
 :root:not([theme-mode="dark"]) {
   // 重置主色调 start
   --yh-brand-color-1: #ecf2fe;
@@ -22,7 +24,7 @@
   --dd-scrollbar-color: rgba(0, 0, 0, 0.1);
   --dd-scroll-track-color: #fff;
   --dd-color-secondary-brand: rgb(99, 133, 166);
-
+ 
   .headers-root {
     --header-logo-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px,
       rgba(255, 255, 255, 0.2) 1px 3px 3px;
@@ -171,17 +173,13 @@ body {
 
 //文章管理页面  content内容
 .gaobug {
-  max-width: 1200px;
+  max-width: $max-width;
   padding: $header-top 16px 16px;
   margin: auto;
   min-height: 100vh;
   position: relative;
 }
 
-.gaobug-contents {
-  height: $content-height;
-  width: 100%;
-}
 
 .emoji {
   display: inline;
@@ -196,19 +194,18 @@ body {
     display: none;
   }
 }
-
 @media screen and (max-width: 960px) {
   $header-top: 66px;
-
+  :root{
+    --header-height:50px;
+  }
   .gaobug {
     padding: $header-top 0 0 0;
   }
-
   //960以下要消失的元素
   .small-screen-hide {
     display: none;
   }
-
   .yh-button.yh-button--size-medium {
     height: 28px;
     line-height: 26px;

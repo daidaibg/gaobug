@@ -2,12 +2,12 @@
 import { Search } from "@element-plus/icons-vue";
 import { ElInput } from "element-plus";
 import { ref } from "vue";
-import {currentGET} from "@/api"
+import {currencyGET} from "@/api"
 const searchVal = ref<string>("");
 
 const search =()=>{
     console.log(searchVal.value);
-    // currentGET("blogSearch",)
+    // currencyGET("blogSearch",)
 }
 </script>
 

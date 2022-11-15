@@ -6,7 +6,7 @@ $baidu-shadow:1px 2px 1px rgba(0, 0, 0, 0.15);
 $gaode-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
 0 2px 6px 0 rgba(0, 0, 0, 0.19);
 $primary-color:var(--yh-brand-color);
-$header-height:60px;
+$header-height:var(--header-height);
 $header-top:80px;
 $content-height:calc(100vh - 96px);
 $page-height:calc(100vh - 60px);
@@ -15,4 +15,7 @@ $right-margin-width:256px;
 $border-radius:4px;
 
 $base-spacing:16px;
+
+
+$max-width:1200px;
 

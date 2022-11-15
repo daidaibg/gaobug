@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import HomeUser from "./home-user.vue";
+import Classify from "./classify/classify.vue";
 import { reactive, ref, toRefs } from "vue";
-import { currentGETPath } from "@/api";
-// import { ElMessage, ElImage, ElBacktop, ElTooltip } from "element-plus";
+import { currentGETPath, currencyGET } from "@/api";
 import { ElMessage } from "element-plus";
-import { HomeBlogState } from "./home-types";
 import { typelist } from "./home-config";
 import { useInfiniteScroll } from "@vueuse/core";
-import { TypeList } from "./home-types";
 import { useRouter } from "vue-router";
 import { useBlogAction } from "@/hook/modules/use-blog-action";
 import Backtop from "@/components/backtop";
+import type {ClassifyListType,HomeBlogState,TypeList} from "./home-types"
+
 const router = useRouter();
 const state = reactive<HomeBlogState>({
   blogList: [],
@@ -49,6 +49,10 @@ const onToggleType = (item: TypeList) => {
 const jumpDetail = (item: any) => {
   router.push({ path: "/article/details/" + item.id });
 };
+
+const onClassify = (item:ClassifyListType)=>{
+  console.log(item);
+}
 // 获取博客列表
 const getBlogList = () => {
   state.loading = true;
@@ -79,29 +83,29 @@ const getBlogList = () => {
     }
   });
 };
+
 // 无限滚动
 useInfiniteScroll(
-//   getScrollContainer(),
+  //   getScrollContainer(),
   window,
   (e) => {
-    console.log(e);
+    // console.log(e);
     if (state.loading || state.loading === "end") return;
     state.blogPage.current++;
     getBlogList();
   },
   { distance: 20 }
 );
+const init = () => {
+  getBlogList();
+};
 // 页面初始化触发方法
-getBlogList();
+init();
 </script>
 
 <template>
-  <div class="gaobug flex justify-between items-start index-body">
-    <!-- 分类 s -->
-    <div class="classify container-bg">
-
-    </div>
-    <!-- 分类 e -->
+  <Classify @on-classify="onClassify"/>
+  <div class="gaobug index-body flex justify-between items-start">
     <div class="blog-cloud_content flex-1 box-shadow-0 container-bg">
       <div class="list-header">
         <ul class="list-header_wrap flex">
@@ -351,6 +355,7 @@ $font-gray-1: var(--dd-font-gray-1);
   }
 }
 
-.index-body{
+.index-body {
+  padding-top: calc(var(--header-height) + 54px);
 }
 </style>

@@ -4,6 +4,7 @@ import { ElAffix, ElTooltip } from "element-plus"
 import { useRouter } from "vue-router"
 import { todayTime } from "@/utils"
 import { useUserStore } from '@/store'
+
 const userStore = useUserStore()
 
 
@@ -109,7 +110,7 @@ const openModelLogin = () => {
 $border-radius: 4px;
 .home_right_wrap{
     position: fixed;
-    top: 80px;
+    // top: 80px;
     width: $right-width;
 }
 .user-info {

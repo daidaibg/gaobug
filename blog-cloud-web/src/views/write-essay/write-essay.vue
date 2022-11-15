@@ -8,7 +8,7 @@ import { toolbars, onUploadImg, tagsList, beforeAvatarUpload, onUploadCover } fr
 import {ElMessage, ElDialog, } from "element-plus";
 
 import type { FormInstance, FormRules, UploadRequestOptions } from 'element-plus'
-import { currentPOST, currentGET, currentGETPath } from "@/api";
+import { currentPOST, currencyGET, currentGETPath } from "@/api";
 import MdEmoji from "@/components/md-edits/md-emoji/md-emoji.vue";
 import Read from "@/components/md-edits/read/read.vue";
 import { useRouter, useRoute } from "vue-router";
@@ -113,7 +113,7 @@ const saveOrUpdate = async (publish: Number, successMsg: string) => {
 }
 //获取分类列表
 const getCategory = () => {
-    currentGET("category", { size: 20 }).then(res => {
+    currencyGET("category", { size: 20 }).then(res => {
         // console.log(res);
         if (res.code == 200) {
             classificatio.value = res.data.records
