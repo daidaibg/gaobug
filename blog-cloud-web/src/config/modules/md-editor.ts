@@ -13,7 +13,7 @@ export const mdEditorConfig = (MdEditor: any) => {
         MdEditor.config({
 
             editorExtensions: {
-                iconfont: "https://www.gaobug.com/static/js/toobar_svg.js",
+                iconfont: `${cdnBase}/iconfont/toobar_svg.js`,
                 highlight: {
                     js: `${cdnBase}/highlight.min.js`
                 },

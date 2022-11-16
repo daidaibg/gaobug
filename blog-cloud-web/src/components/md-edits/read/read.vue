@@ -1,5 +1,5 @@
 <template>
-    <modal-toolbar :visible="state.visible" :is-fullscreen="state.modalFullscreen" show-adjust title="帮助"
+    <modal-toolbar :visible="state.visible" :is-fullscreen="state.modalFullscreen" show-adjust title="预览"
         modal-title="编辑预览" width="870px" height="600px" @onClick="state.visible = true" @onClose="state.visible = false"
         @onAdjust="state.modalFullscreen = !state.modalFullscreen">
         <div style="height: 100%; padding: 20px; overflow: auto">
@@ -7,7 +7,7 @@
                  v-model="mdText" />
         </div>
         <template #trigger>
-            <svg class="md-icon" aria-hidden="true">
+            <svg class="md-editor-icon" aria-hidden="true">
                 <use xlink:href="#icon-read"></use>
             </svg>
         </template>
