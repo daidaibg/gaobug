@@ -3,6 +3,9 @@
 		{
 			"name": "blog-cloud-web",
 			"path": "blog-cloud-web"
+		},
+		{
+			"path": "blog-cloud-tool"
 		}
 	],
 	"settings": {}

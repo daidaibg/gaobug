@@ -29,6 +29,7 @@ declare module '@vue/runtime-core' {
     I18n: typeof import('./src/components/I18n/index.vue')['default']
     Lang: typeof import('./src/components/header/lang/lang.vue')['default']
     Logo: typeof import('./src/components/header/logo/logo.vue')['default']
+    LogoSvg: typeof import('./src/components/logo/logo-svg.vue')['default']
     Manage: typeof import('./src/components/manage/manage.vue')['default']
     MdEmoji: typeof import('./src/components/md-edits/md-emoji/md-emoji.vue')['default']
     Menus: typeof import('./src/components/menus/menus.vue')['default']

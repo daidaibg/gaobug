@@ -19,7 +19,7 @@ defineProps(Props)
     height: 100%;
     display: flex;
     align-items: center;
-    margin-left: 16px;
+    margin-left: 8px;
 
     li {
       text-align: center;
