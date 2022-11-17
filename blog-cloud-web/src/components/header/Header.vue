@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-15 15:52:51
+ * @LastEditTime: 2022-11-17 09:53:09
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -49,7 +49,7 @@
           </div>
         </template>
       </div>
-      <blog-search></blog-search>
+      <blog-search  :active="active"></blog-search>
       <div class="right">
         <div class="phoneTab" style="display: none">
           <el-dropdown trigger="click" @command="command">
@@ -78,12 +78,7 @@ import { Logo } from "./logo";
 import User from "./user";
 import HeaderNav from "./nav";
 import BlogSearch from "./blog-search";
-// import {
-//   ElDropdown,
-//   ElDropdownMenu,
-//   ElDropdownItem,
-//   ElIcon,
-// } from "element-plus";
+import {RouterEnum} from "@/enums"
 import { Operation } from "@element-plus/icons-vue";
 import { reactive, ref, Ref, computed, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -123,7 +118,7 @@ const headerList = ref<HeaderListType[]>([
   {
     name: "header.home",
     translation: true,
-    path: "/",
+    path: RouterEnum.Home,
   },
   {
     name: "专题",
@@ -132,13 +127,13 @@ const headerList = ref<HeaderListType[]>([
   {
     name: "header.BBS",
     translation: true,
-    path: "/message/board",
+    path: RouterEnum.MessageBoard,
   },
 ]);
 const active = computed(() => {
   let path: string = route.path;
   //如果是详情页的话渲染首页
-  if (path.indexOf("/article/details") != -1) {
+  if (path.indexOf(RouterEnum.ArticleDetails) != -1) {
     path = "/";
   }
   headerList.value.forEach((item: HeaderListType) => {

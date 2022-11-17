@@ -1,5 +1,5 @@
 export default {
-    'home1':'/index/blog/list/',//首页博客列表
+    'home1':'/index/blog/list',//首页博客列表
     "category":"/blog/category/page",//博客分类列表
     "userInfo":"/auth/cs/user/info",//用户详情
     "blogSearch":"/index/blog/search",//头部博客搜索

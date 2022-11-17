@@ -7,7 +7,8 @@ export interface HomeBlogPage {
 export interface HomeBlogState {
     blogList:HomeBlogList<any>[];
     blogPage:HomeBlogPage;
-    loading:boolean|string
+    loading:boolean|string,
+    categoryId:string|number,
 }
 
 

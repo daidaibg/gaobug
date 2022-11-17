@@ -1,28 +1,32 @@
 <script setup lang="ts">
 import HomeUser from "./home-user.vue";
 import Classify from "./classify/classify.vue";
-import { reactive, ref, toRefs } from "vue";
+import { reactive, ref, toRefs, watch } from "vue";
 import { currentGETPath, currencyGET } from "@/api";
 import { ElMessage } from "element-plus";
 import { typelist } from "./home-config";
 import { useInfiniteScroll } from "@vueuse/core";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { useBlogAction } from "@/hook/modules/use-blog-action";
 import Backtop from "@/components/backtop";
-import type {ClassifyListType,HomeBlogState,TypeList} from "./home-types"
+import { useHeaderStore } from "@/store";
+
+import type { ClassifyListType, HomeBlogState, TypeList } from "./home-types";
 
 const router = useRouter();
+const route = useRoute();
+const headerStore = useHeaderStore();
 const state = reactive<HomeBlogState>({
   blogList: [],
   blogPage: {
     current: 1,
     size: 15,
   },
+  categoryId: "",
   loading: false,
 });
-const active = ref("");
+const active = ref(typelist[0].type);
 const { blogLike } = useBlogAction();
-active.value = typelist[0].type;
 // 点赞
 const onLike = (item: any) => {
   console.log(item);
@@ -49,14 +53,24 @@ const onToggleType = (item: TypeList) => {
 const jumpDetail = (item: any) => {
   router.push({ path: "/article/details/" + item.id });
 };
-
-const onClassify = (item:ClassifyListType)=>{
-  console.log(item);
-}
+/**
+ * @description: 切换分类
+ * @param {ClassifyListType} item 点击分类的信息
+ */
+const onClassify = (item: ClassifyListType) => {
+  state.blogPage.current = 1;
+  state.categoryId = item.id;
+  getBlogList();
+};
 // 获取博客列表
 const getBlogList = () => {
   state.loading = true;
-  currentGETPath("home1", active.value, { ...state.blogPage }).then((res) => {
+  currencyGET("home1", {
+    ...state.blogPage,
+    type: active.value,
+    categoryId: state.categoryId,
+    keywords: headerStore.headerSearch.keywords,
+  }).then((res) => {
     // console.log('blogList',res);
     if (res.code == 200) {
       let blogList = res.data.records;
@@ -96,15 +110,27 @@ useInfiniteScroll(
   },
   { distance: 20 }
 );
+
+watch(
+  () => headerStore.headerSearch.num,
+  (val) => {
+    console.log(val);
+    getBlogList();
+  },
+  {
+    deep: false,
+  }
+);
 const init = () => {
   getBlogList();
 };
+
 // 页面初始化触发方法
 init();
 </script>
 
 <template>
-  <Classify @on-classify="onClassify"/>
+  <Classify @on-classify="onClassify" />
   <div class="gaobug index-body flex justify-between items-start">
     <div class="blog-cloud_content flex-1 box-shadow-0 container-bg">
       <div class="list-header">
