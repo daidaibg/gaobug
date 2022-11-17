@@ -56,6 +56,7 @@ getCategory();
   position: fixed;
   top: var(--header-height);
   z-index: 1;
+
 }
 .light .mod-classify {
   backdrop-filter: blur(8px) !important;
@@ -64,12 +65,13 @@ getCategory();
 .classify-content {
   max-width: $max-width;
   margin: auto;
+  overflow-x: auto;
 }
 .classify-item {
   padding: 8px 12px;
   font-size: 14px;
   color: var(--yh-text-color-secondary);
-
+  flex-shrink: 0;
   &.is-active,
   &:hover {
     color: var(--yh-brand-color);
