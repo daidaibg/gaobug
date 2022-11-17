@@ -11,7 +11,6 @@ export const useHeaderStore = defineStore('header', () => {
     })
 
     const setKeywords=(val:string|number)=>{
-        console.log("setKeywords",val);
         headerSearch.keywords=val
         headerSearch.num++
 

@@ -114,7 +114,6 @@ useInfiniteScroll(
 watch(
   () => headerStore.headerSearch.num,
   (val) => {
-    console.log(val);
     getBlogList();
   },
   {
