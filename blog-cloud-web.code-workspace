@@ -8,5 +8,7 @@
 			"path": "blog-cloud-tool"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "blog-cloud-web"
+	}
 }
