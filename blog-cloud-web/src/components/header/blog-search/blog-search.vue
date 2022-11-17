@@ -22,7 +22,6 @@ const props = withDefaults(defineProps<Props>(), {
  * @return {*}
  */
 const search = () => {
-  if(!searchVal.value)return
   setKeywords(searchVal.value);
   if (props.active !== RouterEnum.Home) {
     router.push("/");
