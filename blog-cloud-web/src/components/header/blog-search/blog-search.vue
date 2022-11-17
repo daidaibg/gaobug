@@ -27,6 +27,7 @@ const search = () => {
     router.push("/");
   }
 };
+setKeywords("");
 const onInput = () => {};
 </script>
 
