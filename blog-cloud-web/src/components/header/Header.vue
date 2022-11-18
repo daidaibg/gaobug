@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-17 09:53:09
+ * @LastEditTime: 2022-11-18 11:51:06
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -49,7 +49,7 @@
           </div>
         </template>
       </div>
-      <blog-search  :active="active"></blog-search>
+      <blog-search :active="active"></blog-search>
       <div class="right">
         <div class="phoneTab" style="display: none">
           <el-dropdown trigger="click" @command="command">
@@ -78,7 +78,7 @@ import { Logo } from "./logo";
 import User from "./user";
 import HeaderNav from "./nav";
 import BlogSearch from "./blog-search";
-import {RouterEnum} from "@/enums"
+import { RouterEnum } from "@/enums";
 import { Operation } from "@element-plus/icons-vue";
 import { reactive, ref, Ref, computed, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -168,7 +168,7 @@ const jump = (path: string) => {
   position: fixed;
   top: 0;
   width: 100%;
-  height: var( --header-height);
+  height: var(--header-height);
   z-index: 990;
   // right: 0;
   box-shadow: var(--yh-shadow-inset-bottom);
@@ -247,7 +247,7 @@ const jump = (path: string) => {
   // backdrop-filter: saturate(50%) blur(4px) !important;
   backdrop-filter: blur(8px) !important;
   // background: transparent !important;
-  background-color: rgba(255, 255, 255, .6);
+  background-color: rgba(255, 255, 255, 0.6);
 }
 @media screen and (max-width: 960px) {
   .headers {
