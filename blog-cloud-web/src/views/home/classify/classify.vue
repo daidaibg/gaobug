@@ -4,14 +4,17 @@ import { reactive, ref, toRefs } from "vue";
 import { ElMessage } from "element-plus";
 import type {ClassifyListType} from "../home-types"
 const classifyList = ref<ClassifyListType[]>([]); //分类列表
-const classifyListActive = ref<string>("");
 
+
+const props = withDefaults(defineProps<{
+  classifyListActive:string|number
+}>(), {
+  classifyListActive:"",
+});
 const emits = defineEmits<{
   (event: "on-classify", item: ClassifyListType): void;
 }>();
-
 const onClassify = (item: any) => {
-  classifyListActive.value = item.id;
   emits("on-classify", item);
 };
 
@@ -29,7 +32,10 @@ const getCategory = () => {
     }
   });
 };
-getCategory();
+const init=()=>{
+  getCategory();
+}
+init()
 </script>
 
 <template>

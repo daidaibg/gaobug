@@ -22,8 +22,8 @@ const state = reactive<HomeBlogState>({
     current: 1,
     size: 15,
   },
-  categoryId: "",
   loading: false,
+  categoryId: "",
 });
 const active = ref(typelist[0].type);
 const { blogLike } = useBlogAction();
@@ -60,7 +60,25 @@ const jumpDetail = (item: any) => {
 const onClassify = (item: ClassifyListType) => {
   state.blogPage.current = 1;
   state.categoryId = item.id;
+  addPathQuery("categoryId", item.id);
   getBlogList();
+};
+/**
+ * @description: 当前路径增加参数
+ * @param {string} queryKey key
+ * @param {any} value value
+ * @return {*}
+ */
+const addPathQuery = (queryKey: string, value: any) => {
+  let query = { ...route.query };
+  if (value) {
+    query[queryKey] = value;
+  } else {
+    delete query[queryKey];
+  }
+  router.push({
+    query: { ...query },
+  });
 };
 // 获取博客列表
 const getBlogList = () => {
@@ -68,7 +86,7 @@ const getBlogList = () => {
   currencyGET("home1", {
     ...state.blogPage,
     type: active.value,
-    categoryId: state.categoryId,
+    categoryId: state.categoryId || "",
     keywords: headerStore.headerSearch.keywords,
   }).then((res) => {
     // console.log('blogList',res);
@@ -121,6 +139,10 @@ watch(
   }
 );
 const init = () => {
+  const { query } = route as any;
+  if (query.categoryId) {
+    state.categoryId = query.categoryId;
+  }
   getBlogList();
 };
 
@@ -129,7 +151,7 @@ init();
 </script>
 
 <template>
-  <Classify @on-classify="onClassify" />
+  <Classify @on-classify="onClassify" :classifyListActive="state.categoryId"/>
   <div class="gaobug index-body flex justify-between items-start">
     <div class="blog-cloud_content flex-1 box-shadow-0 container-bg">
       <div class="list-header">
