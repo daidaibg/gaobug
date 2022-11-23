@@ -2,7 +2,7 @@
 import HomeUser from "./home-user.vue";
 import Classify from "./classify/classify.vue";
 import { reactive, ref, watch } from "vue";
-import {  getBlog } from "@/api/modules/home";
+import { getBlog } from "@/api/modules/home";
 import { ElMessage, MessageParamsWithType } from "element-plus";
 import { typelist } from "./home-config";
 import { useInfiniteScroll } from "@vueuse/core";
@@ -10,6 +10,8 @@ import { useRouter, useRoute } from "vue-router";
 import { useBlogAction } from "@/hook/modules/use-blog-action";
 import Backtop from "@/components/backtop";
 import { useHeaderStore } from "@/store";
+import { addRouterParam } from "@/utils/current";
+
 import type { ClassifyListType, HomeBlogState, TypeList } from "./home-types";
 
 const router = useRouter();
@@ -23,6 +25,7 @@ const state = reactive<HomeBlogState>({
   },
   loading: false,
   categoryId: "",
+  keywords: "",
 });
 const active = ref(typelist[0].type);
 const { blogLike } = useBlogAction();
@@ -59,60 +62,51 @@ const jumpDetail = (item: any) => {
 const onClassify = (item: ClassifyListType) => {
   state.blogPage.current = 1;
   state.categoryId = item.id;
-  addPathQuery("categoryId", item.id);
-  getBlogList();
-};
-/**
- * @description: 当前路径增加参数
- * @param {string} queryKey key
- * @param {any} value value
- * @return {*}
- */
-const addPathQuery = (queryKey: string, value: any) => {
-  let query = { ...route.query };
-  if (value) {
-    query[queryKey] = value;
-  } else {
-    delete query[queryKey];
-  }
   router.push({
-    query: { ...query },
+    query: addRouterParam(route.query, "categoryId", item.id),
   });
+  getBlogList();
 };
 // 获取博客列表
 const getBlogList = () => {
   state.loading = true;
-  getBlog( {
+  getBlog({
     ...state.blogPage,
     type: active.value,
     categoryId: state.categoryId || "",
-    keywords: headerStore.headerSearch.keywords,
-  }).then((res: { code: number; data: { records: any; }; msg: MessageParamsWithType; }) => {
-    // console.log('blogList',res);
-    if (res.code == 200) {
-      let blogList = res.data.records;
-      if (blogList.length < state.blogPage.size) {
-        if (state.blogPage.current == 1) {
-          state.blogList = [];
+    keywords: state.keywords,
+  }).then(
+    (res: {
+      code: number;
+      data: { records: any };
+      msg: MessageParamsWithType;
+    }) => {
+      // console.log('blogList',res);
+      if (res.code == 200) {
+        let blogList = res.data.records;
+        if (blogList.length < state.blogPage.size) {
+          if (state.blogPage.current == 1) {
+            state.blogList = [];
+          }
+          blogList.forEach((item: object) => {
+            state.blogList.push(item);
+          });
+          state.loading = "end";
+        } else if (state.blogPage.current === 1) {
+          state.blogList = blogList;
+          state.loading = false;
+        } else {
+          blogList.forEach((item: object) => {
+            state.blogList.push(item);
+          });
+          state.loading = false;
         }
-        blogList.forEach((item: object) => {
-          state.blogList.push(item);
-        });
-        state.loading = "end";
-      } else if (state.blogPage.current === 1) {
-        state.blogList = blogList;
-        state.loading = false;
       } else {
-        blogList.forEach((item: object) => {
-          state.blogList.push(item);
-        });
         state.loading = false;
+        ElMessage.error(res.msg);
       }
-    } else {
-      state.loading = false;
-      ElMessage.error(res.msg);
     }
-  });
+  );
 };
 
 // 无限滚动
@@ -131,16 +125,30 @@ useInfiniteScroll(
 watch(
   () => headerStore.headerSearch.num,
   (val) => {
+    state.blogPage.current = 1;
+    state.keywords = headerStore.headerSearch.keywords;
     getBlogList();
   },
   {
     deep: false,
   }
 );
+// watch(
+//   () => route.query,
+//   (val) => {
+//     init()
+//   },
+//   {
+//     deep: false,
+//   }
+// );
 const init = () => {
   const { query } = route as any;
   if (query.categoryId) {
     state.categoryId = query.categoryId;
+  }
+  if (query.s) {
+    state.keywords = query.s;
   }
   getBlogList();
 };
@@ -150,7 +158,7 @@ init();
 </script>
 
 <template>
-  <Classify @on-classify="onClassify" :classifyListActive="state.categoryId"/>
+  <Classify @on-classify="onClassify" :classifyListActive="state.categoryId" />
   <div class="gaobug index-body flex justify-between items-start">
     <div class="blog-cloud_content flex-1 box-shadow-0 container-bg">
       <div class="list-header">

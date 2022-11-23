@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw, createWebHistory,RouterOptions } from 'vue-router'
 import { getScrollContainer } from "yhht-plus/packages/utils/dom"
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -25,7 +25,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "Components" */ '../views/home/home.vue'),
         meta: {
           title: "搞bug",
-          noSplice: true
+          noSplice: true,
+          keepAlive:true
         }
       },
       {
@@ -113,17 +114,22 @@ const routes: Array<RouteRecordRaw> = [
 ]
 // console.log(import.meta.env.MODE);
 const router = createRouter({
-  history:import.meta.env.MODE==='hash'?createWebHashHistory() :createWebHistory(import.meta.env.BASE_URL as string),
+  history: import.meta.env.MODE === 'hash' ? createWebHashHistory() : createWebHistory(import.meta.env.BASE_URL as string),
   routes,
-  // scrollBehavior(to, from, saveScrollPosition) {
-  //   return { left: 0, top: 0 };
-  // },
+  scrollBehavior(to, from, saveScrollPosition) {
+    if (to.path !== from.path && !saveScrollPosition) {
+      return { top: 0 }
+    } else if (saveScrollPosition) {
+      return saveScrollPosition
+    } else {
+      return {}
+    }
+  },
 })
 
 
 // ---------------------- 路由拦截 方法 -----------------------------------//
 router.beforeEach((to, from, next) => {
-  // console.log(to,from);
   let text = ' - 搞bug'
   if (to.meta.noSplice) {
     text = ''
@@ -137,6 +143,5 @@ router.beforeEach((to, from, next) => {
 })
 // --------------------------- 路由拦截 方法---------------------------------------------- //
 router.afterEach((to, from) => {
-
 })
 export default router

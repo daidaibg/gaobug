@@ -4,10 +4,11 @@ import { ElInput } from "element-plus";
 import { ref } from "vue";
 import { useHeaderStore } from "@/store";
 import { RouterEnum } from "@/enums";
-import { useRouter } from "vue-router";
-const searchVal = ref<string>("");
+import { useRouter, useRoute } from "vue-router";
+import { addRouterParam } from "@/utils/current";
 const router = useRouter();
-
+const route = useRoute();
+const searchVal = ref<string>((route as any).query.s || "");
 const { setKeywords } = useHeaderStore();
 
 interface Props {
@@ -24,11 +25,22 @@ const props = withDefaults(defineProps<Props>(), {
 const search = () => {
   setKeywords(searchVal.value);
   if (props.active !== RouterEnum.Home) {
-    router.push("/");
+    router.push({
+      path: "/",
+      query: {
+        s: searchVal.value,
+      },
+    });
+  } else {
+    router.push({
+      query: addRouterParam(route.query, "s", searchVal.value),
+    });
   }
 };
-setKeywords("");
 const onInput = () => {};
+//初始话的时候赋值
+searchVal.value = (route as any).query.s || "";
+setKeywords(searchVal.value);
 </script>
 
 <template>
@@ -39,6 +51,7 @@ const onInput = () => {};
       placeholder="探索搞bug"
       @keyup.enter.native="search"
       @input="onInput"
+      clearable
     >
       <template #suffix>
         <div class="searc-suffix" @click="search">

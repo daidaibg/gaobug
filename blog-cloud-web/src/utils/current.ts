@@ -45,3 +45,19 @@ export const handleCommen =(commen:string)=>{
       }
 }
 
+/**
+ * @description: 当前路径增加参数
+ * @param {Object} query 当前路径参数
+ * @param {string} queryKey key
+ * @param {any} value value
+ * @return {Object} 
+ */
+ export const addRouterParam = (query:any,queryKey: string, value: any) => {
+  let newQuery:any = { ...query };
+  if (value) {
+    newQuery[queryKey] = value;
+  } else {
+    delete newQuery[queryKey];
+  }
+  return  newQuery
+};
