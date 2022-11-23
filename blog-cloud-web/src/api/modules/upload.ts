@@ -1,5 +1,5 @@
 import {FILEPOST} from "../api";
-import Urls from "./home"
+import {Home} from "./home"
 export const uploadImg = (param: any,config?:any) => {
-    return FILEPOST(Urls['upload'], param,config||{});
+    return FILEPOST(Home['upload'], param,config||{});
   };

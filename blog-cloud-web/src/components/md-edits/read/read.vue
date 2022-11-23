@@ -4,7 +4,7 @@
         @onAdjust="state.modalFullscreen = !state.modalFullscreen">
         <div style="height: 100%; padding: 20px; overflow: auto">
             <md-editor :theme="theme" :preview-theme="previewTheme" editor-id="edit2preview"   preview-only
-                 v-model="mdText" />
+            :modelValue="mdText" />
         </div>
         <template #trigger>
             <svg class="md-editor-icon" aria-hidden="true">

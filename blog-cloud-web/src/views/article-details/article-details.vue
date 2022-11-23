@@ -122,7 +122,7 @@ const goEditArticle =()=>{
           showCodeRowNumber
           class="previewmd mt-8"
           preview-only
-          v-model="mdText"
+          :modelValue="mdText"
           @GetCatalog="onGetCatalog"
         >
         </md-editor>

@@ -2,13 +2,14 @@
  * @Author: daidai
  * @Date: 2021-12-23 11:18:37
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-23 15:41:34
+ * @LastEditTime: 2022-11-23 17:20:29
  * @FilePath: \web-pc-svn\src\api\modules\index.js
  */
 
 import {GET,POST,FILEPOST,request} from "./api";
 import {Home} from "./modules/home"
 import type {UrlObjType} from "./index.d"
+export * from "./modules/upload"
 export const urlObj:UrlObjType = {
   ...Home,
 };
