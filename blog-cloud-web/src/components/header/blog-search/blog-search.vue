@@ -52,6 +52,7 @@ setKeywords(searchVal.value);
       @keyup.enter.native="search"
       @input="onInput"
       clearable
+      @clear="search"
     >
       <template #suffix>
         <div class="searc-suffix" @click="search">
