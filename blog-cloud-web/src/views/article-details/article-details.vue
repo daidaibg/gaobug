@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, Ref } from "vue"
 import { useRoute,useRouter } from "vue-router"
-import { currentGETPath } from "@/api"
+import { requestGet } from "@/api"
 import { ElMessage } from 'element-plus'
 import MdEditor from "md-editor-v3"
 import { HeadList } from 'md-editor-v3';
@@ -36,7 +36,7 @@ const like = (res:any)=>{
 }
 //获取详情
 const getDetail = () => {
-    currentGETPath('indexBlogDetail', route.params.id).then(res => {
+  requestGet('indexBlogDetail', {},route.params.id).then((res:any) => {
         // console.log(res);
         if (res.code == 200) {
             blogDetails.value = res.data

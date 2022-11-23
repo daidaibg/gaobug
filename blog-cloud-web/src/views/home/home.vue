@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import HomeUser from "./home-user.vue";
 import Classify from "./classify/classify.vue";
-import { reactive, ref, toRefs, watch } from "vue";
-import { currentGETPath, currencyGET } from "@/api";
-import { ElMessage } from "element-plus";
+import { reactive, ref, watch } from "vue";
+import {  getBlog } from "@/api/modules/home";
+import { ElMessage, MessageParamsWithType } from "element-plus";
 import { typelist } from "./home-config";
 import { useInfiniteScroll } from "@vueuse/core";
 import { useRouter, useRoute } from "vue-router";
 import { useBlogAction } from "@/hook/modules/use-blog-action";
 import Backtop from "@/components/backtop";
 import { useHeaderStore } from "@/store";
-
 import type { ClassifyListType, HomeBlogState, TypeList } from "./home-types";
 
 const router = useRouter();
@@ -83,12 +82,12 @@ const addPathQuery = (queryKey: string, value: any) => {
 // 获取博客列表
 const getBlogList = () => {
   state.loading = true;
-  currencyGET("home1", {
+  getBlog( {
     ...state.blogPage,
     type: active.value,
     categoryId: state.categoryId || "",
     keywords: headerStore.headerSearch.keywords,
-  }).then((res) => {
+  }).then((res: { code: number; data: { records: any; }; msg: MessageParamsWithType; }) => {
     // console.log('blogList',res);
     if (res.code == 200) {
       let blogList = res.data.records;

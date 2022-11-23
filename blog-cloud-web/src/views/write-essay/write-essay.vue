@@ -8,7 +8,7 @@ import { toolbars, onUploadImg, tagsList, beforeAvatarUpload, onUploadCover } fr
 import {ElMessage, ElDialog, } from "element-plus";
 
 import type { FormInstance, FormRules, UploadRequestOptions } from 'element-plus'
-import { currentPOST, currencyGET, currentGETPath } from "@/api";
+import { currentPOST, requestGet } from "@/api";
 import MdEmoji from "@/components/md-edits/md-emoji/md-emoji.vue";
 import Read from "@/components/md-edits/read/read.vue";
 import { useRouter, useRoute } from "vue-router";
@@ -113,7 +113,7 @@ const saveOrUpdate = async (publish: Number, successMsg: string) => {
 }
 //获取分类列表
 const getCategory = () => {
-    currencyGET("category", { size: 20 }).then(res => {
+    requestGet("category", { size: 20 }).then((res:any) => {
         // console.log(res);
         if (res.code == 200) {
             classificatio.value = res.data.records
@@ -161,7 +161,7 @@ const deleteCover = () => {
 }
 //获取详情
 const getDetail = () => {
-    currentGETPath('blogDetail', state.id).then(res => {
+    requestGet('blogDetail',{}, state.id).then((res:any) => {
         console.log(res);
         if (res.code == 200) {
             blogDetails.value = res.data

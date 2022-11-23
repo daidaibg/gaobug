@@ -2,7 +2,7 @@
 import { ref, reactive } from "vue"
 import { ElTabs, ElTabPane, ElMessage, ElPagination, ElDropdown, ElDropdownItem, ElMessageBox } from 'element-plus'
 import type { TabsPaneContext } from 'element-plus'
-import { currencyGET ,currentPOSTPath} from "@/api"
+import { requestGet ,currentPOSTPath} from "@/api"
 import { articlesType, articlesListType } from "./articles-type"
 import { useRouter } from "vue-router"
 
@@ -23,7 +23,7 @@ const getBlog = () => {
         size: blogData.size,
         publish: blogData.publish
     }
-    currencyGET("blogList", param).then(res => {
+    requestGet("iBlogList", param).then((res:any) => {
         // console.log(res);
         if (res.code == 200) {
             blogData.list = res.data.records
