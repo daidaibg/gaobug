@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-18 11:51:06
+ * @LastEditTime: 2022-11-29 17:42:55
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -136,16 +136,14 @@ const active = computed(() => {
   if (path.indexOf(RouterEnum.ArticleDetails) != -1) {
     path = "/";
   }
-  headerList.value.forEach((item: HeaderListType) => {
-    try {
+  try {
+    headerList.value.forEach((item: HeaderListType) => {
       if (item.path === path) {
         activeData.value = item;
         throw new Error("终止forEach");
       }
-    } catch (error) {
-      return;
-    }
-  });
+    });
+  } catch (error) {}
   return path;
 });
 
