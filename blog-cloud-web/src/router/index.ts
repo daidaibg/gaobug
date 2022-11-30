@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw, createWebHistory,RouterOptions } from 'vue-router'
 import { getScrollContainer } from "yhht-plus/packages/utils/dom"
+import { RouterEnum } from "@/enums";
+
 const routes: Array<RouteRecordRaw> = [
   // {
   //   path: '/',
@@ -38,7 +40,15 @@ const routes: Array<RouteRecordRaw> = [
           noSplice: true
         }
       },
-
+      {
+        path: RouterEnum.Tool,
+        name: RouterEnum.Tool,
+        component: () => import(/* webpackChunkName: "tool" */ '../views/nav-page/tool/index'),
+        meta: {
+          title: "工具",
+          noSplice: true
+        }
+      },
       {
         path: '/login',
         name: '/login',

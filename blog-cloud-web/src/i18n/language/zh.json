@@ -2,7 +2,8 @@
     "header": {
         "language": "中文",
         "home":"首页",
-        "BBS":"留言"
+        "BBS":"留言",
+        "tool":"工具"
     },
     "home":{
         "recommend":"推荐",

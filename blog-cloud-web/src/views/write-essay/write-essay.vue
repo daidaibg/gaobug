@@ -206,7 +206,7 @@ init()
             </yh-button>
             <user></user>
         </header>
-        <md-editor v-model="content" :toolbars="toolbars" class="flex-1 mb-1" showCodeRowNumber
+        <md-editor v-model="content" :toolbars="toolbars" class="flex-1" showCodeRowNumber
             :previewTheme="previewTheme" :theme="themeStore.getTheme" @Save="save" @uploadImg="onUploadImg"
             :editor-id="editorId">
             <template #defToolbars>

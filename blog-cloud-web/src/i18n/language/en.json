@@ -2,7 +2,9 @@
     "header": {
         "language": "中文",
         "home":"Home",
-        "BBS":"BBS"
+        "BBS":"BBS",
+        "tool":"tool"
+
     },
     "home":{
         "recommend":"recommend",

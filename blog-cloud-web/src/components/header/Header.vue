@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-29 17:42:55
+ * @LastEditTime: 2022-11-30 10:10:07
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -128,6 +128,11 @@ const headerList = ref<HeaderListType[]>([
     name: "header.BBS",
     translation: true,
     path: RouterEnum.MessageBoard,
+  },
+  {
+    name: "header.tool",
+    translation: true,
+    path: RouterEnum.Tool,
   },
 ]);
 const active = computed(() => {

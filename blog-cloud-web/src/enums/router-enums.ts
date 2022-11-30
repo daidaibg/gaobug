@@ -4,7 +4,9 @@ export enum RouterEnum {
     //留言
     MessageBoard ="/message/board",
     //首页
-    Home ="/"
+    Home ="/",
+    //工具
+    Tool="/tool"
 
  
 }
