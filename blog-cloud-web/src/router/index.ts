@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw, createWebHistory,RouterOptions } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw, createWebHistory, RouterOptions } from 'vue-router'
 import { getScrollContainer } from "yhht-plus/packages/utils/dom"
 import { RouterEnum } from "@/enums";
 
@@ -6,7 +6,6 @@ const routes: Array<RouteRecordRaw> = [
   // {
   //   path: '/',
   //   // redirect: "components",
-
   // },
   {
     path: '/components',
@@ -28,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "搞bug",
           noSplice: true,
-          keepAlive:true
+          keepAlive: true
         }
       },
       {
@@ -63,6 +62,22 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "login" */ '../views/login/register/index'),
         meta: {
           title: "注册"
+        }
+      },
+    ]
+  },
+  {
+    path: '/tools',
+    name: 'tools',
+    component: () => import(/* webpackChunkName: "tools" */ '../views/tools/tools-layout.vue'),
+    children: [
+      {
+        path: RouterEnum.JsonFormat,
+        name: RouterEnum.JsonFormat,
+        component: () => import(/* webpackChunkName: "tools" */ '../views/tools/json-format/json-format.vue'),
+        meta: {
+          title: "JSON格式化",
+          noSplice: true
         }
       },
     ]

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { RouterEnum } from "@/enums";
+import {  useRouter } from "vue-router";
+const router = useRouter();
 const toolList = [
   {
     title: "常用工具",
@@ -9,6 +12,7 @@ const toolList = [
         id: "11",
         type:'inner',
         img: "https://www.gaobug.com/blog-cloud-tool/img/json_format.png",
+        url:RouterEnum.JsonFormat
       },
     ],
   },
@@ -32,7 +36,8 @@ const aHrefFormat = (toolItem: any) => {
   if(toolItem.type=="out"){
     return toolItem.url
   }
-  return "#";
+  const href = router.resolve({ path: toolItem.url})
+  return href.href;
 };
 </script>
 

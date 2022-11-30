@@ -2,14 +2,14 @@
 import { Logo } from "@/components/header/logo";
 import {  useRoute } from "vue-router";
 const route = useRoute();
-console.log(route);
+// console.log(route);
 </script>
 
 <template>
-  <div class="tools-layout">
+  <!-- <div class="tools-layout">
     <Logo class="tools-layout_logo" />
     <span class="tools-layout_title">{{route.meta.title||"搞bug工具"}}</span>
-  </div>
+  </div> -->
   <router-view />
 </template>
 

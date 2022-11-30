@@ -410,6 +410,6 @@ $font-gray-1: var(--dd-font-gray-1);
 }
 
 .index-body {
-  padding-top: calc(var(--header-height) + 54px);
+  padding-top: 54px;
 }
 </style>

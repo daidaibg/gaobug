@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import ModelLogin from "./views/login/model-login.vue"
-import I18n from "@/components/I18n"
+import ModelLogin from "./views/login/model-login.vue";
+import I18n from "@/components/I18n";
 // import { onMounted, ref } from "vue"
 // const modelLogin:any =ref(null)
 // onMounted(()=>{
@@ -9,8 +9,7 @@ import I18n from "@/components/I18n"
 </script>
 
 <template>
-   <router-view />
-   <model-login ref="modelLogin"></model-login>
-   <I18n/>
+  <router-view />
+  <model-login ref="modelLogin"></model-login>
+  <I18n />
 </template>
-

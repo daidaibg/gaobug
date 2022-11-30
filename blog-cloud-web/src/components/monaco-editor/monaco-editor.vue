@@ -1,0 +1,132 @@
+<script lang="ts" setup>
+// https://blog.csdn.net/weixin_43909743/article/details/127633552
+import JsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker";
+import CssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker";
+import HtmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
+import TsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
+import EditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
+import * as monaco from "monaco-editor";
+import { nextTick, ref, onBeforeUnmount, onMounted, watch } from "vue";
+import { editorProps } from "./monaco-editor-type";
+import { useRoute } from "vue-router";
+const emits = defineEmits<{
+  (event: "update:modelValue", e: any): void;
+  (event: "change", e: any): void;
+  (event: "editor-mounted", e: any): void;
+}>();
+const props = defineProps(editorProps);
+let editor: monaco.editor.IStandaloneCodeEditor;
+// @ts-ignore
+(self as any).MonacoEnvironment = {
+  getWorker(_: string, label: string) {
+    if (label === "json") {
+      return new JsonWorker();
+    }
+    if (["css", "scss", "less"].includes(label)) {
+      return new CssWorker();
+    }
+    if (["html", "handlebars", "razor"].includes(label)) {
+      return new HtmlWorker();
+    }
+    if (["typescript", "javascript"].includes(label)) {
+      return new TsWorker();
+    }
+    return new EditorWorker();
+  },
+};
+
+const editorInit = () => {
+  nextTick(() => {
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+      noSemanticValidation: true,
+      noSyntaxValidation: false,
+    });
+    monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+      target: monaco.languages.typescript.ScriptTarget.ES2016,
+      allowNonTsExtensions: true,
+    });
+
+    editor = monaco.editor.create(
+      document.getElementById("codeEditBox") as HTMLElement,
+      {
+        value: props.modelValue,
+        language: props.language,
+        readOnly: props.readOnly,
+        theme: props.theme,
+        ...props.options,
+      }
+    );
+    editor.onDidChangeModelContent(() => {
+      const value = editor.getValue(); // 给父组件实时返回最新文本
+      emits("update:modelValue", value);
+      emits("change", value);
+    });
+    emits("editor-mounted", editor);
+  });
+};
+onBeforeUnmount(() => {
+  editor.dispose();
+});
+onMounted(() => {
+  editorInit();
+});
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    if (editor) {
+      const value = editor.getValue();
+      if (newValue !== value) {
+        editor.setValue(newValue);
+      }
+    }
+  }
+);
+watch(
+  () => props.options,
+  (newValue) => {
+    editor.updateOptions(newValue);
+  },
+  { deep: true }
+);
+watch(
+  () => props.readOnly,
+  () => {
+    console.log("props.readOnly", props.readOnly);
+    editor.updateOptions({ readOnly: props.readOnly });
+  },
+  { deep: true }
+);
+watch(
+  () => props.theme,
+  () => {
+    console.log("props.theme",props.theme);
+    editor.updateOptions({ theme: props.theme });
+  },
+);
+watch(
+  () => props.language,
+  (newValue) => {
+    changeLanguage(newValue);
+  }
+);
+
+// @ts-ignore
+//切换语言
+const changeLanguage = (language: string) => {
+  monaco.editor.setModelLanguage(editor.getModel()!, language);
+};
+//设置一个确认按钮，点击时调用接口
+/***
+editor.setValue(newValue)
+editor.getValue()
+editor.onDidChangeModelContent((val)=>{ //监听值的变化  })
+editor.getAction('editor.action.formatDocument').run()    //格式化代码
+editor.dispose()    //销毁实例
+editor.onDidChangeOptions　　//配置改变事件
+editor.onDidChangeLanguage　　//语言改变事件
+ */
+</script>
+
+<template>
+  <div id="codeEditBox"></div>
+</template>

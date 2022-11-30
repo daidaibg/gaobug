@@ -6,7 +6,7 @@ export enum RouterEnum {
     //首页
     Home ="/",
     //工具
-    Tool="/tool"
-
- 
+    Tool="/tool",
+    //json 格式化
+    JsonFormat="/json/format"
 }

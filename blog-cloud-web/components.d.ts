@@ -33,6 +33,7 @@ declare module '@vue/runtime-core' {
     Manage: typeof import('./src/components/manage/manage.vue')['default']
     MdEmoji: typeof import('./src/components/md-edits/md-emoji/md-emoji.vue')['default']
     Menus: typeof import('./src/components/menus/menus.vue')['default']
+    MonacoEditor: typeof import('./src/components/monaco-editor/monaco-editor.vue')['default']
     Nav: typeof import('./src/components/header/nav/nav.vue')['default']
     Read: typeof import('./src/components/md-edits/read/read.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

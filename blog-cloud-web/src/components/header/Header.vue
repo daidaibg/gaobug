@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-30 10:59:08
+ * @LastEditTime: 2022-11-30 11:55:16
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -70,6 +70,9 @@
       </div>
     </div>
   </header>
+  <div class="header_fixed">
+
+  </div>
 </template>
 <script lang="ts" setup>
 import { Lang } from "./lang";
@@ -162,6 +165,10 @@ const jump = (path: string) => {
 </script>
 
 <style lang="scss" scoped>
+.header_fixed{
+  width: 100%;
+  height: var(--header-height);
+}
 .headers {
   width: 100%;
   box-sizing: border-box;
