@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-30 10:10:07
+ * @LastEditTime: 2022-11-30 10:59:08
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -166,7 +166,8 @@ const jump = (path: string) => {
   width: 100%;
   box-sizing: border-box;
   padding: 0 24px;
-  background: var(--yh-bg-color-container);
+  // background: var(--yh-bg-color-container);
+  background-color: var(--dd-component-card-background);
   box-shadow: var(--yh-shoadow-bootom);
   position: fixed;
   top: 0;

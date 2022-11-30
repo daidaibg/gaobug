@@ -24,7 +24,8 @@
   --dd-scrollbar-color: rgba(0, 0, 0, 0.1);
   --dd-scroll-track-color: #fff;
   --dd-color-secondary-brand: rgb(99, 133, 166);
- 
+  
+  --dd-component-card-background: rgba(255,255,255,0.6);
   .headers-root {
     --header-logo-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px,
       rgba(255, 255, 255, 0.2) 1px 3px 3px;
@@ -72,6 +73,7 @@
 
   --dd-color-secondary-brand: #819ece;
 
+  --dd-component-card-background: rgba(36,36,36, 0.6);
   .headers-root {
     --header-logo-shadow: rgba(0, 0, 0, 0.5) 0 5px 6px,
       rgba(0, 0, 0, 0.2) 1px 3px 3px;
