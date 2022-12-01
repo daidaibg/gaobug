@@ -3,7 +3,6 @@ import ModelLogin from "./views/login/model-login.vue";
 import I18n from "@/components/I18n";
 import Loading from "@/components/loading";
 
-console.log("app");
 
 // import { onMounted, ref } from "vue"
 // const modelLogin:any =ref(null)

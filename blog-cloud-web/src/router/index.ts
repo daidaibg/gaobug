@@ -162,7 +162,6 @@ router.beforeEach((to, from, next) => {
   if(to.meta.loading){
     container_nomountDom.style.display="inline"
   }
-  console.log("beforeEach");
   document.title = to.meta.title ? `${to.meta.title}  ${text}` : '搞bug';
   if (to.path !== from.path) {
     let body: any = getScrollContainer()
