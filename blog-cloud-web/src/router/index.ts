@@ -151,14 +151,18 @@ const router = createRouter({
     }
   },
 })
-
-
+//htmlloading元素
+const container_nomountDom:any =  document.querySelector(".container_nomount")
 // ---------------------- 路由拦截 方法 -----------------------------------//
 router.beforeEach((to, from, next) => {
   let text = ' - 搞bug'
   if (to.meta.noSplice) {
     text = ''
   }
+  if(to.meta.loading){
+    container_nomountDom.style.display="inline"
+  }
+  console.log("beforeEach");
   document.title = to.meta.title ? `${to.meta.title}  ${text}` : '搞bug';
   if (to.path !== from.path) {
     let body: any = getScrollContainer()
@@ -168,5 +172,6 @@ router.beforeEach((to, from, next) => {
 })
 // --------------------------- 路由拦截 方法---------------------------------------------- //
 router.afterEach((to, from) => {
+  container_nomountDom.style.display="none"
 })
 export default router

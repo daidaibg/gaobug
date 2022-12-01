@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     Header: typeof import('./src/components/header/Header.vue')['default']
     I18n: typeof import('./src/components/I18n/index.vue')['default']
     Lang: typeof import('./src/components/header/lang/lang.vue')['default']
+    Loading: typeof import('./src/components/loading/loading.vue')['default']
     Logo: typeof import('./src/components/header/logo/logo.vue')['default']
     LogoSvg: typeof import('./src/components/logo/logo-svg.vue')['default']
     Manage: typeof import('./src/components/manage/manage.vue')['default']

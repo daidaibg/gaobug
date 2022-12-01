@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-12-13 14:58:20
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-06-18 10:53:13
+ * @LastEditTime: 2022-12-01 16:27:13
  * @FilePath: \web-pc\src\views\Login\Retrieve.vue
 -->
 <template>
@@ -143,7 +143,7 @@ async function GetCode() {
   state.countdown = "发送中...";
   await requestGet("captchaEmail",{
     email: state.loginForm.email,
-  }).then((res) => {
+  }).then((res:any) => {
     if (res.code===200) {
       sendeSuccess();
     } else {

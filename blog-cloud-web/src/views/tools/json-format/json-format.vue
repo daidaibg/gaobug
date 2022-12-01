@@ -7,6 +7,7 @@ import { languageList } from "./json-format-config";
 import { languageIcons } from "@/config/languageIcons";
 import fileSvg from "@/assets/file-icon/file.svg";
 import { ElMessage, ElMessageBox } from "element-plus";
+console.log("created");
 const editValue = ref("");
 const languageModel = ref("json");
 const theme = ref<Theme>("vs");
