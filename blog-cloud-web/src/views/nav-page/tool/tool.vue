@@ -64,6 +64,11 @@ const aHrefFormat = (toolItem: any) => {
                   :alt="toolItem.title"
                   class="tool_item_img"
                 />
+                <img
+                  :src="toolItem.img"
+                  :alt="toolItem.title"
+                  class="tool_item_img back"
+                />
               </div>
               <span class="tool_item_title">{{ toolItem.title }}</span>
             </a>
@@ -114,32 +119,38 @@ const aHrefFormat = (toolItem: any) => {
       width: 100%;
       height: 100%;
     }
-    .tool_item_img {
-      width: 46px;
-      height: 46px;
-      transform-style: preserve-3d;
-      transition: transform .3s;
-      transform: rotateY(10deg);
-
-    }
-    .tool_item_title {
-      color: var(--yh-text-color-primary);
-      font-size: 14px;
-      line-height: 1;
-    }
     .tool_item_img_wrap {
+      position: relative;
       perspective: 100px;
       background-color: var(--yh-bg-color-container);
       box-shadow: var(--yh-shadow-3);
       width: 56px;
       height: 56px;
       border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       border: transparent 1px solid;
       margin-bottom: 12px;
     }
+    .tool_item_img {
+      width: 46px;
+      height: 46px;
+      transform-style: preserve-3d;
+      transition: transform 1.2s cubic-bezier(0.66,-0.47,0.33,1.5);
+      backface-visibility: hidden;
+      position: relative;
+      left: 5px;
+      top: 5px;
+      transform: rotateY(0deg);
+      &.back {
+        position: absolute;
+        transform: rotateY(180deg);
+      }
+    }
+    .tool_item_title {
+      color: var(--yh-text-color-primary);
+      font-size: 14px;
+      line-height: 1;
+    }
+
     &:hover {
       background: var(--yh-bg-color-container-hover);
       .tool_item_img_wrap {
@@ -148,7 +159,10 @@ const aHrefFormat = (toolItem: any) => {
         // backface-visibility: hidden;
       }
       .tool_item_img {
-        transform: rotateY(0deg);
+        transform: rotateY(180deg);
+        &.back {
+          transform: rotateY(360deg);
+        }
       }
       .tool_item_title {
         color: var(--yh-text-color-link);
