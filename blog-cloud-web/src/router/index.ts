@@ -76,7 +76,7 @@ const routes: Array<RouteRecordRaw> = [
         name: RouterEnum.JsonFormat,
         component: () => import(/* webpackChunkName: "tools" */ '../views/tools/json-format/json-format.vue'),
         meta: {
-          title: "JSON格式化",
+          title: "格式化工具",
           noSplice: true
         }
       },

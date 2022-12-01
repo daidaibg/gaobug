@@ -1,8 +1,8 @@
 @font-face {
   font-family: "dd"; /* Project id 3424605 */
-  src: url('iconfont.woff2?t=1655793039109') format('woff2'),
-       url('iconfont.woff?t=1655793039109') format('woff'),
-       url('iconfont.ttf?t=1655793039109') format('truetype');
+  src: url('iconfont.woff2?t=1669877086725') format('woff2'),
+       url('iconfont.woff?t=1669877086725') format('woff'),
+       url('iconfont.ttf?t=1669877086725') format('truetype');
 }
 
 .dd {
@@ -11,6 +11,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.dd-icon-tianjiawenjian:before {
+  content: "\e66a";
+}
+
+.dd-icon-a-GAOBUG:before {
+  content: "\e69c";
+}
+
+.dd-icon-gaobug-copy:before {
+  content: "\ec8d";
 }
 
 .dd-icon-pinglun1:before {

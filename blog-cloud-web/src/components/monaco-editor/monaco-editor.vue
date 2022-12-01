@@ -9,6 +9,24 @@ import * as monaco from "monaco-editor";
 import { nextTick, ref, onBeforeUnmount, onMounted, watch } from "vue";
 import { editorProps } from "./monaco-editor-type";
 import { useRoute } from "vue-router";
+
+const defaultOption = {
+  automaticLayout: true,
+  // foldingStrategy: 'indentation',
+  foldingStrategy: "indentation", // 折叠方式  auto | indentation
+  // renderLineHighlight: 'all',
+  renderLineHighlight: "all" || "line" || "none" || "gutter", // 行亮
+  selectOnLineNumbers: true, // 显示行号
+  minimap: {
+    // 关闭小地图
+    enabled: false,
+  },
+  placeholder: "请输入内容",
+  // readOnly: false, // 只读
+  fontSize: 16, // 字体大小
+  scrollBeyondLastLine: false, // 取消代码后面一大段空白
+  overviewRulerBorder: false, // 不要滚动条的边框
+};
 const emits = defineEmits<{
   (event: "update:modelValue", e: any): void;
   (event: "change", e: any): void;
@@ -53,7 +71,7 @@ const editorInit = () => {
         language: props.language,
         readOnly: props.readOnly,
         theme: props.theme,
-        ...props.options,
+        ...{ ...defaultOption, ...props.options },
       }
     );
     editor.onDidChangeModelContent(() => {
@@ -99,9 +117,9 @@ watch(
 watch(
   () => props.theme,
   () => {
-    console.log("props.theme",props.theme);
+    console.log("props.theme", props.theme);
     editor.updateOptions({ theme: props.theme });
-  },
+  }
 );
 watch(
   () => props.language,
@@ -113,7 +131,7 @@ watch(
 // @ts-ignore
 //切换语言
 const changeLanguage = (language: string) => {
-  monaco.editor.setModelLanguage(editor.getModel()!, language);
+    monaco.editor.setModelLanguage(editor.getModel()!, language);
 };
 //设置一个确认按钮，点击时调用接口
 /***

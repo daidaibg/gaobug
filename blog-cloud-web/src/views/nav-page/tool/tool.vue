@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterEnum } from "@/enums";
-import {  useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 const router = useRouter();
 const toolList = [
   {
@@ -8,11 +8,11 @@ const toolList = [
     id: 1,
     list: [
       {
-        title: "JSON格式化",
+        title: "格式化工具",
         id: "11",
-        type:'inner',
+        type: "inner",
         img: "https://www.gaobug.com/blog-cloud-tool/img/json_format.png",
-        url:RouterEnum.JsonFormat
+        url: RouterEnum.JsonFormat,
       },
     ],
   },
@@ -23,9 +23,9 @@ const toolList = [
       {
         title: "弹跳爱心",
         id: 21,
-        type:'out',
+        type: "out",
         img: "https://www.gaobug.com/blog-cloud-tool/img/love.png",
-        url:"https://www.gaobug.com/blog-cloud-tool/love.html"
+        url: "https://www.gaobug.com/blog-cloud-tool/love.html",
       },
     ],
   },
@@ -33,10 +33,10 @@ const toolList = [
 
 const aHrefFormat = (toolItem: any) => {
   console.log(toolItem);
-  if(toolItem.type=="out"){
-    return toolItem.url
+  if (toolItem.type == "out") {
+    return toolItem.url;
   }
-  const href = router.resolve({ path: toolItem.url})
+  const href = router.resolve({ path: toolItem.url });
   return href.href;
 };
 </script>
@@ -104,7 +104,8 @@ const aHrefFormat = (toolItem: any) => {
   .tool_item {
     width: 96px;
     height: 96px;
-    border-radius:11px;
+    border-radius: 11px;
+
     a {
       display: flex;
       flex-direction: column;
@@ -116,6 +117,10 @@ const aHrefFormat = (toolItem: any) => {
     .tool_item_img {
       width: 46px;
       height: 46px;
+      transform-style: preserve-3d;
+      transition: transform .3s;
+      transform: rotateY(10deg);
+
     }
     .tool_item_title {
       color: var(--yh-text-color-primary);
@@ -123,6 +128,7 @@ const aHrefFormat = (toolItem: any) => {
       line-height: 1;
     }
     .tool_item_img_wrap {
+      perspective: 100px;
       background-color: var(--yh-bg-color-container);
       box-shadow: var(--yh-shadow-3);
       width: 56px;
@@ -133,16 +139,20 @@ const aHrefFormat = (toolItem: any) => {
       justify-content: center;
       border: transparent 1px solid;
       margin-bottom: 12px;
-    
     }
-    &:hover{
-        background:var(--yh-bg-color-container-hover);
-        .tool_item_img_wrap{
-            border-color:var(--yh-text-color-link) ;
-        }
-        .tool_item_title{
-            color: var(--yh-text-color-link);
-        }
+    &:hover {
+      background: var(--yh-bg-color-container-hover);
+      .tool_item_img_wrap {
+        border-color: var(--yh-text-color-link);
+        /* 隐藏旋转div元素的背面 */
+        // backface-visibility: hidden;
+      }
+      .tool_item_img {
+        transform: rotateY(0deg);
+      }
+      .tool_item_title {
+        color: var(--yh-text-color-link);
+      }
     }
   }
 }
