@@ -406,10 +406,10 @@ onBeforeMount(() => {
     opacity: 0;
     transition: opacity 0.24s;
     .file_nav_close_inner {
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       margin: auto;
-      border-radius: 4px;
+      border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
