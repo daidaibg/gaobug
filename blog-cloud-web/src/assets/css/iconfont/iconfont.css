@@ -1,8 +1,8 @@
 @font-face {
   font-family: "dd"; /* Project id 3424605 */
-  src: url('iconfont.woff2?t=1669877086725') format('woff2'),
-       url('iconfont.woff?t=1669877086725') format('woff'),
-       url('iconfont.ttf?t=1669877086725') format('truetype');
+  src: url('iconfont.woff2?t=1669952924958') format('woff2'),
+       url('iconfont.woff?t=1669952924958') format('woff'),
+       url('iconfont.ttf?t=1669952924958') format('truetype');
 }
 
 .dd {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.dd-icon-tishi:before {
+  content: "\e621";
 }
 
 .dd-icon-tianjiawenjian:before {

@@ -8,5 +8,5 @@ export enum RouterEnum {
     //工具
     Tool="/tool",
     //json 格式化
-    JsonFormat="/json/format"
+    JsonFormat="/code/format"
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 import monacoEditor from "@/components/monaco-editor";
 import type { Options, Theme } from "@/components/monaco-editor";
 import { Logo } from "@/components/header/logo";
@@ -7,6 +7,7 @@ import { languageList } from "./json-format-config";
 import { languageIcons } from "@/config/languageIcons";
 import fileSvg from "@/assets/file-icon/file.svg";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
 const editValue = ref("");
 const languageModel = ref("json");
 const theme = ref<Theme>("vs");
@@ -16,13 +17,13 @@ const options = ref<any>({
   },
 });
 const nav_active = ref(0);
-const fileNav = ref([
+const fileList = ref([
   {
     title: "default",
     language: "json",
     content: ``,
     id: 1,
-  }
+  },
 ]);
 
 const themeOptions = [
@@ -44,22 +45,35 @@ const editorMounted = (editor: any) => {
   console.log("%ceditor实例加载完成", "color: #229453");
   // console.log("editor实例加载完成", editor);
 };
-
+/**
+ * @description: 本地存储历史记录
+ */
+const setFilesLocalStorage = () => {
+  if (fileList.value.length === 1 && fileList.value[0].content == "") {
+    return;
+  }
+  setLocalStorage("code-format-files", fileList.value);
+  setLocalStorage("code-format-files-active", nav_active.value);
+};
 /**
  * @description: 选中文件改变
  * @param {any} fileNavItem  文件的config
  * @param {number} index  新的文件索引
- * @param {boolean} isNoSaveEditvalue 是否不需要存储上个文件
+ * @param {boolean} isNoSaveEditvalue 是否不需要存储上个文件 删除的时候就不需要
  * @return {*}
  */
-const selectNav = (fileNavItem: any, index: number,isNoSaveEditvalue?:boolean) => {
-  if(nav_active.value===index)return
-  if(!isNoSaveEditvalue){
-    fileNav.value[nav_active.value].content=editValue.value
+const selectNav = (
+  fileNavItem: any,
+  index: number,
+  isNoSaveEditvalue?: boolean
+) => {
+  if (!isNoSaveEditvalue) {
+    fileList.value[nav_active.value].content = editValue.value;
   }
   nav_active.value = index;
   editValue.value = fileNavItem.content;
   languageModel.value = fileNavItem.language;
+  setFilesLocalStorage();
 };
 //新增文件
 const addfile = () => {
@@ -74,21 +88,21 @@ const addfile = () => {
         title: value,
         language: languageModel.value,
         content: "",
-        id: fileNav.value[fileNav.value.length - 1].id + 1,
+        id: fileList.value[fileList.value.length - 1].id + 1,
       };
-      fileNav.value.push(newFileData);
-      selectNav(newFileData, fileNav.value.length - 1);
+      fileList.value.push(newFileData);
+      selectNav(newFileData, fileList.value.length - 1);
     })
     .catch(() => {});
 };
 //移除文件
 const onRemoveNav = (fileNavItem: any, index: number) => {
-  fileNav.value.splice(index, 1);
-  selectNav(fileNav.value[index - 1], index - 1,true);
+  fileList.value.splice(index, 1);
+  selectNav(fileList.value[index - 1], index - 1, true);
 };
 // 语言选择框发生变化
 const onLanguageModelChange = (val: string) => {
-  fileNav.value[nav_active.value].language = val;
+  fileList.value[nav_active.value].language = val;
 };
 //获取文件icon
 const getFileSvg = (fileNavItem: any) => {
@@ -108,6 +122,30 @@ const getFileSvg = (fileNavItem: any) => {
   }
   return fileSvg;
 };
+//初始化页面
+const init = () => {
+  let filesList = getLocalStorage("code-format-files");
+  let fileActive = getLocalStorage("code-format-files-active");
+  if (fileActive) {
+    nav_active.value = fileActive;
+  }
+  if (filesList) {
+    fileList.value = filesList;
+    selectNav(filesList[nav_active.value], nav_active.value, true);
+  }
+};
+//即将离开当前页面（刷新或关闭）时触发
+const pageBeforeunload = () => {
+  fileList.value[nav_active.value].content = editValue.value;
+  setFilesLocalStorage();
+};
+init();
+onMounted(() => {
+  window.addEventListener("beforeunload", pageBeforeunload);
+});
+onBeforeMount(() => {
+  window.removeEventListener("beforeunload", pageBeforeunload);
+});
 </script>
 
 <template>
@@ -121,7 +159,14 @@ const getFileSvg = (fileNavItem: any) => {
         <div class="nav_title_front">
           <i class="yh-icons-arrow-down"></i>
         </div>
-        <div class="nav_title_text">配置工具</div>
+        <div class="nav_title_text">
+          配置工具
+          <el-tooltip
+            content="数据只会存储到本地，不会进行上传，请妥善处理。"
+          >
+            <i class="dd-icon-tishi"></i>
+          </el-tooltip>
+        </div>
         <div class="nav_title_action">
           <div class="nav_title_action_icon" @click="addfile">
             <i class="dd-icon-tianjiawenjian"></i>
@@ -168,7 +213,7 @@ const getFileSvg = (fileNavItem: any) => {
     <div class="json_format_content">
       <nav class="file_nav_wrap">
         <div
-          v-for="(item, i) in fileNav"
+          v-for="(item, i) in fileList"
           @click="selectNav(item, i)"
           class="file_nav_item"
           :class="{ nav_active: nav_active === i }"
@@ -184,7 +229,7 @@ const getFileSvg = (fileNavItem: any) => {
           <div class="file_nav_close">
             <div
               class="file_nav_close_inner"
-              v-if="fileNav.length > 1"
+              v-if="fileList.length > 1"
               @click.stop="onRemoveNav(item, i)"
             >
               <svg
@@ -233,6 +278,11 @@ const getFileSvg = (fileNavItem: any) => {
 }
 .dark .edit-tool-var {
   --format-bg-clolor: rgb(37, 37, 38);
+  --format-nav-bg: rgb(45, 45, 45);
+  --format-nav-bg-active: rgb(30, 30, 30);
+  --format-nav-text-color: rgba(255, 255, 255, 0.5);
+  --format-nav-text-color-active: rgb(255, 255, 255);
+  --format-nav-close-color: rgba(90, 93, 94, 0.31);
 }
 .json_format {
   width: 100%;
@@ -270,6 +320,15 @@ const getFileSvg = (fileNavItem: any) => {
   .nav_title_text {
     font-weight: 900;
     line-height: 1;
+    i {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 1;
+      margin-left: 4px;
+      &:hover {
+        color: var(--yh-text-color-brand);
+      }
+    }
   }
 
   .nav_title_action {
@@ -325,13 +384,14 @@ const getFileSvg = (fileNavItem: any) => {
 .file_nav_item {
   display: flex;
   align-items: center;
-  border-right: 1px solid var(--format-bg-clolor);
   color: var(--format-nav-text-color);
   background-color: var(--format-nav-bg);
   cursor: pointer;
   box-sizing: border-box;
   padding-left: 10px;
   flex: 0 0 auto;
+  border-right: 1px solid var(--format-bg-clolor);
+
   .file_nav_img {
     width: 22px;
     padding-right: 6px;
