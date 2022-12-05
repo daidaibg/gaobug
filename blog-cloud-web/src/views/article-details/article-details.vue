@@ -354,7 +354,7 @@ const goEditArticle =()=>{
     }
   }
 
-  :deep(.md-dark) {
+  :deep(.md-editor-dark) {
     // background-color: var(--yh-bg-color-container);
     --md-color: var(--yh-text-color-secondary);
     --md-hover-color: var(--yh-text-color-anti);

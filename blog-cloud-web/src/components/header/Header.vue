@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-30 11:55:16
+ * @LastEditTime: 2022-12-05 09:31:28
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -183,6 +183,7 @@ const jump = (path: string) => {
   z-index: 990;
   // right: 0;
   box-shadow: var(--yh-shadow-inset-bottom);
+  backdrop-filter: blur(8px) !important;
 
   .header_inner {
     max-width: 1440px;
@@ -256,7 +257,6 @@ const jump = (path: string) => {
   // background-image: radial-gradient(transparent 1px,#ffffff 1px) !important;
   // background-size: 4px 4px !important;
   // backdrop-filter: saturate(50%) blur(4px) !important;
-  backdrop-filter: blur(8px) !important;
   // background: transparent !important;
   background-color: rgba(255, 255, 255, 0.6);
 }
