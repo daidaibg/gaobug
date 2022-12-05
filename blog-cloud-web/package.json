@@ -17,6 +17,7 @@
     "@types/webpack-env": "^1.18.0",
     "@vueuse/core": "^8.9.4",
     "axios": "^0.27.2",
+    "color": "^4.2.3",
     "element-plus": "^2.2.26",
     "js-md5": "^0.7.3",
     "md-editor-v3": "^2.5.0",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.4.0",
+    "@types/color": "^3.0.3",
     "@types/js-md5": "^0.4.3",
     "@vitejs/plugin-vue": "^2.3.4",
     "autoprefixer": "^10.4.13",

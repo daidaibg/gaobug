@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, ref, reactive } from "vue";
 import monacoEditor from "@/components/monaco-editor";
 import type { Options, Theme } from "@/components/monaco-editor";
 import { Logo } from "@/components/header/logo";
-import { languageList } from "./json-format-config";
+import { languageList } from "./code-format-config";
 import { languageIcons } from "@/config/languageIcons";
 import fileSvg from "@/assets/file-icon/file.svg";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
+const settingConfig = reactive({
+  menuActive: "file",
+});
 const editValue = ref("");
 const languageModel = ref("json");
 const theme = ref<Theme>("vs");
@@ -39,6 +42,10 @@ const themeOptions = [
   {
     value: "hc-light",
   },
+  // {
+  //   value: "vs-light-plus",
+  // },
+  // { value: "default-dark", label: "Dark+ (default dark)" },
 ];
 const hightChange = ref<any>(false);
 const editorMounted = (editor: any) => {
@@ -122,6 +129,11 @@ const getFileSvg = (fileNavItem: any) => {
   }
   return fileSvg;
 };
+
+const onSelectTheme = ()=>{
+  
+}
+
 //初始化页面
 const init = () => {
   let filesList = getLocalStorage("code-format-files");
@@ -134,6 +146,8 @@ const init = () => {
     selectNav(filesList[nav_active.value], nav_active.value, true);
   }
 };
+//打开设置
+const onSetting = () => {};
 //即将离开当前页面（刷新或关闭）时触发
 const pageBeforeunload = () => {
   fileList.value[nav_active.value].content = editValue.value;
@@ -150,6 +164,35 @@ onBeforeMount(() => {
 
 <template>
   <div class="json_format edit-tool-var">
+    <div class="code_format_setting">
+      <ul class="setting_menu">
+        <li
+          :class="{ menuActive: settingConfig.menuActive === 'file' }"
+          class="setting_menu_item"
+        >
+          <i class="dd-icon-a-bianzu92"></i>
+        </li>
+      </ul>
+      <ul class="setting_action">
+        <li class="setting_menu_item">
+          <el-popover
+            placement="right"
+            :width="200"
+            :hide-after="0"
+            trigger="click"
+            :show-arrow="false"
+            popper-class="setting_action_setting"
+          >
+            <template #reference>
+              <i class="dd-icon-shezhi" @click="onSetting"> </i>
+            </template>
+            <ul class="setting_action_action">
+              <li class="setting_action_action_item" @click="onSelectTheme()">颜色主题</li>
+            </ul>
+          </el-popover>
+        </li>
+      </ul>
+    </div>
     <div class="json_format_nav">
       <div class="logo_wrap">
         <Logo class="tools-layout_logo" />
@@ -161,9 +204,7 @@ onBeforeMount(() => {
         </div>
         <div class="nav_title_text">
           配置工具
-          <el-tooltip
-            content="数据只会存储到本地，不会进行上传，请妥善处理。"
-          >
+          <el-tooltip content="数据只会存储到本地，不会进行上传，请妥善处理。">
             <i class="dd-icon-tishi"></i>
           </el-tooltip>
         </div>
@@ -260,7 +301,11 @@ onBeforeMount(() => {
     </div>
   </div>
 </template>
-
+<style lang="scss">
+.el-popover.setting_action_setting {
+  padding: 8px 0;
+}
+</style>
 <style scoped lang="scss">
 .light .edit-tool-var {
   --format-bg-clolor: rgb(243, 243, 243);
@@ -270,6 +315,12 @@ onBeforeMount(() => {
   --format-nav-text-color-active: rgb(51, 51, 51);
 
   --format-nav-close-color: rgba(184, 184, 184, 0.31);
+
+  //设置栏
+  --format-setting-bg-color: rgb(44, 44, 44);
+  --format-setting-text-color: rgba(255, 255, 255, 0.4);
+  --format-setting-text-active-color: rgb(255, 255, 255);
+
   //
   // left: auto;
   //   border-right: 1px solid rgb(243, 243, 243);
@@ -283,6 +334,10 @@ onBeforeMount(() => {
   --format-nav-text-color: rgba(255, 255, 255, 0.5);
   --format-nav-text-color-active: rgb(255, 255, 255);
   --format-nav-close-color: rgba(90, 93, 94, 0.31);
+  //设置栏
+  --format-setting-bg-color: rgb(51, 51, 51);
+  --format-setting-text-color: rgba(255, 255, 255, 0.4);
+  --format-setting-text-active-color: rgb(255, 255, 255);
 }
 .json_format {
   width: 100%;
@@ -346,6 +401,55 @@ onBeforeMount(() => {
     }
     &:hover {
       background-color: var(--format-nav-close-color);
+    }
+  }
+}
+//设置
+.code_format_setting {
+  width: 48px;
+  flex-shrink: 0;
+  background-color: var(--format-setting-bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .setting_menu_item {
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: var(--format-setting-text-color);
+    cursor: pointer;
+    &:hover {
+      color: var(--format-setting-text-active-color);
+    }
+    &.menuActive {
+      color: var(--format-setting-text-active-color);
+      &::before {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 48px;
+        left: 0;
+        top: 0;
+        background-color: var(--format-setting-text-active-color);
+      }
+    }
+    i {
+      font-size: 22px;
+    }
+  }
+}
+//设置列表
+.setting_action_action {
+  .setting_action_action_item {
+    cursor: pointer;
+    padding: 0 26px;
+    height: 26px;
+    line-height: 26px;
+    &:hover {
+      background-color: var(--yh-text-color-brand);
+      color: var(--yh-text-color-anti);
     }
   }
 }

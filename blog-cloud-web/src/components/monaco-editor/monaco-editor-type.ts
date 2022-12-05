@@ -1,6 +1,6 @@
 import { PropType } from 'vue'
-	
-export type Theme = 'vs' | 'hc-black' | 'vs-dark' | 'hc-light'
+const themes=['vs', 'hc-black', 'vs-dark', 'hc-light','default-dark']
+export type Theme = 'vs' | 'hc-black' | 'vs-dark' | 'hc-light' |'default-dark'
 export type FoldingStrategy = 'auto' | 'indentation'
 export type RenderLineHighlight = 'all' | 'line' | 'none' | 'gutter'
 export interface Options {
@@ -47,7 +47,7 @@ export const editorProps = {
   theme: {
     type: String as PropType<Theme>,
     validator(value: string): boolean {
-      return ['vs', 'hc-black', 'vs-dark', 'hc-light'].includes(value)
+      return themes.includes(value)
     },
     default: 'vs',
   },

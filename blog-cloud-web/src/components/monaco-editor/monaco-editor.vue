@@ -9,7 +9,7 @@ import * as monaco from "monaco-editor";
 import { nextTick, ref, onBeforeUnmount, onMounted, watch } from "vue";
 import { editorProps } from "./monaco-editor-type";
 import { useRoute } from "vue-router";
-
+import { colorToHex } from "@/utils/color";
 const defaultOption = {
   automaticLayout: true,
   // foldingStrategy: 'indentation',
@@ -74,6 +74,7 @@ const editorInit = () => {
         ...{ ...defaultOption, ...props.options },
       }
     );
+    addTheme();
     editor.onDidChangeModelContent(() => {
       const value = editor.getValue(); // 给父组件实时返回最新文本
       emits("update:modelValue", value);
@@ -82,6 +83,56 @@ const editorInit = () => {
     emits("editor-mounted", editor);
   });
 };
+//暂时不适用
+function addTheme() {
+  return 
+  import("./theme/dark_plus.json").then((res) => {
+    console.log(res.default);
+    let tokenRules: any = [];
+    res.default.tokenColors.forEach((value: any): void => {
+      const scopeValue = value.scope || [];
+      const scopes = Array.isArray(scopeValue)
+        ? scopeValue
+        : scopeValue.split(",");
+      scopes.forEach((scope: string): void => {
+        let tokenRulesItme: any = {};
+        tokenRulesItme = {
+          token: scope,
+          foreground: colorToHex(value.settings.foreground),
+        };
+        if (value.settings.background) {
+          tokenRulesItme.background = colorToHex(value.settings.background);
+        }
+        if (value.settings.fontStyle) {
+          tokenRulesItme.background = value.settings.fontStyle;
+        }
+        tokenRules.push(tokenRulesItme);
+      });
+    });
+    monaco.editor.defineTheme("default-dark", {
+      base: "vs-dark",
+      inherit: true,
+      rules: tokenRules,
+      colors: {
+        ...{
+          "[editorBackground]": "#1E1E1E",
+          "[editorForeground]": "#D4D4D4",
+          "[editorInactiveSelection]": "#3A3D41",
+          "[editorIndentGuides]": "#404040",
+          "[editorActiveIndentGuides]": "#707070",
+          "[editorSelectionHighlight]": "#ADD6FF26",
+        },
+        ...res.default.semanticTokenColors,
+      },
+    });
+  });
+  // monaco.editor.defineTheme('default-dark', {
+  //     base: 'vs-dark',
+  //     inherit: true,
+  //     rules:[],
+  //     colors: [] as any
+  // })
+}
 onBeforeUnmount(() => {
   editor.dispose();
 });
@@ -116,9 +167,10 @@ watch(
 );
 watch(
   () => props.theme,
-  () => {
+  (newval) => {
     console.log("props.theme", props.theme);
-    editor.updateOptions({ theme: props.theme });
+    monaco.editor.setTheme(newval);
+    // editor.updateOptions({ theme: props.theme });
   }
 );
 watch(
@@ -131,7 +183,7 @@ watch(
 // @ts-ignore
 //切换语言
 const changeLanguage = (language: string) => {
-    monaco.editor.setModelLanguage(editor.getModel()!, language);
+  monaco.editor.setModelLanguage(editor.getModel()!, language);
 };
 //设置一个确认按钮，点击时调用接口
 /***
