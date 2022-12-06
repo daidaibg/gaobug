@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount, onMounted, ref, reactive } from "vue";
 import monacoEditor from "@/components/monaco-editor";
+import CodeFormatCommon from "./code-format-common.vue"
 import type { Options, Theme } from "@/components/monaco-editor";
 import { Logo } from "@/components/header/logo";
 import { languageList } from "./code-format-config";
@@ -13,7 +14,14 @@ const settingConfig = reactive({
 });
 const editValue = ref("");
 const languageModel = ref("json");
-const theme = ref<Theme>("vs");
+const settingRef= ref()
+const editorOption =reactive<{
+  theme:Theme,
+  commonKeyword:string
+}>({
+  theme:"vs",
+  commonKeyword:""
+})
 const options = ref<any>({
   minimap: {
     enabled: true, //显示小地图
@@ -29,29 +37,18 @@ const fileList = ref([
   },
 ]);
 
-const themeOptions = [
-  {
-    value: "vs",
-  },
-  {
-    value: "hc-black",
-  },
-  {
-    value: "vs-dark",
-  },
-  {
-    value: "hc-light",
-  },
-  // {
-  //   value: "vs-light-plus",
-  // },
-  // { value: "default-dark", label: "Dark+ (default dark)" },
-];
+
 const hightChange = ref<any>(false);
+//editor实例加载完成
 const editorMounted = (editor: any) => {
   console.log("%ceditor实例加载完成", "color: #229453");
   // console.log("editor实例加载完成", editor);
 };
+//点击每一项
+const onCommonClick=(commonItem:any)=>{
+  editorOption.theme=commonItem.value
+  console.log(editorOption);
+}
 /**
  * @description: 本地存储历史记录
  */
@@ -131,7 +128,8 @@ const getFileSvg = (fileNavItem: any) => {
 };
 
 const onSelectTheme = ()=>{
-  
+  settingRef.value.hide()
+  editorOption.commonKeyword="theme"
 }
 
 //初始化页面
@@ -163,7 +161,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
+
   <div class="json_format edit-tool-var">
+    <CodeFormatCommon v-model="editorOption.commonKeyword" :editorOption="editorOption" @clickItem="onCommonClick"></CodeFormatCommon>
     <div class="code_format_setting">
       <ul class="setting_menu">
         <li
@@ -182,6 +182,7 @@ onBeforeMount(() => {
             trigger="click"
             :show-arrow="false"
             popper-class="setting_action_setting"
+            ref="settingRef"
           >
             <template #reference>
               <i class="dd-icon-shezhi" @click="onSetting"> </i>
@@ -203,7 +204,7 @@ onBeforeMount(() => {
           <i class="yh-icons-arrow-down"></i>
         </div>
         <div class="nav_title_text">
-          配置工具
+          目录列表
           <el-tooltip content="数据只会存储到本地，不会进行上传，请妥善处理。">
             <i class="dd-icon-tishi"></i>
           </el-tooltip>
@@ -227,23 +228,6 @@ onBeforeMount(() => {
         >
           <el-option
             v-for="item in languageList"
-            :key="item.value"
-            :label="item.value"
-            :value="item.value"
-          />
-        </el-select>
-      </div>
-      <div class="form_item">
-        <label for="">皮肤:</label>
-        <el-select
-          v-model="theme"
-          class="language_select"
-          placeholder="Select"
-          style="width: 90px"
-          size="small"
-        >
-          <el-option
-            v-for="item in themeOptions"
             :key="item.value"
             :label="item.value"
             :value="item.value"
@@ -293,7 +277,7 @@ onBeforeMount(() => {
         :language="languageModel"
         :hight-change="hightChange"
         :options="options"
-        :theme="theme"
+        :theme="editorOption.theme"
         :read-only="false"
         @editor-mounted="editorMounted"
         class="json_format_editor"
@@ -320,12 +304,13 @@ onBeforeMount(() => {
   --format-setting-bg-color: rgb(44, 44, 44);
   --format-setting-text-color: rgba(255, 255, 255, 0.4);
   --format-setting-text-active-color: rgb(255, 255, 255);
+//命令栏
+  --common-palete-bg-color: rgb(243, 243, 243);
+  --common-palete-color: rgb(97, 97, 97);
+  --common-palete-box-shadow: rgb(0 0 0 / 16%) 0px 0px 8px 2px;
+  --common-palete-border-color:#cccedb;
+  --common-palete-hover-color:#e8e8e8;
 
-  //
-  // left: auto;
-  //   border-right: 1px solid rgb(243, 243, 243);
-  //   background-color: rgb(236, 236, 236);
-  //   color: rgba(51, 51, 51, 0.7);
 }
 .dark .edit-tool-var {
   --format-bg-clolor: rgb(37, 37, 38);
@@ -338,6 +323,13 @@ onBeforeMount(() => {
   --format-setting-bg-color: rgb(51, 51, 51);
   --format-setting-text-color: rgba(255, 255, 255, 0.4);
   --format-setting-text-active-color: rgb(255, 255, 255);
+//命令栏
+  --common-palete-bg-color: rgb(243, 243, 243);
+  --common-palete-color: rgb(97, 97, 97);
+  --common-palete-box-shadow: rgb(0 0 0 / 16%) 0px 0px 8px 2px;
+  --common-palete-border-color:#cccedb;
+  --common-palete-hover-color:#e8e8e8;
+
 }
 .json_format {
   width: 100%;

@@ -171,7 +171,7 @@ watch(
     console.log("props.theme", props.theme);
     monaco.editor.setTheme(newval);
     // editor.updateOptions({ theme: props.theme });
-  }
+  },
 );
 watch(
   () => props.language,
