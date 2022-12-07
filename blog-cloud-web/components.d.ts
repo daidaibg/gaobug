@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Emoji: typeof import('./src/components/emoji/emoji.vue')['default']
     Github: typeof import('./src/components/header/github/github.vue')['default']

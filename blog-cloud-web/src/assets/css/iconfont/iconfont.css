@@ -1,8 +1,8 @@
 @font-face {
   font-family: "dd"; /* Project id 3424605 */
-  src: url('iconfont.woff2?t=1670211919013') format('woff2'),
-       url('iconfont.woff?t=1670211919013') format('woff'),
-       url('iconfont.ttf?t=1670211919013') format('truetype');
+  src: url('iconfont.woff2?t=1670397098385') format('woff2'),
+       url('iconfont.woff?t=1670397098385') format('woff'),
+       url('iconfont.ttf?t=1670397098385') format('truetype');
 }
 
 .dd {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.dd-icon-mulu:before {
+  content: "\e62f";
+}
+
+.dd-icon-file:before {
+  content: "\e6f4";
 }
 
 .dd-icon-shezhi:before {
