@@ -10,6 +10,7 @@ import fileSvg from "@/assets/file-icon/file.svg";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
 import { guid } from "@/utils/current";
+import { seachTreeData } from "@/utils/tree";
 const settingConfig = reactive({
   menuActive: "file",
 });
@@ -29,6 +30,7 @@ interface FileItemType {
 }
 const editValue = ref("");
 const languageModel = ref("json");
+//设置弹窗ref
 const settingRef = ref();
 //侧边栏目录列表
 const catalogueList = ref<FileItemType[]>([]);
@@ -65,24 +67,16 @@ const onCommonClick = (commonItem: any) => {
 };
 
 /**
- * @description: 选中文件改变
+ * @description: nav选中文件改变
  * @param {any} fileNavItem  文件的config
  * @param {number} index  新的文件索引
- * @param {boolean} isNoSaveEditvalue 是否不需要存储上个文件 删除的时候就不需要
  * @return {*}
  */
-const selectNav = (
-  fileNavItem: any,
-  index: number,
-  isNoSaveEditvalue?: boolean
-) => {
-  if (!isNoSaveEditvalue) {
-    navFileList.value[nav_active.value].content = editValue.value;
-  }
-  nav_active.value = index;
-  editValue.value = fileNavItem.content;
-  languageModel.value = fileNavItem.language;
-  setFilesLocalStorage();
+const selectNav = (fileNavItem: any) => {
+  const currentFileData = seachTreeData(catalogueList.value, fileNavItem.id);
+  saveCurrentCatalogue();
+  setCurrentCheckCatalogue(fileNavItem.id);
+  switchEditData(currentFileData.content, fileNavItem.language);
 };
 //点击新增文件
 const onAddfile = () => {
@@ -117,43 +111,53 @@ const addFile = (data: any) => {
   }
   const newFileData = {
     title: data,
-    language: languageModel.value,
+    language: fileLanguage,
     content: "",
     id: guid(),
     icon: fileIconData.icon.name,
   };
-  setCurrentCatalogue(newFileData.id);
-  navFileList.value.push(newFileData);
   catalogueList.value.push(newFileData);
+  saveCurrentCatalogue();
+  setCurrentCheckCatalogue(newFileData.id);
   switchEditData("", fileLanguage);
+  addNavData(newFileData);
 };
 
 //新增文件导航栏列表
 const addNavData = (fileData: any) => {
+  const isAddData = navFileList.value.find((item) => item.id == fileData.id);
+  if (isAddData) return;
   navFileList.value.push(fileData);
 };
 //移除文件
 const onRemoveNav = (fileNavItem: any, index: number) => {
   navFileList.value.splice(index, 1);
-  selectNav(navFileList.value[index - 1], index - 1, true);
+  if (index >= 1) {
+    selectNav(navFileList.value[index - 1]);
+  } else {
+    selectNav(navFileList.value[0]);
+  }
 };
 
 //获取文件icon
 const getFileSvg = (iconname: string) => {
-  return new URL(
-    `../../../assets/file-icon/${iconname}.svg`,
-    import.meta.url
-  ).href;
+  return new URL(`../../../assets/file-icon/${iconname}.svg`, import.meta.url)
+    .href;
 };
 //切换编辑器内容
 const switchEditData = (content: string, language: string = "txt") => {
   editValue.value = content;
   languageModel.value = language;
 };
+
 //目录列表node点击事件
 const catalogueNodeClick = (data: any) => {
-  console.log(data);
+  // console.log("catalogueNodeClick",data);
+  saveCurrentCatalogue();
   nav_active.value = data.id;
+  addNavData({
+    ...data,
+  });
   switchEditData(data.content, data.language);
 };
 //选择切换主题
@@ -161,55 +165,74 @@ const onSelectTheme = () => {
   settingRef.value.hide();
   editorOption.commonKeyword = "theme";
 };
-/**
- * @description: 本地存储
- */
-const setFilesLocalStorage = () => {
-  return;
-  setLocalStorage("code-format-files", navFileList.value);
-  setLocalStorage("code-format-files-active", nav_active.value);
-  setLocalStorage("code-format-catalogue", catalogueList.value);
+
+const updateCatalogueNode = (treeList: any, id: any, obj: any) => {
+  if (!treeList || !treeList.length) {
+    return;
+  }
+  for (let i = 0; i < treeList.length; i++) {
+    if (treeList[i].id == id) {
+      treeList[i] = obj;
+      break;
+    }
+    updateCatalogueNode(treeList[i].children, id, obj);
+  }
 };
+//打开设置
+const onSetting = () => {};
 //设置当前选中的值
-const setCurrentCatalogue = async (id: string) => {
-  await nextTick();
+const setCurrentCheckCatalogue = async (id: string) => {
   nav_active.value = id;
+  await nextTick();
   catalogueRef.value.setCurrentKey(id);
+};
+//保存当前的数据
+const saveCurrentCatalogue = () => {
+  let currentFileData = seachTreeData(catalogueList.value, nav_active.value);
+  if (currentFileData) {
+    currentFileData.content = editValue.value;
+  }
+};
+
+//即将离开当前页面（刷新或关闭）时触发
+const pageBeforeunload = () => {
+  console.log("pageBeforeunload");
+  saveCurrentCatalogue();
+  setFilesLocalStorage();
+};
+//本地存储
+const setFilesLocalStorage = () => {
+  setLocalStorage("code-format-catalogue", catalogueList.value);
+  setLocalStorage("code-format-files-active", nav_active.value);
+  setLocalStorage("code-format-files", navFileList.value);
 };
 //初始化页面
 const init = async () => {
   const newCatalogueList = getLocalStorage("code-format-catalogue");
   if (!newCatalogueList) {
     catalogueList.value = [{ ...catalogueListDefault }];
-    switchEditData(catalogueListDefault.content, catalogueListDefault.language);
     addNavData(catalogueListDefault);
-    setCurrentCatalogue(catalogueListDefault.id);
+    setCurrentCheckCatalogue(catalogueListDefault.id);
+    switchEditData(catalogueListDefault.content, catalogueListDefault.language);
     return;
   }
   catalogueList.value = newCatalogueList;
   const filesList = getLocalStorage("code-format-files");
   if (!filesList) {
     return;
-    selectNav(filesList[nav_active.value], nav_active.value, true);
   }
   navFileList.value = filesList;
   nav_active.value =
     getLocalStorage("code-format-files-active") || filesList[0].id;
-  const filterActiveData = filesList.filter((item: any) => {
-    return item.id === nav_active.value;
-  });
-  if (filterActiveData) {
+  const currentFileData = seachTreeData(catalogueList.value, nav_active.value);
+  console.log("init",currentFileData);
+  if (currentFileData) {
     await nextTick();
-    catalogueRef.value.setCurrentKey(filterActiveData[0].id);
+    switchEditData(currentFileData.content,currentFileData.language)
+    catalogueRef.value.setCurrentKey(currentFileData.id);
   }
 };
-//打开设置
-const onSetting = () => {};
-//即将离开当前页面（刷新或关闭）时触发
-const pageBeforeunload = () => {
-  navFileList.value[nav_active.value].content = editValue.value;
-  setFilesLocalStorage();
-};
+
 init();
 
 onMounted(() => {
@@ -252,7 +275,7 @@ onBeforeMount(() => {
             ref="settingRef"
           >
             <template #reference>
-              <i class="dd-icon-shezhi" @click="onSetting"> </i>
+              <i class="dd-icon-shezhi"> </i>
             </template>
             <ul class="setting_action_action">
               <li class="setting_action_action_item" @click="onSelectTheme()">
@@ -292,14 +315,23 @@ onBeforeMount(() => {
           node-key="id"
           ref="catalogueRef"
           highlight-current
-        ></el-tree>
+        >
+          <template #default="{ node, data }">
+            <span class="catalogue-list-tree-node">
+              <div class="catalogue-list-file-icon">
+                <img :src="getFileSvg(data.icon)" :alt="data.language" />
+              </div>
+              <span>{{ node.label }}</span>
+            </span>
+          </template>
+        </el-tree>
       </div>
     </div>
     <div class="json_format_content">
       <nav class="file_nav_wrap">
         <div
           v-for="(item, i) in navFileList"
-          @click="selectNav(item, i)"
+          @click="selectNav(item)"
           class="file_nav_item"
           :class="{ nav_active: nav_active === item.id }"
           :key="item.id"
@@ -312,6 +344,7 @@ onBeforeMount(() => {
             <div
               class="file_nav_close_inner"
               @click.stop="onRemoveNav(item, i)"
+              v-if="navFileList.length > 1"
             >
               <svg
                 viewBox="0 0 1024 1024"
@@ -464,6 +497,20 @@ onBeforeMount(() => {
       color: var(--yh-text-color-anti);
     }
   }
+  .catalogue-list-tree-node {
+    display: flex;
+    align-items: center;
+  }
+  .catalogue-list-file-icon {
+    width: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 4px;
+    img {
+      width: 16px;
+    }
+  }
 }
 //设置
 .code_format_setting {
@@ -472,22 +519,20 @@ onBeforeMount(() => {
   background-color: var(--format-setting-bg-color);
   display: flex;
   flex-direction: column;
-  .menubar-menu-button{
+  .menubar-menu-button {
     color: rgba(255, 255, 255, 0.4);
     text-align: center;
     height: 35px;
     cursor: pointer;
-    i{
-    line-height: 35px;
-    font-size: 16px;
-
-
+    i {
+      line-height: 35px;
+      font-size: 16px;
     }
-    &:hover{
+    &:hover {
       color: var(--format-setting-text-active-color);
     }
   }
-  .setting_menu{
+  .setting_menu {
     margin-bottom: auto;
   }
   .setting_menu_item {
