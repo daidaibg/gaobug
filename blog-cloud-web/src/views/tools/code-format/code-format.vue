@@ -61,10 +61,9 @@ const onCommonClick = (commonItem: any) => {
 /**
  * @description: nav选中文件改变
  * @param {any} fileNavItem  文件的config
- * @param {number} index  新的文件索引
  * @return {*}
  */
-const selectNav = (fileNavItem: any) => {
+const navActiveChange = (fileNavItem: any): any => {
   const currentFileData = seachTreeData(catalogueList.value, fileNavItem.id);
   saveCurrentCatalogue();
   setCurrentCheckCatalogue(fileNavItem.id);
@@ -123,7 +122,7 @@ const deleteFile = (node:Node,nodeData:any)=>{
   navFileList.value.splice(navIndex, 1)
 
   if(nav_active.value==nodeData.id){
-    selectNav(navFileList.value[0])
+    navActiveChange(navFileList.value[0])
   }
 
 }
@@ -182,9 +181,9 @@ const addNavData = (fileData: any) => {
 const onRemoveNav = (fileNavItem: any, index: number) => {
   navFileList.value.splice(index, 1);
   if (index >= 1) {
-    selectNav(navFileList.value[index - 1]);
+    navActiveChange(navFileList.value[index - 1]);
   } else {
-    selectNav(navFileList.value[0]);
+    navActiveChange(navFileList.value[0]);
   }
 };
 
@@ -359,7 +358,7 @@ onBeforeMount(() => {
     </div>
     <div class="json_format_content">
       <nav class="file_nav_wrap">
-        <div v-for="(item, i) in navFileList" @click="selectNav(item)" class="file_nav_item"
+        <div v-for="(item, i) in navFileList" @click="navActiveChange(item)" class="file_nav_item"
           :class="{ nav_active: nav_active === item.id }" :key="item.id">
           <div class="file_nav_img">
             <img :src="getFileSvg(item.icon)" :alt="item.language" />
