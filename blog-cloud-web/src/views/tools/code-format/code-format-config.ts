@@ -1,4 +1,10 @@
-
+export const catalogueListDefault = {
+    title: "default.json",
+    language: "json",
+    content: ``,
+    id: "1",
+    icon: "json",
+  };
 export const languageList = [
     { value: "javascript", label: "js" },
     { value: "json", label: "json" },

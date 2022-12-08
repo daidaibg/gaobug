@@ -2,32 +2,24 @@
 import { onBeforeMount, onMounted, ref, reactive, nextTick } from "vue";
 import monacoEditor from "@/components/monaco-editor";
 import CodeFormatCommon from "./code-format-common.vue";
+import { CustomMouseMenu } from "@/components/contextmenu";
 import type { Options, Theme } from "@/components/monaco-editor";
+import type Node from 'element-plus/es/components/tree/src/model/node'
 import { Logo } from "@/components/header/logo";
-import { languageList } from "./code-format-config";
+import { languageList, catalogueListDefault } from "./code-format-config";
 import { languageIcons } from "@/config/languageIcons";
 import fileSvg from "@/assets/file-icon/file.svg";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
 import { guid } from "@/utils/current";
 import { seachTreeData } from "@/utils/tree";
+import type { FileItemType } from "./type";
+
 const settingConfig = reactive({
   menuActive: "file",
 });
-const catalogueListDefault = {
-  title: "default.json",
-  language: "json",
-  content: ``,
-  id: "1",
-  icon: "json",
-};
-interface FileItemType {
-  content: string;
-  id: string;
-  language: string;
-  title: string;
-  icon: string;
-}
+//右键对象
+let contextMenuCtx: any = null;
 const editValue = ref("");
 const languageModel = ref("json");
 //设置弹窗ref
@@ -78,6 +70,63 @@ const selectNav = (fileNavItem: any) => {
   setCurrentCheckCatalogue(fileNavItem.id);
   switchEditData(currentFileData.content, fileNavItem.language);
 };
+
+//右键
+const onCataloguetNodecontextmenu = (
+  event: any,
+  data: any,
+  node: Node,
+  nodeTemplate: any
+) => {
+  console.log({ event, data, node, nodeTemplate });
+  console.log(catalogueList.value.length);
+  event.preventDefault();
+  contextMenuCtx = CustomMouseMenu({
+    el: nodeTemplate.vnode.el,
+    menuList: [
+      {
+        label: "重命名",
+        tips: "Edit",
+        fn: (
+          params: any,
+          currentEl: HTMLElement,
+          bindingEl: HTMLElement,
+          e: MouseEvent
+        ) => {
+          // console.log("delete", params, currentEl, bindingEl, e);
+        },
+      },
+      {
+        label: "删除",
+        tips: "Delete",
+        disabled:catalogueList.value.length==1,
+        fn:()=> deleteFile(node,data),
+      },
+    ],
+  });
+  const { x, y } = event;
+  contextMenuCtx.show(x, y);
+};
+//重命名
+const  rename =()=>{
+
+}
+//删除
+const deleteFile = (node:Node,nodeData:any)=>{
+  const parent = node.parent
+  const children: any = parent.data.children || parent.data
+  const index = children.findIndex((d:any) => d.id === nodeData.id)
+  children.splice(index, 1)
+  catalogueList.value = [...catalogueList.value]
+
+  const navIndex= navFileList.value.findIndex((d:any) => d.id === nodeData.id)
+  navFileList.value.splice(navIndex, 1)
+
+  if(nav_active.value==nodeData.id){
+    selectNav(navFileList.value[0])
+  }
+
+}
 //点击新增文件
 const onAddfile = () => {
   ElMessageBox.prompt("请输入文件名称", "提示", {
@@ -179,7 +228,7 @@ const updateCatalogueNode = (treeList: any, id: any, obj: any) => {
   }
 };
 //打开设置
-const onSetting = () => {};
+const onSetting = () => { };
 //设置当前选中的值
 const setCurrentCheckCatalogue = async (id: string) => {
   nav_active.value = id;
@@ -225,10 +274,9 @@ const init = async () => {
   nav_active.value =
     getLocalStorage("code-format-files-active") || filesList[0].id;
   const currentFileData = seachTreeData(catalogueList.value, nav_active.value);
-  console.log("init",currentFileData);
   if (currentFileData) {
     await nextTick();
-    switchEditData(currentFileData.content,currentFileData.language)
+    switchEditData(currentFileData.content, currentFileData.language);
     catalogueRef.value.setCurrentKey(currentFileData.id);
   }
 };
@@ -246,34 +294,21 @@ onBeforeMount(() => {
 
 <template>
   <div class="json_format edit-tool-var">
-    <CodeFormatCommon
-      v-model="editorOption.commonKeyword"
-      :editorOption="editorOption"
-      @clickItem="onCommonClick"
-    ></CodeFormatCommon>
+    <CodeFormatCommon v-model="editorOption.commonKeyword" :editorOption="editorOption" @clickItem="onCommonClick">
+    </CodeFormatCommon>
     <div class="code_format_setting">
       <div class="menubar-menu-button">
         <i class="dd-icon-mulu"></i>
       </div>
       <ul class="setting_menu">
-        <li
-          :class="{ menuActive: settingConfig.menuActive === 'file' }"
-          class="setting_menu_item"
-        >
+        <li :class="{ menuActive: settingConfig.menuActive === 'file' }" class="setting_menu_item">
           <i class="dd-icon-file"></i>
         </li>
       </ul>
       <ul class="setting_action">
         <li class="setting_menu_item">
-          <el-popover
-            placement="right"
-            :width="200"
-            :hide-after="0"
-            trigger="click"
-            :show-arrow="false"
-            popper-class="setting_action_setting"
-            ref="settingRef"
-          >
+          <el-popover placement="right" :width="200" :hide-after="0" trigger="click" :show-arrow="false"
+            popper-class="setting_action_setting" ref="settingRef">
             <template #reference>
               <i class="dd-icon-shezhi"> </i>
             </template>
@@ -308,14 +343,9 @@ onBeforeMount(() => {
         </div>
       </div>
       <div class="catalogue—list">
-        <el-tree
-          :data="catalogueList"
-          :props="{ children: 'children', label: 'title' }"
-          @node-click="catalogueNodeClick"
-          node-key="id"
-          ref="catalogueRef"
-          highlight-current
-        >
+        <el-tree :data="catalogueList" :props="{ children: 'children', label: 'title' }"
+          @node-click="catalogueNodeClick" node-key="id" ref="catalogueRef" highlight-current
+          @node-contextmenu="onCataloguetNodecontextmenu">
           <template #default="{ node, data }">
             <span class="catalogue-list-tree-node">
               <div class="catalogue-list-file-icon">
@@ -329,48 +359,25 @@ onBeforeMount(() => {
     </div>
     <div class="json_format_content">
       <nav class="file_nav_wrap">
-        <div
-          v-for="(item, i) in navFileList"
-          @click="selectNav(item)"
-          class="file_nav_item"
-          :class="{ nav_active: nav_active === item.id }"
-          :key="item.id"
-        >
+        <div v-for="(item, i) in navFileList" @click="selectNav(item)" class="file_nav_item"
+          :class="{ nav_active: nav_active === item.id }" :key="item.id">
           <div class="file_nav_img">
             <img :src="getFileSvg(item.icon)" :alt="item.language" />
           </div>
           <span class="file_nav_title">{{ item.title }}</span>
           <div class="file_nav_close">
-            <div
-              class="file_nav_close_inner"
-              @click.stop="onRemoveNav(item, i)"
-              v-if="navFileList.length > 1"
-            >
-              <svg
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-              >
-                <path
-                  fill="currentColor"
-                  d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"
-                ></path>
+            <div class="file_nav_close_inner" @click.stop="onRemoveNav(item, i)" v-if="navFileList.length > 1">
+              <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+                <path fill="currentColor"
+                  d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z">
+                </path>
               </svg>
             </div>
           </div>
         </div>
       </nav>
-      <monacoEditor
-        v-model="editValue"
-        :language="languageModel"
-        :hight-change="hightChange"
-        :options="options"
-        :theme="editorOption.theme"
-        :read-only="false"
-        @editor-mounted="editorMounted"
-        class="json_format_editor"
-      />
+      <monacoEditor v-model="editValue" :language="languageModel" :hight-change="hightChange" :options="options"
+        :theme="editorOption.theme" :read-only="false" @editor-mounted="editorMounted" class="json_format_editor" />
     </div>
   </div>
 </template>
@@ -400,6 +407,7 @@ onBeforeMount(() => {
   --common-palete-border-color: #cccedb;
   --common-palete-hover-color: #e8e8e8;
 }
+
 .dark .edit-tool-var {
   --format-bg-clolor: rgb(37, 37, 38);
   --format-nav-bg: rgb(45, 45, 45);
@@ -418,6 +426,7 @@ onBeforeMount(() => {
   --common-palete-border-color: #cccedb;
   --common-palete-hover-color: #e8e8e8;
 }
+
 .json_format {
   width: 100%;
   height: 100vh;
@@ -437,6 +446,7 @@ onBeforeMount(() => {
     box-sizing: border-box;
     outline-color: rgba(38, 119, 203, 0.18);
   }
+
   .nav_title {
     height: 22px;
     display: flex;
@@ -444,20 +454,24 @@ onBeforeMount(() => {
     margin-bottom: 12px;
     cursor: pointer;
   }
+
   .nav_title_front {
     font-size: 14px;
     margin: 0 2px;
     padding: 0 2px;
     line-height: 1;
   }
+
   .nav_title_text {
     font-weight: 900;
     line-height: 1;
+
     i {
       font-weight: normal;
       font-size: 14px;
       line-height: 1;
       margin-left: 4px;
+
       &:hover {
         color: var(--yh-text-color-brand);
       }
@@ -467,51 +481,62 @@ onBeforeMount(() => {
   .nav_title_action {
     margin-left: auto;
   }
+
   .nav_title_action_icon {
     width: 20px;
     box-sizing: border-box;
     border-radius: 5px;
     text-align: center;
     margin-right: 4px;
+
     i {
       font-size: 14px;
       line-height: 1;
     }
+
     &:hover {
       background-color: var(--format-nav-close-color);
     }
   }
 }
+
 //   目录列表
 .catalogue—list {
   :deep(.el-tree) {
     background: transparent;
-    .el-tree-node > .el-tree-node__content {
+
+    .el-tree-node>.el-tree-node__content {
       padding-left: 4px;
+
       &:hover {
         background-color: var(--common-palete-hover-color);
       }
     }
-    .el-tree-node.is-current > .el-tree-node__content {
+
+    .el-tree-node.is-current>.el-tree-node__content {
       background-color: var(--yh-brand-color);
       color: var(--yh-text-color-anti);
     }
   }
+
   .catalogue-list-tree-node {
     display: flex;
     align-items: center;
   }
+
   .catalogue-list-file-icon {
     width: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-right: 4px;
+
     img {
       width: 16px;
     }
   }
 }
+
 //设置
 .code_format_setting {
   width: 48px;
@@ -519,22 +544,27 @@ onBeforeMount(() => {
   background-color: var(--format-setting-bg-color);
   display: flex;
   flex-direction: column;
+
   .menubar-menu-button {
     color: rgba(255, 255, 255, 0.4);
     text-align: center;
     height: 35px;
     cursor: pointer;
+
     i {
       line-height: 35px;
       font-size: 16px;
     }
+
     &:hover {
       color: var(--format-setting-text-active-color);
     }
   }
+
   .setting_menu {
     margin-bottom: auto;
   }
+
   .setting_menu_item {
     height: 48px;
     display: flex;
@@ -543,11 +573,14 @@ onBeforeMount(() => {
     position: relative;
     color: var(--format-setting-text-color);
     cursor: pointer;
+
     &:hover {
       color: var(--format-setting-text-active-color);
     }
+
     &.menuActive {
       color: var(--format-setting-text-active-color);
+
       &::before {
         content: "";
         position: absolute;
@@ -558,11 +591,13 @@ onBeforeMount(() => {
         background-color: var(--format-setting-text-active-color);
       }
     }
+
     i {
       font-size: 22px;
     }
   }
 }
+
 //设置列表
 .setting_action_action {
   .setting_action_action_item {
@@ -570,29 +605,34 @@ onBeforeMount(() => {
     padding: 0 26px;
     height: 26px;
     line-height: 26px;
+
     &:hover {
       background-color: var(--yh-text-color-brand);
       color: var(--yh-text-color-anti);
     }
   }
 }
+
 .logo_wrap {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 50px;
+
   span {
     color: var(--yh-text-color-brand);
     margin-left: 12px;
     font-weight: 900;
   }
 }
-.form_item {
-}
+
+.form_item {}
+
 .json_format_content {
   flex: 1;
   display: flex;
   flex-direction: column;
+
   .file_nav_wrap {
     height: 35px;
     flex-shrink: 0;
@@ -601,6 +641,7 @@ onBeforeMount(() => {
     width: 100%;
   }
 }
+
 .file_nav_item {
   display: flex;
   align-items: center;
@@ -615,16 +656,19 @@ onBeforeMount(() => {
   .file_nav_img {
     width: 22px;
     padding-right: 6px;
+
     img {
       width: 100%;
     }
   }
+
   .file_nav_close {
     margin-top: auto;
     margin-bottom: auto;
     width: 28px;
     opacity: 0;
     transition: opacity 0.24s;
+
     .file_nav_close_inner {
       width: 18px;
       height: 18px;
@@ -642,19 +686,23 @@ onBeforeMount(() => {
       }
     }
   }
+
   &.nav_active {
     background-color: var(--format-nav-bg-active);
     color: var(--format-nav-text-color-active);
+
     .file_nav_close {
       opacity: 1;
     }
   }
+
   &:hover {
     .file_nav_close {
       opacity: 1;
     }
   }
 }
+
 .json_format_editor {
   flex: 1;
 }

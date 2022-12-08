@@ -8,6 +8,7 @@ declare module '@vue/runtime-core' {
     Backtop: typeof import('./src/components/backtop/backtop.vue')['default']
     BlogSearch: typeof import('./src/components/header/blog-search/blog-search.vue')['default']
     CommentInput: typeof import('./src/components/comment-input/comment-input.vue')['default']
+    Contextmenu: typeof import('./src/components/contextmenu/contextmenu.vue')['default']
     ElBacktop: typeof import('element-plus/es')['ElBacktop']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']

@@ -69,3 +69,27 @@ export function guid():string {
       return v.toString(16);
   });
 }
+
+export const clone = function (obj: any) {
+  let newObj: any = Array.isArray(obj) ? [] : {};
+  if (obj && typeof obj === 'object') {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        if (obj[key] && typeof obj[key] === 'object') {
+          newObj[key] = clone(obj[key]);
+        } else {
+          newObj[key] = obj[key];
+        }
+      }
+    }
+  }
+  return newObj;
+};
+
+// fast create dom with class
+export function createClassDom (tag: string, className: string, innerText?: string) {
+  let el = document.createElement(tag);
+  el.setAttribute('class', className);
+  if (innerText) el.innerText = innerText;
+  return el;
+}
