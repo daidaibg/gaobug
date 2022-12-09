@@ -4,7 +4,7 @@ import monacoEditor from "@/components/monaco-editor";
 import CodeFormatCommon from "./code-format-common.vue";
 import { CustomMouseMenu } from "@/components/contextmenu";
 import type { Options, Theme } from "@/components/monaco-editor";
-import type Node from 'element-plus/es/components/tree/src/model/node'
+import type Node from "element-plus/es/components/tree/src/model/node";
 import { Logo } from "@/components/header/logo";
 import { languageList, catalogueListDefault } from "./code-format-config";
 import { languageIcons } from "@/config/languageIcons";
@@ -29,7 +29,7 @@ const catalogueList = ref<FileItemType[]>([]);
 //侧边栏目录ref
 const catalogueRef = ref();
 //当前选中的
-const nav_active = ref();
+const currentActiveFile = ref();
 //编辑器配置
 const editorOption = reactive<{
   theme: Theme;
@@ -98,8 +98,8 @@ const onCataloguetNodecontextmenu = (
       {
         label: "删除",
         tips: "Delete",
-        disabled:catalogueList.value.length==1,
-        fn:()=> deleteFile(node,data),
+        disabled: catalogueList.value.length == 1,
+        fn: () => deleteFile(node, data),
       },
     ],
   });
@@ -107,25 +107,25 @@ const onCataloguetNodecontextmenu = (
   contextMenuCtx.show(x, y);
 };
 //重命名
-const  rename =()=>{
-
-}
+const rename = () => {};
 //删除
-const deleteFile = (node:Node,nodeData:any)=>{
-  const parent = node.parent
-  const children: any = parent.data.children || parent.data
-  const index = children.findIndex((d:any) => d.id === nodeData.id)
-  children.splice(index, 1)
-  catalogueList.value = [...catalogueList.value]
+const deleteFile = (node: Node, nodeData: any) => {
+  const parent = node.parent;
+  const children: any = parent.data.children || parent.data;
+  const index = children.findIndex((d: any) => d.id === nodeData.id);
+  children.splice(index, 1);
+  catalogueList.value = [...catalogueList.value];
 
-  const navIndex= navFileList.value.findIndex((d:any) => d.id === nodeData.id)
-  navFileList.value.splice(navIndex, 1)
-
-  if(nav_active.value==nodeData.id){
-    navActiveChange(navFileList.value[0])
+  const navIndex = navFileList.value.findIndex(
+    (d: any) => d.id === nodeData.id
+  );
+  if (navIndex !== -1) {
+    navFileList.value.splice(navIndex, 1);
   }
-
-}
+  if (currentActiveFile.value == nodeData.id) {
+    navActiveChange(navFileList.value[0]);
+  }
+};
 //点击新增文件
 const onAddfile = () => {
   ElMessageBox.prompt("请输入文件名称", "提示", {
@@ -202,7 +202,7 @@ const switchEditData = (content: string, language: string = "txt") => {
 const catalogueNodeClick = (data: any) => {
   // console.log("catalogueNodeClick",data);
   saveCurrentCatalogue();
-  nav_active.value = data.id;
+  currentActiveFile.value = data.id;
   addNavData({
     ...data,
   });
@@ -227,16 +227,16 @@ const updateCatalogueNode = (treeList: any, id: any, obj: any) => {
   }
 };
 //打开设置
-const onSetting = () => { };
+const onSetting = () => {};
 //设置当前选中的值
 const setCurrentCheckCatalogue = async (id: string) => {
-  nav_active.value = id;
+  currentActiveFile.value = id;
   await nextTick();
   catalogueRef.value.setCurrentKey(id);
 };
 //保存当前的数据
 const saveCurrentCatalogue = () => {
-  let currentFileData = seachTreeData(catalogueList.value, nav_active.value);
+  let currentFileData = seachTreeData(catalogueList.value, currentActiveFile.value);
   if (currentFileData) {
     currentFileData.content = editValue.value;
   }
@@ -250,29 +250,29 @@ const pageBeforeunload = () => {
 };
 //本地存储
 const setFilesLocalStorage = () => {
-  setLocalStorage("code-format-catalogue", catalogueList.value);
-  setLocalStorage("code-format-files-active", nav_active.value);
-  setLocalStorage("code-format-files", navFileList.value);
+  setLocalStorage("codeFormatFileData", {
+    catalogueList: catalogueList.value,
+    navList: navFileList.value,
+    active: currentActiveFile.value,
+  });
 };
 //初始化页面
 const init = async () => {
-  const newCatalogueList = getLocalStorage("code-format-catalogue");
-  if (!newCatalogueList) {
+  const codeFormatFileData = getLocalStorage("codeFormatFileData");
+  if (!codeFormatFileData) {
     catalogueList.value = [{ ...catalogueListDefault }];
     addNavData(catalogueListDefault);
     setCurrentCheckCatalogue(catalogueListDefault.id);
     switchEditData(catalogueListDefault.content, catalogueListDefault.language);
     return;
   }
-  catalogueList.value = newCatalogueList;
-  const filesList = getLocalStorage("code-format-files");
-  if (!filesList) {
+  catalogueList.value = codeFormatFileData.catalogueList;
+  if (!codeFormatFileData.navList) {
     return;
   }
-  navFileList.value = filesList;
-  nav_active.value =
-    getLocalStorage("code-format-files-active") || filesList[0].id;
-  const currentFileData = seachTreeData(catalogueList.value, nav_active.value);
+  navFileList.value = codeFormatFileData.navList;
+  currentActiveFile.value = codeFormatFileData.active || navFileList.value[0].id;
+  const currentFileData = seachTreeData(catalogueList.value, currentActiveFile.value);
   if (currentFileData) {
     await nextTick();
     switchEditData(currentFileData.content, currentFileData.language);
@@ -293,21 +293,35 @@ onBeforeMount(() => {
 
 <template>
   <div class="json_format edit-tool-var">
-    <CodeFormatCommon v-model="editorOption.commonKeyword" :editorOption="editorOption" @clickItem="onCommonClick">
+    <CodeFormatCommon
+      v-model="editorOption.commonKeyword"
+      :editorOption="editorOption"
+      @clickItem="onCommonClick"
+    >
     </CodeFormatCommon>
     <div class="code_format_setting">
       <div class="menubar-menu-button">
         <i class="dd-icon-mulu"></i>
       </div>
       <ul class="setting_menu">
-        <li :class="{ menuActive: settingConfig.menuActive === 'file' }" class="setting_menu_item">
+        <li
+          :class="{ menuActive: settingConfig.menuActive === 'file' }"
+          class="setting_menu_item"
+        >
           <i class="dd-icon-file"></i>
         </li>
       </ul>
       <ul class="setting_action">
         <li class="setting_menu_item">
-          <el-popover placement="right" :width="200" :hide-after="0" trigger="click" :show-arrow="false"
-            popper-class="setting_action_setting" ref="settingRef">
+          <el-popover
+            placement="right"
+            :width="200"
+            :hide-after="0"
+            trigger="click"
+            :show-arrow="false"
+            popper-class="setting_action_setting"
+            ref="settingRef"
+          >
             <template #reference>
               <i class="dd-icon-shezhi"> </i>
             </template>
@@ -342,9 +356,15 @@ onBeforeMount(() => {
         </div>
       </div>
       <div class="catalogue—list">
-        <el-tree :data="catalogueList" :props="{ children: 'children', label: 'title' }"
-          @node-click="catalogueNodeClick" node-key="id" ref="catalogueRef" highlight-current
-          @node-contextmenu="onCataloguetNodecontextmenu">
+        <el-tree
+          :data="catalogueList"
+          :props="{ children: 'children', label: 'title' }"
+          @node-click="catalogueNodeClick"
+          node-key="id"
+          ref="catalogueRef"
+          highlight-current
+          @node-contextmenu="onCataloguetNodecontextmenu"
+        >
           <template #default="{ node, data }">
             <span class="catalogue-list-tree-node">
               <div class="catalogue-list-file-icon">
@@ -358,25 +378,48 @@ onBeforeMount(() => {
     </div>
     <div class="json_format_content">
       <nav class="file_nav_wrap">
-        <div v-for="(item, i) in navFileList" @click="navActiveChange(item)" class="file_nav_item"
-          :class="{ nav_active: nav_active === item.id }" :key="item.id">
+        <div
+          v-for="(item, i) in navFileList"
+          @click="navActiveChange(item)"
+          class="file_nav_item"
+          :class="{ currentActiveFile: currentActiveFile === item.id }"
+          :key="item.id"
+        >
           <div class="file_nav_img">
             <img :src="getFileSvg(item.icon)" :alt="item.language" />
           </div>
           <span class="file_nav_title">{{ item.title }}</span>
           <div class="file_nav_close">
-            <div class="file_nav_close_inner" @click.stop="onRemoveNav(item, i)" v-if="navFileList.length > 1">
-              <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
-                <path fill="currentColor"
-                  d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z">
-                </path>
+            <div
+              class="file_nav_close_inner"
+              @click.stop="onRemoveNav(item, i)"
+              v-if="navFileList.length > 1"
+            >
+              <svg
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+              >
+                <path
+                  fill="currentColor"
+                  d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"
+                ></path>
               </svg>
             </div>
           </div>
         </div>
       </nav>
-      <monacoEditor v-model="editValue" :language="languageModel" :hight-change="hightChange" :options="options"
-        :theme="editorOption.theme" :read-only="false" @editor-mounted="editorMounted" class="json_format_editor" />
+      <monacoEditor
+        v-model="editValue"
+        :language="languageModel"
+        :hight-change="hightChange"
+        :options="options"
+        :theme="editorOption.theme"
+        :read-only="false"
+        @editor-mounted="editorMounted"
+        class="json_format_editor"
+      />
     </div>
   </div>
 </template>
@@ -504,7 +547,7 @@ onBeforeMount(() => {
   :deep(.el-tree) {
     background: transparent;
 
-    .el-tree-node>.el-tree-node__content {
+    .el-tree-node > .el-tree-node__content {
       padding-left: 4px;
 
       &:hover {
@@ -512,7 +555,7 @@ onBeforeMount(() => {
       }
     }
 
-    .el-tree-node.is-current>.el-tree-node__content {
+    .el-tree-node.is-current > .el-tree-node__content {
       background-color: var(--yh-brand-color);
       color: var(--yh-text-color-anti);
     }
@@ -625,7 +668,8 @@ onBeforeMount(() => {
   }
 }
 
-.form_item {}
+.form_item {
+}
 
 .json_format_content {
   flex: 1;
@@ -686,7 +730,7 @@ onBeforeMount(() => {
     }
   }
 
-  &.nav_active {
+  &.currentActiveFile {
     background-color: var(--format-nav-bg-active);
     color: var(--format-nav-text-color-active);
 
