@@ -259,6 +259,7 @@ const setFilesLocalStorage = () => {
 //初始化页面
 const init = async () => {
   const codeFormatFileData = getLocalStorage("codeFormatFileData");
+  //如果本地存储没有得话直接附默认值
   if (!codeFormatFileData) {
     catalogueList.value = [{ ...catalogueListDefault }];
     addNavData(catalogueListDefault);
@@ -267,9 +268,6 @@ const init = async () => {
     return;
   }
   catalogueList.value = codeFormatFileData.catalogueList;
-  if (!codeFormatFileData.navList) {
-    return;
-  }
   navFileList.value = codeFormatFileData.navList;
   currentActiveFile.value = codeFormatFileData.active || navFileList.value[0].id;
   const currentFileData = seachTreeData(catalogueList.value, currentActiveFile.value);
