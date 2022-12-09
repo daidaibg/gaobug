@@ -12,8 +12,8 @@ dist
 dist-ssr
 *.local
 
-auto-imports.d.ts
-components.d.ts
+/blog-cloud-web/auto-imports.d.ts
+/blog-cloud-web/components.d.ts
 # Editor directories and files
 .vscode/*
 
