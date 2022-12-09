@@ -2,8 +2,11 @@
 
 **自定义菜单-VUE3组件/指令**
 
-
 github 地址 https://github.com/leon-kfd/howdyjs/tree/master/packages/mouse-menu  别人封装进行更改
+
+文档地址 https://leon-kfd.github.io/howdyjs/#/mouse-menu/readme
+
+
 
 ## 特性
 
@@ -91,7 +94,6 @@ github 地址 https://github.com/leon-kfd/howdyjs/tree/master/packages/mouse-men
 > 若以组件方式使用，需要使用上方的show/close方法自行处理鼠标右键菜单行为
 
 ## 使用
-
 
 指令方式使用（推荐）
 
