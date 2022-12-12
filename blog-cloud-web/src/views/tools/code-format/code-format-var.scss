@@ -1,0 +1,58 @@
+
+
+.light .edit-tool-var {
+  --format-color-brand:var(--yh-brand-color);
+  --format-text-color-anti: #FFF;
+  --format-text-color: #616161;
+  --format-text-color-primary:rgba(0, 0, 0, .9);
+  --format-bg-clolor: rgb(243, 243, 243);
+  --format-outlin-color:rgba(83, 89, 93, 0.5);
+
+    // 导航栏
+  --format-nav-bg: rgb(236, 236, 236);
+  --format-nav-bg-active: rgb(255, 255, 255);
+  --format-nav-text-color: rgba(51, 51, 51, 0.7);
+  --format-nav-text-color-active: rgb(51, 51, 51);
+  --format-nav-close-color: rgba(184, 184, 184, 0.31);
+  //列表栏
+  --formart-catalogue-current-bg: var(--yh-brand-color);
+  --formart-catalogue-current-outline: #007fd4;
+
+  //设置栏
+  --format-setting-bg-color: rgb(44, 44, 44);
+  --format-setting-text-color: rgba(255, 255, 255, 0.4);
+  --format-setting-text-active-color: rgb(255, 255, 255);
+  //命令栏
+  --common-palete-color: rgb(97, 97, 97);
+  --common-palete-box-shadow: rgb(0 0 0 / 16%) 0px 0px 8px 2px;
+  --common-palete-border-color: #cccedb;
+  --common-palete-hover-color: #e8e8e8;
+}
+.dark .edit-tool-var {
+  --format-color-brand:var(--yh-brand-color);
+  --format-text-color-anti: #fff;
+  --format-text-color: #cccccc;
+  --format-text-color-primary:rgba(255, 255, 255, .9);
+  --format-text-color-secondary: rgba(255, 255, 255, .55);
+  --format-bg-clolor: rgb(37, 37, 38);
+  --format-outlin-color:rgba(83, 89, 93, 0.5);
+    // 导航栏
+  --format-nav-bg: rgb(45, 45, 45);
+  --format-nav-bg-active: rgb(30, 30, 30);
+  --format-nav-text-color: rgba(255, 255, 255, 0.5);
+  --format-nav-text-color-active: rgb(255, 255, 255);
+  --format-nav-close-color: rgba(90, 93, 94, 0.31);
+  //列表栏
+  --formart-catalogue-current-bg: #04395e;
+  --formart-catalogue-current-outline: #007fd4;
+
+  //设置栏
+  --format-setting-bg-color: rgb(51, 51, 51);
+  --format-setting-text-color: rgba(255, 255, 255, 0.4);
+  --format-setting-text-active-color: rgb(255, 255, 255);
+  //命令栏
+  --common-palete-color: rgb(204, 204, 204);
+  --common-palete-box-shadow: rgb(0 0 0 / 16%) 0px 0px 8px 2px;
+  --common-palete-border-color: #3f3f46;
+  --common-palete-hover-color: #2a2d2e;
+}

@@ -5,3 +5,7 @@ export interface FileItemType {
     title: string;
     icon: string;
   }
+
+  export enum CommonEnums{
+    theme="theme"
+  }

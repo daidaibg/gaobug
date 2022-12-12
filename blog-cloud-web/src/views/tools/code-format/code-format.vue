@@ -8,7 +8,7 @@ import {
   markRaw,
 } from "vue";
 import monacoEditor from "@/components/monaco-editor";
-import CodeFormatCommon from "./code-format-common.vue";
+import CodeFormatCommon from "./common/code-format-common.vue";
 import { InfoIcon } from "@/components/icons";
 import { CustomMouseMenu } from "@/components/contextmenu";
 import type { Options, Theme } from "@/components/monaco-editor";
@@ -21,14 +21,16 @@ import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
 import { guid } from "@/utils/current";
 import { seachTreeData } from "@/utils/tree";
 import type { FileItemType } from "./type";
+import { CommonEnums } from "./type";
+import { userThemeStore } from "@/store";
 
+const themeStore = userThemeStore();
 const settingConfig = reactive({
   menuActive: "file",
 });
 //右键对象
 let contextMenuCtx: any = null;
-const editValue = ref("");
-const languageModel = ref("json");
+
 //设置弹窗ref
 const settingRef = ref();
 //侧边栏目录列表
@@ -41,19 +43,30 @@ const currentActiveFile = ref();
 const editorOption = reactive<{
   theme: Theme;
   commonKeyword: string;
+  editValue: string;
+  languageModel: string;
+  hightChange: boolean;
+  options: {
+    minimap: {
+      enabled: boolean; //显示小地图
+    };
+  };
 }>({
   theme: "vs",
   commonKeyword: "",
-});
-const options = ref<any>({
-  minimap: {
-    enabled: true, //显示小地图
+  editValue: "",
+  languageModel: "json",
+  hightChange: false,
+  options: {
+    minimap: {
+      enabled: true,
+    },
   },
 });
+
 //头部文件列表
 const navFileList = ref<FileItemType[]>([]);
 
-const hightChange = ref<any>(false);
 //editor实例加载完成
 const editorMounted = (editor: any) => {
   console.log("%ceditor实例加载完成", "color: #229453");
@@ -62,7 +75,11 @@ const editorMounted = (editor: any) => {
 //点击每一项
 const onCommonClick = (commonItem: any) => {
   editorOption.theme = commonItem.value;
-  console.log(editorOption);
+  themeStore.changeThemeNoLocal(commonItem.type);
+  setLocalStorage("codeFormatEditConfig", {
+    theme: commonItem,
+  });
+  // console.log(editorOption,commonItem);
 };
 
 /**
@@ -239,8 +256,8 @@ const getFileSvg = (iconname: string) => {
 };
 //切换编辑器内容
 const switchEditData = (content: string, language: string = "txt") => {
-  editValue.value = content;
-  languageModel.value = language;
+  editorOption.editValue = content;
+  editorOption.languageModel = language;
 };
 
 //目录列表node点击事件
@@ -256,7 +273,7 @@ const catalogueNodeClick = (data: FileItemType) => {
 //选择切换主题
 const onSelectTheme = () => {
   settingRef.value.hide();
-  editorOption.commonKeyword = "theme";
+  editorOption.commonKeyword = CommonEnums.theme;
 };
 
 const updateCatalogueNode = (treeList: any, id: any, obj: any) => {
@@ -286,7 +303,7 @@ const saveCurrentCatalogue = () => {
     currentActiveFile.value
   );
   if (currentFileData) {
-    currentFileData.content = editValue.value;
+    currentFileData.content = editorOption.editValue;
   }
 };
 
@@ -304,8 +321,19 @@ const setFilesLocalStorage = () => {
     active: currentActiveFile.value,
   });
 };
-//初始化页面
-const init = async () => {
+//初始化编辑器配置
+const initEditConfig = () => {
+  const codeFormatEditConfig = getLocalStorage("codeFormatEditConfig");
+  if (!codeFormatEditConfig) {
+    return;
+  }
+  if (codeFormatEditConfig.theme) {
+    themeStore.changeThemeNoLocal(codeFormatEditConfig.theme.type);
+    editorOption.theme = codeFormatEditConfig.theme.value;
+  }
+};
+// 初始化列表数据
+const initCatalogList = async () => {
   const codeFormatFileData = getLocalStorage("codeFormatFileData");
   //如果本地存储没有得话直接附默认值
   if (!codeFormatFileData) {
@@ -329,6 +357,11 @@ const init = async () => {
     catalogueRef.value.setCurrentKey(currentFileData.id);
   }
 };
+//初始化页面
+const init = () => {
+  initEditConfig();
+  initCatalogList()
+};
 
 init();
 
@@ -342,7 +375,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="json_format edit-tool-var">
+  <div class="json_format edit-tool-var" :class="editorOption.theme">
     <CodeFormatCommon
       v-model="editorOption.commonKeyword"
       :editorOption="editorOption"
@@ -369,7 +402,7 @@ onBeforeMount(() => {
             :hide-after="0"
             trigger="click"
             :show-arrow="false"
-            popper-class="setting_action_setting"
+            popper-class="setting_action_setting "
             ref="settingRef"
           >
             <template #reference>
@@ -461,10 +494,10 @@ onBeforeMount(() => {
         </div>
       </nav>
       <monacoEditor
-        v-model="editValue"
-        :language="languageModel"
-        :hight-change="hightChange"
-        :options="options"
+        v-model="editorOption.editValue"
+        :language="editorOption.languageModel"
+        :hight-change="editorOption.hightChange"
+        :options="(editorOption.options as any)"
         :theme="editorOption.theme"
         :read-only="false"
         @editor-mounted="editorMounted"
@@ -479,46 +512,8 @@ onBeforeMount(() => {
 }
 </style>
 <style scoped lang="scss">
-.light .edit-tool-var {
-  --format-bg-clolor: rgb(243, 243, 243);
-  --format-nav-bg: rgb(236, 236, 236);
-  --format-nav-bg-active: rgb(255, 255, 255);
-  --format-nav-text-color: rgba(51, 51, 51, 0.7);
-  --format-nav-text-color-active: rgb(51, 51, 51);
-
-  --format-nav-close-color: rgba(184, 184, 184, 0.31);
-
-  //设置栏
-  --format-setting-bg-color: rgb(44, 44, 44);
-  --format-setting-text-color: rgba(255, 255, 255, 0.4);
-  --format-setting-text-active-color: rgb(255, 255, 255);
-  //命令栏
-  --common-palete-bg-color: rgb(243, 243, 243);
-  --common-palete-color: rgb(97, 97, 97);
-  --common-palete-box-shadow: rgb(0 0 0 / 16%) 0px 0px 8px 2px;
-  --common-palete-border-color: #cccedb;
-  --common-palete-hover-color: #e8e8e8;
-}
-
-.dark .edit-tool-var {
-  --format-bg-clolor: rgb(37, 37, 38);
-  --format-nav-bg: rgb(45, 45, 45);
-  --format-nav-bg-active: rgb(30, 30, 30);
-  --format-nav-text-color: rgba(255, 255, 255, 0.5);
-  --format-nav-text-color-active: rgb(255, 255, 255);
-  --format-nav-close-color: rgba(90, 93, 94, 0.31);
-  //设置栏
-  --format-setting-bg-color: rgb(51, 51, 51);
-  --format-setting-text-color: rgba(255, 255, 255, 0.4);
-  --format-setting-text-active-color: rgb(255, 255, 255);
-  //命令栏
-  --common-palete-bg-color: rgb(243, 243, 243);
-  --common-palete-color: rgb(97, 97, 97);
-  --common-palete-box-shadow: rgb(0 0 0 / 16%) 0px 0px 8px 2px;
-  --common-palete-border-color: #cccedb;
-  --common-palete-hover-color: #e8e8e8;
-}
-
+@import "./code-format-var.scss";
+@import "./code-format-dark.scss";
 .json_format {
   width: 100%;
   height: 100vh;
@@ -530,15 +525,14 @@ onBeforeMount(() => {
   // height: 100vh;
   display: flex;
   background-color: var(--format-bg-clolor);
+  color: var(--format-text-color);
 
   .json_format_nav {
     width: 210px;
     flex-shrink: 0;
-    box-shadow: var(var(--yh-shadow-inset-left));
     box-sizing: border-box;
-    outline-color: rgba(38, 119, 203, 0.18);
+    outline-color: var(--format-nav-close-color);
   }
-
   .nav_title {
     height: 22px;
     display: flex;
@@ -569,7 +563,6 @@ onBeforeMount(() => {
       }
     }
   }
-
   .nav_title_action {
     margin-left: auto;
   }
@@ -596,7 +589,7 @@ onBeforeMount(() => {
 .catalogue—list {
   :deep(.el-tree) {
     background: transparent;
-
+    color: var(--format-text-color);
     .el-tree-node > .el-tree-node__content {
       padding-left: 4px;
 
@@ -606,8 +599,8 @@ onBeforeMount(() => {
     }
 
     .el-tree-node.is-current > .el-tree-node__content {
-      background-color: var(--yh-brand-color);
-      color: var(--yh-text-color-anti);
+      background-color: var(--formart-catalogue-current-bg);
+      color: var(--format-text-color-anti);
     }
   }
 
@@ -697,9 +690,8 @@ onBeforeMount(() => {
     padding: 0 26px;
     height: 26px;
     line-height: 26px;
-
     &:hover {
-      background-color: var(--yh-text-color-brand);
+      background-color: var(--yh-brand-color);
       color: var(--yh-text-color-anti);
     }
   }
@@ -712,7 +704,7 @@ onBeforeMount(() => {
   height: 50px;
 
   span {
-    color: var(--yh-text-color-brand);
+    color: var(--format-color-brand);
     margin-left: 12px;
     font-weight: 900;
   }

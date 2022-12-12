@@ -30,6 +30,10 @@ export const userThemeStore = defineStore({
             domSetAttribute(theme)
             setLocalStorage(YH_THEME_STORE, this.$state)
             // document.documentElement.className=type;
-        }
+        },
+        changeThemeNoLocal(theme: ThemeEnum): void {
+            this.theme = theme;
+            domSetAttribute(theme)
+        },
     },
 });

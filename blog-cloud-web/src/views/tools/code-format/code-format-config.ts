@@ -69,19 +69,19 @@ const themeOptions = {
     
     light: [
         {
-            value: "vs", label: "浅色(Visual Studio)", suffix: "浅色主题",isDivision:true
+            value: "vs", label: "浅色(Visual Studio)", suffix: "浅色主题",isDivision:true,type:"light"
         },
         {
-            value: "hc-light", label: "GitHub Light", suffix: ""
+            value: "hc-light", label: "GitHub Light", suffix: "",type:"light"
         },
     ],
     dark: [
         {
-            value: "vs-dark", label: "深色(Visual Studio)", suffix: "深色主题",isDivision:true
+            value: "vs-dark", label: "深色(Visual Studio)", suffix: "深色主题",isDivision:true,type:"dark"
         },
 
         {
-            value: "hc-black", label: "GitHub Dark", suffix: "",
+            value: "hc-black", label: "GitHub Dark", suffix: "",type:"dark"
         },
     ]
 }

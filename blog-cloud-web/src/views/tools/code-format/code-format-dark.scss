@@ -1,0 +1,11 @@
+.vs-dark,
+.hc-black {
+  .catalogue—list {
+    :deep(.el-tree) {
+      .el-tree-node.is-current > .el-tree-node__content {
+        outline: 1px solid var( --formart-catalogue-current-outline);
+        outline-offset: -1px;
+      }
+    }
+  }
+}

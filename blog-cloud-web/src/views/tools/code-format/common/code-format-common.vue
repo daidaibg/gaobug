@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { codeEditConfig } from "./code-format-config";
+import { codeEditConfig } from "../code-format-config";
 import { computed, ref } from "vue";
-import { CommonProps } from "./common/common.type";
+import { CommonProps } from "./common.type";
 const props = defineProps(CommonProps);
 const commonFocused = ref("");
 const emits = defineEmits<{
@@ -20,6 +20,7 @@ const hideCommon = () => {
 const commonList = computed(() => {
   switch (props.modelValue) {
     case "theme":
+      // console.log(props);
       commonFocused.value = props.modelValue;
       return [...codeEditConfig.theme.light, ...codeEditConfig.theme.dark];
     default:
@@ -37,13 +38,13 @@ const commonList = computed(() => {
         :key="item.value"
         :class="{
           division: item.isDivision,
-          focused: commonFocused == item.value,
+          focused: editorOption.theme == item.value,
         }"
         @click.stop="onCommonClick(item)"
       >
         <div class="common-list_inner">
           <div class="common-list_inner-label">
-            {{ item.label }}
+            {{ item.label }} 
           </div>
           <div class="common-list_inner_separator">
             {{ item.suffix }}
@@ -59,7 +60,7 @@ const commonList = computed(() => {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--common-palete-bg-color);
+  background-color: var(--format-bg-clolor);
   color: var(--common-palete-color);
   box-shadow: var(--common-palete-box-shadow);
   width: 600px;
@@ -75,7 +76,7 @@ const commonList = computed(() => {
   height: 22px;
   cursor: pointer;
   border-radius: 3px;
-  color: var(--yh-text-color-secondary);
+  color: var( --format-text-color-secondary);
   overflow: hidden;
   .common-list_inner {
     padding: 0 6px;
@@ -102,8 +103,8 @@ const commonList = computed(() => {
     background-color: var(--common-palete-hover-color);
   }
   &.focused {
-    color: var(--yh-text-color-anti);
-    background: var(--yh-brand-color);
+    color: var(--format-text-color-anti);
+    background: var(--format-color-brand);
   }
 }
 </style>
