@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref, reactive, nextTick } from "vue";
+import {
+  onBeforeMount,
+  onMounted,
+  ref,
+  reactive,
+  nextTick,
+  markRaw,
+} from "vue";
 import monacoEditor from "@/components/monaco-editor";
 import CodeFormatCommon from "./code-format-common.vue";
+import { InfoIcon } from "@/components/icons";
 import { CustomMouseMenu } from "@/components/contextmenu";
 import type { Options, Theme } from "@/components/monaco-editor";
 import type Node from "element-plus/es/components/tree/src/model/node";
 import { Logo } from "@/components/header/logo";
 import { languageList, catalogueListDefault } from "./code-format-config";
 import { languageIcons } from "@/config/languageIcons";
-import fileSvg from "@/assets/file-icon/file.svg";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
 import { guid } from "@/utils/current";
@@ -73,7 +80,7 @@ const navActiveChange = (fileNavItem: any): any => {
 //右键
 const onCataloguetNodecontextmenu = (
   event: any,
-  data: any,
+  data: FileItemType,
   node: Node,
   nodeTemplate: any
 ) => {
@@ -86,7 +93,7 @@ const onCataloguetNodecontextmenu = (
       {
         label: "重命名",
         tips: "Edit",
-        fn: () => {},
+        fn: () => rename(node, data),
       },
       {
         label: "删除",
@@ -100,24 +107,56 @@ const onCataloguetNodecontextmenu = (
   contextMenuCtx.show(x, y);
 };
 //重命名
-const rename = () => {};
+const rename = (node: Node, nodeData: FileItemType) => {
+  // console.log("rename", node, nodeData);
+  //不自动获取焦点问题，点击右键菜单触发点击时间，input焦点消失
+  const timer = setTimeout(() => {
+    clearTimeout(timer);
+    ElMessageBox.prompt("请编辑文件名称", {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      inputErrorMessage: "",
+      inputValue: nodeData.title,
+      draggable: true,
+      type: "info",
+      icon: markRaw(InfoIcon),
+    })
+      .then(({ value }) => {
+        const laguageData = getLaguageData(value);
+        nodeData.title = value;
+        nodeData.language = laguageData.fileLanguage;
+        nodeData.icon = laguageData.fileIconData.icon.name;
+        //处理nav导航数据
+        const navIndex = navFileList.value.findIndex(
+          (d: any) => d.id === nodeData.id
+        );
+        if (navIndex > -1) {
+          navFileList.value[navIndex].title = value;
+          navFileList.value[navIndex].icon = laguageData.fileIconData.icon.name;
+          navFileList.value[navIndex].language = laguageData.fileLanguage;
+        }
+      })
+      .catch((err) => {
+        if (err.indexOf("cancel") == -1) {
+          throw new Error(err);
+        } else {
+          console.info("取消");
+        }
+      });
+  }, 20);
+};
 //删除
-const deleteFile = (node: Node, nodeData: any) => {
+const deleteFile = (node: Node, nodeData: FileItemType) => {
   const parent = node.parent;
   const children: any = parent.data.children || parent.data;
   const index = children.findIndex((d: any) => d.id === nodeData.id);
   children.splice(index, 1);
   catalogueList.value = [...catalogueList.value];
-
+  //处理nav数据
   const navIndex = navFileList.value.findIndex(
     (d: any) => d.id === nodeData.id
   );
-  if (navIndex !== -1) {
-    navFileList.value.splice(navIndex, 1);
-  }
-  if (currentActiveFile.value == nodeData.id) {
-    navActiveChange(navFileList.value[0]);
-  }
+  onRemoveNav(nodeData, navIndex);
 };
 //点击新增文件
 const onAddfile = () => {
@@ -126,6 +165,7 @@ const onAddfile = () => {
     cancelButtonText: "取消",
     inputErrorMessage: "",
     draggable: true,
+    autofocus: true,
   })
     .then(({ value }) => {
       addFile(value);
@@ -135,9 +175,25 @@ const onAddfile = () => {
     });
 };
 //新增文件
-const addFile = (data: any) => {
+const addFile = (data: string) => {
+  const laguageData = getLaguageData(data);
+  const newFileData = {
+    title: data,
+    language: laguageData.fileLanguage,
+    content: "",
+    id: guid(),
+    icon: laguageData.fileIconData.icon.name,
+  };
+  catalogueList.value.push(newFileData);
+  saveCurrentCatalogue();
+  setCurrentCheckCatalogue(newFileData.id);
+  switchEditData("", laguageData.fileLanguage);
+  addNavData(newFileData);
+};
+//获取语言数据信息
+const getLaguageData = (data: string): any => {
   const fileNameSplit = data.split(".");
-  let fileLanguage = fileNameSplit[fileNameSplit.length - 1];
+  let fileLanguage: any = fileNameSplit[fileNameSplit.length - 1];
   fileLanguage = languageList.filter((item) => {
     return item.label == fileLanguage;
   });
@@ -150,29 +206,25 @@ const addFile = (data: any) => {
       break;
     }
   }
-  const newFileData = {
-    title: data,
-    language: fileLanguage,
-    content: "",
-    id: guid(),
-    icon: fileIconData.icon.name,
+  return {
+    fileIconData,
+    fileLanguage,
   };
-  catalogueList.value.push(newFileData);
-  saveCurrentCatalogue();
-  setCurrentCheckCatalogue(newFileData.id);
-  switchEditData("", fileLanguage);
-  addNavData(newFileData);
 };
-
 //新增文件导航栏列表
-const addNavData = (fileData: any) => {
+const addNavData = (fileData: FileItemType) => {
   const isAddData = navFileList.value.find((item) => item.id == fileData.id);
   if (isAddData) return;
   navFileList.value.push(fileData);
 };
-//移除文件
-const onRemoveNav = (fileNavItem: any, index: number) => {
-  navFileList.value.splice(index, 1);
+//移除nav文件
+const onRemoveNav = (fileNavItem: FileItemType, index: number) => {
+  if (index >= 0) {
+    navFileList.value.splice(index, 1);
+  }
+  if (navFileList.value.length == 0) {
+    addNavData(catalogueList.value[0]);
+  }
   if (index >= 1) {
     navActiveChange(navFileList.value[index - 1]);
   } else {
@@ -192,7 +244,7 @@ const switchEditData = (content: string, language: string = "txt") => {
 };
 
 //目录列表node点击事件
-const catalogueNodeClick = (data: any) => {
+const catalogueNodeClick = (data: FileItemType) => {
   // console.log("catalogueNodeClick",data);
   saveCurrentCatalogue();
   currentActiveFile.value = data.id;
