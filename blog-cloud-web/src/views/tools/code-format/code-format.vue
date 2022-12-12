@@ -77,8 +77,8 @@ const onCataloguetNodecontextmenu = (
   node: Node,
   nodeTemplate: any
 ) => {
-  console.log({ event, data, node, nodeTemplate });
-  console.log(catalogueList.value.length);
+  // console.log({ event, data, node, nodeTemplate });
+  // console.log(catalogueList.value.length);
   event.preventDefault();
   contextMenuCtx = CustomMouseMenu({
     el: nodeTemplate.vnode.el,
@@ -86,14 +86,7 @@ const onCataloguetNodecontextmenu = (
       {
         label: "重命名",
         tips: "Edit",
-        fn: (
-          params: any,
-          currentEl: HTMLElement,
-          bindingEl: HTMLElement,
-          e: MouseEvent
-        ) => {
-          // console.log("delete", params, currentEl, bindingEl, e);
-        },
+        fn: () => {},
       },
       {
         label: "删除",
@@ -236,7 +229,10 @@ const setCurrentCheckCatalogue = async (id: string) => {
 };
 //保存当前的数据
 const saveCurrentCatalogue = () => {
-  let currentFileData = seachTreeData(catalogueList.value, currentActiveFile.value);
+  let currentFileData = seachTreeData(
+    catalogueList.value,
+    currentActiveFile.value
+  );
   if (currentFileData) {
     currentFileData.content = editValue.value;
   }
@@ -269,8 +265,12 @@ const init = async () => {
   }
   catalogueList.value = codeFormatFileData.catalogueList;
   navFileList.value = codeFormatFileData.navList;
-  currentActiveFile.value = codeFormatFileData.active || navFileList.value[0].id;
-  const currentFileData = seachTreeData(catalogueList.value, currentActiveFile.value);
+  currentActiveFile.value =
+    codeFormatFileData.active || navFileList.value[0].id;
+  const currentFileData = seachTreeData(
+    catalogueList.value,
+    currentActiveFile.value
+  );
   if (currentFileData) {
     await nextTick();
     switchEditData(currentFileData.content, currentFileData.language);
