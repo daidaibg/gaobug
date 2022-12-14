@@ -14,6 +14,13 @@ const toolList = [
         img: "https://www.gaobug.com/blog-cloud-tool/img/json_format.png",
         url: RouterEnum.JsonFormat,
       },
+      {
+        title: "表格读取",
+        id: "12",
+        type: "inner",
+        img: "https://www.gaobug.com/blog-cloud-tool/img/xlsx.png",
+        url: RouterEnum.ReadXlsx,
+      },
     ],
   },
   {
@@ -103,7 +110,6 @@ const aHrefFormat = (toolItem: any) => {
 .tool_item_wrap {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   box-sizing: border-box;
   padding: 5px;
   .tool_item {

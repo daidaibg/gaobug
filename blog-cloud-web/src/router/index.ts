@@ -80,6 +80,15 @@ const routes: Array<RouteRecordRaw> = [
           noSplice: true
         }
       },
+      {
+        path: RouterEnum.ReadXlsx,
+        name: RouterEnum.ReadXlsx,
+        component: () => import(/* webpackChunkName: "tools" */ '../views/tools/read-xlsx/read-xlsx.vue'),
+        meta: {
+          title: "读取表格(xlsx)",
+          noSplice: true
+        }
+      },
     ]
   },
   {
