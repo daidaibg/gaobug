@@ -14,6 +14,7 @@ dist-ssr
 
 /blog-cloud-web/auto-imports.d.ts
 /blog-cloud-web/components.d.ts
+blog-cloud-web.code-workspace
 # Editor directories and files
 .vscode/*
 
