@@ -30,6 +30,7 @@
     "vue": "^3.2.45",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6",
+    "xlsx": "^0.18.5",
     "yhht-plus": "^0.0.22"
   },
   "devDependencies": {
