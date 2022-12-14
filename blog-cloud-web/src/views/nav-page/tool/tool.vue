@@ -24,6 +24,19 @@ const toolList = [
     ],
   },
   {
+    title: "菜鸟工具",
+    id: 3,
+    list: [
+      {
+        title: "HTML压缩工具",
+        id: "31",
+        type: "out",
+        img: "https://www.gaobug.com/blog-cloud-tool/img/html.png",
+        url: "https://c.runoob.com/front-end/47/",
+      },
+    ],
+  },
+  {
     title: "娱乐工具",
     id: 2,
     list: [
@@ -140,7 +153,7 @@ const aHrefFormat = (toolItem: any) => {
       width: 46px;
       height: 46px;
       transform-style: preserve-3d;
-      transition: transform 1.2s cubic-bezier(0.66,-0.47,0.33,1.5);
+      transition: transform 1.2s cubic-bezier(0.66, -0.47, 0.33, 1.5);
       backface-visibility: hidden;
       position: relative;
       left: 5px;
