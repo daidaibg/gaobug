@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import { ElMessage, genFileId,ElLoading  } from "element-plus";
+import { ref, reactive, nextTick } from "vue";
+import { ElMessage, genFileId, ElLoading, vLoading } from "element-plus";
 import { readFileToJson } from "@/utils/modules/xlsx";
 import type {
   UploadInstance,
@@ -9,8 +9,8 @@ import type {
   TabsPaneContext,
 } from "element-plus";
 const upload = ref<UploadInstance>();
+const uploadWrapTarget = ref();
 let xlsxData: any = {};
-let loading:any;
 const xlsxDataSheetList = ref<any>([]);
 const activeName = ref("");
 const tableHeaderList = ref<any>([]);
@@ -38,7 +38,7 @@ const onCurrentPageChange = (currentPage: any) => {
 
 //处理表格数据
 const handlePageData = () => {
-//   console.log(tableData);
+  //   console.log(tableData);
   let currentList = xlsxData[activeName.value];
   if (currentList.length > tableData.pageSize) {
     tableData.data = currentList.slice(
@@ -84,16 +84,18 @@ const switchTableData = () => {
 
   handlePageData();
 };
-const uploadChange = (file: any) => {
+const uploadChange = async (file: any) => {
   if (!/\.(xls|xlsx)$/.test(file.name.toLowerCase())) {
     ElMessage.warning("上传格式不正确，请上传xls或者xlsx格式");
     return false;
   }
-  console.log("file",file);
-   loading = ElLoading.service({
+  console.log("file", file);
+  const loading = ElLoading.service({
+    target: uploadWrapTarget.value,
     lock: true,
-    text: '解析中',
-  })
+    text: "解析中",
+  });
+  await delay();
   readFileToJson(file.raw)
     .then((res: any) => {
       console.log(res);
@@ -101,30 +103,40 @@ const uploadChange = (file: any) => {
       xlsxDataSheetList.value = Object.keys(res);
       activeName.value = xlsxDataSheetList.value[0];
       switchTableData();
-      loading.close()
+      loading.close();
     })
     .catch((err) => {
       console.log(err);
     });
 };
+const delay = () => {
+  return new Promise<boolean>((resolve, reject) => {
+    const timer = setTimeout(() => {
+      resolve(true);
+      clearTimeout(timer);
+    }, 300);
+  });
+};
 </script>
 
 <template>
   <div class="read_xlsx">
-    <el-upload
-      ref="upload"
-      class="read_xlsx-upload"
-      action=""
-      drag
-      :auto-upload="false"
-      :show-file-list="false"
-      :on-change="uploadChange"
-      :on-exceed="handleExceed"
-      :limit="1"
-    >
-      <i class="el-icon-upload"></i>
-      <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-    </el-upload>
+    <div ref="uploadWrapTarget">
+      <el-upload
+        ref="upload"
+        class="read_xlsx-upload"
+        action=""
+        drag
+        :auto-upload="false"
+        :show-file-list="false"
+        :on-change="uploadChange"
+        :on-exceed="handleExceed"
+        :limit="1"
+      >
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+      </el-upload>
+    </div>
     <el-tabs
       v-model="activeName"
       class="read_xlsx-tabs"
