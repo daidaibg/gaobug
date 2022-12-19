@@ -6,6 +6,8 @@ const toolList = [
   {
     title: "常用工具",
     id: 1,
+    emoji: "🌈",
+
     list: [
       {
         title: "格式化工具",
@@ -26,6 +28,8 @@ const toolList = [
   {
     title: "菜鸟工具",
     id: 3,
+    url: "https://c.runoob.com/",
+    emoji: "🔗",
     list: [
       {
         title: "HTML压缩工具",
@@ -39,6 +43,8 @@ const toolList = [
   {
     title: "娱乐工具",
     id: 2,
+    emoji: "🎮",
+
     list: [
       {
         title: "弹跳爱心",
@@ -65,7 +71,17 @@ const aHrefFormat = (toolItem: any) => {
   <div class="gb-tool comments gaobug">
     <div class="tool_inner">
       <div v-for="item in toolList" :key="item.id" class="tool_wrap">
-        <h1 class="nav_title">{{ item.title }}</h1>
+        <h1 class="nav_title" v-if="!item.url">
+          {{ item.emoji }}&nbsp;<span class="nav_title_text"
+            >{{ item.title }}
+          </span>
+        </h1>
+        <a :href="item.url" class="nav_title islink" v-else
+          >{{ item.emoji }}&nbsp;<span class="nav_title_text"
+            >{{ item.title }}
+            <div class="boottom_line"></div
+          ></span>
+        </a>
         <ul class="tool_item_wrap">
           <li
             class="tool_item"
@@ -116,8 +132,37 @@ const aHrefFormat = (toolItem: any) => {
     color: var(--yh-text-color-primary);
     font-weight: 900;
     line-height: 1.6;
-    margin-bottom: 8px;
-    margin-top: 8px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    display: inline-block;
+  }
+  .nav_title_text {
+    position: relative;
+  }
+  .boottom_line {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &::before {
+      content: " ";
+      width: 0;
+      height: 100%;
+      border-radius: 2px;
+      transition: all 0.32s linear;
+      background: var(--yh-text-color-primary);
+    }
+  }
+  .islink:hover {
+    color: var(--yh-text-color-brand);
+    .boottom_line::before {
+      width: 100%;
+      background: var(--yh-brand-color);
+    }
   }
 }
 .tool_item_wrap {
