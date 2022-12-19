@@ -204,6 +204,7 @@ const aHrefFormat = (toolItem: any) => {
       left: 5px;
       top: 5px;
       transform: rotateY(0deg);
+      pointer-events:none;
       &.back {
         position: absolute;
         transform: rotateY(180deg);
