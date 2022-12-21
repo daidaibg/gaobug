@@ -1,7 +1,7 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-23 15:46:53
+ * @LastEditTime: 2022-12-20 17:47:39
  */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useUserStore } from '@/store'
@@ -101,6 +101,15 @@ export const GET = async (url: string, params: Params): Promise<any> => {
             params: encParams,
             headers,
         });
+        return data;
+    } catch (error) {
+        return error;
+    }
+}
+//请求public 目录文件
+export const getPublic=async (url:string)=>{
+    try {
+        const data = await service.get(url);
         return data;
     } catch (error) {
         return error;

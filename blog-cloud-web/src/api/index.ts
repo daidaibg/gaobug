@@ -2,11 +2,11 @@
  * @Author: daidai
  * @Date: 2021-12-23 11:18:37
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-23 17:20:29
+ * @LastEditTime: 2022-12-20 17:48:23
  * @FilePath: \web-pc-svn\src\api\modules\index.js
  */
 
-import {GET,POST,FILEPOST,request} from "./api";
+import {GET,POST,FILEPOST,request,getPublic} from "./api";
 import {Home} from "./modules/home"
 import type {UrlObjType} from "./index.d"
 export * from "./modules/upload"
@@ -29,3 +29,5 @@ export const currentPOSTPath = (key:Keys,type:Keys,param?: any) => {
 export const currentFILEPOST = (key:Keys, param?: any) => {
   return FILEPOST(urlObj[key], param||{},{});
 };
+
+export {getPublic}

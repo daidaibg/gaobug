@@ -89,6 +89,16 @@ const routes: Array<RouteRecordRaw> = [
           noSplice: true
         }
       },
+      {
+        path: RouterEnum.FestivalCountDown,
+        name: RouterEnum.FestivalCountDown,
+        component: () => import(/* webpackChunkName: "tools" */ '../views/tools/festival-count-down/festival-count-down.vue'),
+        meta: {
+          title: "节日倒计时",
+          noSplice: true
+        }
+      }
+      
     ]
   },
   {

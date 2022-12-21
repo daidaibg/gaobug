@@ -23,6 +23,13 @@ const toolList = [
         img: "https://www.gaobug.com/blog-cloud-tool/img/xlsx.png",
         url: RouterEnum.ReadXlsx,
       },
+      {
+        title: "节日倒计时",
+        id: "13",
+        type: "inner",
+        img: "https://www.gaobug.com/blog-cloud-tool/img/time.png",
+        url: RouterEnum.FestivalCountDown,
+      },
     ],
   },
   {
@@ -150,7 +157,7 @@ const aHrefFormat = (toolItem: any) => {
     justify-content: center;
     &::before {
       content: " ";
-      width: 0;
+      width: 0px;
       height: 100%;
       border-radius: 2px;
       transition: all 0.32s linear;

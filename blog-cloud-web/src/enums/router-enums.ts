@@ -10,5 +10,7 @@ export enum RouterEnum {
     //json 格式化
     JsonFormat="/code/format",
     //读xlsx
-    ReadXlsx="/read/xlsx"
+    ReadXlsx="/read/xlsx",
+    //节日倒计时
+    FestivalCountDown="/festival/count/down"
 }
