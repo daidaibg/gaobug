@@ -16,6 +16,7 @@ export const languageList = [
     { value: "java", label: "java" },
     { value: "sql", label: "sql" },
     { value: "markdown", label: "markdown" },
+    { value: "markdown", label: "md" },
     { value: "xml", label: "xml" },
     { value: "yaml", label: "yaml" },
     { value: "apex", label: "apex" },

@@ -267,6 +267,7 @@ const catalogueNodeClick = (data: FileItemType) => {
     ...data,
   });
   switchEditData(data.content, data.language);
+   
 };
 //选择切换主题
 const onSelectTheme = () => {
