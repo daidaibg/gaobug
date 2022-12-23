@@ -11,18 +11,20 @@ import monacoEditor from "@/components/monaco-editor";
 import CodeFormatCommon from "./common/code-format-common.vue";
 import { InfoIcon } from "@/components/icons";
 import { CustomMouseMenu } from "@/components/contextmenu";
-import type { Options, Theme } from "@/components/monaco-editor";
-import type Node from "element-plus/es/components/tree/src/model/node";
 import { Logo } from "@/components/header/logo";
-import { languageList, catalogueListDefault } from "./code-format-config";
-import { languageIcons } from "@/config/languageIcons";
+import { catalogueListDefault } from "./code-format-config";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
 import { guid } from "@/utils/current";
 import { seachTreeData } from "@/utils/tree";
-import type { FileItemType } from "./type";
 import { CommonEnums } from "./type";
 import { userThemeStore } from "@/store";
+import { saveJSON } from "@/utils/modules/files";
+import { getLaguageData } from "./code-format";
+
+import type { Options, Theme } from "@/components/monaco-editor";
+import type Node from "element-plus/es/components/tree/src/model/node";
+import type { FileItemType } from "./type";
 
 const themeStore = userThemeStore();
 const settingConfig = reactive({
@@ -31,8 +33,9 @@ const settingConfig = reactive({
 //右键对象
 let contextMenuCtx: any = null;
 
-//设置弹窗ref
+//设置栏  弹窗ref  ref
 const settingRef = ref();
+const menubarMenuRef =ref()
 //侧边栏目录列表
 const catalogueList = ref<FileItemType[]>([]);
 //侧边栏目录ref
@@ -144,7 +147,7 @@ const rename = (node: Node, nodeData: FileItemType) => {
         nodeData.language = laguageData.fileLanguage;
         nodeData.icon = laguageData.fileIconData.icon.name;
         //修改编辑器语言
-        editorOption.languageModel= laguageData.fileLanguage
+        editorOption.languageModel = laguageData.fileLanguage;
         //处理nav导航数据
         const navIndex = navFileList.value.findIndex(
           (d: any) => d.id === nodeData.id
@@ -163,6 +166,19 @@ const rename = (node: Node, nodeData: FileItemType) => {
         }
       });
   }, 20);
+};
+
+const downFile = () => {
+  menubarMenuRef.value.hide();
+  const codeFormatFileData = setFilesLocalStorage();
+  saveJSON(codeFormatFileData, "格式化工具数据.json")
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+      ElMessage.error("保存失败！" + err);
+    });
 };
 //删除
 const deleteFile = (node: Node, nodeData: FileItemType) => {
@@ -209,27 +225,7 @@ const addFile = (data: string) => {
   switchEditData("", laguageData.fileLanguage);
   addNavData(newFileData);
 };
-//获取语言数据信息
-const getLaguageData = (data: string): any => {
-  const fileNameSplit = data.split(".");
-  let fileLanguage: any = fileNameSplit[fileNameSplit.length - 1];
-  fileLanguage = languageList.filter((item) => {
-    return item.label == fileLanguage;
-  });
-  fileLanguage = fileLanguage.length >= 1 ? fileLanguage[0].value : "plaintext";
-  let fileIconData: any = { icon: { name: "document" } };
-  for (let index = 0; index < languageIcons.length; index++) {
-    const element = languageIcons[index];
-    if (element.ids.includes(fileLanguage)) {
-      fileIconData = element;
-      break;
-    }
-  }
-  return {
-    fileIconData,
-    fileLanguage,
-  };
-};
+
 //新增文件导航栏列表
 const addNavData = (fileData: FileItemType) => {
   const isAddData = navFileList.value.find((item) => item.id == fileData.id);
@@ -299,10 +295,10 @@ const setCurrentCheckCatalogue = async (id: string) => {
   catalogueRef.value.setCurrentKey(id);
 };
 //保存
-const saveFiles=()=>{
-  saveCurrentCatalogue()
-  setFilesLocalStorage()
-}
+const saveFiles = () => {
+  saveCurrentCatalogue();
+  setFilesLocalStorage();
+};
 //保存当前的数据
 const saveCurrentCatalogue = () => {
   let currentFileData = seachTreeData(
@@ -323,11 +319,13 @@ const pageBeforeunload = () => {
 
 //本地存储
 const setFilesLocalStorage = () => {
-  setLocalStorage("codeFormatFileData", {
+  const codeFormatFileData = {
     catalogueList: catalogueList.value,
     navList: navFileList.value,
     active: currentActiveFile.value,
-  });
+  };
+  setLocalStorage("codeFormatFileData", codeFormatFileData);
+  return codeFormatFileData;
 };
 
 //初始化编辑器配置
@@ -371,7 +369,7 @@ const initCatalogList = async () => {
 //初始化页面
 const init = () => {
   initEditConfig();
-  initCatalogList()
+  initCatalogList();
 };
 
 init();
@@ -394,13 +392,31 @@ onBeforeMount(() => {
     >
     </CodeFormatCommon>
     <div class="code_format_setting">
-      <div class="menubar-menu-button">
-        <i class="dd-icon-mulu"></i>
-      </div>
+      <el-popover
+        placement="right"
+        :width="200"
+        :hide-after="0"
+        :offset="0"
+        trigger="hover"
+        :show-arrow="false"
+        popper-class="setting_action_setting"
+        ref="menubarMenuRef"
+      >
+        <template #reference>
+          <div class="menubar-menu-button">
+            <i class="dd-icon-mulu"></i>
+          </div>
+        </template>
+        <ul class="setting_action_action">
+          <li class="setting_action_action_item" @click="downFile()">
+            下载文件
+          </li>
+        </ul>
+      </el-popover>
       <ul class="setting_menu">
         <li
           :class="{ menuActive: settingConfig.menuActive === 'file' }"
-          class="setting_menu_item"
+          class="setting_menu_item flex justify-center items-center"
         >
           <i class="dd-icon-file"></i>
         </li>
@@ -411,13 +427,17 @@ onBeforeMount(() => {
             placement="right"
             :width="200"
             :hide-after="0"
-            trigger="click"
+            :offset="0"
+            trigger="hover"
             :show-arrow="false"
-            popper-class="setting_action_setting "
+            popper-class="setting_action_setting"
             ref="settingRef"
           >
             <template #reference>
-              <i class="dd-icon-shezhi"> </i>
+              <i
+                class="dd-icon-shezhi setting_icon flex justify-center items-center"
+              >
+              </i>
             </template>
             <ul class="setting_action_action">
               <li class="setting_action_action_item" @click="onSelectTheme()">
@@ -664,13 +684,13 @@ onBeforeMount(() => {
 
   .setting_menu_item {
     height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     color: var(--format-setting-text-color);
     cursor: pointer;
-
+    .setting_icon {
+      width: 100%;
+      height: 100%;
+    }
     &:hover {
       color: var(--format-setting-text-active-color);
     }
@@ -697,11 +717,13 @@ onBeforeMount(() => {
 
 //设置列表
 .setting_action_action {
+  padding: 0 2px;
   .setting_action_action_item {
     cursor: pointer;
     padding: 0 26px;
     height: 26px;
     line-height: 26px;
+    border-radius: 3px;
     &:hover {
       background-color: var(--yh-brand-color);
       color: var(--yh-text-color-anti);
