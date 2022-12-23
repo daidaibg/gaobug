@@ -277,7 +277,7 @@ const onSelectTheme = () => {
   settingRef.value.hide();
   editorOption.commonKeyword = CommonEnums.theme;
 };
-
+// 更新目录node
 const updateCatalogueNode = (treeList: any, id: any, obj: any) => {
   if (!treeList || !treeList.length) {
     return;
@@ -298,6 +298,11 @@ const setCurrentCheckCatalogue = async (id: string) => {
   await nextTick();
   catalogueRef.value.setCurrentKey(id);
 };
+//保存
+const saveFiles=()=>{
+  saveCurrentCatalogue()
+  setFilesLocalStorage()
+}
 //保存当前的数据
 const saveCurrentCatalogue = () => {
   let currentFileData = seachTreeData(
@@ -315,6 +320,7 @@ const pageBeforeunload = () => {
   saveCurrentCatalogue();
   setFilesLocalStorage();
 };
+
 //本地存储
 const setFilesLocalStorage = () => {
   setLocalStorage("codeFormatFileData", {
@@ -323,6 +329,7 @@ const setFilesLocalStorage = () => {
     active: currentActiveFile.value,
   });
 };
+
 //初始化编辑器配置
 const initEditConfig = () => {
   const codeFormatEditConfig = getLocalStorage("codeFormatEditConfig");
@@ -334,6 +341,7 @@ const initEditConfig = () => {
     editorOption.theme = codeFormatEditConfig.theme.value;
   }
 };
+
 // 初始化列表数据
 const initCatalogList = async () => {
   const codeFormatFileData = getLocalStorage("codeFormatFileData");
@@ -359,6 +367,7 @@ const initCatalogList = async () => {
     catalogueRef.value.setCurrentKey(currentFileData.id);
   }
 };
+
 //初始化页面
 const init = () => {
   initEditConfig();
@@ -503,6 +512,7 @@ onBeforeMount(() => {
         :theme="editorOption.theme"
         :read-only="false"
         @editor-mounted="editorMounted"
+        @save="saveFiles"
         class="json_format_editor"
       />
     </div>

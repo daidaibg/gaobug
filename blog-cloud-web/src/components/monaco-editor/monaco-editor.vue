@@ -31,6 +31,7 @@ const emits = defineEmits<{
   (event: "update:modelValue", e: any): void;
   (event: "change", e: any): void;
   (event: "editor-mounted", e: any): void;
+  (event: "save", e: any): void;
 }>();
 const props = defineProps(editorProps);
 let editor: monaco.editor.IStandaloneCodeEditor;
@@ -75,6 +76,7 @@ const editorInit = () => {
       }
     );
     addTheme();
+    addCommand();
     editor.onDidChangeModelContent(() => {
       const value = editor.getValue(); // 给父组件实时返回最新文本
       emits("update:modelValue", value);
@@ -83,9 +85,21 @@ const editorInit = () => {
     emits("editor-mounted", editor);
   });
 };
+//新增快捷键 
+const addCommand = () => {
+  //保存快捷建ctrl+ s
+  const saveCommand = editor.createContextKey("saveCommand", true);
+  editor.addCommand(
+    monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS,0),
+    function () {
+      emits("save", saveCommand);
+    },
+    "saveCommand"
+  );
+};
 //暂时不适用
 function addTheme() {
-  return 
+  return;
   import("./theme/dark_plus.json").then((res) => {
     console.log(res.default);
     let tokenRules: any = [];
@@ -171,7 +185,7 @@ watch(
     console.log("props.theme", props.theme);
     monaco.editor.setTheme(newval);
     // editor.updateOptions({ theme: props.theme });
-  },
+  }
 );
 watch(
   () => props.language,
