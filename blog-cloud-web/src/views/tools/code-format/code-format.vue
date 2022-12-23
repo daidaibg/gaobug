@@ -35,7 +35,7 @@ let contextMenuCtx: any = null;
 
 //设置栏  弹窗ref  ref
 const settingRef = ref();
-const menubarMenuRef =ref()
+const menubarMenuRef = ref();
 //侧边栏目录列表
 const catalogueList = ref<FileItemType[]>([]);
 //侧边栏目录ref
@@ -267,7 +267,6 @@ const catalogueNodeClick = (data: FileItemType) => {
     ...data,
   });
   switchEditData(data.content, data.language);
-   
 };
 //选择切换主题
 const onSelectTheme = () => {
@@ -465,7 +464,7 @@ onBeforeMount(() => {
           </el-tooltip>
         </div>
         <div class="nav_title_action">
-          <div class="nav_title_action_icon" @click="onAddfile">
+          <div class="nav_title_action_icon" @click="onAddfile" title="新建文件">
             <i class="dd-icon-tianjiawenjian"></i>
           </div>
         </div>
