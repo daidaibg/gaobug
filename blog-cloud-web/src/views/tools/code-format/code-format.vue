@@ -143,6 +143,8 @@ const rename = (node: Node, nodeData: FileItemType) => {
         nodeData.title = value;
         nodeData.language = laguageData.fileLanguage;
         nodeData.icon = laguageData.fileIconData.icon.name;
+        //修改编辑器语言
+        editorOption.languageModel= laguageData.fileLanguage
         //处理nav导航数据
         const navIndex = navFileList.value.findIndex(
           (d: any) => d.id === nodeData.id
