@@ -10,7 +10,7 @@ export function CustomMouseMenu(options: CustomMouseMenuOptions) {
     } else {
         container = createClassDom('div', className);
     }
-    const vm = h(ContextMenu, options);
+    const vm = h(ContextMenu as any, options);
     render(vm, container);
     document.body.appendChild(container);
     return vm.component?.proxy as ComponentPublicInstance<typeof ContextMenu>;

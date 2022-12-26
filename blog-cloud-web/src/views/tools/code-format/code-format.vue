@@ -9,22 +9,26 @@ import {
 } from "vue";
 import monacoEditor from "@/components/monaco-editor";
 import CodeFormatCommon from "./common/code-format-common.vue";
-import { InfoIcon } from "@/components/icons";
+import { InfoIcon, CloseIcon } from "@/components/icons";
 import { CustomMouseMenu } from "@/components/contextmenu";
 import { Logo } from "@/components/header/logo";
 import { catalogueListDefault } from "./code-format-config";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { ArrowRight } from "@element-plus/icons-vue";
 import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
-import { guid } from "@/utils/current";
-import { seachTreeData } from "@/utils/tree";
+import { seachTreeData, seachTreeParentData } from "@/utils/tree";
 import { CommonEnums } from "./type";
 import { userThemeStore } from "@/store";
 import { saveJSON } from "@/utils/modules/files";
-import { getLaguageData } from "./code-format";
+import {
+  getLaguageData,
+  createFileData,
+  createFolderData,
+  timerPromise,
+} from "./code-format";
 
-import type { Options, Theme } from "@/components/monaco-editor";
 import type Node from "element-plus/es/components/tree/src/model/node";
-import type { FileItemType } from "./type";
+import type { FileItemType,EditorOptionType } from "./type";
 
 const themeStore = userThemeStore();
 const settingConfig = reactive({
@@ -42,19 +46,10 @@ const catalogueList = ref<FileItemType[]>([]);
 const catalogueRef = ref();
 //当前选中的
 const currentActiveFile = ref();
+//头部文件列表
+const navFileList = ref<FileItemType[]>([]);
 //编辑器配置
-const editorOption = reactive<{
-  theme: Theme;
-  commonKeyword: string;
-  editValue: string;
-  languageModel: string;
-  hightChange: boolean;
-  options: {
-    minimap: {
-      enabled: boolean; //显示小地图
-    };
-  };
-}>({
+const editorOption = reactive<EditorOptionType>({
   theme: "vs",
   commonKeyword: "",
   editValue: "",
@@ -67,8 +62,7 @@ const editorOption = reactive<{
   },
 });
 
-//头部文件列表
-const navFileList = ref<FileItemType[]>([]);
+
 
 //editor实例加载完成
 const editorMounted = (editor: any) => {
@@ -92,11 +86,36 @@ const onCommonClick = (commonItem: any) => {
  */
 const navActiveChange = (fileNavItem: any): any => {
   const currentFileData = seachTreeData(catalogueList.value, fileNavItem.id);
+  if (!currentFileData) {
+    ElMessage.error("此文件已被删除,已自动删除！");
+    onRemoveNav(fileNavItem);
+    return;
+  }
   saveCurrentCatalogue();
   setCurrentCheckCatalogue(fileNavItem.id);
   switchEditData(currentFileData.content, fileNavItem.language);
 };
-
+//tree树数据外侧点击时候
+const catalogueListContextmenu = (e: any) => {
+  e.preventDefault();
+  contextMenuCtx = CustomMouseMenu({
+    el: e.target,
+    menuList: [
+      {
+        label: "新建文件",
+        tips: "",
+        fn: () => onAddfile("1", "root"),
+      },
+      {
+        label: "新建文件夹",
+        tips: "",
+        fn: () => onAddfile("2", "root"),
+      },
+    ],
+  });
+  const { x, y } = e;
+  contextMenuCtx.show(x, y);
+};
 //右键
 const onCataloguetNodecontextmenu = (
   event: any,
@@ -108,8 +127,21 @@ const onCataloguetNodecontextmenu = (
   // console.log(catalogueList.value.length);
   event.preventDefault();
   contextMenuCtx = CustomMouseMenu({
-    el: nodeTemplate.vnode.el,
+    // el: nodeTemplate.vnode.el,
+    el: event.target,
     menuList: [
+      {
+        label: "新建文件",
+        tips: "",
+        hidden: data.type != "2",
+        fn: () => onAddfile("1", data),
+      },
+      {
+        label: "新建文件夹",
+        tips: "",
+        hidden: data.type != "2",
+        fn: () => onAddfile("2", data),
+      },
       {
         label: "重命名",
         tips: "Edit",
@@ -118,7 +150,7 @@ const onCataloguetNodecontextmenu = (
       {
         label: "删除",
         tips: "Delete",
-        disabled: catalogueList.value.length == 1,
+        // disabled: catalogueList.value.length == 1,
         fn: () => deleteFile(node, data),
       },
     ],
@@ -126,48 +158,50 @@ const onCataloguetNodecontextmenu = (
   const { x, y } = event;
   contextMenuCtx.show(x, y);
 };
+
 //重命名
-const rename = (node: Node, nodeData: FileItemType) => {
+const rename = async (node: Node, nodeData: FileItemType) => {
   // console.log("rename", node, nodeData);
   //不自动获取焦点问题，点击右键菜单触发点击时间，input焦点消失
-  const timer = setTimeout(() => {
-    clearTimeout(timer);
-    ElMessageBox.prompt("请编辑文件名称", {
-      confirmButtonText: "确认",
-      cancelButtonText: "取消",
-      inputErrorMessage: "",
-      inputValue: nodeData.title,
-      draggable: true,
-      type: "info",
-      icon: markRaw(InfoIcon),
+  await timerPromise(20);
+  ElMessageBox.prompt("请编辑文件名称", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
+    inputErrorMessage: "",
+    inputValue: nodeData.title,
+    draggable: true,
+    type: "info",
+    icon: markRaw(InfoIcon),
+  })
+    .then(({ value }) => {
+      nodeData.title = value;
+      if (nodeData.type == "2") {
+        return;
+      }
+      const laguageData = getLaguageData(value);
+      nodeData.language = laguageData.fileLanguage;
+      nodeData.icon = laguageData.fileIconData.icon.name;
+      //修改编辑器语言
+      editorOption.languageModel = laguageData.fileLanguage;
+      //处理nav导航数据
+      const navIndex = navFileList.value.findIndex(
+        (d: any) => d.id === nodeData.id
+      );
+      if (navIndex > -1) {
+        navFileList.value[navIndex].title = value;
+        navFileList.value[navIndex].icon = laguageData.fileIconData.icon.name;
+        navFileList.value[navIndex].language = laguageData.fileLanguage;
+      }
     })
-      .then(({ value }) => {
-        const laguageData = getLaguageData(value);
-        nodeData.title = value;
-        nodeData.language = laguageData.fileLanguage;
-        nodeData.icon = laguageData.fileIconData.icon.name;
-        //修改编辑器语言
-        editorOption.languageModel = laguageData.fileLanguage;
-        //处理nav导航数据
-        const navIndex = navFileList.value.findIndex(
-          (d: any) => d.id === nodeData.id
-        );
-        if (navIndex > -1) {
-          navFileList.value[navIndex].title = value;
-          navFileList.value[navIndex].icon = laguageData.fileIconData.icon.name;
-          navFileList.value[navIndex].language = laguageData.fileLanguage;
-        }
-      })
-      .catch((err) => {
-        if (err.indexOf("cancel") == -1) {
-          throw new Error(err);
-        } else {
-          console.info("取消");
-        }
-      });
-  }, 20);
+    .catch((err) => {
+      if (err.indexOf("cancel") == -1) {
+        throw new Error(err);
+      } else {
+        console.info("取消");
+      }
+    });
 };
-
+//下载文件
 const downFile = () => {
   menubarMenuRef.value.hide();
   const codeFormatFileData = setFilesLocalStorage();
@@ -186,16 +220,16 @@ const deleteFile = (node: Node, nodeData: FileItemType) => {
   const children: any = parent.data.children || parent.data;
   const index = children.findIndex((d: any) => d.id === nodeData.id);
   children.splice(index, 1);
-  catalogueList.value = [...catalogueList.value];
-  //处理nav数据
-  const navIndex = navFileList.value.findIndex(
-    (d: any) => d.id === nodeData.id
-  );
-  onRemoveNav(nodeData, navIndex);
+  // catalogueList.value = [...catalogueList.value];
+  onRemoveNav(nodeData);
 };
+
 //点击新增文件
-const onAddfile = () => {
-  ElMessageBox.prompt("请输入文件名称", "提示", {
+const onAddfile = async (type: string, createParentData?: any) => {
+  console.log(type, createParentData);
+  let str = type == "2" ? "请输入文件夹名称" : "请输入文件名称";
+  await timerPromise(20);
+  ElMessageBox.prompt(str, "提示", {
     confirmButtonText: "确认",
     cancelButtonText: "取消",
     inputErrorMessage: "",
@@ -203,27 +237,72 @@ const onAddfile = () => {
     autofocus: true,
   })
     .then(({ value }) => {
-      addFile(value);
+      if (type == "2") {
+        addFolder(value, createParentData);
+      } else {
+        addFile(value, createParentData);
+      }
     })
     .catch((err) => {
       console.error(err);
     });
 };
+
 //新增文件
-const addFile = (data: string) => {
-  const laguageData = getLaguageData(data);
-  const newFileData = {
-    title: data,
-    language: laguageData.fileLanguage,
-    content: "",
-    id: guid(),
-    icon: laguageData.fileIconData.icon.name,
-  };
-  catalogueList.value.push(newFileData);
+const addFile = (data: string, createParentData: any) => {
+  const { newFileData, laguageData } = createFileData(data);
+  addCatalogFile(newFileData, createParentData);
   saveCurrentCatalogue();
   setCurrentCheckCatalogue(newFileData.id);
   switchEditData("", laguageData.fileLanguage);
   addNavData(newFileData);
+};
+
+//新增文件夹
+const addFolder = (val: string, createParentData?: any) => {
+  const newFileData = createFolderData(val);
+  addCatalogFile(newFileData, createParentData);
+};
+
+//向目录中添加文件
+const addCatalogFile = (fileOrFolder: any, createParentData?: any) => {
+  // console.log(fileOrFolder,createParentData);
+  if (createParentData) {
+    // createParentData=='root' 时添加到根目录
+    if (createParentData == "root") {
+      catalogueList.value.push(fileOrFolder);
+      return;
+    }
+    if (!createParentData.children) {
+      createParentData.children = [];
+    }
+    createParentData.children.push(fileOrFolder);
+    return;
+  }
+  const currentFileData = catalogueRef.value.getCurrentNode();
+  if(!currentFileData){
+    addCatalogFile(fileOrFolder,"root")
+    return
+  }
+  //本身是文件夹的话向子级直接插入
+  if (currentFileData.type == "2") {
+    if (!currentFileData.children) {
+      currentFileData.children = [];
+    }
+    currentFileData.children.push(fileOrFolder);
+    return;
+  }
+  const currentParentData = seachTreeParentData(
+    catalogueList.value,
+    currentActiveFile.value
+  );
+  // console.log("addCatalogFile-currentParentData",currentParentData);
+  //父级是文件夹的话插入
+  if (currentParentData) {
+    currentParentData.push(fileOrFolder);
+    return;
+  }
+  catalogueList.value.push(fileOrFolder);
 };
 
 //新增文件导航栏列表
@@ -232,13 +311,21 @@ const addNavData = (fileData: FileItemType) => {
   if (isAddData) return;
   navFileList.value.push(fileData);
 };
+
 //移除nav文件
-const onRemoveNav = (fileNavItem: FileItemType, index: number) => {
+const onRemoveNav = (fileNavItem: FileItemType, index?: number) => {
+  if (!index) {
+    index = navFileList.value.findIndex((d: any) => d.id === fileNavItem.id);
+  }
+  if (index == -1) {
+    return;
+  }
   if (index >= 0) {
     navFileList.value.splice(index, 1);
   }
   if (navFileList.value.length == 0) {
-    addNavData(catalogueList.value[0]);
+    setCurrentCheckCatalogue(null);
+    return;
   }
   if (index >= 1) {
     navActiveChange(navFileList.value[index - 1]);
@@ -252,6 +339,7 @@ const getFileSvg = (iconname: string) => {
   return new URL(`../../../assets/file-icon/${iconname}.svg`, import.meta.url)
     .href;
 };
+
 //切换编辑器内容
 const switchEditData = (content: string, language: string = "txt") => {
   editorOption.editValue = content;
@@ -261,6 +349,9 @@ const switchEditData = (content: string, language: string = "txt") => {
 //目录列表node点击事件
 const catalogueNodeClick = (data: FileItemType) => {
   // console.log("catalogueNodeClick",data);
+  if (data.type == "2") {
+    return;
+  }
   saveCurrentCatalogue();
   currentActiveFile.value = data.id;
   addNavData({
@@ -289,7 +380,7 @@ const updateCatalogueNode = (treeList: any, id: any, obj: any) => {
 //打开设置
 const onSetting = () => {};
 //设置当前选中的值
-const setCurrentCheckCatalogue = async (id: string) => {
+const setCurrentCheckCatalogue = async (id: string | null) => {
   currentActiveFile.value = id;
   await nextTick();
   catalogueRef.value.setCurrentKey(id);
@@ -353,8 +444,14 @@ const initCatalogList = async () => {
   }
   catalogueList.value = codeFormatFileData.catalogueList;
   navFileList.value = codeFormatFileData.navList;
-  currentActiveFile.value =
-    codeFormatFileData.active || navFileList.value[0].id;
+  if(codeFormatFileData.active){
+    currentActiveFile.value = codeFormatFileData.active;
+  }else if(navFileList.value.length>=1){
+    currentActiveFile.value = navFileList.value[0].id;
+  }
+  if (!currentActiveFile.value) {
+    return;
+  }
   const currentFileData = seachTreeData(
     catalogueList.value,
     currentActiveFile.value
@@ -448,12 +545,12 @@ onBeforeMount(() => {
         </li>
       </ul>
     </div>
-    <div class="json_format_nav">
-      <div class="logo_wrap">
+    <div class="json_format_nav flex flex-col">
+      <div class="logo_wrap flex-shrink-0">
         <Logo class="tools-layout_logo" />
         <span>格式化工具</span>
       </div>
-      <div class="nav_title">
+      <div class="nav_title flex-shrink-0">
         <div class="nav_title_front">
           <i class="yh-icons-arrow-down"></i>
         </div>
@@ -463,20 +560,36 @@ onBeforeMount(() => {
             <i class="dd-icon-tishi"></i>
           </el-tooltip>
         </div>
-        <div class="nav_title_action">
-          <div class="nav_title_action_icon" @click="onAddfile" title="新建文件">
-            <i class="dd-icon-tianjiawenjian"></i>
+        <div class="nav_title_action flex overflow-y-auto">
+          <div
+            class="nav_title_action_icon"
+            @click="onAddfile('1')"
+            title="新建文件..."
+          >
+            <i class="dd-icon-file1"></i>
+          </div>
+          <div
+            class="nav_title_action_icon"
+            @click="onAddfile('2')"
+            title="新建文件夹..."
+          >
+            <i class="dd-icon-folder"></i>
           </div>
         </div>
       </div>
-      <div class="catalogue—list">
+      <div
+        class="catalogue—list flex-auto"
+        @contextmenu.stop="catalogueListContextmenu"
+      >
         <el-tree
           :data="catalogueList"
           :props="{ children: 'children', label: 'title' }"
+          :icon="ArrowRight"
           @node-click="catalogueNodeClick"
           node-key="id"
           ref="catalogueRef"
           highlight-current
+          :draggable="false"
           @node-contextmenu="onCataloguetNodecontextmenu"
         >
           <template #default="{ node, data }">
@@ -490,7 +603,7 @@ onBeforeMount(() => {
         </el-tree>
       </div>
     </div>
-    <div class="json_format_content">
+    <div class="json_format_content" v-if="navFileList.length >= 1">
       <nav class="file_nav_wrap">
         <div
           v-for="(item, i) in navFileList"
@@ -507,19 +620,8 @@ onBeforeMount(() => {
             <div
               class="file_nav_close_inner"
               @click.stop="onRemoveNav(item, i)"
-              v-if="navFileList.length > 1"
             >
-              <svg
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-              >
-                <path
-                  fill="currentColor"
-                  d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z"
-                ></path>
-              </svg>
+              <CloseIcon />
             </div>
           </div>
         </div>
@@ -535,6 +637,9 @@ onBeforeMount(() => {
         @save="saveFiles"
         class="json_format_editor"
       />
+    </div>
+    <div class="json_format_content empty" v-else>
+      <p>请选择左侧目录列表中的文件，或者新建文件。</p>
     </div>
   </div>
 </template>
@@ -629,10 +734,21 @@ onBeforeMount(() => {
         background-color: var(--common-palete-hover-color);
       }
     }
-
+    .el-tree-node__expand-icon {
+      color: var(--format-text-color);
+      &.is-leaf {
+        color: transparent;
+      }
+    }
     .el-tree-node.is-current > .el-tree-node__content {
       background-color: var(--formart-catalogue-current-bg);
       color: var(--format-text-color-anti);
+      .el-tree-node__expand-icon {
+        color: var(--format-text-color-anti);
+        &.is-leaf {
+          color: transparent;
+        }
+      }
     }
   }
 
@@ -759,6 +875,12 @@ onBeforeMount(() => {
     overflow-x: auto;
     width: 100%;
   }
+  &.empty {
+    background: var(--format-nav-bg-active);
+    font-size: 16px;
+    text-align: center;
+    padding-top: 30%;
+  }
 }
 
 .file_nav_item {
@@ -797,6 +919,10 @@ onBeforeMount(() => {
       align-items: center;
       justify-content: center;
       transition: background-color 0.24s;
+      svg {
+        width: 14px;
+        height: 14px;
+      }
     }
 
     &:hover {

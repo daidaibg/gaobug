@@ -15,3 +15,18 @@ export function seachTreeData(data:any, id:any,options={id:"id",children:"childr
 	}
     return null
 };
+//查找当前元素父级数据
+export function seachTreeParentData(data:any, id:any,options={id:"id",children:"children"}):any {
+	for (let i = 0; i < data.length; i++) {
+		let item = data[i];
+		if (item[options.id]=== id) {
+			return data;
+		} else {
+			if (item[options.children] && item[options.children].length > 0) {
+				let res = seachTreeParentData(item.children, id);
+				if (res) return res;
+			}
+		}
+	}
+    return null
+};

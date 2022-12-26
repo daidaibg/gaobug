@@ -35,7 +35,6 @@ const emits = defineEmits<{
 }>();
 const props = defineProps(editorProps);
 let editor: monaco.editor.IStandaloneCodeEditor;
-// @ts-ignore
 (self as any).MonacoEnvironment = {
   getWorker(_: string, label: string) {
     if (label === "json") {
@@ -194,7 +193,6 @@ watch(
   }
 );
 
-// @ts-ignore
 //切换语言
 const changeLanguage = (language: string) => {
   monaco.editor.setModelLanguage(editor.getModel()!, language);
