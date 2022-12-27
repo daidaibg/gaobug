@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-12-05 09:31:28
+ * @LastEditTime: 2022-12-27 09:45:08
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -49,7 +49,8 @@
           </div>
         </template>
       </div>
-      <blog-search :active="active"></blog-search>
+      <blog-search :active="active" v-if="searchShow&&!slots.search"></blog-search>
+      <slot name="search"></slot>
       <div class="right">
         <div class="phoneTab" style="display: none">
           <el-dropdown trigger="click" @command="command">
@@ -83,15 +84,15 @@ import HeaderNav from "./nav";
 import BlogSearch from "./blog-search";
 import { RouterEnum } from "@/enums";
 import { Operation } from "@element-plus/icons-vue";
-import { reactive, ref, Ref, computed, nextTick } from "vue";
+import { reactive, ref, Ref, computed, nextTick,useSlots } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { HeaderListType } from "./type";
 import Props from "./props";
 import { on, off } from "yhht-plus/utils";
 import { userThemeStore } from "@/store";
-
 const themeStore = userThemeStore();
 const router = useRouter();
+const slots = useSlots();
 
 defineProps(Props);
 const route = useRoute();
