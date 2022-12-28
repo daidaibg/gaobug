@@ -18,8 +18,8 @@ export const mdEditorConfig = (MdEditor: any) => {
                     js: `${cdnBase}/highlight.js/11.6.0/highlight.min.js`
                 },
                 katex: {
-                    js: `${cdnBase}/KaTeX/0.16.3/katex.min.js`,
-                    css: `${cdnBase}/KaTeX/0.16.3/katex.min.css`
+                    js: `${cdnBase}/KaTeX/0.16.4/katex.min.js`,
+                    css: `${cdnBase}/KaTeX/0.16.4/katex.min.css`
                 },
                 screenfull: {
                     // instance:()=> import("screenfull")
