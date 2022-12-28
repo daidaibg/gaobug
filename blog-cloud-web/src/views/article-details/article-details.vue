@@ -163,7 +163,8 @@ const goEditArticle =()=>{
             v-show="catalogList.length > 0"
           >
             <header class="py-2 logs-header">目录</header>
-            <yh-anchor class="catalog_list mt-1 overflow-y-auto" :targetOffset="80">
+            <div class="catalog_list overflow-y-auto mt-1">
+              <yh-anchor class=" " :targetOffset="80">
               <yh-anchor-item
                 :href="`#gaobug-heade-${i + 1}`"
                 :title="item.text"
@@ -173,6 +174,8 @@ const goEditArticle =()=>{
               >
               </yh-anchor-item>
             </yh-anchor>
+            </div>
+           
           </div>
         </div>
       </div>
