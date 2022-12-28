@@ -159,11 +159,11 @@ const goEditArticle =()=>{
             </ul>
           </div>
           <div
-            class="catalog_wrap container-bg box-border px-3 pb-2 box-shadow-0"
+            class="catalog_wrap container-bg box-border px-3 pb-2 box-shadow-0 flex flex-col"
             v-show="catalogList.length > 0"
           >
             <header class="py-2 logs-header">目录</header>
-            <yh-anchor class="catalog_list mt-1" :targetOffset="80">
+            <yh-anchor class="catalog_list mt-1 overflow-y-auto" :targetOffset="80">
               <yh-anchor-item
                 :href="`#gaobug-heade-${i + 1}`"
                 :title="item.text"
