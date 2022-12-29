@@ -47,7 +47,7 @@ export const useUserStore = defineStore( {
             this.modelLoginShow = false
         },
         getUserInfo(){
-            requestGet('userInfo').then(res=>{
+            requestGet('userInfo').then((res:any)=>{
                 // console.log("userData",res);
                 if(res.code==200){
                     this.isLogin=true
