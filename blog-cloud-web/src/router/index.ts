@@ -67,6 +67,14 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: RouterEnum.UserHomePage+":id",
+    name:RouterEnum.UserHomePage,
+    component: () => import(/* webpackChunkName: "userHomePage" */ '../views/user-home-page/user-home-page.vue'),
+    meta: {
+      title: "主页"
+    }
+  },
+  {
     path: '/tools',
     name: 'tools',
     component: () => import(/* webpackChunkName: "tools" */ '../views/tools/tools-layout.vue'),

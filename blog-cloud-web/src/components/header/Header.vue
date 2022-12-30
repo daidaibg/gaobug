@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-12-27 09:45:08
+ * @LastEditTime: 2022-12-30 15:22:27
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -300,18 +300,7 @@ const jump = (path: string) => {
       }
     }
 
-    :deep(.actionTheme) {
-      height: 24px;
-      border-radius: 3px;
-
-      .actionTheme-tabs__block {
-        border-radius: 2px;
-      }
-
-      .action_item {
-        height: 20px;
-      }
-    }
+  
   }
 }
 

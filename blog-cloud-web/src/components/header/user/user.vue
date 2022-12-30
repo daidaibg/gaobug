@@ -2,6 +2,7 @@
 import { useUserStore } from '@/store'
 import { ElPopover } from 'element-plus'
 import { useRouter } from "vue-router"
+import {RouterEnum} from "@/enums"
 const router = useRouter()
 const userStore = useUserStore()
 const layout = () => {
@@ -9,6 +10,9 @@ const layout = () => {
     router.push("/login")
 }
 const userSetting = (path: string) => {
+    if(path===RouterEnum.UserHomePage){
+        path=path+userStore.userData.id
+    }
     router.push(path)
 }
 
@@ -20,15 +24,15 @@ const userSetting = (path: string) => {
             <template #reference> <img :src="userStore.getUserData.avatar" alt=""
                     class="user_img" /></template>
             <ul class="user_list">
-                <li>
+                <li @click="userSetting(RouterEnum.UserHomePage)">
                     <i class="dd-icon-home icon"></i>
                     <span class="titles">我的主页</span>
                 </li>
-                <li @click="userSetting(`/blogs/manage/article`)">
+                <li @click="userSetting(RouterEnum.BlogsManageArticle)">
                     <i class="dd-icon-wenzhang icon" ></i>
                     <span class="titles">文章管理</span>
                 </li>
-                <li @click="userSetting(`/user/setting/profile`)">
+                <li @click="userSetting(RouterEnum.UserSettingProfile)">
                     <i class="dd-icon-wode-wode icon "></i>
                     <span class="titles">个人信息</span>
                 </li>
