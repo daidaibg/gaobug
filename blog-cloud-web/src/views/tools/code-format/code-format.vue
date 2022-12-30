@@ -13,7 +13,7 @@ import { InfoIcon, CloseIcon } from "@/components/icons";
 import { CustomMouseMenu } from "@/components/contextmenu";
 import { Logo } from "@/components/header/logo";
 import { catalogueListDefault } from "./code-format-config";
-import { ElMessage, ElMessageBox } from "element-plus";
+import { ElMessage, ElMessageBox ,ElNotification } from "element-plus";
 import { ArrowRight } from "@element-plus/icons-vue";
 import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
 import { seachTreeData, seachTreeParentData } from "@/utils/tree";
@@ -36,7 +36,8 @@ const settingConfig = reactive({
 });
 //右键对象
 let contextMenuCtx: any = null;
-
+//通知
+let notification :any = null
 //设置栏  弹窗ref  ref
 const settingRef = ref();
 const menubarMenuRef = ref();
@@ -389,6 +390,7 @@ const setCurrentCheckCatalogue = async (id: string | null) => {
 const saveFiles = () => {
   saveCurrentCatalogue();
   setFilesLocalStorage();
+
 };
 //保存当前的数据
 const saveCurrentCatalogue = () => {
@@ -416,6 +418,15 @@ const setFilesLocalStorage = () => {
     active: currentActiveFile.value,
   };
   setLocalStorage("codeFormatFileData", codeFormatFileData);
+  notification&&notification.close()
+  notification= ElNotification({
+    title: '通知',
+    message: '保存成功!',
+    type: 'success',
+    showClose: false,
+    duration:3000,
+    position:"bottom-left"
+  })
   return codeFormatFileData;
 };
 
