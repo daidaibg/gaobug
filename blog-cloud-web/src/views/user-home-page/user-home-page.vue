@@ -8,6 +8,7 @@ import { Theme } from "@/components/header/theme/index";
       <div></div>
       <Theme />
     </div>
+    <!-- 欢迎语 简介 -->
     <div class="user-welcome-box">
       <div
         class="user-welcome-content-bg_name absolute font-black text-4xl md:text-6xl"
@@ -45,57 +46,48 @@ import { Theme } from "@/components/header/theme/index";
         </div>
       </div>
     </div>
+    <!-- 介绍 -->
+    <div class="uers-home-introduce max-w-screen-lg m-auto flex">
+      <div class="introduce_left w-5/12 min-hidden">
+        <img src="@/assets/img/user-home-page/about-us.png" alt="介绍" />
+      </div>
+      <div class="introduce_right">
+        <h2 class="introduce-title">简单介绍下关于我自己</h2>
+        <pre class="introduce-text">
+像阳光一样的人，像阳光一样的事，像阳光一样的爱，像阳光一样的慈悲，世界上遍地都是。
+
+梦想似乎是遥远的，但是只要通过自己的努力，就能一步步的拉近之间的距离，当距离越来越短时，它就不再是梦，而成为了触手可及的想法，无论如何，不要停下走向梦想的脚步。
+          </pre
+        >
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.user-button {
-  width: 60px;
-  height: 32px;
-  border-radius: 28px;
-  transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-  font-size: 15px;
-  &.primary {
-    background-image: linear-gradient(
-      to right,
-      var(--yh-brand-color-5),
-      var(--yh-brand-color)
-    );
-    box-shadow: inset 10px 0px 10px var(--yh-brand-color),
-      inset -10px 0px 10px var(--yh-brand-color-5);
-    color: var(--yh-text-color-anti);
-    &:hover {
-      background-image: linear-gradient(
-        to right,
-        var(--yh-brand-color),
-        var(--yh-brand-color-5)
-      );
-      box-shadow: inset 10px 0px 10px var(--yh-brand-color-5),
-        inset -10px 0px 10px var(--yh-brand-color);
-    }
-  }
-}
+@import "./public.scss";
+$box-m-b:88px;
 .user-home-page {
   min-height: 100vh;
   line-height: 26px;
   font-size: 16px;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  background: url("@/assets/img/user-home-page/body-bg.png") no-repeat center;
-  background-size: 100% auto;
-  background-position: top;
+  // background: url("@/assets/img/user-home-page/body-bg.png") no-repeat center;
+  // background-size: 100% auto;
+  // background-position: top;
+  background-color: var(--yh-bg-color-container);
 }
 .user-welcome-box {
   font-family: "Rubik", sans-serif;
   background: url("@/assets/img/user-home-page/home-banner.png") no-repeat;
-  background-position:top center;
+  background-position: center;
   background-size: cover;
-  height: 400px;
-  margin-bottom: 200px;
+  margin-bottom: $box-m-b;
   .user-welcome-content-bg_name {
     color: var(--yh-text-color-disabled);
     top: 17%;
-    z-index: -1;
+    z-index: 0;
     opacity: 0.2;
   }
 }
@@ -127,14 +119,30 @@ import { Theme } from "@/components/header/theme/index";
     z-index: 0;
   }
 }
-
-@media screen and (min-width: 768px) {
-  .user-button {
-    width: 100px;
-    height: 48px;
-    font-size: 18px;
+//介绍
+.uers-home-introduce {
+  margin-bottom: $box-m-b;
+  .introduce_left {
   }
+  .introduce_right {
+    padding:0 16px;
+  }
+  .introduce-title {
+    font-size: 25px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+  .introduce-text {
+    font-size: 15px;
+    line-height: 26px;
+    white-space: pre-wrap;
+    color: var(--yh-text-color-secondary);
+  }
+}
+@media screen and (min-width: 768px) {
   .user-welcome-box {
+    margin-bottom: 200px;
     .user-welcome-content-bg_name {
       top: 22%;
     }
@@ -155,6 +163,17 @@ import { Theme } from "@/components/header/theme/index";
     .user-welcome-right {
       position: relative;
       padding-top: 48px;
+    }
+  }
+  //介绍
+  .uers-home-introduce {
+    .introduce_left {
+    }
+    .introduce_right {
+      margin-left: 8%;
+    }
+    .introduce-title {
+        font-size: 36px;
     }
   }
 }

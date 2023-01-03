@@ -1,0 +1,42 @@
+//按钮
+.user-button {
+    width: 60px;
+    height: 32px;
+    border-radius: 28px;
+    transition: all 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    font-size: 15px;
+    
+    &.primary {
+      background-image: linear-gradient(
+        to right,
+        var(--yh-brand-color-5),
+        var(--yh-brand-color)
+      );
+      box-shadow: inset 10px 0px 10px var(--yh-brand-color),
+        inset -10px 0px 10px var(--yh-brand-color-5);
+      color: var(--yh-text-color-anti);
+      &:hover {
+        background-image: linear-gradient(
+          to right,
+          var(--yh-brand-color),
+          var(--yh-brand-color-5)
+        );
+        box-shadow: inset 10px 0px 10px var(--yh-brand-color-5),
+          inset -10px 0px 10px var(--yh-brand-color);
+      }
+    }
+  }
+  //最小的时候隐藏
+  .min-hidden{
+      display: none;
+  }
+  @media screen and (min-width: 768px) {
+    .user-button {
+        width: 100px;
+        height: 48px;
+        font-size: 18px;
+      }
+    .min-hidden{
+        display: initial;
+    }
+  }
