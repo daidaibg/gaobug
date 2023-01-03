@@ -22,6 +22,7 @@ export default defineConfig(({ command, mode }) => {
       runtimeOnly: false,
       include: resolve(__dirname, './src/i18n/language/**')
     }),
+
     ElementPlus({
       useSource: true
     }),
