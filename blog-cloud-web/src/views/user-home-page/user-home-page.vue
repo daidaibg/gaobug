@@ -36,7 +36,7 @@ import { Theme } from "@/components/header/theme/index";
             <button class="user-button primary">关注</button>
           </div>
         </div>
-        <div class="user-welcome-right w-5/12 px-4 ">
+        <div class="user-welcome-right w-5/12 px-4">
           <img
             src="@/assets/img/user-home-page/home-right.png"
             alt=""
@@ -88,7 +88,7 @@ import { Theme } from "@/components/header/theme/index";
 .user-welcome-box {
   font-family: "Rubik", sans-serif;
   background: url("@/assets/img/user-home-page/home-banner.png") no-repeat;
-  background-position: center;
+  background-position:top center;
   background-size: cover;
   height: 400px;
   margin-bottom: 200px;
@@ -102,7 +102,7 @@ import { Theme } from "@/components/header/theme/index";
 .user-welcome {
   color: var(--yh-text-color-primary);
   height: 100%;
-  .user-welcome-content{
+  .user-welcome-content {
     z-index: 1;
     position: relative;
   }
@@ -125,15 +125,14 @@ import { Theme } from "@/components/header/theme/index";
     right: 0;
     top: 32px;
     z-index: 0;
-
   }
 }
 
 @media screen and (min-width: 768px) {
-  .user-button{
+  .user-button {
     width: 100px;
-  height: 48px;
-  font-size: 18px;
+    height: 48px;
+    font-size: 18px;
   }
   .user-welcome-box {
     .user-welcome-content-bg_name {
@@ -141,7 +140,7 @@ import { Theme } from "@/components/header/theme/index";
     }
   }
   .user-welcome {
-    .user-welcome-content{
+    .user-welcome-content {
       display: flex;
       flex-direction: column;
       justify-content: center;

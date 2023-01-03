@@ -18,7 +18,7 @@
     "@vueuse/core": "^8.9.4",
     "axios": "^0.27.2",
     "color": "^4.2.3",
-    "element-plus": "^2.2.27",
+    "element-plus": "^2.2.28",
     "file-saver": "^2.0.5",
     "js-md5": "^0.7.3",
     "md-editor-v3": "^2.7.2",
@@ -50,6 +50,6 @@
     "unplugin-element-plus": "^0.4.1",
     "unplugin-vue-components": "^0.19.9",
     "vite-plugin-vue-setup-extend": "^0.4.0",
-    "vue-tsc": "^1.0.18"
+    "vue-tsc": "^1.0.19"
   }
 }
