@@ -3,8 +3,7 @@ import { ref, Ref } from "vue"
 import { useRoute,useRouter } from "vue-router"
 import { currentGET } from "@/api"
 import { ElMessage } from 'element-plus'
-import MdEditor from "md-editor-v3"
-import { HeadList } from 'md-editor-v3';
+import MdEditor,{ HeadList } from "md-editor-v3"
 import 'md-editor-v3/lib/style.css';
 import { useTitle } from '@vueuse/core'
 import { mdEditorConfig } from "@/config"
@@ -38,7 +37,7 @@ const like = (res:any)=>{
 //获取详情
 const getDetail = () => {
   currentGET('indexBlogDetail', {},route.params.id).then((res:any) => {
-        // console.log(res);
+        // console.log("getDetail",res);
         if (res.code == 200) {
             blogDetails.value = res.data
             mdText.value = res.data.content

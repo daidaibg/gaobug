@@ -5,8 +5,8 @@ export const commentReqUrl = {
     like: '/blog/comment/like',//点赞评论
     comment: "/blog/comment",//评论
     commentExpand: "/blog/comment/expand/page",//获取评论展开列表
-    commentDel: "/blog/comment/del/{id}",//删除评论
-    commentList: "/blog/comment/expand/page",//获取评论列表
+    commentDel: "/blog/comment/del/",//删除评论
+    commentList: "/blog/comment/page",//获取评论列表
 }
 export interface Comment {
     articleId: string | number,//文章标识

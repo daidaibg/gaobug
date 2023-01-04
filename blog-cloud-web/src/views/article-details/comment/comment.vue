@@ -7,26 +7,34 @@ import CommentInput from "@/components/comment-input";
 import { handleCommen } from "@/utils/current";
 import { getCommentList, comment } from "@/api/blog/comment";
 import { ReqCodeEnum } from "@/enums/request-enums";
-
+import type { CommentListType, PageData } from "./type";
 import type { Comment } from "@/api/blog/comment";
+import { useUserStore } from "@/store";
 
+const userStore = useUserStore();
 // console.log(emojiList);
 const props = defineProps(Props);
 // const text=`我是假的，现在还不能评论[看]<p class="a" id='a'>我是p标签</p>`
-interface CommentListType {
-  id?: number;
-  content: string;
-}
-const commentList = ref<CommentListType[]>([
-  {
-    id: 1,
-    content: "我是假的，现在还不能评论[看]",
-  },
-  {
-    id: 1,
-    content: `我是假的，现在还不能评论[看]<p class="a" id='a'>我是p标签</p>`,
-  },
-]);
+
+const commentList = ref<CommentListType[]>([]);
+let pagingData: PageData = {
+  current: 1,
+  size: 10,
+  total: 0,
+  totalPage: 1,
+};
+
+//把数据处理成评论格式
+const addCommentHandle = (CommentVal: string): CommentListType => {
+  const newConmmenData = {
+    context: handleCommen(CommentVal),
+    id: Date.now(),
+    likeCount: 0,
+    userName: userStore.userData.nickName as string,
+    userAvatar: userStore.userData.avatar as string,
+  };
+  return newConmmenData;
+};
 
 /**
  * @description: 点击评论按钮事件
@@ -42,12 +50,12 @@ const onComment = (CommentVal: string) => {
     .then((res) => {
       console.log("comment", res);
       if (res.code == ReqCodeEnum.Success) {
+        const newConmmenData = addCommentHandle(CommentVal);
+        commentList.value.push(newConmmenData);
+        ElMessage.success("评论成功!");
       } else {
         ElMessage.error(res.msg);
       }
-      //   commentList.value.push({
-      //     content:handleCommen(CommentVal) ,
-      // })
     })
     .catch((err) => {
       ElMessage.error(err);
@@ -57,13 +65,14 @@ const onComment = (CommentVal: string) => {
 //获取评论列表
 const getData = () => {
   getCommentList({
-    current: 1,
-    size: 10,
+    current: pagingData.current,
+    size: pagingData.size,
     articleId: props.articleId as Comment["articleId"],
   })
-    .then((res) => {
+    .then((res: any) => {
       console.log("getCommentList", res);
       if (res.code == ReqCodeEnum.Success) {
+        commentList.value = res.data.records;
       } else {
         ElMessage.error(res.msg);
       }
@@ -102,7 +111,7 @@ getData();
     </div>
     <div class="comment_item flex" v-for="(item, i) in commentList" :key="i">
       <el-image
-        :src="'//www.gaobug.com/img/avatar/avatar.png'"
+        :src="item.userAvatar || '//www.gaobug.com/img/avatar/avatar.png'"
         lazy
         class="comment_avatar"
         fit="cover"
@@ -110,14 +119,14 @@ getData();
       <div class="comment_box">
         <div class="comment_main">
           <div class="user-box">
-            <span class="name"> {{ "test用户" }}</span>
+            <span class="name"> {{ item.userName }}</span>
             <span class="time"> {{ "刚刚" }}</span>
           </div>
-          <p v-html="item.content" class="discuss_item"></p>
+          <p v-html="item.context" class="discuss_item"></p>
           <div class="info-box_action flex items-center">
             <div class="info-box_action-item hovers">
               <i class="dd-icon-dianzan icon"></i>
-              <span>{{ 10 }}</span>
+              <span>{{ item.likeCount }}</span>
             </div>
             <div class="info-box_action-item hovers">
               <i class="dd-icon-pinglun icon"></i>
