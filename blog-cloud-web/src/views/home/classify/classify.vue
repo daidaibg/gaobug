@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {  requestGet } from "@/api";
+import {  currentGET } from "@/api";
 import { reactive, ref, toRefs } from "vue";
 import { ElMessage } from "element-plus";
 import type {ClassifyListType} from "../home-types"
@@ -20,7 +20,7 @@ const onClassify = (item: any) => {
 
 //获取分类列表
 const getCategory = () => {
-  requestGet("category", { size: 20 }).then((res:any) => {
+  currentGET("category", { size: 20 }).then((res:any) => {
     // console.log("分类", res);
     if (res.code == 200) {
       classifyList.value = [

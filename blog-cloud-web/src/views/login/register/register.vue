@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-12-13 14:58:20
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-12-01 16:27:13
+ * @LastEditTime: 2023-01-04 15:14:29
  * @FilePath: \web-pc\src\views\Login\Retrieve.vue
 -->
 <template>
@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import { currentPOST ,requestGet} from "@/api";
+import { currentPOST ,currentGET} from "@/api";
 import { reactive, ref } from "vue"
 import { ElMessage, ElStep, ElSteps, ElForm, ElFormItem, ElInput } from "element-plus"
 import { useRouter } from "vue-router"
@@ -141,7 +141,7 @@ async function GetCode() {
   if (state.getCode) return;
   state.getCode = true;
   state.countdown = "发送中...";
-  await requestGet("captchaEmail",{
+  await currentGET("captchaEmail",{
     email: state.loginForm.email,
   }).then((res:any) => {
     if (res.code===200) {

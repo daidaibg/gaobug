@@ -20,6 +20,8 @@ export const Home={
     "register":"/auth/cs/user/register",//注册
     "registerEmail":"/auth/cs/user/register",//邮箱注册
     "captchaEmail":"/captcha/email",//验证码
+
+
 }
 export interface GetBlogListType {
     current: number,

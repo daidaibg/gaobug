@@ -18,5 +18,7 @@ export enum RouterEnum {
     //个人信息
     UserSettingProfile = "/user/setting/profile",
     //用户主页 :id 后面拼接用户
-    UserHomePage="/user/"
+    UserHomePage="/user/",
+    //文章编辑
+    WriteEdit="/write/essay/",
 }

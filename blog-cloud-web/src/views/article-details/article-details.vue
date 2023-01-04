@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, Ref } from "vue"
 import { useRoute,useRouter } from "vue-router"
-import { requestGet } from "@/api"
+import { currentGET } from "@/api"
 import { ElMessage } from 'element-plus'
 import MdEditor from "md-editor-v3"
 import { HeadList } from 'md-editor-v3';
@@ -14,6 +14,7 @@ import Actions from "./actions"
 import Comment from "./comment"
 import { PreviewThemeType, BlogDetailsType ,CodeTheme} from "./type"
 import {useMetaContent} from "@/hook"
+import {RouterEnum} from "@/enums/router-enums"
 
 const themeStore = userThemeStore()
 const userStore=useUserStore()
@@ -36,7 +37,7 @@ const like = (res:any)=>{
 }
 //获取详情
 const getDetail = () => {
-  requestGet('indexBlogDetail', {},route.params.id).then((res:any) => {
+  currentGET('indexBlogDetail', {},route.params.id).then((res:any) => {
         // console.log(res);
         if (res.code == 200) {
             blogDetails.value = res.data
@@ -56,10 +57,12 @@ if (id) {
     blogDetails.value.id = id
     getDetail()
     mdEditorConfig(MdEditor)
+}else{
+  router.push(RouterEnum.Home)
 }
 //编辑文章
 const goEditArticle =()=>{
-    router.push({ path: "/write/essay/", query: { articleId: blogDetails.value.id }})
+    router.push({ path:RouterEnum.WriteEdit, query: { articleId: blogDetails.value.id }})
 }
 </script>
 

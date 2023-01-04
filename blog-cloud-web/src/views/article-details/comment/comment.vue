@@ -1,40 +1,78 @@
 <script setup lang="ts">
-import { ref, nextTick, Comment } from "vue";
+import { ref, nextTick } from "vue";
 import Props from "./props";
-import {  ElAvatar } from "element-plus";
-import {emojiObj } from "@/components/emoji/emoji";
-import CommentInput from "@/components/comment-input"
-import {handleCommen} from "@/utils/current"
+import { ElMessage } from "element-plus";
+import { emojiObj } from "@/components/emoji/emoji";
+import CommentInput from "@/components/comment-input";
+import { handleCommen } from "@/utils/current";
+import { getCommentList, comment } from "@/api/blog/comment";
+import { ReqCodeEnum } from "@/enums/request-enums";
+
+import type { Comment } from "@/api/blog/comment";
 
 // console.log(emojiList);
 const props = defineProps(Props);
 // const text=`我是假的，现在还不能评论[看]<p class="a" id='a'>我是p标签</p>`
-interface CommentListType{
-    id?:number,
-    content:string
+interface CommentListType {
+  id?: number;
+  content: string;
 }
 const commentList = ref<CommentListType[]>([
-    {
-        id:1,
-        content:'我是假的，现在还不能评论[看]'
-    },
-    {
-        id:1,
-        content:`我是假的，现在还不能评论[看]<p class="a" id='a'>我是p标签</p>`
-    },
+  {
+    id: 1,
+    content: "我是假的，现在还不能评论[看]",
+  },
+  {
+    id: 1,
+    content: `我是假的，现在还不能评论[看]<p class="a" id='a'>我是p标签</p>`,
+  },
+]);
 
-])
 /**
  * @description: 点击评论按钮事件
  * @param {*} CommentVal
  */
-const onComment= (CommentVal:string)=>{
-    console.log(CommentVal);
-    commentList.value.push({
-        content:handleCommen(CommentVal) ,
+const onComment = (CommentVal: string) => {
+  console.log(CommentVal);
+  comment({
+    linkId: 0,
+    articleId: props.articleId as Comment["articleId"],
+    context: handleCommen(CommentVal),
+  })
+    .then((res) => {
+      console.log("comment", res);
+      if (res.code == ReqCodeEnum.Success) {
+      } else {
+        ElMessage.error(res.msg);
+      }
+      //   commentList.value.push({
+      //     content:handleCommen(CommentVal) ,
+      // })
     })
-}
+    .catch((err) => {
+      ElMessage.error(err);
+    });
+};
 
+//获取评论列表
+const getData = () => {
+  getCommentList({
+    current: 1,
+    size: 10,
+    articleId: props.articleId as Comment["articleId"],
+  })
+    .then((res) => {
+      console.log("getCommentList", res);
+      if (res.code == ReqCodeEnum.Success) {
+      } else {
+        ElMessage.error(res.msg);
+      }
+    })
+    .catch((err) => {
+      ElMessage.error(err);
+    });
+};
+getData();
 </script>
 
 <template>

@@ -1,9 +1,9 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-12-20 17:47:39
+ * @LastEditTime: 2023-01-04 15:08:17
  */
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
 
 import UtilVar from "../config/UtilVar";
@@ -12,44 +12,45 @@ import { RequestEnum } from "@/enums"
 import signMd5Utils from "@/utils/modules/signMd5Utils"
 import { getToken } from "@/utils/auth"
 
-import type {fileconfigs} from "./index.d"
+import type { fileconfigs } from "./index.d"
+
 // console.log(router);
 const baseUrl = UtilVar.baseUrl
 const CancelToken = axios.CancelToken;
-const service = axios.create({
+const service: AxiosInstance = axios.create({
     // 超时
-    timeout: 10000
+    timeout: 10000,
+    withCredentials: false, // 禁用 Cookie 等信息
+    headers: {
+        "Content-Type": "application/json;chartset=utf-8"
+    }
 })
 //统一拦截
-const isEncryptionParam = (params: Params) => {
+const isEncryptionParam = <T = Params>(params: T) => {
     return params
 }
 //签名参数
-const getSign = (params: Params) => {
+const getSign = <T = Params>(params: T) => {
     let timestamp = Date.now()
-    params = isEncryptionParam(params)
+    params = isEncryptionParam<T>(params)
     let sign = signMd5Utils.getSign(params, timestamp);
     let headers = {
         'enc': UtilVar.ENC,//是否加密
         [RequestEnum.GB_SIGN_KEY]: sign,
         [RequestEnum.GB_TIMESTAMP_KEY]: timestamp
     }
-    return { headers, encParams: params }
+    return { headers, encParams: params as T }
 }
-// @ts-ignore
-service.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
-// axios.defaults.withCredentials = true;
+
 // 添加请求拦截器
 service.interceptors.request.use(function (config: AxiosRequestConfig) {
     let token = getToken();
-    // @ts-ignore
-    config.headers.common[RequestEnum.GB_APP_ID_KEY] = "blog-platform";//根据自己实际情况
+    (config as Recordable).headers.common[RequestEnum.GB_APP_ID_KEY] = "blog-platform";//根据自己实际情况
     if (token) {
-        // @ts-ignore
-        config.headers.common[RequestEnum.GB_TOKEN_KEY] = token;
+        (config as Recordable).headers.common[RequestEnum.GB_TOKEN_KEY] = token;
     }
     return config;
-}, function (error: any) {
+}, function (error: AxiosError) {
     // 对请求错误做些什么
     console.log(error)
     return Promise.reject(error);
@@ -60,7 +61,7 @@ service.interceptors.request.use(function (config: AxiosRequestConfig) {
  */
 service.interceptors.response.use((response: AxiosResponse) => {
     if (response.request.responseType === 'blob' || response.request.responseType === 'arraybuffer') {
-        return response.data
+        return Promise.resolve(response)
     }
     if (response.status !== 200) {
         return Promise.reject(response)
@@ -68,10 +69,9 @@ service.interceptors.response.use((response: AxiosResponse) => {
     if (response.data.code == UtilVar.code) {
         const { userOffline } = useUserStore()
         userOffline()//下线 
-        return Promise.resolve(response.data)
     }
-    return Promise.resolve(response.data)
-}, (error: any) => {
+    return Promise.resolve(response)
+}, (error: AxiosError) => {
     let err = {
         success: false,
         msg: "未知异常，请联系管理员！"
@@ -81,7 +81,7 @@ service.interceptors.response.use((response: AxiosResponse) => {
     }
     return Promise.reject(err)
 })
-export type Params = { [key: string]: string | number };
+export type Params = { msg?: string, [key: string]: string | number | undefined, };
 export type FileConfig = {
     setCancel?: Function;
     onProgress?: Function;
@@ -94,25 +94,25 @@ export type FileConfig = {
  * @param {Params} params 请求参数
  * @return {*}
  */
-export const GET = async (url: string, params: Params): Promise<any> => {
+export const requestGet = async <T = Params, R = Params>(url: string, params: T): Promise<AxiosResponse<R>["data"]> => {
+    const { headers, encParams } = getSign(params)
     try {
-        const { headers, encParams } = getSign(params)
-        const data = await service.get(`${baseUrl}${url}`, {
+        const data = await service.get<T, AxiosResponse<R>>(`${baseUrl}${url}`, {
             params: encParams,
             headers,
         });
-        return data;
+        return data.data;
     } catch (error) {
-        return error;
+        return Promise.reject(error)
     }
 }
 //请求public 目录文件
-export const getPublic=async (url:string)=>{
+export const getPublic = async (url: string) => {
     try {
         const data = await service.get(url);
         return data;
     } catch (error) {
-        return error;
+        return Promise.reject(error)
     }
 }
 /**
@@ -121,17 +121,16 @@ export const getPublic=async (url:string)=>{
  * @param {Params} params
  * @return {Promise} 
  */
-export const POST = async (url: string, params: Params): Promise<any> => {
+export const requestPost = async <T = Params, R = Params>(url: string, params: T): Promise<AxiosResponse<R>["data"]> => {
+    const { headers, encParams } = getSign<T>(params)
     try {
-        const { headers, encParams } = getSign(params)
-        const data = await service.post(`${baseUrl}${url}`, encParams,
+        const response = await service.post<T, AxiosResponse<R>>(`${baseUrl}${url}`, encParams,
             {
                 headers
-            }
-        );
-        return data;
+            });
+        return response.data
     } catch (error) {
-        return error;
+        return Promise.reject(error)
     }
 }
 
@@ -163,8 +162,8 @@ export const FILEPOST = async (url: string, params: Params, config: FileConfig =
 
         });
         return data;
-    } catch (err) {
-        return err;
+    } catch (error) {
+        return Promise.reject(error)
     }
 }
 
@@ -200,8 +199,8 @@ export const FILE = async (config: FileConfig = {}) => {
  * @return {*}
  */
 export const request = new Proxy({
-    GET,
-    POST
+    GET: requestGet,
+    POST: requestPost
 }, {
     get(target: any, p: any) {
         if (target[p.toUpperCase()]) {
@@ -210,3 +209,4 @@ export const request = new Proxy({
         return Promise.reject("请求方法错误")
     }
 })
+
