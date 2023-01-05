@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { ref, nextTick } from "vue";
 import Props from "./props";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { emojiObj } from "@/components/emoji/emoji";
 import CommentInput from "@/components/comment-input";
 import { handleCommen } from "@/utils/current";
-import { getCommentList, comment } from "@/api/blog/comment";
+import { getCommentList, comment, commentDel } from "@/api/blog/comment";
 import { ReqCodeEnum } from "@/enums/request-enums";
 import type { CommentListType, PageData } from "./type";
 import type { Comment } from "@/api/blog/comment";
 import { useUserStore } from "@/store";
+import { getTimeInterval } from "@/utils/time";
+import dayjs from "dayjs";
 
 const userStore = useUserStore();
 // console.log(emojiList);
@@ -17,6 +19,8 @@ const props = defineProps(Props);
 // const text=`我是假的，现在还不能评论[看]<p class="a" id='a'>我是p标签</p>`
 
 const commentList = ref<CommentListType[]>([]);
+const replyId = ref<string | number>("");
+
 let pagingData: PageData = {
   current: 1,
   size: 10,
@@ -24,14 +28,28 @@ let pagingData: PageData = {
   totalPage: 1,
 };
 
+//点击回复
+const onReply = (item: CommentListType) => {
+  if (item.id === replyId.value) {
+    replyId.value = "";
+    return;
+  }
+  replyId.value = item.id;
+};
+
+//回复输入框失去焦点
+const onReplyIptBlur = (e: Event) => {};
+
 //把数据处理成评论格式
 const addCommentHandle = (CommentVal: string): CommentListType => {
   const newConmmenData = {
     context: handleCommen(CommentVal),
-    id: Date.now(),
+    id: Date.now() + "",
     likeCount: 0,
     userName: userStore.userData.nickName as string,
     userAvatar: userStore.userData.avatar as string,
+    createTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+    userId: userStore.userData.id,
   };
   return newConmmenData;
 };
@@ -40,13 +58,13 @@ const addCommentHandle = (CommentVal: string): CommentListType => {
  * @description: 点击评论按钮事件
  * @param {*} CommentVal
  */
-const onComment = (CommentVal: string) => {
-  if(!userStore.isLogin){
-    ElMessage.warning("暂未登录，请登录后再进行评论！")
-    return
+const onComment = (CommentVal: string, item?: CommentListType) => {
+  if (!userStore.isLogin) {
+    ElMessage.warning("暂未登录，请登录后再进行评论！");
+    return;
   }
   comment({
-    linkId: 0,
+    linkId: item ? item.id : 0,
     articleId: props.articleId as Comment["articleId"],
     context: handleCommen(CommentVal),
   })
@@ -62,6 +80,37 @@ const onComment = (CommentVal: string) => {
     })
     .catch((err) => {
       ElMessage.error(err);
+    });
+};
+
+//删除评论
+const delComment = (item: CommentListType, i: number) => {
+  ElMessageBox.confirm("确定要删除该评论吗?", {
+    confirmButtonText: "确认",
+    cancelButtonText: "取消",
+    type: "warning",
+    customClass: "message-box-default",
+    // center: true,
+    confirmButtonClass: "button-no-active",
+  })
+    .then(() => {
+      commentDel(item.id)
+        .then((res: any) => {
+          console.log("commentDel", res);
+          if (res.code == ReqCodeEnum.Success) {
+            commentList.value.splice(i, 1);
+            ElMessage.success("删除成功!");
+          } else {
+            ElMessage.error(res.msg);
+          }
+        })
+        .catch((err) => {
+          ElMessage.error(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      //   取消删除
     });
 };
 
@@ -114,7 +163,11 @@ getData();
     </div>
     <div class="comment_item flex" v-for="(item, i) in commentList" :key="i">
       <el-image
-        :src="item.userAvatar || '//www.gaobug.com/img/avatar/avatar.png'"
+        :src="
+          item.userAvatar
+            ? item.userAvatar
+            : '//www.gaobug.com/img/avatar/avatar.png'
+        "
         lazy
         class="comment_avatar"
         fit="cover"
@@ -123,7 +176,7 @@ getData();
         <div class="comment_main">
           <div class="user-box">
             <span class="name"> {{ item.userName }}</span>
-            <span class="time"> {{ "刚刚" }}</span>
+            <span class="time"> {{ getTimeInterval(item.createTime) }}</span>
           </div>
           <p v-html="item.context" class="discuss_item"></p>
           <div class="info-box_action flex items-center">
@@ -131,12 +184,33 @@ getData();
               <i class="dd-icon-dianzan icon"></i>
               <span>{{ item.likeCount }}</span>
             </div>
-            <div class="info-box_action-item hovers">
+            <div
+              class="info-box_action-item hovers"
+              @click="onReply(item)"
+              :class="{ replyIconActive: replyId == item.id }"
+            >
               <i class="dd-icon-pinglun icon"></i>
-              <span>{{ 0 }}</span>
+              <span>{{ replyId == item.id ? "取消回复" : 0 }}</span>
+            </div>
+            <div
+              class="info-box_action-item ml-auto del"
+              v-if="item.userId == userStore.userData.id"
+              @click="delComment(item, i)"
+            >
+              <span>删除</span>
             </div>
           </div>
         </div>
+        <!-- 回复框 -->
+        <div class="comment_main_reply" v-if="item.id == replyId">
+          <comment-input
+            @comment="(val:string)=>onComment(val,item)"
+            @blur="onReplyIptBlur"
+            :placeholder="'回复' + item.userName + '...'"
+          ></comment-input>
+        </div>
+        <!-- 二级评论 -->
+        <div class="reply_list"></div>
       </div>
     </div>
     <div style="height: 400px"></div>
@@ -199,6 +273,13 @@ getData();
     flex: 1;
     margin-left: 16px;
   }
+  .comment_main {
+    &:hover {
+      .del {
+        display: block;
+      }
+    }
+  }
 }
 
 //用户名称 时间
@@ -220,7 +301,7 @@ getData();
   font-size: 12px;
   margin: 10px 0;
 
-  &-item {
+  .info-box_action-item {
     display: flex;
     align-items: center;
     margin-right: 12px;
@@ -238,10 +319,22 @@ getData();
       color: var(--yh-text-color-placeholder);
     }
 
-    &:hover {
+    &:not(.del):hover,
+    &:not(.del).replyIconActive {
       .icon,
       span {
         color: var(--yh-brand-color);
+      }
+    }
+    &.del {
+      display: none;
+      span {
+        color: var(--yh-error-color-hover);
+      }
+      &:hover {
+        span {
+          color: var(--yh-error-color-active);
+        }
       }
     }
   }

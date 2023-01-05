@@ -1,83 +1,93 @@
 <script setup lang="ts">
-import { ref, Ref,nextTick } from "vue"
-import { useRoute,useRouter } from "vue-router"
-import { currentGET } from "@/api"
-import { ElMessage } from 'element-plus'
-import MdEditor,{ HeadList } from "md-editor-v3"
-import 'md-editor-v3/lib/style.css';
-import { useTitle } from '@vueuse/core'
-import { mdEditorConfig } from "@/config"
-import { userThemeStore ,useUserStore} from '@/store'
-import Backtop from "@/components/backtop"
-import Actions from "./actions"
-import Comment from "./comment"
-import { PreviewThemeType, BlogDetailsType ,CodeTheme} from "./type"
-import {useMetaContent} from "@/hook"
-import {RouterEnum} from "@/enums/router-enums"
-import {windowScrollTo} from "@/utils/scroll"
+import { ref, Ref, nextTick } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { currentGET } from "@/api";
+import { ElMessage } from "element-plus";
+import MdEditor, { HeadList } from "md-editor-v3";
+import "md-editor-v3/lib/style.css";
+import { useTitle } from "@vueuse/core";
+import { mdEditorConfig } from "@/config";
+import { userThemeStore, useUserStore } from "@/store";
+import Backtop from "@/components/backtop";
+import Actions from "./actions";
+import Comment from "./comment";
+import { PreviewThemeType, BlogDetailsType, CodeTheme } from "./type";
+import { useMetaContent } from "@/hook";
+import { RouterEnum } from "@/enums/router-enums";
+import { windowScrollTo } from "@/utils/scroll";
 
-const themeStore = userThemeStore()
-const userStore=useUserStore()
-const title = useTitle()
-const route = useRoute()
-const router = useRouter()
-const previewTheme = ref<PreviewThemeType>("github")
-const codeTheme = ref<CodeTheme>("atom")
-const mdText = ref<string>('')//内容
-const blogDetails = ref<BlogDetailsType>({})//详情
-const catalogList = ref<HeadList[]>([])  //目录
-const {setMetaTagContent} =useMetaContent()
+const themeStore = userThemeStore();
+const userStore = useUserStore();
+const title = useTitle();
+const route = useRoute();
+const router = useRouter();
+const previewTheme = ref<PreviewThemeType>("github");
+const codeTheme = ref<CodeTheme>("atom");
+const mdText = ref<string>(""); //内容
+const blogDetails = ref<BlogDetailsType>({}); //详情
+const catalogList = ref<HeadList[]>([]); //目录
+const { setMetaTagContent } = useMetaContent();
 
+//目录
 const onGetCatalog = (list: HeadList[]) => {
-    // console.log(list);
-    catalogList.value = list
-    anchorHandle()
+  // console.log(list);
+  catalogList.value = list;
+};
 
+//html渲染
+const onHtmlChanged = (h: string) => {
+  anchorHandle();
 };
 
 //点赞和取消点赞成功
-const like = (res:any)=>{
-    getDetail()
-            anchorHandle()
-
-}
+const like = (res: any) => {
+  getDetail();
+  anchorHandle();
+};
 
 //获取详情
 const getDetail = () => {
-  currentGET('indexBlogDetail', {},route.params.id).then((res:any) => {
-        // console.log("getDetail",res);
-        if (res.code == 200) {
-            blogDetails.value = res.data
-            mdText.value = res.data.content
-            title.value = res.data.title // change current title
-            setMetaTagContent('description',res.data.summary==""?res.data.title:res.data.summary )
-            setMetaTagContent('keywords',res.data.title)
-        } else {
-            ElMessage.error(res.msg)
-        }
-    })
-}
+  currentGET("indexBlogDetail", {}, route.params.id).then((res: any) => {
+    // console.log("getDetail",res);
+    if (res.code == 200) {
+      blogDetails.value = res.data;
+      mdText.value = res.data.content;
+      title.value = res.data.title; // change current title
+      setMetaTagContent(
+        "description",
+        res.data.summary == "" ? res.data.title : res.data.summary
+      );
+      setMetaTagContent("keywords", res.data.title);
+    } else {
+      ElMessage.error(res.msg);
+    }
+  });
+};
 
 //处理锚点
-const anchorHandle = async()=>{
-  await nextTick()
-  windowScrollTo(route.hash,74)
+const anchorHandle = async () => {
+  await nextTick();
+  if(route.hash){
+    windowScrollTo(route.hash, 74);
+  }
+};
 
-}
-
-let id: BlogDetailsType["id"] = route.params.id
+let id: BlogDetailsType["id"] = route.params.id;
 if (id) {
-    blogDetails.value.id = id
-    getDetail()
-    mdEditorConfig(MdEditor)
-}else{
-  router.push(RouterEnum.Home)
+  blogDetails.value.id = id;
+  getDetail();
+  mdEditorConfig(MdEditor);
+} else {
+  router.push(RouterEnum.Home);
 }
 
 //编辑文章
-const goEditArticle =()=>{
-    router.push({ path:RouterEnum.WriteEdit, query: { articleId: blogDetails.value.id }})
-}
+const goEditArticle = () => {
+  router.push({
+    path: RouterEnum.WriteEdit,
+    query: { articleId: blogDetails.value.id },
+  });
+};
 </script>
 
 <template>
@@ -141,6 +151,7 @@ const goEditArticle =()=>{
           preview-only
           :modelValue="mdText"
           @GetCatalog="onGetCatalog"
+          @onHtmlChanged="onHtmlChanged"
         >
         </md-editor>
       </div>
@@ -182,17 +193,16 @@ const goEditArticle =()=>{
             <header class="py-2 logs-header">目录</header>
             <div class="catalog_list overflow-y-auto mt-1">
               <yh-anchor class=" " :targetOffset="80">
-              <yh-anchor-item
-                :href="`#${item.text}_${i + 1}`"
-                :title="item.text"
-                v-for="(item, i) in catalogList"
-                :key="i"
-                :class="'catalog_list_' + item.level"
-              >
-              </yh-anchor-item>
-            </yh-anchor>
+                <yh-anchor-item
+                  :href="`#${item.text}_${i + 1}`"
+                  :title="item.text"
+                  v-for="(item, i) in catalogList"
+                  :key="i"
+                  :class="'catalog_list_' + item.level"
+                >
+                </yh-anchor-item>
+              </yh-anchor>
             </div>
-           
           </div>
         </div>
       </div>

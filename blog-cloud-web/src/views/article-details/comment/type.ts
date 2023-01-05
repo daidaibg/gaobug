@@ -1,10 +1,12 @@
 export interface CommentListType {
-    id: number;
+    id: string;
     context: string;
     likeCount:number|string,
-    linkId?:number|string,
+    linkId?:string|null,
     userName:string,
-    userAvatar?:string
+    userAvatar?:string,
+    createTime:string,
+    userId?:string,
   }
 
   export interface PageData {

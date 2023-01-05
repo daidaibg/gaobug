@@ -11,12 +11,25 @@ const props = defineProps({
   autosize: {
     type:Object,
     default:()=>{
-    return  { minRows: 2, maxRows: 6 }
+    return  { minRows: 3, maxRows: 6 }
     }
-  }
+  },
+  placeholder:{
+    type:String,
+    default:"请输入评论"
+  },
+  maxlength:{
+    type:Number,
+    default:150,
+  },
+  showWordLimit:{
+    type:Boolean,
+    default:true,
+  },
 });
 const emits = defineEmits<{
      (event: "comment",  CommentVal: string): void;
+     (event: "blur",  E: Event): void;
 }>()
 
 /**
@@ -39,8 +52,9 @@ const onEmoji = async (e: Event, emojiItem: EmojiListType) => {
 //   emojiTarget.value.hideEmojiList();
 };
 
-const inputblur = () => {
+const inputblur = (e:Event) => {
   // console.log("失去焦点");
+  emits("blur",e)
   // commentEdit.value.focus();
 };
 // 插入表情
@@ -87,9 +101,12 @@ const getCursortPosition = (obj: any) => {
       v-model="inputVal"
       :autosize="autosize"
       type="textarea"
-      placeholder="请输入评论"
+      :placeholder="placeholder"
       ref="commentEdit"
       @blur="inputblur"
+      :show-word-limit="showWordLimit"
+      :maxlength="maxlength"
+      v-bind="$attrs"
     />
     <!-- <div contenteditable="true" ref="commentEdit" placeholder="请输入评论"
                         class="commitedit el-textarea__inner"></div> -->

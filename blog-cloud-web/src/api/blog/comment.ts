@@ -18,7 +18,7 @@ export const commentLike = (param: any = {}) => {
 }
 
 export interface commentType extends Comment {
-    linkId: string | number,//评论关联标识顶级默认0 评论下传评论标识
+    linkId: string|0 ,//评论关联标识顶级默认0 评论下传评论标识
     context: string,//评论内容
 }
 //评论
@@ -41,6 +41,6 @@ export const getCommentList = (param: CommentListType) => {
 }
 
 //删除评论
-export const commentDel = (param: any = {}) => {
-    return requestPost(commentReqUrl.commentDel, param)
+export const commentDel = (id: string) => {
+    return requestPost(commentReqUrl.commentDel+id,{})
 }

@@ -1,7 +1,7 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-01-04 15:08:17
+ * @LastEditTime: 2023-01-05 15:03:42
  */
 import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
@@ -25,10 +25,12 @@ const service: AxiosInstance = axios.create({
         "Content-Type": "application/json;chartset=utf-8"
     }
 })
+
 //统一拦截
 const isEncryptionParam = <T = Params>(params: T) => {
     return params
 }
+
 //签名参数
 const getSign = <T = Params>(params: T) => {
     let timestamp = Date.now()

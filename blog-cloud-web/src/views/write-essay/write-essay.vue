@@ -98,6 +98,9 @@ const saveOrUpdate = async (publish: Number, successMsg: string) => {
         param.id = state.id
         type = 'updataBlog';//更新
     }
+    if(!param.categoryId){
+        delete param.categoryId
+    }
     const res = await currentPOST(type, param);
     if (res.code === 200) {
         //保存草稿时需要存储id 后端暂无返回id
