@@ -78,7 +78,7 @@ export const mdEditorConfig = (MdEditor: any) => {
                 // };
                 renderer.heading = (text: any, level: any, raw: any, s: any, index: any) => {
                     // console.log(text,level,raw,s,index);
-                    return `<h${level} id="gaobug-heade-${index}">${text}</h${level}>`;
+                    return `<h${level} id="${text}_${index}">${text}</h${level}>`;
                 };
                 renderer.link = (href: any, title: any, text: any) => {
                     // console.log(href,text,title);

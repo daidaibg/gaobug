@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, Ref } from "vue"
+import { ref, Ref,nextTick } from "vue"
 import { useRoute,useRouter } from "vue-router"
 import { currentGET } from "@/api"
 import { ElMessage } from 'element-plus'
@@ -14,6 +14,7 @@ import Comment from "./comment"
 import { PreviewThemeType, BlogDetailsType ,CodeTheme} from "./type"
 import {useMetaContent} from "@/hook"
 import {RouterEnum} from "@/enums/router-enums"
+import {windowScrollTo} from "@/utils/scroll"
 
 const themeStore = userThemeStore()
 const userStore=useUserStore()
@@ -26,14 +27,21 @@ const mdText = ref<string>('')//内容
 const blogDetails = ref<BlogDetailsType>({})//详情
 const catalogList = ref<HeadList[]>([])  //目录
 const {setMetaTagContent} =useMetaContent()
+
 const onGetCatalog = (list: HeadList[]) => {
     // console.log(list);
     catalogList.value = list
+    anchorHandle()
+
 };
+
 //点赞和取消点赞成功
 const like = (res:any)=>{
     getDetail()
+            anchorHandle()
+
 }
+
 //获取详情
 const getDetail = () => {
   currentGET('indexBlogDetail', {},route.params.id).then((res:any) => {
@@ -44,11 +52,17 @@ const getDetail = () => {
             title.value = res.data.title // change current title
             setMetaTagContent('description',res.data.summary==""?res.data.title:res.data.summary )
             setMetaTagContent('keywords',res.data.title)
-
         } else {
             ElMessage.error(res.msg)
         }
     })
+}
+
+//处理锚点
+const anchorHandle = async()=>{
+  await nextTick()
+  windowScrollTo(route.hash,74)
+
 }
 
 let id: BlogDetailsType["id"] = route.params.id
@@ -59,6 +73,7 @@ if (id) {
 }else{
   router.push(RouterEnum.Home)
 }
+
 //编辑文章
 const goEditArticle =()=>{
     router.push({ path:RouterEnum.WriteEdit, query: { articleId: blogDetails.value.id }})
@@ -168,7 +183,7 @@ const goEditArticle =()=>{
             <div class="catalog_list overflow-y-auto mt-1">
               <yh-anchor class=" " :targetOffset="80">
               <yh-anchor-item
-                :href="`#gaobug-heade-${i + 1}`"
+                :href="`#${item.text}_${i + 1}`"
                 :title="item.text"
                 v-for="(item, i) in catalogList"
                 :key="i"

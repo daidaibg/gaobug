@@ -41,7 +41,10 @@ const addCommentHandle = (CommentVal: string): CommentListType => {
  * @param {*} CommentVal
  */
 const onComment = (CommentVal: string) => {
-  console.log(CommentVal);
+  if(!userStore.isLogin){
+    ElMessage.warning("暂未登录，请登录后再进行评论！")
+    return
+  }
   comment({
     linkId: 0,
     articleId: props.articleId as Comment["articleId"],

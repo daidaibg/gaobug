@@ -32,7 +32,7 @@
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6",
     "xlsx": "^0.18.5",
-    "yhht-plus": "0.0.28"
+    "yhht-plus": "0.0.32"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.4.0",
