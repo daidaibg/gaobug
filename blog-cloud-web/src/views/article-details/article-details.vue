@@ -27,17 +27,19 @@ const mdText = ref<string>(""); //内容
 const blogDetails = ref<BlogDetailsType>({}); //详情
 const catalogList = ref<HeadList[]>([]); //目录
 const { setMetaTagContent } = useMetaContent();
+let moundFlag: boolean = false;
 
 //目录
 const onGetCatalog = (list: HeadList[]) => {
   // console.log(list);
   catalogList.value = list;
-  anchorHandle();
-
-};
-
-//html渲染
-const onHtmlChanged = (h: string) => {
+  if (!moundFlag) {
+    let timer = setTimeout(() => {
+      anchorHandle();
+      clearTimeout(timer);
+    }, 150);
+    moundFlag = true;
+  }
 };
 
 //点赞和取消点赞成功
@@ -67,7 +69,7 @@ const getDetail = () => {
 //处理锚点
 const anchorHandle = async () => {
   await nextTick();
-  if(route.hash){
+  if (route.hash) {
     windowScrollTo(route.hash, 74);
   }
 };
@@ -151,7 +153,6 @@ const goEditArticle = () => {
           preview-only
           :modelValue="mdText"
           @GetCatalog="onGetCatalog"
-          @onHtmlChanged="onHtmlChanged"
         >
         </md-editor>
       </div>
