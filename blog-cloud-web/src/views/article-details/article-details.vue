@@ -32,11 +32,12 @@ const { setMetaTagContent } = useMetaContent();
 const onGetCatalog = (list: HeadList[]) => {
   // console.log(list);
   catalogList.value = list;
+  anchorHandle();
+
 };
 
 //html渲染
 const onHtmlChanged = (h: string) => {
-  anchorHandle();
 };
 
 //点赞和取消点赞成功

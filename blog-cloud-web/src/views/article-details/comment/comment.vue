@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, nextTick } from "vue";
+import { ref, nextTick, computed, reactive } from "vue";
 import Props from "./props";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { emojiObj } from "@/components/emoji/emoji";
@@ -20,13 +20,17 @@ const props = defineProps(Props);
 
 const commentList = ref<CommentListType[]>([]);
 const replyId = ref<string | number>("");
-
-let pagingData: PageData = {
+let pagingData = reactive<PageData>({
   current: 1,
   size: 10,
   total: 0,
   totalPage: 1,
-};
+  
+});
+
+const isEnd = computed(() => {
+  return pagingData.current === pagingData.totalPage;
+});
 
 //点击回复
 const onReply = (item: CommentListType) => {
@@ -96,7 +100,7 @@ const delComment = (item: CommentListType, i: number) => {
     .then(() => {
       commentDel(item.id)
         .then((res: any) => {
-          console.log("commentDel", res);
+          // console.log("commentDel", res);
           if (res.code == ReqCodeEnum.Success) {
             commentList.value.splice(i, 1);
             ElMessage.success("删除成功!");
@@ -114,17 +118,32 @@ const delComment = (item: CommentListType, i: number) => {
     });
 };
 
+//加载更多评论
+const onLoadMoreComment = () => {
+  getData(true);
+};
+
 //获取评论列表
-const getData = () => {
+const getData = (isLoadAll?: boolean) => {
   getCommentList({
     current: pagingData.current,
-    size: pagingData.size,
+    size: isLoadAll ? pagingData.total : pagingData.size,
     articleId: props.articleId as Comment["articleId"],
   })
     .then((res: any) => {
       console.log("getCommentList", res);
       if (res.code == ReqCodeEnum.Success) {
-        commentList.value = res.data.records;
+        if (isLoadAll) {
+          res.data.records.splice(0,10)
+          commentList.value=commentList.value.concat( res.data.records)
+          //为了表示最后一页
+          pagingData.totalPage =1
+        } else {
+          commentList.value = res.data.records;
+          pagingData.totalPage = res.data.totalPage;
+          pagingData.total = res.data.total;
+          pagingData.total = res.data.total;
+        }
       } else {
         ElMessage.error(res.msg);
       }
@@ -212,6 +231,13 @@ getData();
         <!-- 二级评论 -->
         <div class="reply_list"></div>
       </div>
+    </div>
+    <div
+      class="load-more-commen box-variable flex justify-center cursor-pointer py-4"
+      @click="onLoadMoreComment"
+      v-if="!isEnd"
+    >
+      <p>加载全部{{ pagingData.total }}条评论...</p>
     </div>
     <div style="height: 400px"></div>
   </div>
@@ -337,6 +363,12 @@ getData();
         }
       }
     }
+  }
+}
+.load-more-commen {
+  background-color: var(--gb-container-hover);
+  &:hover {
+    color: var(--yh-brand-color);
   }
 }
 </style>
