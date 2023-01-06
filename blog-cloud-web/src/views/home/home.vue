@@ -11,7 +11,7 @@ import { useBlogAction } from "@/hook/modules/use-blog-action";
 import Backtop from "@/components/backtop";
 import { useHeaderStore } from "@/store";
 import { addRouterParam } from "@/utils/current";
-
+import { articleDetailsConfig } from "@/config/article";
 import type { ClassifyListType, HomeBlogState, TypeList } from "./home-types";
 
 const router = useRouter();
@@ -51,10 +51,17 @@ const onToggleType = (item: TypeList) => {
   active.value = item.type;
   getBlogList();
 };
+
 // 跳转详情
 const jumpDetail = (item: any) => {
   router.push({ path: "/article/details/" + item.id });
 };
+
+//去详情评论
+const goDetailComment= (item:any)=>{
+  router.push({ path: "/article/details/" + item.id,hash:"#"+articleDetailsConfig.commentAnchor });
+}
+
 /**
  * @description: 切换分类
  * @param {ClassifyListType} item 点击分类的信息
@@ -206,7 +213,7 @@ init();
                   <i class="dd-icon-dianzan icon"></i>
                   <span>{{ item.likeCount }}</span>
                 </div>
-                <div class="info-box_action-item hovers">
+                <div class="info-box_action-item hovers" @click.stop="goDetailComment(item)">
                   <i class="dd-icon-pinglun icon"></i>
                   <span>{{ item.commentCount }}</span>
                 </div>

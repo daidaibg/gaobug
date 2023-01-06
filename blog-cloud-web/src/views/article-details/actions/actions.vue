@@ -2,7 +2,7 @@
 import Props from "./props";
 import { TARGET_CONTAINER } from "../type";
 import { useBlogAction } from "@/hook/modules/use-blog-action";
-import { articleDetailsConfig } from "../article-details";
+import { articleDetailsConfig } from "@/config/article";
 import { windowScrollTo } from "@/utils/scroll";
 import { useRouter } from "vue-router";
 
