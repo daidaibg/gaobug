@@ -1,5 +1,5 @@
 import screenfull from 'screenfull';
-
+import MarkExtension from '@/utils/marked-mark';
 // const getId = (text: string, level: string | number, raw: any, index: number) => {
 //     return `gaobug-heade-${index}`;
 // };
@@ -11,7 +11,6 @@ export const mdEditorConfig = (MdEditor: any) => {
     console.log("mdEditorConfigFlag", mdEditorConfigFlag);
     try {
         MdEditor.config({
-
             editorExtensions: {
                 iconfont: `${cdnBase}/iconfont/toobar_svg.js`,
                 highlight: {
@@ -60,6 +59,7 @@ export const mdEditorConfig = (MdEditor: any) => {
                     // }
                 }
             },
+            markedExtensions: [MarkExtension],
             markedRenderer: (renderer: any) => {
                 // let index = 0
                 // renderer.heading = (text: any, level: any, raw: any) => {

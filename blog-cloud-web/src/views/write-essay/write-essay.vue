@@ -11,17 +11,16 @@ import type { FormInstance, FormRules, UploadRequestOptions } from 'element-plus
 import { currentPOST, currentGET } from "@/api";
 import MdEmoji from "@/components/md-edits/md-emoji/md-emoji.vue";
 import Read from "@/components/md-edits/read/read.vue";
+import MarkExtension from '@/components/md-edits/mark-extension/index.vue';
 import { useRouter, useRoute } from "vue-router";
 import { StateType, FormDataType } from "./write-essay-type"
 import { mdEditorConfig } from "@/config"
 import { userThemeStore } from '@/store'
+
 const themeStore = userThemeStore()
-
-
 const router = useRouter();
 const route = useRoute();
 // const { ModalToolbar, DropdownToolbar, NormalToolbar } = MdEditor;
-
 const editorId = "editor-preview";
 const ruleFormRef = ref<FormInstance>()
 const state: StateType = reactive({
@@ -41,7 +40,9 @@ const formData: FormDataType = reactive({
     openComment: 1, //是否开启评论0：否 1：是
 })
 const blogDetails: any = ref({})//详情 
+
 const { title, content, previewTheme, classificatio, dialogVisible } = toRefs(state);
+
 const rules = reactive<FormRules>({
     categoryId: [
         { required: true, message: '请选择分类！', trigger: 'blur' },
@@ -62,6 +63,7 @@ const fabu = () => {
     }
     dialogVisible.value = true
 }
+
 // 发布文章
 const publish = (formEl: FormInstance | undefined) => {
     if (!formEl) return
@@ -78,6 +80,7 @@ const publish = (formEl: FormInstance | undefined) => {
     })
 
 };
+
 //保存草稿
 const save = () => {
     if (title.value == "") {
@@ -85,6 +88,7 @@ const save = () => {
     }
     saveOrUpdate(0, "保存草稿成功")
 };
+
 //提交或则新增 处理参数并且提交调接口
 const saveOrUpdate = async (publish: Number, successMsg: string) => {
     let type = 'addBlog';//新增
@@ -114,6 +118,7 @@ const saveOrUpdate = async (publish: Number, successMsg: string) => {
         return false;
     }
 }
+
 //获取分类列表
 const getCategory = () => {
     currentGET("category", { size: 20 }).then((res:any) => {
@@ -125,24 +130,29 @@ const getCategory = () => {
         }
     })
 }
+
 // 选择表情
 const onEmojiChange = (emoji: any) => {
     content.value = emoji;
 };
+
 //封面上传 
 const coverUrlRequest = (options: UploadRequestOptions): any => {
     return onUploadCover(options)
 }
+
 // 弹窗关闭前回调
 const saveHandleClose = (done: Function) => {
     dialogVisible.value = false
     done()
 }
+
 // 返回上一页
 const goback = () => {
     // router.back();
     router.push("/blogs/manage/article")
 };
+
 // 上传失败
 const onError = (error: Error | any) => {
     if (error.msg) {
@@ -151,6 +161,7 @@ const onError = (error: Error | any) => {
         ElMessage.error('未知异常，图片上传失败')
     }
 }
+
 // 上传成功
 const handleAvatarSuccess = (response: any, uploadFile: any) => {
     if (response.code == 200) {
@@ -159,9 +170,16 @@ const handleAvatarSuccess = (response: any, uploadFile: any) => {
         onError(response)
     }
 }
+
 const deleteCover = () => {
     formData.coverUrl = ""
 }
+
+// mark 变化
+const onChangeMark = (v: string) => {
+    content.value=v
+};
+
 //获取详情
 const getDetail = () => {
     currentGET('blogDetail',{}, state.id).then((res:any) => {
@@ -210,9 +228,10 @@ init()
             <user></user>
         </header>
         <md-editor v-model="content" :toolbars="toolbars" class="flex-1" showCodeRowNumber
-            :previewTheme="previewTheme" :theme="themeStore.getTheme" @Save="save" @uploadImg="onUploadImg"
+            :previewTheme="previewTheme" :theme="themeStore.getTheme" @Save="save" @uploadImg="onUploadImg" ref="editorRef"
             :editor-id="editorId">
             <template #defToolbars>
+                <MarkExtension :editor-id="editorId" @on-change="onChangeMark" />
                 <MdEmoji :editor-id="editorId" @onChange="onEmojiChange" />
                 <Read :md-text="content" :previewTheme="previewTheme" :theme="themeStore.getTheme" />
                 <!-- <normal-toolbar>

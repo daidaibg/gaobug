@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Props from "./props";
-import { TARGET_CONTAINER } from "../type";
 import { useBlogAction } from "@/hook/modules/use-blog-action";
 import { articleDetailsConfig } from "@/config/article";
 import { windowScrollTo } from "@/utils/scroll";
@@ -38,29 +37,9 @@ const goComment = async (): Promise<void> => {
   // console.log(comment,scrollContainer,scrollTop,offsetTop,top);
 };
 
-/**
- * 获取锚点对应的target元素
- * @param {string} id
- */
-const getAnchorTarget = (id: string): HTMLElement | undefined => {
-  const anchor = document.getElementById(id);
-  if (!anchor) {
-    return;
-  }
-  return anchor;
-};
 
-function getOffsetTop(
-  target: HTMLElement,
-  container: TARGET_CONTAINER
-): number {
-  const { top } = target.getBoundingClientRect();
-  if (container === window) {
-    // 减去document的边框
-    return top - document.documentElement.clientTop;
-  }
-  return top - (container as HTMLElement).getBoundingClientRect().top;
-}
+
+
 </script>
 
 <template>

@@ -42,7 +42,6 @@ const onHtmlChanged = (h: string) => {
 //点赞和取消点赞成功
 const like = (res: any) => {
   getDetail();
-  anchorHandle();
 };
 
 //获取详情
