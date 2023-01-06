@@ -1,4 +1,4 @@
-import en from '../language/en.json'
+import home from './home'
 
 const global = {
   doc: 'Document',
@@ -10,5 +10,5 @@ const global = {
 
 export default {
   global,
-  ...en,
+  ...home,
 }

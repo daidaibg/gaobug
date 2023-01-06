@@ -1,4 +1,4 @@
-import zh from '../language/zh.json'
+import home from './home'
 
 const global = {
   // 头部
@@ -11,5 +11,5 @@ const global = {
 
 export default {
   global,
-  ...zh,
+  ...home,
 }

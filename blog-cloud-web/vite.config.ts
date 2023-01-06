@@ -2,7 +2,6 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from "path";
 import externalGlobals from "rollup-plugin-external-globals";
-import vueI18n from '@intlify/vite-plugin-vue-i18n'
 
 import ElementPlus from 'unplugin-element-plus/vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -15,14 +14,6 @@ export default defineConfig(({ command, mode }) => {
   // console.log(command, mode);
   return {
     plugins: [vue(),
-    vueI18n({
-      // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-      compositionOnly: false,
-      // you need to set i18n resource including paths !
-      runtimeOnly: false,
-      include: resolve(__dirname, './src/i18n/language/**')
-    }),
-
     ElementPlus({
       useSource: true
     }),
@@ -64,6 +55,7 @@ export default defineConfig(({ command, mode }) => {
         "@": resolve(__dirname, "./src"),
         "components": resolve(__dirname, "./src/components"),
         "api": resolve(__dirname, "./src/api"),
+        'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
       },
     },
     css: {
@@ -82,8 +74,8 @@ export default defineConfig(({ command, mode }) => {
         `monaco-editor/esm/vs/language/css/css.worker`,
         `monaco-editor/esm/vs/language/html/html.worker`,
         `monaco-editor/esm/vs/language/typescript/ts.worker`,
-        `monaco-editor/esm/vs/editor/editor.worker`
-      ], 
+        `monaco-editor/esm/vs/editor/editor.worker`,
+      ],
     },
     build: {
       outDir: 'dist',

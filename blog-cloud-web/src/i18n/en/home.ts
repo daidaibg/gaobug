@@ -1,4 +1,4 @@
-{
+export default{
     "header": {
         "language": "中文",
         "home":"Home",
