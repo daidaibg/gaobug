@@ -31,7 +31,6 @@ let moundFlag: boolean = false;
 
 //目录
 const onGetCatalog = (list: HeadList[]) => {
-  // console.log(list);
   catalogList.value = list;
   if (!moundFlag) {
     let timer = setTimeout(() => {
@@ -195,12 +194,13 @@ const goEditArticle = () => {
             <div class="catalog_list overflow-y-auto mt-1">
               <yh-anchor class=" " :targetOffset="80">
                 <yh-anchor-item
-                  :href="`#${item.text}_${i + 1}`"
+                  :href="`#${item.text}_${i + 1}`.replace(/ /g, '%20')"
                   :title="item.text"
                   v-for="(item, i) in catalogList"
                   :key="i"
                   :class="'catalog_list_' + item.level"
                 >
+                <!-- {{ `#${item.text}_${i + 1}`}} -->
                 </yh-anchor-item>
               </yh-anchor>
             </div>

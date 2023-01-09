@@ -78,7 +78,8 @@ export const mdEditorConfig = (MdEditor: any) => {
                 // };
                 renderer.heading = (text: any, level: any, raw: any, s: any, index: any) => {
                     // console.log(text,level,raw,s,index);
-                    return `<h${level} id="${text}_${index}">${text}</h${level}>`;
+                    const id =(text+"_"+index).replace(/ /g, '%20')
+                    return `<h${level} id="${id}">${text}</h${level}>`;
                 };
                 renderer.link = (href: any, title: any, text: any) => {
                     // console.log(href,text,title);
