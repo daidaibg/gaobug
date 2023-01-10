@@ -12,6 +12,7 @@ import type { Comment } from "@/api/blog/comment";
 import { useUserStore } from "@/store";
 import { getTimeInterval } from "@/utils/time";
 import dayjs from "dayjs";
+import {HotIcon} from "@/components/icons"
 
 const userStore = useUserStore();
 // console.log(emojiList);
@@ -25,7 +26,6 @@ let pagingData = reactive<PageData>({
   size: 10,
   total: 0,
   totalPage: 1,
-  
 });
 
 const isEnd = computed(() => {
@@ -134,10 +134,10 @@ const getData = (isLoadAll?: boolean) => {
       console.log("getCommentList", res);
       if (res.code == ReqCodeEnum.Success) {
         if (isLoadAll) {
-          res.data.records.splice(0,10)
-          commentList.value=commentList.value.concat( res.data.records)
+          res.data.records.splice(0, 10);
+          commentList.value = commentList.value.concat(res.data.records);
           //为了表示最后一页
-          pagingData.totalPage =1
+          pagingData.totalPage = 1;
         } else {
           commentList.value = res.data.records;
           pagingData.totalPage = res.data.totalPage;
@@ -162,24 +162,16 @@ getData();
       <el-avatar :size="40" :src="avatarUrl" class="avatar" />
       <comment-input @comment="onComment"></comment-input>
     </div>
-    <div class="header-title flex items-center">
-      <div class="flex items-center">
+    <div class="header-title flex items-center" >
+      <div class="flex items-center" v-if="pagingData.totalPage > 0">
         热门评论
-        <svg
-          data-v-5fe91717=""
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          xmlns="http://www.w3.org/2000/svg"
-          class=""
-        >
-          <path
-            data-v-5fe91717=""
-            d="M12.8 5.2C13.9532 6.46 14.8 8.2 14.8 10C14.7039 12.8937 12.6843 15.1706 9.97973 15.8159C10.359 12.3442 7.77588 9.35406 7.77588 9.35406C7.77588 9.35406 7.99512 13.7064 6.79514 15.8104C4.03715 15.1428 2 12.7806 2 9.8C2 7.776 2.9336 5.9728 4.4 4.8C5.8608 3.7056 6.8 1.9656 6.8 0C9.684 0.4368 11.894 2.9264 11.894 5.932C11.894 6.5012 11.746 7.0652 11.6 7.6C12.1264 6.9024 12.6184 6.0876 12.8 5.2Z"
-          ></path>
-        </svg>
+        <HotIcon width="16" height="16"/>
+      </div>
+      <div v-else class="text-center w-full">
+        <p>暂无评论！🪹</p>
       </div>
     </div>
+
     <div class="comment_item flex" v-for="(item, i) in commentList" :key="i">
       <el-image
         :src="
@@ -235,10 +227,11 @@ getData();
     <div
       class="load-more-commen box-variable flex justify-center cursor-pointer py-4"
       @click="onLoadMoreComment"
-      v-if="!isEnd"
+      v-if="!isEnd && pagingData.totalPage"
     >
       <p>加载全部{{ pagingData.total }}条评论...</p>
     </div>
+
     <div style="height: 400px"></div>
   </div>
 </template>

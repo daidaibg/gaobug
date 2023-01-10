@@ -13,5 +13,5 @@ export interface CommentListType {
     current: number,
     size: number,
     total:number,
-    totalPage?:number,
+    totalPage:number,
   }
