@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成链接</title>
+    <style>
+        #inputtext {
+            padding: 0px 16px;
+            font-size: 16px;
+            line-height: 40px;
+            margin: 0;
+            vertical-align: top;
+            outline: 0;
+            box-shadow: none;
+            border-radius: 10px;
+            border: 2px solid #c4c7ce;
+            background: #fff;
+            color: #222;
+            overflow: hidden;
+            box-sizing: content-box;
+            flex: 1;
+        }
+
+        .buttons {
+            text-align: center;
+            cursor: pointer;
+            width: 108px;
+            height: 44px;
+            line-height: 45px;
+            padding: 0;
+            background: 0 0;
+            background-color: #4e6ef2;
+            border-radius: 10px;
+            font-size: 17px;
+            color: #fff;
+            box-shadow: none;
+            font-weight: 400;
+            border: none;
+            outline: 0;
+            position: relative;
+        }
+
+        .buttons2 {
+            background-color: #0b9e79;
+        }
+
+        .text {
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="inputtext">
+    <button class="buttons">生成链接</button>
+    <button class="buttons2 buttons">复制链接</button>
+    <p class="text"></p>
+</body>
+<script>
+    let textDom = document.querySelector(".text")
+    let inputDom = document.querySelector("#inputtext")
+    let btnDom = document.querySelector(".buttons")
+    let copyDom = document.querySelector(".buttons2")
+
+    btnDom.addEventListener("click", (e) => {
+        let str = window.location.origin+ "/blog-cloud-tool/baidu/?str=" + encodeURIComponent(inputDom.value)
+        textDom.innerText = str
+    })
+
+    const copyToClipboard = str => {
+        if (navigator && navigator.clipboard && navigator.clipboard.writeText)
+            return navigator.clipboard.writeText(str);
+        return Promise.reject('The Clipboard API is not available.');
+    };
+
+    copyDom.addEventListener("click", (e) => {
+        if(textDom.innerText==""){
+            alert("请先生成链接")
+            return 
+        }
+        copyToClipboard(textDom.innerText).catch(err => {
+            alert("不支持复制，请手动复制")
+        })
+        copyDom.innerText = "复制成功"
+        setTimeout(() => {
+            copyDom.innerText = "复制链接"
+        }, 2000);
+    })
+</script>
+
+</html>
