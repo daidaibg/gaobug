@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+
     <title>生成链接</title>
     <style>
         #inputtext {
@@ -66,7 +68,7 @@
     let copyDom = document.querySelector(".buttons2")
 
     btnDom.addEventListener("click", (e) => {
-        let str = window.location.origin+ "/blog-cloud-tool/baidu/?str=" + encodeURIComponent(inputDom.value)
+        let str = "https://www.gaobug.com/blog-cloud-tool/baidu/?str=" + encodeURIComponent(inputDom.value)
         textDom.innerText = str
     })
 

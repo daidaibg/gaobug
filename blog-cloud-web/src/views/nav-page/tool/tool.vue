@@ -60,6 +60,13 @@ const toolList = [
         img: "https://www.gaobug.com/blog-cloud-tool/img/love.png",
         url: "https://www.gaobug.com/blog-cloud-tool/love.html",
       },
+      {
+        title: "百度搜索",
+        id: 22,
+        type: "out",
+        img: "https://www.gaobug.com/blog-cloud-tool/img/love.png",
+        url: "https://www.gaobug.com/blog-cloud-tool/baidu/url/index.html",
+      },
     ],
   },
 ];
