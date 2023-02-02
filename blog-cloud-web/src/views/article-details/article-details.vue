@@ -69,7 +69,9 @@ const getDetail = () => {
 const anchorHandle = async () => {
   await nextTick();
   if (route.hash) {
-    windowScrollTo(route.hash, 74);
+    console.log(route.hash);
+    const str = `[id="${route.hash.slice(1).replace(/\s/g, "%20")}"]`
+    windowScrollTo(str, 74);
   }
 };
 
