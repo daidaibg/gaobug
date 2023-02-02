@@ -200,7 +200,7 @@ const goEditArticle = () => {
                   :key="i"
                   :class="'catalog_list_' + item.level"
                 >
-                <!-- {{ `#${item.text}_${i + 1}`}} -->
+                  <!-- {{ `#${item.text}_${i + 1}`}} -->
                 </yh-anchor-item>
               </yh-anchor>
             </div>
@@ -305,12 +305,14 @@ const goEditArticle = () => {
       }
 
       .catalog_list {
-        width: 100%;
-
+        width: calc(100% + 6px);
+        .yh-anchor {
+          width: 212px;
+        }
         .yh-anchor__item {
           box-sizing: border-box;
-          padding: 6px 6px;
           font-size: 14px;
+          padding: 0;
           border-radius: $border-radius;
           cursor: pointer;
 
@@ -318,7 +320,10 @@ const goEditArticle = () => {
             background-color: var(--yh-bg-color-container-hover);
           }
         }
-
+        :deep(.yh-anchor__item-link) {
+          padding: 6px 6px 6px 6px;
+          width: 100%;
+        }
         .catalog_list {
           &_2 {
             text-indent: 14px;

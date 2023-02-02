@@ -163,7 +163,7 @@ getData();
       <comment-input @comment="onComment"></comment-input>
     </div>
     <div class="header-title flex items-center" >
-      <div class="flex items-center" v-if="pagingData.totalPage > 0">
+      <div class="flex items-center" v-if=" commentList.length>0">
         热门评论
         <HotIcon width="16" height="16"/>
       </div>
