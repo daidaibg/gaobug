@@ -72,7 +72,7 @@ const toolList = [
 ];
 
 const aHrefFormat = (toolItem: any) => {
-  console.log(toolItem);
+  // console.log(toolItem);
   if (toolItem.type == "out") {
     return toolItem.url;
   }

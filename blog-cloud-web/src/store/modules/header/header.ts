@@ -3,14 +3,14 @@ import { defineStore } from 'pinia'
 // import { storeToRefs } from 'pinia';
 export const useHeaderStore = defineStore('header', () => {
     const headerSearch = reactive<{
-        keywords:string|number,
+        keywords:string,
         num:number
     }>({
         keywords:"",
         num:0
     })
 
-    const setKeywords=(val:string|number)=>{
+    const setKeywords=(val:string)=>{
         headerSearch.keywords=val
         headerSearch.num++
 

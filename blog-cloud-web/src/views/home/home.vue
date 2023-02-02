@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HomeUser from "./home-user.vue";
 import Classify from "./classify/classify.vue";
-import { reactive, ref, watch } from "vue";
+import { reactive, ref, watch, onActivated } from "vue";
 import { getBlog } from "@/api/modules/home";
 import { ElMessage, MessageParamsWithType } from "element-plus";
 import { typelist } from "./home-config";
@@ -10,7 +10,6 @@ import { useRouter, useRoute } from "vue-router";
 import { useBlogAction } from "@/hook/modules/use-blog-action";
 import Backtop from "@/components/backtop";
 import { useHeaderStore } from "@/store";
-import { addRouterParam } from "@/utils/current";
 import { articleDetailsConfig } from "@/config/article";
 import type { ClassifyListType, HomeBlogState, TypeList } from "./home-types";
 
@@ -58,9 +57,12 @@ const jumpDetail = (item: any) => {
 };
 
 //去详情评论
-const goDetailComment= (item:any)=>{
-  router.push({ path: "/article/details/" + item.id,hash:"#"+articleDetailsConfig.commentAnchor });
-}
+const goDetailComment = (item: any) => {
+  router.push({
+    path: "/article/details/" + item.id,
+    hash: "#" + articleDetailsConfig.commentAnchor,
+  });
+};
 
 /**
  * @description: 切换分类
@@ -69,9 +71,7 @@ const goDetailComment= (item:any)=>{
 const onClassify = (item: ClassifyListType) => {
   state.blogPage.current = 1;
   state.categoryId = item.id;
-  router.push({
-    query: addRouterParam(route.query, "categoryId", item.id),
-  });
+  homeRouterQuery()
   getBlogList();
 };
 // 获取博客列表
@@ -116,6 +116,21 @@ const getBlogList = () => {
   );
 };
 
+//首页路径参数处理
+const homeRouterQuery = () => {
+  let newQuery: {
+    categoryId?: string | number;
+    s?:string
+  } = {};
+  if (state.categoryId) {
+    newQuery.categoryId = state.categoryId;
+  }
+  if (state.keywords) {
+    newQuery.s = state.keywords;
+  }
+  router.replace({ query: newQuery});
+};
+
 // 无限滚动
 useInfiniteScroll(
   //   getScrollContainer(),
@@ -140,6 +155,7 @@ watch(
     deep: false,
   }
 );
+
 // watch(
 //   () => route.query,
 //   (val) => {
@@ -149,6 +165,7 @@ watch(
 //     deep: false,
 //   }
 // );
+
 const init = () => {
   const { query } = route as any;
   if (query.categoryId) {
@@ -162,6 +179,11 @@ const init = () => {
 
 // 页面初始化触发方法
 init();
+
+//处理keepalive缓存后按钮切回本页面 路径参数丢失问题
+onActivated(() => {
+  homeRouterQuery();
+});
 </script>
 
 <template>
@@ -213,7 +235,10 @@ init();
                   <i class="dd-icon-dianzan icon"></i>
                   <span>{{ item.likeCount }}</span>
                 </div>
-                <div class="info-box_action-item hovers" @click.stop="goDetailComment(item)">
+                <div
+                  class="info-box_action-item hovers"
+                  @click.stop="goDetailComment(item)"
+                >
                   <i class="dd-icon-pinglun icon"></i>
                   <span>{{ item.commentCount }}</span>
                 </div>
