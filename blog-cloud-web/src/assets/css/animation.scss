@@ -1,0 +1,12 @@
+// 移动动画
+.list-complete-item {
+  transition: all 1s;
+}
+.list-complete-enter-from,
+.list-complete-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
+}

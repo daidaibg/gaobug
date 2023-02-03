@@ -1,7 +1,7 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-01-05 15:03:42
+ * @LastEditTime: 2023-02-03 11:06:37
  */
 import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
@@ -163,7 +163,7 @@ export const FILEPOST = async (url: string, params: Params, config: FileConfig =
             },
 
         });
-        return data;
+        return data.data;
     } catch (error) {
         return Promise.reject(error)
     }

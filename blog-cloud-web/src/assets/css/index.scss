@@ -2,7 +2,10 @@
 @import "./element/index.scss";
 @import "./iconfont/index.css";
 @import "./font.scss";
+@import "./animation.scss";
+
 :root{
+
   --header-height:60px;
 }
 :root:not([theme-mode="dark"]) {

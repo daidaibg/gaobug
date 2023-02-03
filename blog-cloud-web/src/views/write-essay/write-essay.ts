@@ -16,12 +16,15 @@ export const onUploadImg = async (files: any, callback: Function) => {
           } else {
             resolve("图片保存失败，" + res.msg);
           }
+        }).catch(err=>{
+          throw err
         });
       });
     })
   );
   callback(res);
 };
+
 // 上传封面
 export const onUploadCover = async (option: any) => {
   const form = new FormData();

@@ -1,5 +1,34 @@
 <script setup lang="ts">
+import { ref, reactive } from "vue";
+import { BlogData } from "./type";
 import { Theme } from "@/components/header/theme/index";
+import { getUserBlogList } from "@/api/modules/manage";
+import { ElMessage } from "element-plus";
+import shuffle from "lodash/shuffle";
+
+const blogData = reactive<BlogData>({
+  list: [],
+  current: 1,
+  size: 10,
+  total: 0,
+});
+
+//获取自己博客列表
+const getBlog = () => {
+  blogData.list = [];
+  let param = {
+    current: blogData.current,
+    size: blogData.size,
+    publish: 1,
+  };
+  getUserBlogList(param).then((res: any) => {
+    // console.log(res);
+    if (res.code == 200) {
+      blogData.list = res.data.records;
+      blogData.total = res.data.total;
+    } else ElMessage.error(res.msg);
+  });
+};
 // https://preview.colorlib.com/theme/satner/#
 </script>
 
@@ -53,7 +82,7 @@ import { Theme } from "@/components/header/theme/index";
         <img src="@/assets/img/user-home-page/about-us.png" alt="介绍" />
       </div>
       <div class="introduce_right">
-        <h2 class="introduce-title">简单介绍下关于我自己</h2>
+        <h2 class="introduce-title title_2">简单介绍下关于我自己</h2>
         <pre class="introduce-text">
 像阳光一样的人，像阳光一样的事，像阳光一样的爱，像阳光一样的慈悲，世界上遍地都是。
 
@@ -62,12 +91,36 @@ import { Theme } from "@/components/header/theme/index";
         >
       </div>
     </div>
+    <!-- 别人的评价 -->
+    <div class="others-comments max-w-screen-lg m-auto">
+      <h2 class="others-comments-title title_2">别人评价</h2>
+      <p class="others-comments-text">
+        Is give may shall likeness made yielding spirit a itself togeth created
+        after sea is in beast beginning signs open god you're gathering ithe
+      </p>
+    </div>
+    <!-- 发表文章 -->
+    <div class="user-article max-w-screen-lg m-auto">
+      <h2 class="user-article-title title_2">个人文章</h2>
+      <ul class="user-article-tab flex">
+        <li class="user-article-tab_item">全部</li>
+        <li class="user-article-tab_item">最受欢迎的</li>
+        <li class="user-article-tab_item">最新的</li>
+      </ul>
+      <transition-group name="list-complete">
+        <template v-for="item in blogData.list" :key="item">
+          <div class="bg-img-box-li list-complete-item"></div>
+        </template>
+      </transition-group>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import "./public.scss";
-$box-m-b:88px;
+
+$box-m-b: 88px;
+$mr-b-768: 200px;
 .user-home-page {
   min-height: 100vh;
   line-height: 26px;
@@ -121,20 +174,21 @@ $box-m-b:88px;
   }
 }
 
-
+.title_2 {
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 32px;
+}
 //介绍
 .uers-home-introduce {
   margin-bottom: $box-m-b;
   .introduce_left {
   }
   .introduce_right {
-    padding:0 16px;
+    padding: 0 16px;
   }
   .introduce-title {
-    font-size: 25px;
-    font-weight: 900;
-    line-height: 1.2;
-    margin-bottom: 32px;
   }
   .introduce-text {
     font-size: 15px;
@@ -143,9 +197,40 @@ $box-m-b:88px;
     color: var(--yh-text-color-secondary);
   }
 }
+
+//别人评价
+.others-comments {
+  margin-bottom: $box-m-b;
+  padding: 0 12px;
+  .others-comments-title {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .others-comments-text {
+    text-indent: 12px;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: var(--yh-text-color-secondary);
+    font-size: 15px;
+  }
+}
+
+//文章
+.user-article {
+  margin-bottom: $box-m-b;
+  .user-article-title {
+  }
+  .user-article-tab {
+    margin-right: 8px;
+    .user-article-tab_item {
+      margin-right: 8px;
+    }
+  }
+}
+
 @media screen and (min-width: 768px) {
   .user-welcome-box {
-    margin-bottom: 200px;
+    margin-bottom: $mr-b-768;
     .user-welcome-content-bg_name {
       top: 22%;
     }
@@ -170,14 +255,22 @@ $box-m-b:88px;
   }
   //介绍
   .uers-home-introduce {
+    margin-bottom: $mr-b-768;
     .introduce_left {
     }
     .introduce_right {
       margin-left: 8%;
     }
     .introduce-title {
-        font-size: 36px;
+      font-size: 36px;
     }
+  }
+  .others-comments {
+    margin-bottom: $mr-b-768;
+    padding: 0 32px;
+  }
+  .user-article {
+    margin-bottom: $mr-b-768;
   }
 }
 @media screen and (min-width: 1280px) {

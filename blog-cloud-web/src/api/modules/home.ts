@@ -9,7 +9,7 @@ export const Home={
 
     "deleteBlog":"/blog/del/",//删除博客
     "addBlog":"/blog/add",//新增博客
-    "iBlogList":'/blog/page',//博客列表
+    "iBlogList":'/blog/page',//我的博客列表
     "publish":"/blog/publish/",//发布博客
     "blogDetail":'/blog/info/',//博客详情  需要登录
     "indexBlogDetail":'/index/info/',//博客详情  不需要登录
@@ -33,3 +33,4 @@ export interface GetBlogListType {
 export const getBlog =(param:GetBlogListType)=>{
     return request.get(Home.blogList,param)
 }
+
