@@ -46,6 +46,9 @@ export const tagsList = [
     name: 'javaScript',
   },
   {
+    name: 'node',
+  },
+  {
     name: 'java',
   },
   {
@@ -62,6 +65,21 @@ export const tagsList = [
   },
   {
     name: 'html',
+  },
+  {
+    name: 'echarts',
+  },
+  {
+    name: '金融',
+  },
+  {
+    name: 'goview',
+  },
+  {
+    name: 'git',
+  },
+  {
+    name: '无',
   },
 ]
 

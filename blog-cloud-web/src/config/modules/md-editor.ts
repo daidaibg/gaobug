@@ -20,6 +20,19 @@ export const mdEditorConfig = (MdEditor: any) => {
     // console.log("mdEditorConfigFlag", mdEditorConfigFlag);
     try {
         MdEditor.config({
+            markedExtensions: [MarkExtension],
+            markedRenderer: (renderer: any) => {
+                renderer.heading = (text: string, level: number, raw: string, s: any, index: number) => {
+                    // console.log(text,level,raw,s,index);
+                    const id =generateId(text, level, index)
+                    return `<h${level} id="${id}">${text}</h${level}>`;
+                };
+                renderer.link = (href: any, title: any, text: any) => {
+                    // console.log(href,text,title);
+                    return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
+                };
+                return renderer;
+            },
             editorExtensions: {
                 iconfont: `${cdnBase}/iconfont/toobar_svg.js`,
                 highlight: {
@@ -68,39 +81,29 @@ export const mdEditorConfig = (MdEditor: any) => {
                     // }
                 }
             },
-            markedExtensions: [MarkExtension],
-            markedRenderer: (renderer: any) => {
-                // let index = 0
-                // renderer.heading = (text: any, level: any, raw: any) => {
-                //     // console.log(text, level, raw, index);
-                //     const id = getId(text, level, raw, index);
-                //     index++
-                //     if (/<a.*>.*<\/a>/.test(text)) {
-                //         // (?<=\<a.*)>(?=.*<\/a>) 
-                //         return `<h${level} id="${id}">${text.replace(/(.*\<a.*)>(.*<\/a>)/, "$1" + ' target="_blank">' + "$2")}</h${level}>`;
-                //     } else if (text !== raw) {
-                //         return `<h${level} id="${id}">${text}</h${level}>`;
-                //     } else {
-                //         // <a href="#${id}">${raw}</a>
-                //         return `<h${level} id="${id}" class="title_md">${raw}</h${level}>`;
-                //     }
-                // };
-                renderer.heading = (text: string, level: number, raw: any, s: any, index: number) => {
-                    // console.log(text,level,raw,s,index);
-                    const id =generateId(text, level, index)
-                    return `<h${level} id="${id}">${text}</h${level}>`;
-                };
-                renderer.link = (href: any, title: any, text: any) => {
-                    // console.log(href,text,title);
-                    return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
-                };
-                return renderer;
-            }
         });
 
         mdEditorConfigFlag = true
     } catch (error) {
         mdEditorConfigFlag = false
+        throw error
     }
 
 }
+
+
+// let index = 0
+// renderer.heading = (text: any, level: any, raw: any) => {
+//     // console.log(text, level, raw, index);
+//     const id = getId(text, level, raw, index);
+//     index++
+//     if (/<a.*>.*<\/a>/.test(text)) {
+//         // (?<=\<a.*)>(?=.*<\/a>) 
+//         return `<h${level} id="${id}">${text.replace(/(.*\<a.*)>(.*<\/a>)/, "$1" + ' target="_blank">' + "$2")}</h${level}>`;
+//     } else if (text !== raw) {
+//         return `<h${level} id="${id}">${text}</h${level}>`;
+//     } else {
+//         // <a href="#${id}">${raw}</a>
+//         return `<h${level} id="${id}" class="title_md">${raw}</h${level}>`;
+//     }
+// };

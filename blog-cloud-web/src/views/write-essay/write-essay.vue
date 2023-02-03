@@ -194,7 +194,7 @@ const getDetail = () => {
             formData.tag = res.data.tag
             formData.categoryId = res.data.categoryId
             formData.coverUrl = res.data.coverUrl
-            console.log(state);
+            // console.log(state);
         } else {
             ElMessage.error(res.msg)
         }
@@ -263,7 +263,7 @@ init()
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item label="添加标签：" prop="tag">
-                    <el-select v-model="formData.tag" placeholder="请选择标签">
+                    <el-select v-model="formData.tag" placeholder="请选择标签" filterable>
                         <el-option v-for="item in tagsList" :key="item.name" :label="item.name" :value="item.name" />
                     </el-select>
                 </el-form-item>
