@@ -14,7 +14,7 @@ import Read from "@/components/md-edits/read/read.vue";
 import MarkExtension from '@/components/md-edits/mark-extension/index.vue';
 import { useRouter, useRoute } from "vue-router";
 import { StateType, FormDataType } from "./write-essay-type"
-import { mdEditorConfig } from "@/config"
+import { mdEditorConfig ,generateId} from "@/config"
 import { userThemeStore } from '@/store'
 
 const themeStore = userThemeStore()
@@ -200,6 +200,9 @@ const getDetail = () => {
         }
     })
 }
+
+
+
 // 初始化
 const init = () => {
     getCategory()
@@ -229,7 +232,7 @@ init()
         </header>
         <md-editor v-model="content" :toolbars="toolbars" class="flex-1" showCodeRowNumber
             :previewTheme="previewTheme" :theme="themeStore.getTheme" @Save="save" @uploadImg="onUploadImg" ref="editorRef"
-            :editor-id="editorId">
+            :editor-id="editorId" :markedHeadingId="generateId">
             <template #defToolbars>
                 <MarkExtension :editor-id="editorId" @on-change="onChangeMark" />
                 <MdEmoji :editor-id="editorId" @onChange="onEmojiChange" />

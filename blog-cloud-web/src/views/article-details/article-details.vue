@@ -6,7 +6,7 @@ import { ElMessage } from "element-plus";
 import MdEditor, { HeadList } from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
 import { useTitle } from "@vueuse/core";
-import { mdEditorConfig } from "@/config";
+import { mdEditorConfig ,generateId} from "@/config";
 import { userThemeStore, useUserStore } from "@/store";
 import Backtop from "@/components/backtop";
 import Actions from "./actions";
@@ -83,6 +83,8 @@ if (id) {
 } else {
   router.push(RouterEnum.Home);
 }
+
+
 
 //编辑文章
 const goEditArticle = () => {
@@ -196,7 +198,7 @@ const goEditArticle = () => {
             <div class="catalog_list overflow-y-auto mt-1">
               <yh-anchor class=" " :targetOffset="80">
                 <yh-anchor-item
-                  :href="`#${item.text}_${i + 1}`.replace(/ /g, '%20')"
+                  :href="`#${generateId(item.text,1,i+1)}`"
                   :title="item.text"
                   v-for="(item, i) in catalogList"
                   :key="i"

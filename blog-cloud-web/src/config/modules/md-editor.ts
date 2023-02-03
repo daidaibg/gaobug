@@ -6,9 +6,18 @@ import MarkExtension from '@/utils/marked-mark';
 let mdEditorConfigFlag = false
 export const cdnBase = '/cdns';
 // 代码高亮cdn链接
+
+export const generateId = (text: string, level: number, index: number):string =>{
+    const id =(text+"_"+index).replace(/ /g, '%20')
+    // const id =(text+"_"+index).replace(/ /g, '-')
+
+    return id
+};
+
+
 export const mdEditorConfig = (MdEditor: any) => {
     if (mdEditorConfigFlag) return
-    console.log("mdEditorConfigFlag", mdEditorConfigFlag);
+    // console.log("mdEditorConfigFlag", mdEditorConfigFlag);
     try {
         MdEditor.config({
             editorExtensions: {
@@ -76,9 +85,9 @@ export const mdEditorConfig = (MdEditor: any) => {
                 //         return `<h${level} id="${id}" class="title_md">${raw}</h${level}>`;
                 //     }
                 // };
-                renderer.heading = (text: any, level: any, raw: any, s: any, index: any) => {
+                renderer.heading = (text: string, level: number, raw: any, s: any, index: number) => {
                     // console.log(text,level,raw,s,index);
-                    const id =(text+"_"+index).replace(/ /g, '%20')
+                    const id =generateId(text, level, index)
                     return `<h${level} id="${id}">${text}</h${level}>`;
                 };
                 renderer.link = (href: any, title: any, text: any) => {
