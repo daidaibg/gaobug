@@ -1,56 +1,67 @@
 <script setup lang="ts">
 import User from "@/components/header/user";
-import MdEditor from "md-editor-v3";
-import "md-editor-v3/lib/style.css";
-import { ref, computed, reactive, toRefs } from "vue";
-import { toolbars, onUploadImg, tagsList, beforeAvatarUpload, onUploadCover } from "./write-essay";
-// import { ElInput, ElMessage, ElDialog, ElForm, ElFormItem, ElSelect, ElOption, ElRadioGroup, ElRadioButton, ElUpload } from "element-plus";
-import {ElMessage, ElDialog, } from "element-plus";
 
-import type { FormInstance, FormRules, UploadRequestOptions } from 'element-plus'
+import { ref, computed, reactive, toRefs } from "vue";
+import {
+    toolbars,
+    onUploadImg,
+    tagsList,
+    beforeAvatarUpload,
+    onUploadCover,
+} from "./write-essay";
+import { ElMessage, ElDialog } from "element-plus";
+import MdEditor from "md-editor-v3";
+
+import type {
+    FormInstance,
+    FormRules,
+    UploadRequestOptions,
+} from "element-plus";
 import { currentPOST, currentGET } from "@/api";
 import MdEmoji from "@/components/md-edits/md-emoji/md-emoji.vue";
 import Read from "@/components/md-edits/read/read.vue";
-import MarkExtension from '@/components/md-edits/mark-extension/index.vue';
+import MarkExtension from "@/components/md-edits/mark-extension/index.vue";
 import { useRouter, useRoute } from "vue-router";
-import { StateType, FormDataType } from "./write-essay-type"
-import { mdEditorConfig ,generateId} from "@/config"
-import { userThemeStore } from '@/store'
+import { StateType, FormDataType } from "./write-essay-type";
+import { mdEditorConfig, generateId } from "@/config";
+import { userThemeStore } from "@/store";
+import "md-editor-v3/lib/style.css";
 
-const themeStore = userThemeStore()
+
+const themeStore = userThemeStore();
 const router = useRouter();
 const route = useRoute();
 // const { ModalToolbar, DropdownToolbar, NormalToolbar } = MdEditor;
 const editorId = "editor-preview";
-const ruleFormRef = ref<FormInstance>()
+// const editorId = "md-editor-v3";
+
+
+const ruleFormRef = ref<FormInstance>();
 const state: StateType = reactive({
     title: "",
     content: ``,
     previewTheme: "github",
     dialogVisible: false,
     classificatio: [],
-    id: null,//文章id
+    id: null, //文章id
 });
 const formData: FormDataType = reactive({
-    categoryId: '',//分类
-    coverUrl: '',
-    tag: '',//标签
-    articlesPart: '',//文章出处
+    categoryId: "", //分类
+    coverUrl: "",
+    tag: "", //标签
+    articlesPart: "", //文章出处
     summary: "",
     openComment: 1, //是否开启评论0：否 1：是
-})
-const blogDetails: any = ref({})//详情 
+});
+const blogDetails: any = ref({}); //详情
 
-const { title, content, previewTheme, classificatio, dialogVisible } = toRefs(state);
+const { title, content, previewTheme, classificatio, dialogVisible } =
+    toRefs(state);
 
 const rules = reactive<FormRules>({
-    categoryId: [
-        { required: true, message: '请选择分类！', trigger: 'blur' },
-    ],
-    tag: [
-        { required: true, message: '请选择标签！', trigger: 'blur' },
-    ],
-})
+    categoryId: [{ required: true, message: "请选择分类！", trigger: "blur" }],
+    tag: [{ required: true, message: "请选择标签！", trigger: "blur" }],
+});
 
 // 发布
 const fabu = () => {
@@ -61,37 +72,36 @@ const fabu = () => {
         ElMessage.warning("文章内容太短！");
         return;
     }
-    dialogVisible.value = true
-}
+    dialogVisible.value = true;
+};
 
 // 发布文章
 const publish = (formEl: FormInstance | undefined) => {
-    if (!formEl) return
+    if (!formEl) return;
     formEl.validate((valid) => {
         if (valid) {
-            saveOrUpdate(1, '发布成功').then((res) => {
+            saveOrUpdate(1, "发布成功").then((res) => {
                 if (res) {
-                    router.push('/blogs/manage/article')
+                    router.push("/blogs/manage/article");
                 }
             });
         } else {
-            return false
+            return false;
         }
-    })
-
+    });
 };
 
 //保存草稿
 const save = () => {
     if (title.value == "") {
-        title.value = "【无标题】"
+        title.value = "【无标题】";
     }
-    saveOrUpdate(0, "保存草稿成功")
+    saveOrUpdate(0, "保存草稿成功");
 };
 
 //提交或则新增 处理参数并且提交调接口
 const saveOrUpdate = async (publish: Number, successMsg: string) => {
-    let type = 'addBlog';//新增
+    let type = "addBlog"; //新增
     let param: any = {
         title: title.value,
         content: content.value,
@@ -99,122 +109,117 @@ const saveOrUpdate = async (publish: Number, successMsg: string) => {
         publish: publish, //是否发布0：否，1：是
     };
     if (state.id) {
-        param.id = state.id
-        type = 'updataBlog';//更新
+        param.id = state.id;
+        type = "updataBlog"; //更新
     }
-    if(!param.categoryId){
-        delete param.categoryId
+    if (!param.categoryId) {
+        delete param.categoryId;
     }
     const res = await currentPOST(type, param);
     if (res.code === 200) {
         //保存草稿时需要存储id 后端暂无返回id
-        if(publish===0){
-
+        if (publish === 0) {
         }
         ElMessage.success(successMsg);
         return true;
     } else {
-        ElMessage.error({ message:res.msg});
+        ElMessage.error({ message: res.msg });
         return false;
     }
-}
+};
 
 //获取分类列表
 const getCategory = () => {
-    currentGET("category", { size: 20 }).then((res:any) => {
+    currentGET("category", { size: 20 }).then((res: any) => {
         // console.log(res);
         if (res.code == 200) {
-            classificatio.value = res.data.records
+            classificatio.value = res.data.records;
         } else {
-            ElMessage.error(res.msg)
+            ElMessage.error(res.msg);
         }
-    })
-}
+    });
+};
 
 // 选择表情
 const onEmojiChange = (emoji: any) => {
     content.value = emoji;
 };
 
-//封面上传 
+//封面上传
 const coverUrlRequest = (options: UploadRequestOptions): any => {
-    return onUploadCover(options)
-}
+    return onUploadCover(options);
+};
 
 // 弹窗关闭前回调
 const saveHandleClose = (done: Function) => {
-    dialogVisible.value = false
-    done()
-}
+    dialogVisible.value = false;
+    done();
+};
 
 // 返回上一页
 const goback = () => {
     // router.back();
-    router.push("/blogs/manage/article")
+    router.push("/blogs/manage/article");
 };
 
 // 上传失败
 const onError = (error: Error | any) => {
     if (error.msg) {
-        ElMessage.error(error.msg)
+        ElMessage.error(error.msg);
     } else {
-        ElMessage.error('未知异常，图片上传失败')
+        ElMessage.error("未知异常，图片上传失败");
     }
-}
+};
 
 // 上传成功
 const handleAvatarSuccess = (response: any, uploadFile: any) => {
     if (response.code == 200) {
-        formData.coverUrl = response.data.url
+        formData.coverUrl = response.data.url;
     } else {
-        onError(response)
+        onError(response);
     }
-}
+};
 
 const deleteCover = () => {
-    formData.coverUrl = ""
-}
+    formData.coverUrl = "";
+};
 
 // mark 变化
 const onChangeMark = (v: string) => {
-    content.value=v
+    content.value = v;
 };
 
 //获取详情
 const getDetail = () => {
-    currentGET('blogDetail',{}, state.id).then((res:any) => {
+    currentGET("blogDetail", {}, state.id).then((res: any) => {
         console.log(res);
         if (res.code == 200) {
-            blogDetails.value = res.data
-            content.value = res.data.content
-            title.value = res.data.title
-            state.id = res.data.id
-            formData.summary = res.data.summary
-            formData.articlesPart = res.data.articlesPart
-            formData.tag = res.data.tag
-            formData.categoryId = res.data.categoryId
-            formData.coverUrl = res.data.coverUrl
+            blogDetails.value = res.data;
+            content.value = res.data.content;
+            title.value = res.data.title;
+            state.id = res.data.id;
+            formData.summary = res.data.summary;
+            formData.articlesPart = res.data.articlesPart;
+            formData.tag = res.data.tag;
+            formData.categoryId = res.data.categoryId;
+            formData.coverUrl = res.data.coverUrl;
             // console.log(state);
         } else {
-            ElMessage.error(res.msg)
+            ElMessage.error(res.msg);
         }
-    })
-}
-
-
+    });
+};
 
 // 初始化
 const init = () => {
-    getCategory()
+    getCategory();
     mdEditorConfig(MdEditor)
     if (route.query.articleId) {
-        state.id = route.query.articleId
-        getDetail()
+        state.id = route.query.articleId;
+        getDetail();
     }
-}
-init()
-
-
+};
+init();
 </script>
 
 <template>
@@ -230,26 +235,15 @@ init()
             </yh-button>
             <user></user>
         </header>
-        <md-editor v-model="content" :toolbars="toolbars" class="flex-1" showCodeRowNumber
-            :previewTheme="previewTheme" :theme="themeStore.getTheme" @Save="save" @uploadImg="onUploadImg" ref="editorRef"
-            :editor-id="editorId" :markedHeadingId="generateId">
+        <md-editor v-model="content" :toolbars="toolbars" class="flex-1" showCodeRowNumber :previewTheme="previewTheme"
+            :theme="themeStore.getTheme" @onSave="save" @uploadImg="onUploadImg" ref="editorRef" :editor-id="editorId"
+            :markedHeadingId="generateId">
             <template #defToolbars>
                 <MarkExtension :editor-id="editorId" @on-change="onChangeMark" />
                 <MdEmoji :editor-id="editorId" @onChange="onEmojiChange" />
                 <Read :md-text="content" :previewTheme="previewTheme" :theme="themeStore.getTheme" />
-                <!-- <normal-toolbar>
-                    <template #trigger>
-                        test
-                    </template>
-                </normal-toolbar>
-                <normal-toolbar>
-                    <template #trigger>
-                        test2
-                    </template>
-                </normal-toolbar> -->
             </template>
         </md-editor>
-
     </div>
     <div class="dialog_wrap">
         <el-dialog title="发布文章" :model-value="state.dialogVisible" width="600px" :before-close="saveHandleClose"
@@ -270,7 +264,7 @@ init()
                 <el-form-item label="封面：" prop="coverUrl">
                     <el-upload class="avatar-uploader" action="" :show-file-list="false"
                         :on-success="handleAvatarSuccess"
-                        :before-upload="(rawFile:any) => beforeAvatarUpload(rawFile, ElMessage)" :on-error="onError"
+                        :before-upload="(rawFile: any) => beforeAvatarUpload(rawFile, ElMessage)" :on-error="onError"
                         :http-request="coverUrlRequest" accept="image/png,image/jpg,image/jpeg,image/gif">
                         <div v-if="formData.coverUrl || formData.coverUrl !== ''" class="cover_img">
                             <img :src="formData.coverUrl" class="avatar" />

@@ -2,7 +2,7 @@
     <modal-toolbar :visible="state.visible" :is-fullscreen="state.modalFullscreen" show-adjust title="预览"
         modal-title="编辑预览" width="870px" height="600px" @onClick="state.visible = true" @onClose="state.visible = false"
         @onAdjust="state.modalFullscreen = !state.modalFullscreen">
-        <div style="height: 100%; padding: 20px; overflow: auto">
+        <div style="height: 100%; padding: 20px; overflow: auto "  v-if="state.visible">
             <md-editor :theme="theme" :preview-theme="previewTheme" editor-id="edit2preview"   preview-only
             :modelValue="mdText" />
         </div>

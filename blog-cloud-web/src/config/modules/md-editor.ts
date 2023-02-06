@@ -10,7 +10,6 @@ export const cdnBase = '/cdns';
 export const generateId = (text: string, level: number, index: number):string =>{
     const id =(text+"_"+index).replace(/ /g, '%20')
     // const id =(text+"_"+index).replace(/ /g, '-')
-
     return id
 };
 
