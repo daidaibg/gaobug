@@ -1,7 +1,7 @@
 /*
  * @Author: wei
  * @description:
- * @LastEditTime: 2023-02-07 10:27:54
+ * @LastEditTime: 2023-02-07 11:45:41
  */
 
 import { currentPOST } from "@/api";
@@ -27,7 +27,7 @@ export const useBlogAction = () => {
      * @param {BlogLikeActionType} option
      * @return {*}
      */
-    const blogLike = (param: BlogLikeParamType, option: BlogLikeActionType) => {
+    const blogLike = (param: BlogLikeParamType, option: BlogLikeActionType): any => {
         let loginFlag = isShowLoginDislog();
         if (!loginFlag || flag) return;
         flag = true;

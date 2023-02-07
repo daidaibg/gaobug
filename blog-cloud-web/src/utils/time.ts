@@ -1,3 +1,8 @@
+/**
+ * @description: 多久前
+ * @param {string} time 2023-02-07 14:52:02
+ * @return {*}
+ */
 export const getTimeInterval=(time: string):string =>{
     const currentTime = new Date();
     const inputTime = new Date(time);
