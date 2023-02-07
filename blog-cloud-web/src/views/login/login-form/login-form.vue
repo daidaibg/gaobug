@@ -108,7 +108,7 @@ const submit = (formEl: FormInstance | undefined) => {
     formEl.validate((valid) => {
         if (valid) {
             formLoading.value = true
-            currentPOST('login', { account: loginForm.account, password: loginForm.password, "loginType": "1" }).then(async res => {
+            currentPOST('login', { account: loginForm.account, password: loginForm.password, "loginType": "1" }).then(async (res:any) => {
                 if (res.code === 200) {
                     setLocalStorage(StorageEnum.GB_TOKEN_STORE, res.data.authToken)
                     userStore.getUserInfo()
