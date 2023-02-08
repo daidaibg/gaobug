@@ -21,4 +21,7 @@ export enum RouterEnum {
     UserHomePage="/user/",
     //文章编辑
     WriteEdit="/write/essay/",
+
+    //只因太美
+    Chicken="/chicken"
 }

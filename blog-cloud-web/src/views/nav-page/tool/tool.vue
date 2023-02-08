@@ -51,7 +51,6 @@ const toolList = [
     title: "娱乐工具",
     id: 2,
     emoji: "🎮",
-
     list: [
       {
         title: "弹跳爱心",
@@ -59,6 +58,13 @@ const toolList = [
         type: "out",
         img: "https://www.gaobug.com/blog-cloud-tool/img/love.png",
         url: "https://www.gaobug.com/blog-cloud-tool/love.html",
+      },
+      {
+        title: "只因太美",
+        id: 23,
+        type: "inner",
+        img: "https://www.gaobug.com/blog-cloud-tool/img/tools/chicken.png",
+        url: RouterEnum.Chicken,
       },
       {
         title: "百度搜索",

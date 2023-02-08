@@ -48,6 +48,7 @@ const routes: Array<RouteRecordRaw> = [
           noSplice: true
         }
       },
+      
       {
         path: '/login',
         name: '/login',
@@ -106,7 +107,16 @@ const routes: Array<RouteRecordRaw> = [
           noSplice: true
         }
       }
-      
+      ,
+      {
+        path: RouterEnum.Chicken,
+        name: RouterEnum.Chicken,
+        component: () => import(/* webpackChunkName: "tools" */ '../views/tools/chicken/chicken.vue'),
+        meta: {
+          title: "只因太美",
+          noSplice: true
+        }
+      }
     ]
   },
   {
@@ -117,8 +127,6 @@ const routes: Array<RouteRecordRaw> = [
       title: "写文章"
     }
   },
-
-
   {
     path: '/blogs/manage',
     name: '/blogs/manage',
