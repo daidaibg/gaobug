@@ -1,5 +1,6 @@
 import screenfull from 'screenfull';
 import MarkExtension from '@/utils/marked-mark';
+
 // const getId = (text: string, level: string | number, raw: any, index: number) => {
 //     return `gaobug-heade-${index}`;
 // };
@@ -35,7 +36,17 @@ export const mdEditorConfig = (MdEditor: any) => {
             editorExtensions: {
                 iconfont: `${cdnBase}/iconfont/toobar_svg.js`,
                 highlight: {
-                    js: `${cdnBase}/highlight.js/11.6.0/highlight.min.js`
+                    js: `${cdnBase}/highlight.js/11.7.0/highlight.min.js`,
+                    css:{
+                        atom: {
+                            light: `${cdnBase}/highlight.js/11.7.0/atom-one-light.min.css`,
+                            dark: `${cdnBase}/highlight.js/11.7.0/atom-one-dark.min.css`
+                        },
+                        github: {
+                            light: `${cdnBase}/highlight.js/11.7.0/github.min.css`,
+                            dark: `${cdnBase}/highlight.js/11.7.0/github-dark.min.css`
+                        },
+                    }
                 },
                 katex: {
                     js: `${cdnBase}/KaTeX/0.16.4/katex.min.js`,
@@ -50,14 +61,7 @@ export const mdEditorConfig = (MdEditor: any) => {
                     //     light: `${cdnBase}/highlight.js/11.5.1/styles/a11y-light.min.css`,
                     //     dark: `${cdnBase}/highlight.js/11.5.1/styles/a11y-dark.min.css`
                     // },
-                    atom: {
-                        light: `${cdnBase}/highlight.js/11.6.0/atom-one-light.min.css`,
-                        dark: `${cdnBase}/highlight.js/11.6.0/atom-one-dark.min.css`
-                    },
-                    github: {
-                        light: `${cdnBase}/highlight.js/11.6.0/github.min.css`,
-                        dark: `${cdnBase}/highlight.js/11.6.0/github-dark.min.css`
-                    },
+                
                     // gradient: {
                     //     light: `${cdnBase}/highlight.js/11.5.1/styles/gradient-light.min.css`,
                     //     dark: `${cdnBase}/highlight.js/11.5.1/styles/gradient-dark.min.css`
