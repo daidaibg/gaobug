@@ -1,4 +1,5 @@
 <template>
+    <!-- https://code.juejin.cn/pen/7194618804104593466 -->
   <div class="chicken">
     <div class="ball">
       <div class="count" v-if="pass === 2">
