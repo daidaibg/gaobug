@@ -1,7 +1,7 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-03 11:06:37
+ * @LastEditTime: 2023-02-13 16:35:56
  */
 import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
@@ -36,20 +36,25 @@ const getSign = <T = Params>(params: T) => {
     let timestamp = Date.now()
     params = isEncryptionParam<T>(params)
     let sign = signMd5Utils.getSign(params, timestamp);
-    let headers = {
-        'enc': UtilVar.ENC,//是否加密
+    let headers:{
+        "enc":boolean,
+        [RequestEnum.GB_SIGN_KEY]: string,
+        [RequestEnum.GB_TIMESTAMP_KEY]: string|number,
+    } = {
+        'enc': UtilVar.ENC,
         [RequestEnum.GB_SIGN_KEY]: sign,
-        [RequestEnum.GB_TIMESTAMP_KEY]: timestamp
+        [RequestEnum.GB_TIMESTAMP_KEY]: timestamp,
     }
     return { headers, encParams: params as T }
 }
 
 // 添加请求拦截器
-service.interceptors.request.use(function (config: AxiosRequestConfig) {
+service.interceptors.request.use(function (config: AxiosRequestConfig):any {
     let token = getToken();
-    (config as Recordable).headers.common[RequestEnum.GB_APP_ID_KEY] = "blog-platform";//根据自己实际情况
+    console.log(config);
+    (config as Recordable).headers[RequestEnum.GB_APP_ID_KEY] = "blog-platform";//根据自己实际情况
     if (token) {
-        (config as Recordable).headers.common[RequestEnum.GB_TOKEN_KEY] = token;
+        (config as Recordable).headers[RequestEnum.GB_TOKEN_KEY]  = `Bearer ${token}`;
     }
     return config;
 }, function (error: AxiosError) {
@@ -74,13 +79,16 @@ service.interceptors.response.use((response: AxiosResponse) => {
     }
     return Promise.resolve(response)
 }, (error: AxiosError) => {
+    console.log("response",error);
     let err = {
         success: false,
-        msg: "未知异常，请联系管理员！"
+        msg: "未知异常，请联系管理员！",
+        contnt:error
     }
     if (JSON.stringify(error).indexOf('Network Error') != -1) {
         err.msg = "网络错误或服务错误！"
     }
+
     return Promise.reject(err)
 })
 export type Params = { msg?: string, [key: string]: string | number | undefined, };

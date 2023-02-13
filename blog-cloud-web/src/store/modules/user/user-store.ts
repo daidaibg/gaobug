@@ -57,6 +57,8 @@ export const useUserStore = defineStore( {
                 }else{
                     ElMessage.error(res.msg)
                 }
+            }).catch(err=>{
+                ElMessage.error(err.msg)
             })
         }
     },
