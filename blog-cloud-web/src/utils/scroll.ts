@@ -1,4 +1,4 @@
-import {scrollTo,getScrollContainer,getScroll} from "yhht-plus/utils"
+import {scrollTo,getScrollContainer,getScroll} from "yhht-plus/lib/utils/index"
 
 export type TARGET_CONTAINER = HTMLElement | Window | undefined;
 

@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw, createWebHistory, RouterOptions } from 'vue-router'
-import { getScrollContainer } from "yhht-plus/packages/utils/dom"
+import { getScrollContainer } from "yhht-plus/lib/utils/index"
 import { RouterEnum } from "@/enums";
 
 const routes: Array<RouteRecordRaw> = [

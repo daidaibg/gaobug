@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-12-30 15:22:27
+ * @LastEditTime: 2023-02-13 11:26:50
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -88,7 +88,7 @@ import { reactive, ref, Ref, computed, nextTick,useSlots } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { HeaderListType } from "./type";
 import Props from "./props";
-import { on, off } from "yhht-plus/utils";
+import { on, off } from "yhht-plus/lib/utils/index";
 import { userThemeStore } from "@/store";
 const themeStore = userThemeStore();
 const router = useRouter();

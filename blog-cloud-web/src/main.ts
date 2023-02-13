@@ -6,7 +6,7 @@ import setDirectives from "./directives";
 import YhPlus from 'yhht-plus'
 import i18n from './i18n';
 // import 'element-plus/dist/index.css'
-import "yhht-plus/lib/theme/index.css"
+import "yhht-plus/lib/style.css"
 import './assets/tailwind.css'
 import "./assets/css/index.scss";
 const app=createApp(App)
