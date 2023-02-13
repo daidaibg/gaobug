@@ -51,3 +51,11 @@ npm run build:hash
 ###  目录结构
 src/view   文件目录
 
+### 升级依赖
+
+```node
+npm install -g npm-check-updates
+ncu -u
+npm install
+```
+
