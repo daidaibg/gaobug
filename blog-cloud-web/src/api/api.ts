@@ -1,7 +1,7 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-13 16:35:56
+ * @LastEditTime: 2023-02-17 17:49:20
  */
 import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
@@ -51,7 +51,6 @@ const getSign = <T = Params>(params: T) => {
 // 添加请求拦截器
 service.interceptors.request.use(function (config: AxiosRequestConfig):any {
     let token = getToken();
-    console.log(config);
     (config as Recordable).headers[RequestEnum.GB_APP_ID_KEY] = "blog-platform";//根据自己实际情况
     if (token) {
         (config as Recordable).headers[RequestEnum.GB_TOKEN_KEY]  = `Bearer ${token}`;
