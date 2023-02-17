@@ -1,7 +1,7 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-17 17:49:20
+ * @LastEditTime: 2023-02-17 17:59:15
  */
 import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
@@ -53,7 +53,7 @@ service.interceptors.request.use(function (config: AxiosRequestConfig):any {
     let token = getToken();
     (config as Recordable).headers[RequestEnum.GB_APP_ID_KEY] = "blog-platform";//根据自己实际情况
     if (token) {
-        (config as Recordable).headers[RequestEnum.GB_TOKEN_KEY]  = `Bearer ${token}`;
+        (config as Recordable).headers[RequestEnum.GB_TOKEN_KEY]  = `${token}`;
     }
     return config;
 }, function (error: AxiosError) {
