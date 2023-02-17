@@ -241,7 +241,8 @@ init();
             <template #defToolbars>
                 <MarkExtension :editor-id="editorId" @on-change="onChangeMark" />
                 <MdEmoji :editor-id="editorId" @onChange="onEmojiChange" />
-                <Read :md-text="content" :previewTheme="previewTheme" :theme="themeStore.getTheme" />
+                <Read  :previewTheme="previewTheme" :theme="themeStore.getTheme" />
+                <!-- :md-text="content" -->
             </template>
         </md-editor>
     </div>

@@ -1,7 +1,7 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-17 17:59:15
+ * @LastEditTime: 2023-02-17 18:45:04
  */
 import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
@@ -90,7 +90,8 @@ service.interceptors.response.use((response: AxiosResponse) => {
 
     return Promise.reject(err)
 })
-export type Params = { msg?: string, [key: string]: string | number | undefined, };
+
+export type Params = { msg?: string, [key: string]: string | number | undefined |any };
 export type FileConfig = {
     setCancel?: Function;
     onProgress?: Function;
