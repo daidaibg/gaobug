@@ -7,34 +7,25 @@ import TsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker"
 import EditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
 import * as monaco from "monaco-editor";
 import { nextTick, ref, onBeforeUnmount, onMounted, watch } from "vue";
-import { editorProps } from "./monaco-editor-type";
+import { editorProps,defaultOption } from "./monaco-editor-type";
 import { useRoute } from "vue-router";
 import { colorToHex } from "@/utils/color";
+
 const defaultOption = {
-  automaticLayout: true,
-  // foldingStrategy: 'indentation',
-  foldingStrategy: "indentation", // 折叠方式  auto | indentation
-  // renderLineHighlight: 'all',
-  renderLineHighlight: "all" || "line" || "none" || "gutter", // 行亮
-  selectOnLineNumbers: true, // 显示行号
-  minimap: {
-    // 关闭小地图
-    enabled: false,
-  },
-  placeholder: "请输入内容",
-  // readOnly: false, // 只读
-  fontSize: 16, // 字体大小
-  scrollBeyondLastLine: false, // 取消代码后面一大段空白
-  overviewRulerBorder: false, // 不要滚动条的边框
+
 };
+
 const emits = defineEmits<{
   (event: "update:modelValue", e: any): void;
   (event: "change", e: any): void;
   (event: "editor-mounted", e: any): void;
   (event: "save", e: any): void;
 }>();
+
 const props = defineProps(editorProps);
+
 let editor: monaco.editor.IStandaloneCodeEditor;
+
 (self as any).MonacoEnvironment = {
   getWorker(_: string, label: string) {
     if (label === "json") {
@@ -56,11 +47,11 @@ let editor: monaco.editor.IStandaloneCodeEditor;
 const editorInit = () => {
   nextTick(() => {
     monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-      noSemanticValidation: true,
+      noSemanticValidation: true, //禁用语义验证
       noSyntaxValidation: false,
     });
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
-      target: monaco.languages.typescript.ScriptTarget.ES2016,
+      target: monaco.languages.typescript.ScriptTarget.ES2020,  //启用语法验证
       allowNonTsExtensions: true,
     });
 
@@ -84,6 +75,7 @@ const editorInit = () => {
     emits("editor-mounted", editor);
   });
 };
+
 //新增快捷键 
 const addCommand = () => {
   //保存快捷建ctrl+ s
@@ -96,6 +88,7 @@ const addCommand = () => {
     "saveCommand"
   );
 };
+
 //暂时不适用
 function addTheme() {
   return;
@@ -152,6 +145,7 @@ onBeforeUnmount(() => {
 onMounted(() => {
   editorInit();
 });
+
 watch(
   () => props.modelValue,
   (newValue) => {
@@ -163,6 +157,7 @@ watch(
     }
   }
 );
+
 watch(
   () => props.options,
   (newValue) => {
@@ -170,14 +165,18 @@ watch(
   },
   { deep: true }
 );
+
+//是否只读
 watch(
   () => props.readOnly,
   () => {
-    console.log("props.readOnly", props.readOnly);
+    // console.log("props.readOnly", props.readOnly);
     editor.updateOptions({ readOnly: props.readOnly });
   },
   { deep: true }
 );
+
+//皮肤
 watch(
   () => props.theme,
   (newval) => {
@@ -186,6 +185,8 @@ watch(
     // editor.updateOptions({ theme: props.theme });
   }
 );
+
+//语言
 watch(
   () => props.language,
   (newValue) => {
@@ -197,6 +198,7 @@ watch(
 const changeLanguage = (language: string) => {
   monaco.editor.setModelLanguage(editor.getModel()!, language);
 };
+
 //设置一个确认按钮，点击时调用接口
 /***
 editor.setValue(newValue)

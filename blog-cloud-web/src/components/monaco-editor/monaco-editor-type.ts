@@ -19,6 +19,25 @@ export interface Options {
   overviewRulerBorder: boolean // 不要滚动条的边框
 }
 
+//基础配置
+export const defaultOption={
+  automaticLayout: true,
+  // foldingStrategy: 'indentation',
+  foldingStrategy: "indentation", // 折叠方式  auto | indentation
+  // renderLineHighlight: 'all',
+  renderLineHighlight: "all" || "line" || "none" || "gutter", // 行亮
+  selectOnLineNumbers: true, // 显示行号
+  minimap: {
+    // 关闭小地图
+    enabled: false,
+  },
+  placeholder: "请输入内容",
+  // readOnly: false, // 只读
+  fontSize: 16, // 字体大小
+  scrollBeyondLastLine: true, // 取消代码后面一大段空白
+  overviewRulerBorder: false, // 不要滚动条的边框
+}
+
 export const editorProps = {
   modelValue: {
     type: String as PropType<string>,
@@ -54,23 +73,7 @@ export const editorProps = {
   options: {
     type: Object as PropType<Options>,
     default() {
-      return {
-        automaticLayout: true,
-        // foldingStrategy: 'indentation',
-        foldingStrategy: 'indentation', // 折叠方式  auto | indentation
-        // renderLineHighlight: 'all',
-        renderLineHighlight: 'all' || 'line' || 'none' || 'gutter', // 行亮
-        selectOnLineNumbers: true, // 显示行号
-        minimap: {
-          // 关闭小地图
-          enabled: false,
-        },
-        placeholder: '请输入内容',
-        // readOnly: false, // 只读
-        fontSize: 16, // 字体大小
-        scrollBeyondLastLine: false, // 取消代码后面一大段空白
-        overviewRulerBorder: false, // 不要滚动条的边框
-      }
+      return defaultOption
     },
   },
 }
