@@ -47,14 +47,18 @@
 
         .avatar-uploader .el-upload {
             border-radius: 6px;
+
             cursor: pointer;
             position: relative;
             overflow: hidden;
+      
         }
-
+        .avatar-uploader{
+        }
+        $img-height:107px;
         .cover_img {
             width: 160px;
-            height: 86px;
+            height:$img-height;
             border: 1px solid var(--el-border-color);
             border-radius: 6px;
 
@@ -82,10 +86,10 @@
             font-size: 28px;
             color: #8c939d;
             width: 160px;
-            height: 86px;
+            height: $img-height;
             text-align: center;
-            line-height: 86px;
-            font-size: 20px;
+            line-height: $img-height;
+            font-size: 22px;
             border-radius: 6px;
             border: 1px dashed var(--el-border-color);
             transition: var(--el-transition-duration-fast);

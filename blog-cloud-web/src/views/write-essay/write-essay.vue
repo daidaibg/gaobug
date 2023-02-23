@@ -263,7 +263,7 @@ init();
                     </el-select>
                 </el-form-item>
                 <el-form-item label="封面：" prop="coverUrl">
-                    <el-upload class="avatar-uploader" action="" :show-file-list="false"
+                    <el-upload class="avatar-uploader" action="" :show-file-list="false" 
                         :on-success="handleAvatarSuccess"
                         :before-upload="(rawFile: any) => beforeAvatarUpload(rawFile, ElMessage)" :on-error="onError"
                         :http-request="coverUrlRequest" accept="image/png,image/jpg,image/jpeg,image/gif">
