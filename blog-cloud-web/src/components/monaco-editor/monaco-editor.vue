@@ -7,13 +7,12 @@ import TsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker"
 import EditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
 import * as monaco from "monaco-editor";
 import { nextTick, ref, onBeforeUnmount, onMounted, watch } from "vue";
-import { editorProps,defaultOption } from "./monaco-editor-type";
+import { editorProps } from "./monaco-editor-type";
+import { defaultOption } from "./config";
+
 import { useRoute } from "vue-router";
 import { colorToHex } from "@/utils/color";
 
-const defaultOption = {
-
-};
 
 const emits = defineEmits<{
   (event: "update:modelValue", e: any): void;
@@ -51,7 +50,7 @@ const editorInit = () => {
       noSyntaxValidation: false,
     });
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
-      target: monaco.languages.typescript.ScriptTarget.ES2020,  //启用语法验证
+      target: monaco.languages.typescript.ScriptTarget.ES2020, //启用语法验证
       allowNonTsExtensions: true,
     });
 
@@ -76,12 +75,12 @@ const editorInit = () => {
   });
 };
 
-//新增快捷键 
+//新增快捷键
 const addCommand = () => {
   //保存快捷建ctrl+ s
   const saveCommand = editor.createContextKey("saveCommand", true);
   editor.addCommand(
-    monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS,0),
+    monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, 0),
     function () {
       emits("save", saveCommand);
     },
