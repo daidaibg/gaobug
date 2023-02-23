@@ -1,4 +1,4 @@
-import md5 from 'js-md5'
+import {MD5} from 'crypto-js'
 
 export default class signMd5Utils {
     /**
@@ -21,16 +21,16 @@ export default class signMd5Utils {
      * @param requestParams 请求参数(POST的JSON参数)
      * @returns {string} 获取签名
      */
-    static getSign(params: any, timestamp: number|undefined) {
+    static getSign(params: any, timestamp: number | undefined):any{
         const requestBody = this.sortAsc(params);
         const requestBodyStr = JSON.stringify(requestBody)
-        return md5(requestBodyStr + timestamp);
+        return MD5(requestBodyStr + timestamp);
     }
     static getSignOld(url: any, requestParams: any) {
         let urlParams = this.parseQueryString(url);
         let jsonObj = this.mergeObject(urlParams, requestParams);
         let requestBody = this.sortAsc(jsonObj);
-        return md5(JSON.stringify(requestBody)).toUpperCase();
+        return (MD5(JSON.stringify(requestBody)) as any).toUpperCase();
     }
     /**
      * @param url 请求的url
