@@ -71,7 +71,7 @@ const goDetailComment = (item: any) => {
 const onClassify = (item: ClassifyListType) => {
   state.blogPage.current = 1;
   state.categoryId = item.id;
-  homeRouterQuery()
+  homeRouterQuery();
   getBlogList();
 };
 // 获取博客列表
@@ -120,7 +120,7 @@ const getBlogList = () => {
 const homeRouterQuery = () => {
   let newQuery: {
     categoryId?: string | number;
-    s?:string
+    s?: string;
   } = {};
   if (state.categoryId) {
     newQuery.categoryId = state.categoryId;
@@ -128,7 +128,7 @@ const homeRouterQuery = () => {
   if (state.keywords) {
     newQuery.s = state.keywords;
   }
-  router.replace({ query: newQuery});
+  router.replace({ query: newQuery });
 };
 
 // 无限滚动
@@ -256,7 +256,14 @@ onActivated(() => {
       </ul>
     </div>
     <div class="blog-cloud_info flex-shrink-0 ml-4 small-screen-hide">
-      <home-user></home-user>
+      <home-user>
+        <div class="beian">
+          <img src="@/assets/img/beianicon.png" alt="备案徽章" />
+          <a href="https://beian.miit.gov.cn/" target="_blank"
+            >闽ICP备2022007995号-1</a
+          >
+        </div>
+      </home-user>
     </div>
   </div>
   <backtop> </backtop>
@@ -443,5 +450,22 @@ $font-gray-1: var(--dd-font-gray-1);
 
 .index-body {
   padding-top: 54px;
+}
+.beian{
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  img{
+    width: 16px;
+    margin-right: 6px;
+  }
+  a{
+    color: var(--yh-text-color-secondary);
+    &:hover{
+      color: var(--yh-brand-color-hover);
+    }
+  }
 }
 </style>

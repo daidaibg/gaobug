@@ -101,7 +101,7 @@ const openModelLogin = () => {
             </div>
         </template>
 
-
+        <slot></slot>
     </div>
     <!-- </el-affix> -->
 </template>
