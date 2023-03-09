@@ -104,7 +104,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "tools" */ '../views/tools/festival-count-down/festival-count-down.vue'),
         meta: {
           title: "节日倒计时",
-          noSplice: true
+          noSplice: true,
+          isShowHeader:true
         }
       }
       ,
@@ -115,6 +116,17 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "只因太美",
           noSplice: true
+        }
+      }
+      ,
+      {
+        path: RouterEnum.Chat,
+        name: RouterEnum.Chat,
+        component: () => import(/* webpackChunkName: "tools" */ '../views/tools/chat/chat.vue'),
+        meta: {
+          title: "聊天Gpt",
+          noSplice: true,
+          isShowHeader:true
         }
       }
     ]

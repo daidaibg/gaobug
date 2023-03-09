@@ -73,7 +73,9 @@
   --dd-font-gray-1: var(--yh-font-white-2);
 
   --dd-scrollbar-color: rgba(255, 255, 255, 0.1);
-  --dd-scroll-track-color: #333;
+  --dd-scroll-track-color: #333; //轨道
+  --dd-scroll-thumb-color: rgba(175, 175, 175, 0.4); //滑块
+
 
   --dd-color-secondary-brand: #819ece;
 
@@ -112,6 +114,7 @@
 /*滚动条的轨道*/
 ::-webkit-scrollbar-track {
   background-color: var(--dd-scroll-track-color);
+  // background-color: transparent;
 }
 
 /*滚动条的滑块按钮*/
@@ -121,6 +124,11 @@
   transition: all 0.2s ease-in-out;
 }
 
+.el-textarea{
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}
 html {
   // width: 100%;
   // height: 100%;
@@ -129,29 +137,31 @@ html {
   background-color: var(--yh-gray-color-1);
 }
 
-html[theme-mode="dark"] {
-  background-color: var(--yh-gray-color-14);
+
+body {
   
 }
 
-body {
-  // width: 100%;
-  // height: 100%;
-  // // overflow-y: auto;
-  // overflow-y: overlay;
-  // position: relative;
-  // z-index: 0;
-}
-
 .dark {
-  ::-webkit-scrollbar-track {
-    background-color: var(--yh-bg-color-secondarycontainer);
-  }
-
+  background-color: var(--yh-gray-color-14);
   /*滚动条的滑块按钮*/
   ::-webkit-scrollbar-thumb {
-    background-color: var(--dd-scroll-track-color);
+    background-color: var(--dd-scroll-thumb-color);
   }
+
+  ::-webkit-scrollbar-track {
+    // background-color: var(--yh-bg-color-secondarycontainer);
+    background-color: transparent;
+
+  }
+
+  // .el-textarea{
+  //   ::-webkit-scrollbar-thumb {
+  //   }
+  //   ::-webkit-scrollbar-track {
+  //     background-color: transparent;
+  //   }
+  // }
 }
 
 #app {
@@ -220,31 +230,3 @@ body {
   }
 }
 
-/* 页面切换动画-s */
-.slide-right-enter-active,
-.slide-right-leave-active,
-.slide-left-enter-active,
-.slide-left-leave-active {
-  will-change: transform;
-  transition: all 0.3s ease;
-}
-
-// slide-right
-.slide-right-enter-from {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
-.slide-right-leave-to {
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-// slide-left
-.slide-left-enter-from {
-  @extend .slide-right-leave-to;
-}
-
-.slide-left-leave-to {
-  @extend .slide-right-enter-from;
-}

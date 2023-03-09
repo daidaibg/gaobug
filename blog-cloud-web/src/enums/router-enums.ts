@@ -23,5 +23,7 @@ export enum RouterEnum {
     WriteEdit="/write/essay/",
 
     //只因太美
-    Chicken="/chicken"
+    Chicken="/chicken",
+    //chatGpt
+    Chat="/chat"
 }

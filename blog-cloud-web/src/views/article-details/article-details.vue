@@ -230,6 +230,8 @@ const goEditArticle = () => {
 </template>
 
 <style scoped lang="scss">
+
+@import "@/assets/css/edit-md/edit-md.scss";
 .details {
   position: relative;
 
@@ -395,35 +397,7 @@ const goEditArticle = () => {
     }
   }
 
-  :deep(.md-editor-dark) {
-    // background-color: var(--yh-bg-color-container);
-    --md-color: var(--yh-text-color-secondary);
-    --md-hover-color: var(--yh-text-color-anti);
-
-    --md-bk-color: var(--yh-bg-color-container);
-    --md-bk-color-outstand: var(--yh-bg-color-secondarycontainer-hover);
-    --md-bk-hover-color: var(--yh-bg-color-secondarycontainer-active);
-    --md-border-color: var(--yh-border-level-1-color);
-    --md-border-hover-color: var(--yh-border-level-3-color);
-    --md-border-active-color: var(--yh-border-level-3-color);
-    --md-modal-mask: var(--yh-mask-active);
-    --md-scrollbar-bg-color: var(--dd-scrollbar-color);
-    --md-scrollbar-thumb-color: var(--dd-scrollbar-color);
-    --md-scrollbar-thumb-hover-color: var(--dd-scrollbar-color);
-    --md-scrollbar-thumb-avtive-color: var(--dd-scrollbar-color);
-  }
-
-  :deep(.md-content) {
-    h1 {
-      font-size: 1.7em;
-    }
-
-    .title_md {
-      // margin-top: -70px;
-      // padding-top: 80px;
-      // box-sizing: border-box;
-    }
-  }
+  @include editmdVar;
 }
 
 @media screen and (min-width: 960px) and (max-width: 1320px) {

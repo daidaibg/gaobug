@@ -67,6 +67,13 @@ const toolList = [
         url: RouterEnum.Chicken,
       },
       {
+        title: "聊天Cpt",
+        id: 23,
+        type: "inner",
+        img: "https://www.gaobug.com/blog-cloud-tool/img/tools/chatGpt.png",
+        url: RouterEnum.Chat,
+      },
+      {
         title: "百度搜索",
         id: 22,
         type: "out",

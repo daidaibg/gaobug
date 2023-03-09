@@ -2,7 +2,6 @@
 import { getPublic } from "@/api";
 import { reactive, onBeforeUnmount } from "vue";
 import CountDown from "./festival-count-down-item.vue";
-import Header from "@/components/header/Header.vue";
 const state = reactive<any>({
   jjrList: [],
   currentYear: null,
@@ -66,7 +65,6 @@ getData();
 
 <template>
   <div class="festival-count-down">
-    <Header :tabShow="false"><template #search>  </template> </Header>
     <ul class="jjrlist">
       <li v-for="(item, index) in state.jjrList" :key="index" class="jjrlistli">
         <p class="jjr_title">2023年{{ item.name }}倒计时</p>

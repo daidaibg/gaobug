@@ -26,6 +26,7 @@
     "marked": "^4.2.12",
     "md-editor-v3": "^2.8.1",
     "monaco-editor": "^0.35.0",
+    "openai": "^3.2.1",
     "pinia": "^2.0.32",
     "screenfull": "^6.0.2",
     "unplugin-auto-import": "^0.14.4",
