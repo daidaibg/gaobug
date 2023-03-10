@@ -29,7 +29,6 @@
     "openai": "^3.2.1",
     "pinia": "^2.0.32",
     "screenfull": "^6.0.2",
-    "sm-crypto": "^0.3.12",
     "unplugin-auto-import": "^0.14.4",
     "unplugin-vue-define-options": "^1.2.3",
     "vite": "^4.1.4",

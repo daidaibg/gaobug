@@ -1,7 +1,7 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-03-10 10:57:36
+ * @LastEditTime: 2023-03-10 12:27:35
  */
 import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
@@ -10,10 +10,8 @@ import router from "../router/index"
 import { RequestEnum } from "@/enums"
 import signMd5Utils from "@/utils/modules/signMd5Utils"
 import { getToken } from "@/utils/auth"
-//@ts-ignore
-import sm4 from "sm-crypto/src/sm4"
+import sm4 from "@/utils/sm4/sm4"
 import type { fileconfigs ,Config} from "./index.d"
-console.log(sm4);
 // console.log(router);
 const baseUrl = UtilVar.baseUrl
 const CancelToken = axios.CancelToken;

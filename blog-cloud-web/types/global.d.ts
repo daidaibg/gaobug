@@ -1,3 +1,4 @@
+
 interface Window {
   // 语言
   $t: any,
@@ -13,3 +14,5 @@ declare type codeText={
 // declare type Recordable<T = any, K = string> = Record<K extends null | undefined ? string : K, T>
 
 declare type Recordable<T = any, K extends string | number | symbol = string> = Record<K extends null | undefined ? string : K, T>
+
+
