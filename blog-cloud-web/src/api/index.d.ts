@@ -14,3 +14,10 @@ export interface UrlObjType {
 export interface RequestParamType {
     [key:string| number]:string
 }
+
+
+export interface Config {
+    cancel?:Function,
+    enc?:boolean,
+    'Content-Type'?: string,
+}

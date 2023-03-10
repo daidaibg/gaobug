@@ -40,8 +40,9 @@ const sendChart = () => {
   localstorge();
   const newchatList = chatList.value.slice(-2);
   createChar(newchatList).then((res) => {
+    sendLoading.value = false;
     if (res.code == 200) {
-      sendLoading.value = false;
+    
       console.log(res);
       let content = res!.data.message.content;
       while (content.charAt(0) === "\n") {

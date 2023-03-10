@@ -1,22 +1,23 @@
 
 /*
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-17 18:45:04
+ * @LastEditTime: 2023-03-10 10:57:36
  */
 import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
-
 import UtilVar from "../config/UtilVar";
 import router from "../router/index"
 import { RequestEnum } from "@/enums"
 import signMd5Utils from "@/utils/modules/signMd5Utils"
 import { getToken } from "@/utils/auth"
-
-import type { fileconfigs } from "./index.d"
-
+//@ts-ignore
+import sm4 from "sm-crypto/src/sm4"
+import type { fileconfigs ,Config} from "./index.d"
+console.log(sm4);
 // console.log(router);
 const baseUrl = UtilVar.baseUrl
 const CancelToken = axios.CancelToken;
+
 const service: AxiosInstance = axios.create({
     // 超时
     timeout: 10000,
@@ -27,23 +28,30 @@ const service: AxiosInstance = axios.create({
 })
 
 //统一拦截
-const isEncryptionParam = <T = Params>(params: T) => {
+const isEncryptionParam = <T = Params>(params: T,config:Config={}) => {
+    if(config.enc){
+        params=  sm4.encrypt(JSON.stringify(params), UtilVar.ENC_key)
+    }
     return params
 }
 
 //签名参数
-const getSign = <T = Params>(params: T) => {
+const getSign = <T = Params>(params: T,config?:Config) => {
     let timestamp = Date.now()
-    params = isEncryptionParam<T>(params)
+    params = isEncryptionParam<T>(params,config)
     let sign = signMd5Utils.getSign(params, timestamp);
     let headers:{
         "enc":boolean,
         [RequestEnum.GB_SIGN_KEY]: string,
         [RequestEnum.GB_TIMESTAMP_KEY]: string|number,
+        'Content-Type'?:string
     } = {
         'enc': UtilVar.ENC,
         [RequestEnum.GB_SIGN_KEY]: sign,
         [RequestEnum.GB_TIMESTAMP_KEY]: timestamp,
+    }
+    if(config&& config['Content-Type']){
+        headers['Content-Type']=config['Content-Type']
     }
     return { headers, encParams: params as T }
 }
@@ -131,8 +139,8 @@ export const getPublic = async (url: string) => {
  * @param {Params} params
  * @return {Promise} 
  */
-export const requestPost = async <T = Params, R = Params>(url: string, params: T): Promise<AxiosResponse<R>["data"]> => {
-    const { headers, encParams } = getSign<T>(params)
+export const requestPost = async <T = Params, R = Params>(url: string, params: T,config?:Config): Promise<AxiosResponse<R>["data"]> => {
+    const { headers, encParams } = getSign<T>(params,config)
     try {
         const response = await service.post<T, AxiosResponse<R>>(`${baseUrl}${url}`, encParams,
             {

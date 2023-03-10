@@ -3,6 +3,7 @@ interface UtilVarType {
     code:string|number,
     noContentCode:number,
     ENC:boolean,//是否进行加密
+    ENC_key:string,//加密key
 }
 
 const UtilVar:UtilVarType = {
@@ -10,6 +11,7 @@ const UtilVar:UtilVarType = {
     code:401, //登陆过期
     noContentCode:204, //请求成功但没有内容
     ENC:false,
+    ENC_key:"f81697720ea83de3"
 
 }
 const runtimeType:any = {
@@ -27,6 +29,6 @@ const runtimeType:any = {
     }
     
 }
-console.log(import.meta.env)
+// console.log(import.meta.env)
 runtimeType[import.meta.env.MODE]&&runtimeType[import.meta.env.MODE]()
 export default UtilVar
