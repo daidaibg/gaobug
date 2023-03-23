@@ -337,8 +337,9 @@ const onRemoveNav = (fileNavItem: FileItemType, index?: number) => {
 
 //获取文件icon
 const getFileSvg = (iconname: string) => {
-  return new URL(`../../../assets/file-icon/${iconname}.svg`, import.meta.url)
-    .href;
+  // return new URL(`../../../assets/file-icon/${iconname}.svg`, import.meta.url)
+  //   .href;
+  return `/static-files/code-format/code-format-icon/${iconname}.svg`
 };
 
 //切换编辑器内容
