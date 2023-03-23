@@ -37,5 +37,7 @@ export const getBlog = (param: GetBlogListType) => {
 }
 
 export const postLogin = (param: any) => {
-    return requestPost(Home.login, param, { enc: true, 'Content-Type': 'application/x-www-form-urlencoded' })
+    return requestPost(Home.login, param)
+    // return requestPost(Home.login, param, { enc: false, 'Content-Type': 'application/x-www-form-urlencoded' })
+
 }
