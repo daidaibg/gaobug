@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import Props from "./props";
-import { ThemeEnum } from "@/enums";
 import { LogoSvg } from "@/components/logo/index";
-defineProps(Props);
 
+const props = defineProps(Props);
 const router = useRouter();
+
 const goHome = () => {
-  router.push("/");
+  if (props.target == "") {
+    router.push("/");
+  } else {
+    const { href } = router.resolve({
+      name: "/",
+      query: {},
+    });
+    window.open(href, props.target);
+  }
 };
 </script>
 

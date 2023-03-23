@@ -559,7 +559,7 @@ onBeforeMount(() => {
     </div>
     <div class="json_format_nav flex flex-col">
       <div class="logo_wrap flex-shrink-0">
-        <Logo class="tools-layout_logo" />
+        <Logo class="tools-layout_logo" target="_blank"/>
         <span>格式化工具</span>
       </div>
       <div class="nav_title flex-shrink-0">
