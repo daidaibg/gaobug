@@ -4,9 +4,8 @@
 @import "./font.scss";
 @import "./animation.scss";
 
-:root{
-
-  --header-height:60px;
+:root {
+  --header-height: 60px;
 }
 :root:not([theme-mode="dark"]) {
   // 重置主色调 start
@@ -28,8 +27,8 @@
   --dd-scrollbar-color: rgba(0, 0, 0, 0.1);
   --dd-scroll-track-color: #fff;
   --dd-color-secondary-brand: rgb(99, 133, 166);
-  
-  --dd-component-card-background: rgba(255,255,255,0.6);
+
+  --dd-component-card-background: rgba(255, 255, 255, 0.6);
   .headers-root {
     --header-logo-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px,
       rgba(255, 255, 255, 0.2) 1px 3px 3px;
@@ -56,7 +55,6 @@
   }
 }
 
-
 :root[theme-mode="dark"] {
   --yh-brand-color-1: #1b2f51;
   --yh-brand-color-2: #173463;
@@ -76,10 +74,9 @@
   --dd-scroll-track-color: #333; //轨道
   --dd-scroll-thumb-color: rgba(175, 175, 175, 0.4); //滑块
 
-
   --dd-color-secondary-brand: #819ece;
 
-  --dd-component-card-background: rgba(36,36,36, 0.6);
+  --dd-component-card-background: rgba(36, 36, 36, 0.6);
   .headers-root {
     --header-logo-shadow: rgba(0, 0, 0, 0.5) 0 5px 6px,
       rgba(0, 0, 0, 0.2) 1px 3px 3px;
@@ -124,7 +121,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-.el-textarea{
+.el-textarea {
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
@@ -134,12 +131,16 @@ html {
   // height: 100%;
   // overflow: hidden;
   // background-color: var(--yh-bg-color-secondarycontainer);
+  // background: url("@/assets/img/feast/bg.jpg") fixed no-repeat;
+  // background-size: cover;
+  //  background-size: 50px;
+  //  background-position:  100%;
   background-color: var(--yh-gray-color-1);
+  // -webkit-transform: translateZ(0);
 }
 
-
 body {
-  
+ 
 }
 
 .dark {
@@ -152,7 +153,6 @@ body {
   ::-webkit-scrollbar-track {
     // background-color: var(--yh-bg-color-secondarycontainer);
     background-color: transparent;
-
   }
 
   // .el-textarea{
@@ -176,7 +176,6 @@ body {
   #app {
     // background: url("../../assets/img/bg.jpeg") no-repeat;
   }
- 
 }
 
 // 主要容器背景
@@ -193,10 +192,9 @@ body {
   max-width: $max-width;
   padding: 16px 16px 16px;
   margin: auto;
-  min-height:calc(100vh - var(--header-height)) ;
+  min-height: calc(100vh - var(--header-height));
   position: relative;
 }
-
 
 .emoji {
   display: inline;
@@ -213,8 +211,8 @@ body {
 }
 @media screen and (max-width: 960px) {
   $header-top: 66px;
-  :root{
-    --header-height:50px;
+  :root {
+    --header-height: 50px;
   }
   .gaobug {
     padding: 0;
@@ -229,4 +227,3 @@ body {
     padding: 0 12px;
   }
 }
-
