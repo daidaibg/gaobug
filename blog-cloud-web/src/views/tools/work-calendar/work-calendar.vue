@@ -1,84 +1,3 @@
-<template>
-  <div class="work-calendar">
-    <!-- <div>下一月</div>
-    <div>上一月</div> -->
-    <div class="calendar-box">
-      <div class="calendar-wrap" v-if="swiperShow">
-        <swiper
-          :effect="'coverflow'"
-          :grabCursor="true"
-          :centeredSlides="true"
-          :initialSlide="27"
-          :slidesPerView="'auto'"
-          :preventInteractionOnTransition="true"
-          :coverflowEffect="{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }"
-          :loop="false"
-          :pagination="false"
-          :modules="modules"
-          @activeIndexChange="activeIndexChange"
-          @swiper="setControlledSwiper"
-          class="mySwiper"
-        >
-          <SwiperSlide
-            v-for="item in calendarList"
-            :key="item.id"
-            class="swiper-slide-li"
-          >
-            <Calendar
-              class="calendar-li"
-              :year="item.year"
-              :month="item.month"
-              :today="todayYearMonthDay"
-              :jjrDates="newJjrDate"
-              :ruleDate="ruleDate"
-              v-if="item"
-            />
-            <div v-else></div>
-          </SwiperSlide>
-        </swiper>
-      </div>
-    </div>
-
-    <div class="add-rule">
-      <i class="yh-icons-circle-plus" @click="addRule"></i>
-    </div>
-    <el-drawer
-      v-model="drawerVisible"
-      direction="rtl"
-      :with-header="false"
-      size="300px"
-      :before-close="draweHandleClose"
-    >
-      <h3 class="rule-title">请设定规则</h3>
-      <el-form :model="ruleDate" label-width="90px" size="default">
-        <el-form-item label="最近值班：">
-          <el-date-picker
-            v-model="ruleDate.nearDate"
-            type="date"
-            placeholder="请选择最近日期"
-            :editable="false"
-          />
-        </el-form-item>
-        <el-form-item label="排班数量：">
-          <el-select v-model="ruleDate.dateNum" placeholder="排班数量">
-            <el-option :label="item" :value="item" v-for="item in 66" />
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="draweHandleClose">取消</el-button>
-          <el-button type="primary" @click="onSubmit">确认</el-button>
-        </el-form-item>
-      </el-form>
-    </el-drawer>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { reactive, toRaw, ref, nextTick } from "vue";
 import Calendar from "./calendar.vue";
@@ -265,7 +184,86 @@ if (paibanDate) {
 }
 init();
 </script>
+<template>
+  <div class="work-calendar">
+    <!-- <div>下一月</div>
+    <div>上一月</div> -->
+    <div class="calendar-box">
+      <div class="calendar-wrap" v-if="swiperShow">
+        <swiper
+          :effect="'coverflow'"
+          :grabCursor="true"
+          :centeredSlides="true"
+          :initialSlide="27"
+          :slidesPerView="'auto'"
+          :preventInteractionOnTransition="true"
+          :coverflowEffect="{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }"
+          :loop="false"
+          :pagination="false"
+          :modules="modules"
+          @activeIndexChange="activeIndexChange"
+          @swiper="setControlledSwiper"
+          class="mySwiper"
+        >
+          <SwiperSlide
+            v-for="item in calendarList"
+            :key="item.id"
+            class="swiper-slide-li"
+          >
+            <Calendar
+              class="calendar-li"
+              :year="item.year"
+              :month="item.month"
+              :today="todayYearMonthDay"
+              :jjrDates="newJjrDate"
+              :ruleDate="ruleDate"
+              v-if="item"
+            />
+            <div v-else></div>
+          </SwiperSlide>
+        </swiper>
+      </div>
+    </div>
 
+    <div class="add-rule">
+      <i class="yh-icons-circle-plus" @click="addRule"></i>
+    </div>
+  </div>
+  <el-drawer
+    v-model="drawerVisible"
+    direction="rtl"
+    :with-header="false"
+    size="300px"
+    :before-close="draweHandleClose"
+  >
+    <h3 class="rule-title">请设定规则</h3>
+    <el-form :model="ruleDate" label-width="90px" size="default">
+      <el-form-item label="最近值班：">
+        <el-date-picker
+          v-model="ruleDate.nearDate"
+          type="date"
+          placeholder="请选择最近日期"
+          :editable="false"
+        />
+      </el-form-item>
+      <el-form-item label="排班数量：">
+        <el-select v-model="ruleDate.dateNum" placeholder="排班数量">
+          <el-option :label="item" :value="item" v-for="item in 66" />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="draweHandleClose">取消</el-button>
+        <el-button type="primary" @click="onSubmit">确认</el-button>
+      </el-form-item>
+    </el-form>
+  </el-drawer>
+</template>
 <style lang="scss" scoped>
 .work-calendar {
   width: 100%;
