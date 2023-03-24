@@ -15,7 +15,8 @@
       >
         {{ day.number }}
         <div class="pbr" v-if="day.dutyFalg">值</div>
-        <template v-if="day.holiDay">
+        <div class="tiaoxiu" v-else-if="day.isOvertimeDay">调</div>
+        <template v-if="day.isHoliDay">
           <div class="jjr">休</div>
           <div
             class="jjr-name"
@@ -86,21 +87,31 @@ function dayClass(date: string): any {
   //日期数据
   let rqData = {
     classNames: "", //class
-    holiDay: false, //是否是节假日
+    holiDay: false, //是否是节假日或则调休
     dutyFalg: false, // 是否是值班日期
+    isHoliDay: false, //是否是节假日
+    isOvertimeDay: false, //是否是调休
   };
   //最近值班日期 与 排班周期
-  const ruleDate = props.ruleDate.nearDateFormat;
-  const ruleNum = props.ruleDate.dateNum;
-
+  const { nearDateFormat: ruleDate, dateNum: ruleNum } = props.ruleDate;
   //是否是节假日
   const holiday = props.jjrDates[currentDayTime];
+
+  //workday 1调休 2节假日
+  if (holiday && holiday.workday == 1) {
+    rqData.isOvertimeDay = true;
+  } else if (holiday && holiday.workday == 2) {
+    rqData.isHoliDay = true;
+  }
 
   //如果有值班日期和排班周期
   if (ruleDate != "" && ruleNum != "") {
     const currentDate = dayjs(date);
     //周六周日、节假日中的值班日期
-    if ([6, 0].includes(currentDate.day()) || holiday) {
+    if (
+      ([6, 0].includes(currentDate.day()) && !holiday) ||
+      (holiday && holiday.isHoliDay)
+    ) {
       const diffInDays = dayjs(ruleDate).diff(currentDate, "day");
       //并且是排班周期的倍数
       if (diffInDays % ruleNum === 0) {
@@ -109,33 +120,28 @@ function dayClass(date: string): any {
     }
   }
 
+  //今天之前的日期 今天 今天之后的日期
   if (props.today.date < todayTime) {
-    if (holiday) {
-      rqData.classNames = "prevDay holiDay";
-    } else {
-      rqData.classNames = "prevDay";
-    }
+    rqData.classNames = "prevDay";
   } else if (currentDayTime == todayTime) {
-    if (holiday) {
-      rqData.classNames = "currentyDay holiDay";
-    } else {
-      rqData.classNames = "currentyDay";
-    }
+    rqData.classNames = "currentyDay";
   } else {
-    if (holiday) {
-      rqData.classNames = "nextDay holiDay";
-    } else {
-      rqData.classNames = "nextDay";
-    }
-  }
-  if (holiday) {
-    rqData.holiDay = holiday;
-    console.log(holiday);
-  }
-  //
+    rqData.classNames = "nextDay";
+  } 
+
+  //值班日期
   if (rqData.dutyFalg) {
     rqData.classNames = rqData.classNames + " dutyDay";
+    //调休
+  } else if (rqData.isOvertimeDay) {
+    rqData.classNames = rqData.classNames + " overtimeDay";
   }
+  //节假日
+  if (rqData.isHoliDay) {
+    // rqData.holiDay = holiday;
+    rqData.classNames = rqData.classNames + " holiDay";
+  }
+
   return rqData;
 }
 
@@ -223,11 +229,17 @@ $grid-gap-px: 4px;
     background-color: var(--yh-success-color-2);
     color: var(--yh-success-color);
   }
-  &:nth-child(7n), &:nth-child(7n-1) {
+  &:nth-child(7n),
+  &:nth-child(7n-1) {
     color: var(--yh-success-color);
   }
   //值班日
   &.dutyDay {
+    background-color: var(--yh-error-color-2);
+    color: var(--yh-error-color);
+  }
+  //调休日
+  &.overtimeDay {
     background-color: var(--yh-error-color-2);
     color: var(--yh-error-color);
   }
@@ -239,6 +251,7 @@ $grid-gap-px: 4px;
       color: var(--yh-error-color-4);
     }
   }
+
   .jjr {
     position: absolute;
     left: 2px;
@@ -258,7 +271,8 @@ $grid-gap-px: 4px;
     color: var(--yh-text-color-primary);
     transform: scale(0.625);
   }
-  .pbr {
+  .pbr,
+  .tiaoxiu {
     position: absolute;
     right: 2px;
     top: 2px;
