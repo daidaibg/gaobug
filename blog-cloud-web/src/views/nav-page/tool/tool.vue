@@ -30,6 +30,13 @@ const toolList = [
         img: "https://www.gaobug.com/blog-cloud-tool/img/time.png",
         url: RouterEnum.FestivalCountDown,
       },
+      {
+        title: "工作日历",
+        id: "14",
+        type: "inner",
+        img: "https://www.gaobug.com/blog-cloud-tool/img/tools/workCalendar.png",
+        url: RouterEnum.WorkCalendar,
+      },
     ],
   },
   {
