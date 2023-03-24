@@ -54,7 +54,6 @@
       :with-header="false"
       size="300px"
       :before-close="draweHandleClose"
-      
     >
       <h3 class="rule-title">请设定规则</h3>
       <el-form :model="ruleDate" label-width="90px" size="default">
@@ -150,7 +149,6 @@ const setControlledSwiper = (a: any) => {
   swiperRef.value = a;
 };
 
-
 const activeIndexChange = (a: any) => {
   // console.log(a, a.swipeDirection);
   if (!a.swipeDirection) return;
@@ -209,7 +207,6 @@ const onSubmit = () => {
   swiperShow.value = false;
   nextTick(() => {
     init();
-    
   });
 
   ElMessage.success("添加成功");
@@ -253,17 +250,18 @@ const init = () => {
     next2,
     next3,
   ];
-  swiperShow.value = true;
-
+  nextTick(() => {
+    swiperShow.value = true;
+  });
 };
 
-let paibanDate:any=localStorage.getItem("paibanDate")
-if(paibanDate){
-  paibanDate=JSON.parse(paibanDate);
-  ruleDate.nearDateFormat=paibanDate.nearDateFormat;
-  ruleDate.dateNum=paibanDate.dateNum;
-  ruleDate.nearDateTime=paibanDate.nearDateTime;
-  ruleDate.nearDate=paibanDate.nearDate;
+let paibanDate: any = localStorage.getItem("paibanDate");
+if (paibanDate) {
+  paibanDate = JSON.parse(paibanDate);
+  ruleDate.nearDateFormat = paibanDate.nearDateFormat;
+  ruleDate.dateNum = paibanDate.dateNum;
+  ruleDate.nearDateTime = paibanDate.nearDateTime;
+  ruleDate.nearDate = paibanDate.nearDate;
 }
 init();
 </script>
@@ -277,7 +275,7 @@ init();
   margin: 0 auto;
   position: fixed;
   left: 0;
-  top:var(--header-height) ;
+  top: var(--header-height);
 }
 .calendar-box {
   width: 100%;

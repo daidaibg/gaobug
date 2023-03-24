@@ -99,8 +99,8 @@ function dayClass(date: string): any {
   //如果有值班日期和排班周期
   if (ruleDate != "" && ruleNum != "") {
     const currentDate = dayjs(date);
-    //周一到周五
-    if (![6, 0].includes(currentDate.day()) || holiday) {
+    //周六周日、节假日中的值班日期
+    if ([6, 0].includes(currentDate.day()) || holiday) {
       const diffInDays = dayjs(ruleDate).diff(currentDate, "day");
       //并且是排班周期的倍数
       if (diffInDays % ruleNum === 0) {
@@ -221,6 +221,9 @@ $grid-gap-px: 4px;
   //节假日
   &.holiDay {
     background-color: var(--yh-success-color-2);
+    color: var(--yh-success-color);
+  }
+  &:nth-child(7n), &:nth-child(7n-1) {
     color: var(--yh-success-color);
   }
   //值班日
