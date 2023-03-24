@@ -54,6 +54,7 @@
       :with-header="false"
       size="300px"
       :before-close="draweHandleClose"
+      
     >
       <h3 class="rule-title">请设定规则</h3>
       <el-form :model="ruleDate" label-width="90px" size="default">
@@ -62,6 +63,7 @@
             v-model="ruleDate.nearDate"
             type="date"
             placeholder="请选择最近日期"
+            :editable="false"
           />
         </el-form-item>
         <el-form-item label="排班数量：">
@@ -273,6 +275,9 @@ init();
   padding: 16px 4px;
   max-width: 600px;
   margin: 0 auto;
+  position: fixed;
+  left: 0;
+  top:var(--header-height) ;
 }
 .calendar-box {
   width: 100%;
