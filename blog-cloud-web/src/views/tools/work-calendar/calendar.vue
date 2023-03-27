@@ -20,7 +20,7 @@
           <div class="jjr">休</div>
           <div
             class="jjr-name"
-            v-if="day.holiDay.holiday_today && day.holiDay.holiday_today == 1"
+            v-if="day.holiDay.holiday_today == 1"
           >
             {{ day.holiDay.holiday_cn }}
           </div>
@@ -138,7 +138,7 @@ function dayClass(date: string): any {
   }
   //节假日
   if (rqData.isHoliDay) {
-    // rqData.holiDay = holiday;
+    rqData.holiDay = holiday;
     rqData.classNames = rqData.classNames + " holiDay";
   }
 
