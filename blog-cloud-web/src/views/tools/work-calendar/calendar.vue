@@ -18,10 +18,7 @@
         <div class="tiaoxiu" v-else-if="day.isOvertimeDay">调</div>
         <template v-if="day.isHoliDay">
           <div class="jjr">休</div>
-          <div
-            class="jjr-name"
-            v-if="day.holiDay.holiday_today == 1"
-          >
+          <div class="jjr-name" v-if="day.holiDay.holiday_today == 1">
             {{ day.holiDay.holiday_cn }}
           </div>
         </template>
@@ -83,6 +80,8 @@ function dayClass(date: string): any {
   if (!date) return;
 
   const todayTime = new Date(props.today.date).getTime() + "";
+  // const todayTime = new Date("2023-04-01").getTime() + "";
+
   const currentDayTime = new Date(date).getTime() + "";
   //日期数据
   let rqData = {
@@ -127,13 +126,14 @@ function dayClass(date: string): any {
     rqData.classNames = "currentyDay";
   } else {
     rqData.classNames = "nextDay";
-  } 
+  }
 
   //值班日期
   if (rqData.dutyFalg) {
     rqData.classNames = rqData.classNames + " dutyDay";
-    //调休
-  } else if (rqData.isOvertimeDay) {
+  }
+  //调休
+  if (rqData.isOvertimeDay) {
     rqData.classNames = rqData.classNames + " overtimeDay";
   }
   //节假日
@@ -235,8 +235,11 @@ $grid-gap-px: 4px;
   }
   //值班日
   &.dutyDay {
-    background-color: var(--yh-error-color-2);
-    color: var(--yh-error-color);
+    // background-color: var(--yh-error-color-2);
+    // color: var(--yh-error-color);
+
+    background-color: var(--yh-warning-color-2);
+    color: var(--yh-warning-color);
   }
   //调休日
   &.overtimeDay {
@@ -245,10 +248,26 @@ $grid-gap-px: 4px;
   }
   //当天
   &.currentyDay {
-    background-color: var(--yh-brand-color);
-    color: var(--yh-text-color-anti);
+    // background-color: var(--yh-brand-color);
+    // color: var(--yh-text-color-anti);
+
+    background-color: var(--yh-brand-color-4);
+
+    color: var(--yh-brand-color);
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background: url("../../../assets/img/tool/calendar-bg.jpg") no-repeat;
+      background-size: 100% auto;
+      mix-blend-mode: multiply;
+    }
     .pbr {
-      color: var(--yh-error-color-4);
+      // color: var(--yh-error-color-4);
+      color: var(--yh-warning-color);
     }
   }
 
@@ -277,8 +296,14 @@ $grid-gap-px: 4px;
     right: 2px;
     top: 2px;
     font-size: 10px;
-    color: var(--yh-error-color);
+    // color: var(--yh-error-color);
     line-height: 1;
+  }
+  .tiaoxiu {
+    color: var(--yh-error-color);
+  }
+  .pbr {
+    color: var(--yh-warning-color);
   }
 }
 </style>
