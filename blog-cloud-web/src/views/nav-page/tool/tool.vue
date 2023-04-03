@@ -33,9 +33,10 @@ const toolList = [
       {
         title: "工作日历",
         id: "14",
-        type: "inner",
+        type: "out",
         img: "https://www.gaobug.com/blog-cloud-tool/img/tools/workCalendar.png",
-        url: RouterEnum.WorkCalendar,
+        url: "https://www.gaobug.com/blog-cloud-tool/work-calendar/index.html",
+        // url: RouterEnum.WorkCalendar,
       },
     ],
   },
@@ -238,7 +239,7 @@ const aHrefFormat = (toolItem: any) => {
       left: 5px;
       top: 5px;
       transform: rotateY(0deg);
-      pointer-events:none;
+      pointer-events: none;
       &.back {
         position: absolute;
         transform: rotateY(180deg);

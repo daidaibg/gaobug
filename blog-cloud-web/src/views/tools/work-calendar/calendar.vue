@@ -106,10 +106,14 @@ function dayClass(date: string): any {
   //如果有值班日期和排班周期
   if (ruleDate != "" && ruleNum != "") {
     const currentDate = dayjs(date);
+
+    // if ("2023-04-05" == date) {
+    //   console.log(date, rqData,holiday);
+    // }
     //周六周日、节假日中的值班日期
     if (
       ([6, 0].includes(currentDate.day()) && !holiday) ||
-      (holiday && holiday.isHoliDay)
+      (holiday && rqData.isHoliDay)
     ) {
       const diffInDays = dayjs(ruleDate).diff(currentDate, "day");
       //并且是排班周期的倍数

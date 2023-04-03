@@ -1,0 +1,25 @@
+{
+    "name": "工作日历",
+    "short_name": "工作日历",
+    "icons": [
+        {
+            "src": "/static-files/calendar/calendar-icon-180.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "/static-files/calendar/calendar-icon-120.png",
+            "sizes": "120x120",
+            "type": "image/png"
+        },{
+            "src": "/static-files/calendar/calendar-icon-76.png",
+            "sizes": "76x76",
+            "type": "image/png"
+        },{
+            "src": "/static-files/calendar/calendar-icon-152.png",
+            "sizes": "152x152",
+            "type": "image/png"
+        }
+    ],
+    "display": "standalone"
+}

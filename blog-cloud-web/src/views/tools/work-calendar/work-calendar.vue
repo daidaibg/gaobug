@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, toRaw, ref, nextTick } from "vue";
+import { reactive, toRaw, ref, nextTick, onBeforeUnmount } from "vue";
 import Calendar from "./calendar.vue";
 import { guid } from "@/utils/current";
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import dayjs from "dayjs";
 import { ElMessage } from "element-plus";
 import jjrDate from "./jjr.json";
+
 
 let newJjrDate: any = {};
 jjrDate.forEach((item) => {
@@ -183,6 +184,8 @@ if (paibanDate) {
   ruleDate.nearDate = paibanDate.nearDate;
 }
 init();
+
+
 </script>
 <template>
   <div class="work-calendar">

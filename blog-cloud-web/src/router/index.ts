@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw, createWebHistory, RouterOptions } from 'vue-router'
 import { getScrollContainer } from "yhht-plus/lib/utils/index"
 import { RouterEnum } from "@/enums";
+import { createLink } from "@/utils/dom";
 
 const routes: Array<RouteRecordRaw> = [
   // {
@@ -48,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
           noSplice: true
         }
       },
-      
+
       {
         path: '/login',
         name: '/login',
@@ -68,8 +69,8 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: RouterEnum.UserHomePage+":id",
-    name:RouterEnum.UserHomePage,
+    path: RouterEnum.UserHomePage + ":id",
+    name: RouterEnum.UserHomePage,
     component: () => import(/* webpackChunkName: "userHomePage" */ '../views/user-home-page/user-home-page.vue'),
     meta: {
       title: "主页"
@@ -105,7 +106,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "节日倒计时",
           noSplice: true,
-          isShowHeader:true
+          isShowHeader: true
         }
       }
       ,
@@ -126,7 +127,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "聊天Gpt",
           noSplice: true,
-          isShowHeader:true
+          isShowHeader: true
         }
       },
       {
@@ -136,7 +137,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "工作日历",
           noSplice: true,
-          isShowHeader:true
+          isShowHeader: false,
         }
       }
     ]
@@ -209,15 +210,15 @@ const router = createRouter({
   },
 })
 //htmlloading元素
-const container_nomountDom:any =  document.querySelector(".container_nomount")
+const container_nomountDom: any = document.querySelector(".container_nomount")
 // ---------------------- 路由拦截 方法 -----------------------------------//
 router.beforeEach((to, from, next) => {
   let text = ' - 搞bug'
   if (to.meta.noSplice) {
     text = ''
   }
-  if(to.meta.loading){
-    container_nomountDom.style.display="inline"
+  if (to.meta.loading) {
+    container_nomountDom.style.display = "inline"
   }
   document.title = to.meta.title ? `${to.meta.title}  ${text}` : '搞bug';
   if (to.path !== from.path) {
@@ -228,6 +229,6 @@ router.beforeEach((to, from, next) => {
 })
 // --------------------------- 路由拦截 方法---------------------------------------------- //
 router.afterEach((to, from) => {
-  container_nomountDom.style.display="none"
+  container_nomountDom.style.display = "none"
 })
 export default router
