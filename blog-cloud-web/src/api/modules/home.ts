@@ -32,10 +32,12 @@ export interface GetBlogListType {
     keywords: string | number,
 }
 
+//获取博客列表
 export const getBlog = (param: GetBlogListType) => {
     return request.get(Home.blogList, param)
 }
 
+//登录
 export const postLogin = (param: any) => {
     return requestPost(Home.login, param)
     // return requestPost(Home.login, param, { enc: false, 'Content-Type': 'application/x-www-form-urlencoded' })
