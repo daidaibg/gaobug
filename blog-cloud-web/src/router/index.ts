@@ -43,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: RouterEnum.Tool,
         name: RouterEnum.Tool,
-        component: () => import(/* webpackChunkName: "tool" */ '../views/nav-page/tool/index'),
+        component: () => import(/* webpackChunkName: "tool" */ '../views/tools/tool/index'),
         meta: {
           title: "工具",
           noSplice: true
