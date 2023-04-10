@@ -204,9 +204,15 @@ body {
   vertical-align: sub;
 }
 
+@media screen and (min-width: 768px) {
+  .pad-screen-hide {
+    display: none !important;
+  }
+}
+
 @media screen and (min-width: 960px) {
   .medium-screen-hide {
-    display: none;
+    display: none !important;
   }
 }
 @media screen and (max-width: 960px) {

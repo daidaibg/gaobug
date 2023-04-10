@@ -4,15 +4,25 @@ import { useLangStore } from '@/store'
 import { LangEnum } from '@/enums'
 import { ElPopover } from 'element-plus'
 import { langList } from '@/i18n'
+
+interface Props {
+  langClass?: string;
+}
+const props = withDefaults(defineProps<Props>(), {
+  langClass: "",
+});
+
 const langStore = useLangStore()
 const handleZh = (key: LangEnum) => {
   langStore.changeLang(key)
 }
+
+
 </script>
 <template>
   <el-popover :width="120" trigger="hover" >
     <template #reference>
-      <div class="lang">
+      <div class="lang" :class="langClass">
         <span class="item-inner"><svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" width="1.2em"
             height="1.2em" data-v-dd9c9540="">
             <path fill="currentColor"

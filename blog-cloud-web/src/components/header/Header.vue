@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-02-13 11:26:50
+ * @LastEditTime: 2023-04-10 18:10:01
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -33,9 +33,6 @@
                   :active="active"
                   :jump="jump"
                 >
-                  <div class="medium-screen-hide">
-                    <Theme></Theme>
-                  </div>
                 </header-nav>
               </div>
             </transition>
@@ -49,31 +46,28 @@
           </div>
         </template>
       </div>
-      <blog-search :active="active" v-if="searchShow&&!slots.search"></blog-search>
+      <blog-search
+        :active="active"
+        v-if="searchShow && !slots.search"
+      ></blog-search>
       <slot name="search"></slot>
       <div class="right">
-        <div class="phoneTab" style="display: none">
-          <el-dropdown trigger="click" @command="command">
-            <el-icon size="28px">
-              <operation style="margin-right: 8px" />
-            </el-icon>
-            <template #dropdown>
-              <el-dropdown-menu> </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </div>
         <div class="small-screen-hide">
-          <Theme></Theme>
+          <Theme> </Theme>
         </div>
-        <Lang></Lang>
+        <Lang  lang-class="small-screen-hide">
+          <!-- <div class="medium-screen-hide ">
+            <label>Theme:</label>
+            <Theme></Theme>
+          </div> -->
+        </Lang>
         <User></User>
+        <MenuHamburger  class="medium-screen-hide"/>
         <!-- <GitHub /> -->
       </div>
     </div>
   </header>
-  <div class="header_fixed">
-
-  </div>
+  <div class="header_fixed"></div>
 </template>
 <script lang="ts" setup>
 import { Lang } from "./lang";
@@ -82,9 +76,10 @@ import { Logo } from "./logo";
 import User from "./user";
 import HeaderNav from "./nav";
 import BlogSearch from "./blog-search";
+import MenuHamburger from "./menu-hamburger/menu-hamburger.vue"
 import { RouterEnum } from "@/enums";
 import { Operation } from "@element-plus/icons-vue";
-import { reactive, ref, Ref, computed, nextTick,useSlots } from "vue";
+import { reactive, ref, Ref, computed, nextTick, useSlots } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { HeaderListType } from "./type";
 import Props from "./props";
@@ -166,7 +161,7 @@ const jump = (path: string) => {
 </script>
 
 <style lang="scss" scoped>
-.header_fixed{
+.header_fixed {
   width: 100%;
   height: var(--header-height);
 }
@@ -299,8 +294,6 @@ const jump = (path: string) => {
         }
       }
     }
-
-  
   }
 }
 
