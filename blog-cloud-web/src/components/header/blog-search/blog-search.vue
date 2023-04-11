@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Search } from "@element-plus/icons-vue";
-import { ElInput } from "element-plus";
 import { ref, nextTick } from "vue";
 import { useHeaderStore } from "@/store";
 import { RouterEnum } from "@/enums";
@@ -11,7 +10,7 @@ const router = useRouter();
 const route = useRoute();
 const searchVal = ref<string>((route as any).query.s || "");
 const miniSearchVal = ref<string>(searchVal.value);
-const miniSearchInput = ref<HTMLElement>();
+const miniSearchInput = ref<HTMLInputElement>();
 const searchDislogShow = ref<boolean>(false);
 const { setKeywords } = useHeaderStore();
 
@@ -44,9 +43,9 @@ const miniOpened = () => {
 //打开迷你弹窗
 const showMiniSearch = () => {
   searchDislogShow.value = true;
-  nextTick(()=>{
-    document.body.style.width=''
-  })
+  nextTick(() => {
+    document.body.style.width = "";
+  });
 };
 
 //隐藏迷你弹窗
@@ -120,6 +119,7 @@ setKeywords(searchVal.value);
         <form
           @submit.prevent="search(SearchType.Mini)"
           class="mini-search-input"
+          action="javascript:return true;"
         >
           <input
             type="search"
@@ -162,7 +162,7 @@ setKeywords(searchVal.value);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 180px;
+    max-width: 140px;
   }
   .mini-search-icon {
     margin-right: 16px;
@@ -182,6 +182,7 @@ setKeywords(searchVal.value);
 .mini-search-input {
   display: flex;
   align-items: center;
+
   .search-input-inner {
     border: solid 1px var(--yh-border-level-2-color);
     transition: var(--el-transition-border);

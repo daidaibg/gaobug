@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref,nextTick } from "vue";
 import { Theme } from "../theme";
 import { langList } from "@/i18n";
 import { useLangStore } from "@/store";
@@ -9,6 +9,11 @@ const active = ref(false);
 
 const onHamburger = () => {
   active.value = !active.value;
+  if (active.value) {
+    nextTick(() => {
+      document.body.style.width = "";
+    });
+  }
 };
 </script>
 
@@ -125,15 +130,16 @@ const onHamburger = () => {
     }
   }
 }
-.drawer-header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .title{
-        font-size: 16px;
-        color: var(--yh-text-color-primary);
-        font-weight: 900;
-    }
-    .menu-hamburger{}
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .title {
+    font-size: 16px;
+    color: var(--yh-text-color-primary);
+    font-weight: 900;
+  }
+  .menu-hamburger {
+  }
 }
 </style>
