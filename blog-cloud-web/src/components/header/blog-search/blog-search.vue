@@ -51,6 +51,7 @@ const showMiniSearch = () => {
 //隐藏迷你弹窗
 const hideMiniSearch = () => {
   searchDislogShow.value = false;
+  miniSearchInput.value?.blur();
 };
 
 /**
