@@ -66,7 +66,7 @@ const onHamburger = () => {
   justify-content: center;
   height: 100%;
   flex-shrink: 0;
-  margin: 0 6px;
+  margin-left: 12px;
   font-size: 14px;
   > span {
     background-color: var(--yh-text-color-primary);

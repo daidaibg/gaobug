@@ -140,7 +140,7 @@ html {
 }
 
 body {
- 
+  width: 100%;
 }
 
 .dark {
@@ -204,11 +204,19 @@ body {
   vertical-align: sub;
 }
 
-@media screen and (min-width: 768px) {
-  .pad-screen-hide {
+//手机端显示 电脑端隐藏
+.mini-screen-show{
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .mini-screen-show {
+    display: block !important;
+  }
+  .mini-screen-hide{
     display: none !important;
   }
 }
+
 
 @media screen and (min-width: 960px) {
   .medium-screen-hide {

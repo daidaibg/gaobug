@@ -2,7 +2,7 @@
  * @Author: daidai
  * @Date: 2021-09-09 17:19:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-04-10 18:10:01
+ * @LastEditTime: 2023-04-10 18:35:17
  * @FilePath: \yhht-ui\src\views\Header.vue
 -->
 <template>
@@ -46,23 +46,19 @@
           </div>
         </template>
       </div>
-      <blog-search
-        :active="active"
-        v-if="searchShow && !slots.search"
-      ></blog-search>
-      <slot name="search"></slot>
+
       <div class="right">
+        <blog-search
+          :active="active"
+          v-if="searchShow && !slots.search"
+        ></blog-search>
+        <slot name="search"></slot>
         <div class="small-screen-hide">
           <Theme> </Theme>
         </div>
-        <Lang  lang-class="small-screen-hide">
-          <!-- <div class="medium-screen-hide ">
-            <label>Theme:</label>
-            <Theme></Theme>
-          </div> -->
-        </Lang>
+        <Lang lang-class="small-screen-hide"> </Lang>
         <User></User>
-        <MenuHamburger  class="medium-screen-hide"/>
+        <MenuHamburger class="medium-screen-hide" />
         <!-- <GitHub /> -->
       </div>
     </div>
@@ -76,7 +72,7 @@ import { Logo } from "./logo";
 import User from "./user";
 import HeaderNav from "./nav";
 import BlogSearch from "./blog-search";
-import MenuHamburger from "./menu-hamburger/menu-hamburger.vue"
+import MenuHamburger from "./menu-hamburger/menu-hamburger.vue";
 import { RouterEnum } from "@/enums";
 import { Operation } from "@element-plus/icons-vue";
 import { reactive, ref, Ref, computed, nextTick, useSlots } from "vue";
