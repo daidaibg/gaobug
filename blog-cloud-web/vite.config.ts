@@ -14,7 +14,7 @@ export default defineConfig(({ command, mode }) => {
   // console.log(command, mode);
   return {
     plugins: [vue(),
-    ElementPlus({ useSource: true}),
+    ElementPlus(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
