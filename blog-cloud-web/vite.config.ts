@@ -2,7 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from "path";
 import externalGlobals from "rollup-plugin-external-globals";
-
+//@ts-ignore
 import ElementPlus from 'unplugin-element-plus/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -14,15 +14,12 @@ export default defineConfig(({ command, mode }) => {
   // console.log(command, mode);
   return {
     plugins: [vue(),
-    ElementPlus({
-      useSource: true
-    }),
+    ElementPlus({ useSource: true}),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
-      resolvers: [ElementPlusResolver({
-      })]
+      resolvers: [ElementPlusResolver()]
     }),
     ],
     publicDir: "public",
