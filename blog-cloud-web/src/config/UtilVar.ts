@@ -4,6 +4,7 @@ interface UtilVarType {
     noContentCode:number,
     ENC:boolean,//是否进行加密
     ENC_key:string,//加密key
+    assetsBaseUrl:string
 }
 
 const UtilVar:UtilVarType = {
@@ -11,7 +12,8 @@ const UtilVar:UtilVarType = {
     code:401, //登陆过期
     noContentCode:204, //请求成功但没有内容
     ENC:false,
-    ENC_key:"f81697720ea83de3"
+    ENC_key:"f81697720ea83de3",
+    assetsBaseUrl:"https://www.daidaibg.com/gaobug"
 
 }
 const runtimeType:any = {

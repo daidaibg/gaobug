@@ -13,6 +13,7 @@ import { useUserStore } from "@/store";
 import { getTimeInterval } from "@/utils/time";
 import dayjs from "dayjs";
 import {HotIcon} from "@/components/icons"
+import UtilVar from "@/config/UtilVar"
 
 const userStore = useUserStore();
 // console.log(emojiList);
@@ -177,7 +178,7 @@ getData();
         :src="
           item.userAvatar
             ? item.userAvatar
-            : '//www.gaobug.com/img/avatar/avatar.png'
+            :UtilVar.assetsBaseUrl+ '/img/avatar/avatar.png'
         "
         lazy
         class="comment_avatar"

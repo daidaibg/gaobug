@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { RouterEnum } from "@/enums";
 import { useRouter } from "vue-router";
+import UtilVar from "@/config/UtilVar"
+
+const wrapUrl = UtilVar.assetsBaseUrl;
+
 const router = useRouter();
 const toolList = [
   {
@@ -13,29 +17,29 @@ const toolList = [
         title: "格式化工具",
         id: "11",
         type: "inner",
-        img: "https://www.gaobug.com/blog-cloud-tool/img/json_format.png",
+        img: wrapUrl+"/blog-cloud-tool/img/json_format.png",
         url: RouterEnum.JsonFormat,
       },
       {
         title: "表格读取",
         id: "12",
         type: "inner",
-        img: "https://www.gaobug.com/blog-cloud-tool/img/xlsx.png",
+        img: wrapUrl+"/blog-cloud-tool/img/xlsx.png",
         url: RouterEnum.ReadXlsx,
       },
       {
         title: "节日倒计时",
         id: "13",
         type: "inner",
-        img: "https://www.gaobug.com/blog-cloud-tool/img/time.png",
+        img: wrapUrl+"/blog-cloud-tool/img/time.png",
         url: RouterEnum.FestivalCountDown,
       },
       {
         title: "工作日历",
         id: "14",
         type: "out",
-        img: "https://www.gaobug.com/blog-cloud-tool/img/tools/workCalendar.png",
-        url: "https://www.gaobug.com/blog-cloud-tool/work-calendar/index.html",
+        img: wrapUrl+"/blog-cloud-tool/img/tools/workCalendar.png",
+        url: wrapUrl+"/blog-cloud-tool/work-calendar/index.html",
         // url: RouterEnum.WorkCalendar,
       },
     ],
@@ -50,7 +54,7 @@ const toolList = [
         title: "HTML压缩工具",
         id: "31",
         type: "out",
-        img: "https://www.gaobug.com/blog-cloud-tool/img/html.png",
+        img: wrapUrl+"/blog-cloud-tool/img/html.png",
         url: "https://c.runoob.com/front-end/47/",
       },
     ],
@@ -64,29 +68,29 @@ const toolList = [
         title: "弹跳爱心",
         id: 21,
         type: "out",
-        img: "https://www.gaobug.com/blog-cloud-tool/img/love.png",
-        url: "https://www.gaobug.com/blog-cloud-tool/love.html",
+        img: wrapUrl+"/blog-cloud-tool/img/love.png",
+        url: wrapUrl+"/blog-cloud-tool/love.html",
       },
       {
         title: "只因太美",
         id: 23,
         type: "inner",
-        img: "https://www.gaobug.com/blog-cloud-tool/img/tools/chicken.png",
+        img: wrapUrl+"/blog-cloud-tool/img/tools/chicken.png",
         url: RouterEnum.Chicken,
       },
       {
         title: "聊天Cpt",
         id: 23,
         type: "inner",
-        img: "https://www.gaobug.com/blog-cloud-tool/img/tools/chatGpt.png",
+        img: wrapUrl+"/blog-cloud-tool/img/tools/chatGpt.png",
         url: RouterEnum.Chat,
       },
       {
         title: "百度搜索",
         id: 22,
         type: "out",
-        img: "https://www.gaobug.com/blog-cloud-tool/img/love.png",
-        url: "https://www.gaobug.com/blog-cloud-tool/baidu/url/index.html",
+        img: wrapUrl+"/blog-cloud-tool/img/love.png",
+        url: wrapUrl+"/blog-cloud-tool/baidu/url/index.html",
       },
     ],
   },

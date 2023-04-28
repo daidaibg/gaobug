@@ -16,6 +16,7 @@ import { PreviewThemeType, BlogDetailsType, CodeTheme } from "./type";
 import { useMetaContent } from "@/hook";
 import { RouterEnum } from "@/enums/router-enums";
 import { windowScrollTo } from "@/utils/scroll";
+import UtilVar from "@/config/UtilVar"
 
 const themeStore = userThemeStore();
 const userStore = useUserStore();
@@ -214,7 +215,7 @@ const goEditArticle = () => {
       </div>
       <comment
         :article-id="blogDetails.id"
-        :avatarUrl="'//www.gaobug.com/img/avatar/avatar.png'"
+        :avatarUrl="UtilVar.assetsBaseUrl+'/img/avatar/avatar.png'"
         @like="like"
       />
     </div>

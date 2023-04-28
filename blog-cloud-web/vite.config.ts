@@ -23,7 +23,7 @@ export default defineConfig(({ command, mode }) => {
     }),
     ],
     publicDir: "public",
-    base: mode === "hash" ? './' : "/",
+    base: "/gaobug",
     server: {
       host: '0.0.0.0',
       port: 8118,

@@ -3,11 +3,13 @@ import { ref, nextTick, Comment } from "vue";
 import { ElAvatar } from "element-plus";
 import {handleCommen} from "@/utils/current"
 import CommentInput from "@/components/comment-input";
+import UtilVar from "@/config/UtilVar"
+
 interface CommentListType {
   id?: number;
   content: string;
 }
-const avatarUrl = ref<string>("//www.gaobug.com/img/avatar/avatar.png");
+const avatarUrl = ref<string>(UtilVar.assetsBaseUrl + "/img/avatar/avatar.png");
 const commentList = ref<CommentListType[]>([
   {
     id: 1,
@@ -63,7 +65,7 @@ const onComment = (CommentVal: string) => {
       </div>
       <div class="comment_item flex" v-for="(item, i) in commentList" :key="i">
         <el-image
-          :src="'//www.gaobug.com/img/avatar/avatar.png'"
+          :src="UtilVar.assetsBaseUrl+'/img/avatar/avatar.png'"
           lazy
           class="comment_avatar"
           fit="cover"
