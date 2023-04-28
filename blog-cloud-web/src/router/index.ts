@@ -195,9 +195,8 @@ const routes: Array<RouteRecordRaw> = [
     ],
   }
 ]
-// console.log(import.meta.env.MODE);
 const router = createRouter({
-  history:createWebHistory("/gaobug/"),
+  history:createWebHistory(import.meta.env.VITE_PREFIX),
   routes,
   scrollBehavior(to, from, saveScrollPosition) {
     if (to.path !== from.path && !saveScrollPosition) {

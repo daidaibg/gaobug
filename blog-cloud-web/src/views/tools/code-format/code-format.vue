@@ -339,7 +339,7 @@ const onRemoveNav = (fileNavItem: FileItemType, index?: number) => {
 const getFileSvg = (iconname: string) => {
   // return new URL(`../../../assets/file-icon/${iconname}.svg`, import.meta.url)
   //   .href;
-  return `/static-files/code-format/code-format-icon/${iconname}.svg`
+  return import.meta.env.VITE_PREFIX+`/static-files/code-format/code-format-icon/${iconname}.svg`
 };
 
 //切换编辑器内容

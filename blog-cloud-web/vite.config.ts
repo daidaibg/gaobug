@@ -7,11 +7,14 @@ import ElementPlus from 'unplugin-element-plus/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-// https://vitejs.dev/config/
-export default defineConfig(({ command, mode }) => {
 
-  // const env = loadEnv(mode, process.cwd(), '')
+// https://vitejs.dev/config/
+export default defineConfig(({ mode }) => {
+
+  const env = loadEnv(mode, process.cwd())
   // console.log(command, mode);
+  // console.log(opt);
+  console.log(env);
   return {
     plugins: [vue(),
     ElementPlus(),
@@ -23,7 +26,7 @@ export default defineConfig(({ command, mode }) => {
     }),
     ],
     publicDir: "public",
-    base: "/gaobug",
+    base: env.VITE_PREFIX,
     server: {
       host: '0.0.0.0',
       port: 8118,
