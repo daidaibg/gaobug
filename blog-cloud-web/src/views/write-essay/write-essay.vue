@@ -11,7 +11,7 @@ import {
 } from "./write-essay";
 import { ElMessage, ElDialog } from "element-plus";
 import MdEditor from "md-editor-v3";
-
+import type { ExposeParam, InsertContentGenerator } from 'md-editor-v3';
 import type {
     FormInstance,
     FormRules,
@@ -19,7 +19,7 @@ import type {
 } from "element-plus";
 import { currentPOST, currentGET } from "@/api";
 import MdEmoji from "@/components/md-edits/md-emoji/md-emoji.vue";
-import Read from "@/components/md-edits/read/read.vue";
+import ReadExtension from "@/components/md-edits/read/read.vue";
 import MarkExtension from "@/components/md-edits/mark-extension/index.vue";
 import { useRouter, useRoute } from "vue-router";
 import { StateType, FormDataType } from "./write-essay-type";
@@ -38,6 +38,7 @@ const editorId = "editor-preview";
 
 
 const ruleFormRef = ref<FormInstance>();
+const editorRef = ref<ExposeParam>();
 const state: StateType = reactive({
     title: "",
     content: ``,
@@ -190,6 +191,10 @@ const onChangeMark = (v: string) => {
     content.value = v;
 };
 
+const insert = (generator: InsertContentGenerator) => {
+  editorRef.value?.insert(generator);
+};
+
 //获取详情
 const getDetail = () => {
     currentGET("blogDetail", {}, state.id).then((res: any) => {
@@ -238,11 +243,14 @@ init();
         </header>
         <md-editor v-model="content" :toolbars="toolbars" class="flex-1" showCodeRowNumber :previewTheme="previewTheme"
             :theme="themeStore.getTheme" @onSave="save" @uploadImg="onUploadImg" ref="editorRef" :editor-id="editorId"
-            :markedHeadingId="generateId">
+            :mdHeadingId="generateId">
             <template #defToolbars>
-                <MarkExtension :editor-id="editorId" @on-change="onChangeMark" />
-                <MdEmoji :editor-id="editorId" @onChange="onEmojiChange" />
-                <Read  :previewTheme="previewTheme" :theme="themeStore.getTheme" />
+                <!-- <MarkExtension :editor-id="editorId" @on-change="onChangeMark" />
+                <MdEmoji :editor-id="editorId" @onChange="onEmojiChange" /> -->
+
+                <MarkExtension :onInsert="insert" />
+                <MdEmoji :onInsert="insert" />
+                <ReadExtension  :previewTheme="previewTheme" :theme="themeStore.getTheme" />
                 <!-- :md-text="content" -->
             </template>
         </md-editor>

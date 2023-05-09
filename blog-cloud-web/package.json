@@ -46,6 +46,7 @@
     "@vitejs/plugin-vue": "^4.2.1",
     "autoprefixer": "^10.4.14",
     "highlight.js": "^11.8.0",
+    "markdown-it-mark": "^3.0.1",
     "postcss": "^8.4.23",
     "rollup-plugin-external-globals": "^0.7.3",
     "sass": "^1.62.1",
