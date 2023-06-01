@@ -10,7 +10,7 @@ import {
     onUploadCover,
 } from "./write-essay";
 import { ElMessage, ElDialog } from "element-plus";
-import MdEditor from "md-editor-v3";
+import {MdEditor} from "md-editor-v3";
 import type { ExposeParam, InsertContentGenerator } from 'md-editor-v3';
 import type {
     FormInstance,
@@ -32,7 +32,6 @@ import "md-editor-v3/lib/style.css";
 const themeStore = userThemeStore();
 const router = useRouter();
 const route = useRoute();
-// const { ModalToolbar, DropdownToolbar, NormalToolbar } = MdEditor;
 const editorId = "editor-preview";
 // const editorId = "md-editor-v3";
 
@@ -219,7 +218,7 @@ const getDetail = () => {
 // 初始化
 const init = () => {
     getCategory();
-    mdEditorConfig(MdEditor)
+    mdEditorConfig()
     if (route.query.articleId) {
         state.id = route.query.articleId;
         getDetail();

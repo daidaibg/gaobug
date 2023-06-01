@@ -133,8 +133,9 @@ const homeRouterQuery = () => {
 
 // 无限滚动
 useInfiniteScroll(
-  //   getScrollContainer(),
-  window,
+    // getScrollContainer(),
+  // window,
+  document,
   (e) => {
     // console.log(e);
     if (state.loading || state.loading === "end") return;

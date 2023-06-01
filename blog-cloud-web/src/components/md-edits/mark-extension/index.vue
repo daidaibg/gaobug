@@ -9,10 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import MdEditor from "md-editor-v3";
+import {NormalToolbar} from "md-editor-v3";
 import type { PropType } from "vue";
 import type { InsertContentGenerator } from "md-editor-v3";
-const NormalToolbar = MdEditor.NormalToolbar;
 
 const props = defineProps({
   onInsert: {

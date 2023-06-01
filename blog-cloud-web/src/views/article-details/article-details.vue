@@ -3,8 +3,8 @@ import { ref, Ref, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { currentGET } from "@/api";
 import { ElMessage } from "element-plus";
-import MdEditor, { HeadList } from "md-editor-v3";
-import "md-editor-v3/lib/style.css";
+import { HeadList ,MdEditor} from "md-editor-v3";
+import 'md-editor-v3/lib/preview.css';
 // import '@vavt/markdown-theme/css/all.css';
 import { useTitle } from "@vueuse/core";
 import { mdEditorConfig ,generateId} from "@/config";
@@ -81,7 +81,7 @@ let id: BlogDetailsType["id"] = route.params.id;
 if (id) {
   blogDetails.value.id = id;
   getDetail();
-  mdEditorConfig(MdEditor);
+  mdEditorConfig();
 } else {
   router.push(RouterEnum.Home);
 }
@@ -155,9 +155,9 @@ const goEditArticle = () => {
           :code-theme="codeTheme"
           showCodeRowNumber
           class="previewmd mt-8"
-          preview-only
           :modelValue="mdText"
           @GetCatalog="onGetCatalog"
+          :mdHeadingId="generateId"
         >
         </md-editor>
       </div>

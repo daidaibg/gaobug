@@ -22,12 +22,11 @@
   
   <script lang="ts" setup>
   import { reactive } from 'vue';
-  import MdEditor from "md-editor-v3";
+  import {DropdownToolbar} from "md-editor-v3";
   import type { PropType } from 'vue';
   import type { InsertContentGenerator } from 'md-editor-v3';
   import { emojis } from './md-emoji';
 
-  const { DropdownToolbar } = MdEditor;
 
   const props = defineProps({
     onInsert: {

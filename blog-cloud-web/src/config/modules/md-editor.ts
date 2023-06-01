@@ -1,4 +1,5 @@
 import screenfull from 'screenfull';
+import { config } from 'md-editor-v3';
 //新的
 //@ts-ignore
 import MarkExtension from 'markdown-it-mark';
@@ -19,11 +20,11 @@ export const generateId = (text: string, level: number, index: number): string =
 };
 
 
-export const mdEditorConfig = (MdEditor: any) => {
+export const mdEditorConfig = () => {
     if (mdEditorConfigFlag) return
     // console.log("mdEditorConfigFlag", mdEditorConfigFlag);
     try {
-        MdEditor.config({
+        config({
             markdownItConfig(md: any) {
                 md.use(MarkExtension); //新的mark 扩展
             },
@@ -41,18 +42,18 @@ export const mdEditorConfig = (MdEditor: any) => {
             //     // _exs[1] = basicSetup;
             //     return _exs;
             // },
-            markedRenderer: (renderer: any) => {
-                renderer.heading = (text: string, level: number, raw: string, s: any, index: number) => {
-                    // console.log(text,level,raw,s,index);
-                    const id = generateId(text, level, index)
-                    return `<h${level} id="${id}">${text}</h${level}>`;
-                };
-                renderer.link = (href: any, title: any, text: any) => {
-                    // console.log(href,text,title);
-                    return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
-                };
-                return renderer;
-            },
+            // markedRenderer: (renderer: any) => {
+            //     renderer.heading = (text: string, level: number, raw: string, s: any, index: number) => {
+            //         // console.log(text,level,raw,s,index);
+            //         const id = generateId(text, level, index)
+            //         return `<h${level} id="${id}">${text}</h${level}>`;
+            //     };
+            //     renderer.link = (href: any, title: any, text: any) => {
+            //         // console.log(href,text,title);
+            //         return `<a href="${href}" title="${title}" target="_blank">${text}</a>`;
+            //     };
+            //     return renderer;
+            // },
             editorExtensions: {
                 iconfont: `${cdnBase}/iconfont/toobar_svg.js`,
                 highlight: {
@@ -76,7 +77,7 @@ export const mdEditorConfig = (MdEditor: any) => {
                     // instance:()=> import("screenfull")
                     instance: screenfull
                 },
-                css: {
+                // css: {
                     // a11y: {
                     //     light: `${cdnBase}/highlight.js/11.5.1/styles/a11y-light.min.css`,
                     //     dark: `${cdnBase}/highlight.js/11.5.1/styles/a11y-dark.min.css`
@@ -102,7 +103,7 @@ export const mdEditorConfig = (MdEditor: any) => {
                     //     light: `${cdnBase}/highlight.js/11.5.1/styles/stackoverflow-light.min.css`,
                     //     dark: `${cdnBase}/highlight.js/11.5.1/styles/stackoverflow-dark.min.css`
                     // }
-                }
+                // }
             },
         });
 

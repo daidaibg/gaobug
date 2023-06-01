@@ -15,13 +15,12 @@
       style="height: 100%; padding: 20px; overflow: auto"
       v-if="state.visible"
     >
-      <md-editor
+      <MdPreview 
         :theme="theme"
         :preview-theme="previewTheme"
         editor-id="edit2preview"
-        preview-only
         :modelValue="state.mdText"
-        :mdHeadingId="readingHeadingId"
+        :mdHeadingId="generateId"
       />
     </div>
     <template #trigger>
@@ -34,14 +33,14 @@
 
 <script lang="ts" setup>
 import { reactive, PropType } from "vue";
-import MdEditor from "md-editor-v3";
+import {MdPreview ,ModalToolbar} from "md-editor-v3";
 import { mdGrammar } from "@/api/blog/blog";
 import { ElMessage } from "element-plus";
+import {generateId} from "@/config/modules/md-editor"
 
 export interface ColumnProps {
   theme: any;
 }
-const ModalToolbar = MdEditor.ModalToolbar;
 const props = defineProps({
   previewTheme: String,
   theme: {
@@ -64,8 +63,7 @@ mdGrammar().then((res) => {
     ElMessage.error(res.msg);
   }
 });
-const readingHeadingId = (_text: string, _level: number, index: number) =>
-  `read-ex-heading-${index}`;
+
 </script>
 <script lang="ts">
 export default {
