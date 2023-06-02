@@ -1,5 +1,7 @@
 import screenfull from 'screenfull';
 import { config } from 'md-editor-v3';
+
+import TargetBlankExtension from "@/utils/md/target-blank-extension"
 //新的
 //@ts-ignore
 import MarkExtension from 'markdown-it-mark';
@@ -27,6 +29,7 @@ export const mdEditorConfig = () => {
         config({
             markdownItConfig(md: any) {
                 md.use(MarkExtension); //新的mark 扩展
+                md.use(TargetBlankExtension)
             },
 
             // markedExtensions: [MarkExtension],//老的mark 扩展
