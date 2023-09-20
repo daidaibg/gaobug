@@ -5,7 +5,6 @@ import { currentGET } from "@/api";
 import { ElMessage } from "element-plus";
 import { HeadList ,MdEditor} from "md-editor-v3";
 import 'md-editor-v3/lib/preview.css';
-// import '@vavt/markdown-theme/css/all.css';
 import { useTitle } from "@vueuse/core";
 import { mdEditorConfig ,generateId} from "@/config";
 import { userThemeStore, useUserStore } from "@/store";

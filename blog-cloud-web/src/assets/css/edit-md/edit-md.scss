@@ -1,4 +1,4 @@
-@mixin editmdVar {
+@mixin editmdVar($type:preview) {
   :deep(.md-editor-dark) {
     // background-color: var(--yh-bg-color-container);
     --md-color: var(--yh-text-color-secondary);
@@ -17,15 +17,20 @@
     --md-scrollbar-thumb-avtive-color: var(--dd-scrollbar-color);
   }
 
-  :deep(.md-content) {
-    h1 {
-      font-size: 1.7em;
+  //当是写的时候
+  @if $type == 'write' {
+    :deep(.md-editor-dark) {
+      --md-bk-color: var(--yh-bg-color-page);
     }
-
-    .title_md {
-      // margin-top: -70px;
-      // padding-top: 80px;
-      // box-sizing: border-box;
+  }@else{
+    :deep(.md-editor-dark) {
+      --md-bk-color: var(--yh-bg-color-container);
+    }
+    :deep(.md-content) {
+      h1 {
+        font-size: 1.7em;
+      }
     }
   }
 }
+

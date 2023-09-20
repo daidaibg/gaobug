@@ -242,7 +242,7 @@ init();
         </header>
         <md-editor v-model="content" :toolbars="toolbars" class="flex-1" showCodeRowNumber :previewTheme="previewTheme"
             :theme="themeStore.getTheme" @onSave="save" @uploadImg="onUploadImg" ref="editorRef" :editor-id="editorId"
-            :mdHeadingId="generateId">
+            :mdHeadingId="generateId" >
             <template #defToolbars>
                 <!-- <MarkExtension :editor-id="editorId" @on-change="onChangeMark" />
                 <MdEmoji :editor-id="editorId" @onChange="onEmojiChange" /> -->
@@ -296,5 +296,6 @@ init();
 </template>
 
 <style scoped lang="scss">
+
 @import "./write-essay.scss";
 </style>

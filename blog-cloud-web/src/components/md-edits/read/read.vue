@@ -25,7 +25,7 @@
     </div>
     <template #trigger>
       <svg class="md-editor-icon" aria-hidden="true">
-        <use xlink:href="#icon-read"></use>
+        <use xlink:href="#md-editor-icon-read"></use>
       </svg>
     </template>
   </ModalToolbar>

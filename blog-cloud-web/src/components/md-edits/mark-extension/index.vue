@@ -2,7 +2,7 @@
   <NormalToolbar title="mark" @onClick="markHandler">
     <template #trigger>
       <svg class="md-editor-icon" aria-hidden="true">
-        <use xlink:href="#icon-mark"></use>
+        <use xlink:href="#md-editor-icon-mark"></use>
       </svg>
     </template>
   </NormalToolbar>

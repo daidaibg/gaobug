@@ -14,7 +14,7 @@
       </template>
       <template #trigger>
         <svg class="md-editor-icon" aria-hidden="true">
-          <use xlink:href="#icon-emoji"></use>
+          <use xlink:href="#md-editor-icon-emoji"></use>
         </svg>
       </template>
     </DropdownToolbar>
@@ -70,7 +70,7 @@
 
 .emoji-container {
   border-radius: 3px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid var(--md-border-color);
 }
 
 .emojis {
@@ -78,12 +78,12 @@
   width: 363px;
   margin: 10px;
   padding: 0;
-  background-color: #fff;
+  background-color: var(--md-bk-color);
 
   li {
     cursor: pointer;
     float: left;
-    border: 1px solid #e8e8e8;
+    border: 1px solid var(--md-border-color);
     height: 24px;
     width: 28px;
     overflow: hidden;
@@ -93,6 +93,7 @@
     list-style: none;
     z-index: 11;
     box-sizing: initial;
+    color: var(--yh-text-color-primary);
     &:hover {
       position: relative;
       border: 1px solid #63a35c;
