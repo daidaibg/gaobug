@@ -1,13 +1,86 @@
-<script setup lang='ts'>
-
+<script setup lang="ts">
+const props = defineProps({
+  title: {
+    type: String,
+    default: "Loading",
+  },
+});
 </script>
 
 <template>
-  <div class=''>
-
+  <div class="container_nomount">
+    <div class="loading">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <h2>{{ title }}</h2>
   </div>
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
+.container_nomount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 999;
+}
+.container_nomount h2 {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.container_nomount .loading {
+  width: 60px;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: -40px;
+  display: flex;
+  justify-content: space-between;
+}
+.container_nomount .loading span {
+  display: inline-block;
+  width: 8px;
+  height: 100%;
+  border-radius: 4px;
+  background: #1890ff;
 
+  animation: load 1s ease infinite;
+}
+@keyframes load {
+  0%,
+  100% {
+    height: 40px;
+    background: #ff3378;
+  }
+  50% {
+    height: 70px;
+    margin: -15px 0;
+    background: #1890ff;
+  }
+}
+.container_nomount .loading span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.container_nomount .loading span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.container_nomount .loading span:nth-child(4) {
+  animation-delay: 0.6s;
+}
+.container_nomount .loading span:nth-child(5) {
+  animation-delay: 0.8s;
+}
 </style>
