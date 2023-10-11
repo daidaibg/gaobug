@@ -1,4 +1,5 @@
 @mixin editmdVar($type:preview) {
+  
   :deep(.md-editor-dark) {
     // background-color: var(--yh-bg-color-container);
     --md-color: var(--yh-text-color-secondary);

@@ -38,7 +38,7 @@ init();
 </script>
 
 <template>
-  <md-editor :toolbars="toolbars" class="editor_wrap" showCodeRowNumber :previewTheme="props.previewTheme"
+  <md-editor :toolbars="toolbars" class="editor_wrap" showCodeRowNumber :previewTheme="props.previewTheme" :auto-detect-code="true"
     :theme="themeStore.getTheme" ref="editorRef" :editor-id="editorId" @uploadImg="onUploadImg" :mdHeadingId="generateId"
     v-bind="$attrs">
     <template #defToolbars>
@@ -50,13 +50,17 @@ init();
       <!-- :md-text="content" -->
     </template>
   </md-editor>
+
 </template>
 
 <style scoped lang="scss">
+
+
+@import "@/assets/css/edit-md/edit-md.scss";
 .editor_wrap {
   width: 100%;
   height: 100%;
+  @include editmdVar("write");
 }
 
-@import "@/assets/css/edit-md/edit-md.scss";
 </style>

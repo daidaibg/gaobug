@@ -206,7 +206,7 @@ init();
 </script>
 
 <template>
-  <div class="write-essay flex flex-col">
+  <div class="write-essay">
     <header class="header flex items-center">
       <div class="flex items-center cursor-pointer ml-10 goback font-black" @click="goback">
         <i class="yh-icons-arrow-left"></i>
@@ -217,7 +217,7 @@ init();
       <yh-button theme="primary" size="medium" class="mx-2" shape="round" @click="fabu">发布 </yh-button>
       <user></user>
     </header>
-    <div class="flex-1 relative">
+    <div class="flex-1 relative content">
       <md-editor
         v-model="content"
         showCodeRowNumber
