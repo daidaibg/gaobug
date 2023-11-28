@@ -578,5 +578,4 @@ emojiList= emojiList.map((item) => {
   };
 });
 
-console.log(emojiList,UtilVar);
 export { emojiList };
