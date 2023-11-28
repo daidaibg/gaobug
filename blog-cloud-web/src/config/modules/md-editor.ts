@@ -11,7 +11,7 @@ import MarkExtension from "markdown-it-mark";
 let mdEditorConfigFlag = false;
 console.log(import.meta.env);
 
-export const cdnBase =import.meta.env.BASE_URL +"/cdns";
+export const cdnBase =window.location.origin+ import.meta.env.BASE_URL +"/cdns";
 const highlightJsBaseCdn = `${cdnBase}/highlight.js/11.8.0/`;
 // 代码高亮cdn链接
 
