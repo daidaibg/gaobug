@@ -26,6 +26,4 @@ export enum RouterEnum {
     Chicken="/chicken",
     //chatGpt
     Chat="/chat",
-    //工作日历
-    WorkCalendar="/work-calendar"
 }

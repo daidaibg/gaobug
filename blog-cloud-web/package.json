@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
+    "build:gaobug": "vite build --mode gaobug",
     "build": "vite build",
     "build:hash": "vite build --mode hash",
     "preview": "vite preview"
@@ -24,10 +25,8 @@
     "marked": "^10.0.0",
     "md-editor-v3": "^4.8.3",
     "monaco-editor": "^0.44.0",
-    "openai": "^4.20.1",
     "pinia": "^2.1.7",
     "screenfull": "^6.0.2",
-    "swiper": "^11.0.5",
     "unplugin-auto-import": "^0.17.1",
     "unplugin-vue-define-options": "^1.4.0",
     "vite": "^5.0.2",
@@ -47,7 +46,6 @@
     "highlight.js": "^11.9.0",
     "markdown-it-mark": "^3.0.1",
     "postcss": "^8.4.31",
-    "rollup-plugin-external-globals": "^0.9.1",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "tailwindcss": "^3.3.5",

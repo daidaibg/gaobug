@@ -119,27 +119,6 @@ const routes: Array<RouteRecordRaw> = [
           noSplice: true
         }
       }
-      ,
-      {
-        path: RouterEnum.Chat,
-        name: RouterEnum.Chat,
-        component: () => import(/* webpackChunkName: "tools" */ '../views/tools/chat/chat.vue'),
-        meta: {
-          title: "聊天Gpt",
-          noSplice: true,
-          isShowHeader: true
-        }
-      },
-      {
-        path: RouterEnum.WorkCalendar,
-        name: RouterEnum.WorkCalendar,
-        component: () => import(/* webpackChunkName: "tools" */ '../views/tools/work-calendar/work-calendar.vue'),
-        meta: {
-          title: "工作日历",
-          noSplice: true,
-          isShowHeader: false,
-        }
-      }
     ]
   },
   {

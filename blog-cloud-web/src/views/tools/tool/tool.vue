@@ -34,14 +34,6 @@ const toolList = [
         img: wrapUrl+"/blog-cloud-tool/img/time.png",
         url: RouterEnum.FestivalCountDown,
       },
-      {
-        title: "工作日历",
-        id: "14",
-        type: "out",
-        img: wrapUrl+"/blog-cloud-tool/img/tools/workCalendar.png",
-        url: wrapUrl+"/blog-cloud-tool/work-calendar/index.html",
-        // url: RouterEnum.WorkCalendar,
-      },
     ],
   },
   {
@@ -77,13 +69,6 @@ const toolList = [
         type: "inner",
         img: wrapUrl+"/blog-cloud-tool/img/tools/chicken.png",
         url: RouterEnum.Chicken,
-      },
-      {
-        title: "聊天Cpt",
-        id: 23,
-        type: "inner",
-        img: wrapUrl+"/blog-cloud-tool/img/tools/chatGpt.png",
-        url: RouterEnum.Chat,
       },
       {
         title: "百度搜索",

@@ -1,7 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from "path";
-import externalGlobals from "rollup-plugin-external-globals";
 //@ts-ignore
 import ElementPlus from 'unplugin-element-plus/vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -26,7 +25,7 @@ export default defineConfig(({ mode }) => {
     }),
     ],
     publicDir: "public",
-    base: env.VITE_PREFIX,
+    base:mode==='gaobug'? env.VITE_PREFIX:"/",
     server: {
       host: '0.0.0.0',
       port: 8118,
@@ -55,7 +54,7 @@ export default defineConfig(({ mode }) => {
         "@": resolve(__dirname, "./src"),
         "components": resolve(__dirname, "./src/components"),
         "api": resolve(__dirname, "./src/api"),
-        'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
+        // 'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
       },
     },
     css: {
@@ -85,9 +84,7 @@ export default defineConfig(({ mode }) => {
           // 'highlight.js'
         ],
         plugins: [
-          externalGlobals({
-            // 'highlight.js': 'hljs'
-          }),
+        
         ],
         output: {
           // globals: {

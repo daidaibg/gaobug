@@ -1,8 +1,3 @@
-
-/*
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-03-10 12:27:35
- */
 import axios, { AxiosRequestConfig, AxiosResponse, Method, AxiosInstance, AxiosError } from 'axios';
 import { useUserStore } from '@/store'
 import UtilVar from "../config/UtilVar";
