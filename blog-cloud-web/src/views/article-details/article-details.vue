@@ -3,7 +3,8 @@ import { ref, Ref, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { currentGET } from "@/api";
 import { ElMessage } from "element-plus";
-import { HeadList ,MdEditor} from "md-editor-v3";
+import { HeadList} from "md-editor-v3";
+import MdView from "@/components/md-view/md-view.vue";
 import 'md-editor-v3/lib/preview.css';
 import { useTitle } from "@vueuse/core";
 import { mdEditorConfig ,generateId} from "@/config";
@@ -22,8 +23,7 @@ const userStore = useUserStore();
 const title = useTitle();
 const route = useRoute();
 const router = useRouter();
-const previewTheme = ref<PreviewThemeType>("github");
-const codeTheme = ref<CodeTheme>("atom");
+
 const mdText = ref<string>(""); //内容
 const blogDetails = ref<BlogDetailsType>({}); //详情
 const catalogList = ref<HeadList[]>([]); //目录
@@ -147,18 +147,15 @@ const goEditArticle = () => {
           />
           <p class="summy break-all">{{ blogDetails.summary }}</p>
         </div>
-        <md-editor
-          :theme="themeStore.getTheme"
-          :previewTheme="previewTheme"
+        <md-view
           editor-id="edit2preview"
-          :code-theme="codeTheme"
           showCodeRowNumber
-          class="previewmd mt-8"
-          :modelValue="mdText"
+          class="mt-8"
+          :text="mdText"
           @GetCatalog="onGetCatalog"
           :mdHeadingId="generateId"
         >
-        </md-editor>
+        </md-view>
       </div>
 
       <div class="catalog blog-cloud_info flex-shrink-0 small-screen-hide">

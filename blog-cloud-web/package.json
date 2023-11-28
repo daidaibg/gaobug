@@ -5,6 +5,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "dev:gaobug": "vite --mode gaobug",
     "start": "vite",
     "build:gaobug": "vite build --mode gaobug",
     "build": "vite build",

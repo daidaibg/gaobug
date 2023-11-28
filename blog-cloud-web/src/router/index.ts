@@ -174,8 +174,9 @@ const routes: Array<RouteRecordRaw> = [
     ],
   }
 ]
+
 const router = createRouter({
-  history:createWebHistory(import.meta.env.VITE_PREFIX),
+  history:createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, from, saveScrollPosition) {
     if (to.path !== from.path && !saveScrollPosition) {
