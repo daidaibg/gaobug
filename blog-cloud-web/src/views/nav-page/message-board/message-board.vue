@@ -4,12 +4,16 @@ import { ElAvatar } from "element-plus";
 import {handleCommen} from "@/utils/current"
 import CommentInput from "@/components/comment-input";
 import UtilVar from "@/config/UtilVar"
+import { useUserStore } from "@/store";
+
 
 interface CommentListType {
   id?: number;
   content: string;
 }
-const avatarUrl = ref<string>(UtilVar.assetsBaseUrl + "/img/avatar/avatar.png");
+
+const userStore = useUserStore();
+
 const commentList = ref<CommentListType[]>([
   {
     id: 1,
@@ -39,7 +43,7 @@ const onComment = (CommentVal: string) => {
     <div class="container-bg rounded-6 ">
       <div class="header-title">留言板</div>
       <div class="input_wrap flex">
-        <el-avatar :size="40" :src="avatarUrl" class="avatar" />
+        <el-avatar :size="40" :src="userStore.getUserData.avatar" class="avatar" />
         <comment-input
           @comment="onComment"
           :autosize="{ minRows: 4, maxRows: 6 }"
@@ -65,7 +69,7 @@ const onComment = (CommentVal: string) => {
       </div>
       <div class="comment_item flex" v-for="(item, i) in commentList" :key="i">
         <el-image
-          :src="UtilVar.assetsBaseUrl+'/img/avatar/avatar.png'"
+          :src="UtilVar.assetsBaseUrl+'/imgs/avatar/avatar.png'"
           lazy
           class="comment_avatar"
           fit="cover"

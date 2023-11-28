@@ -211,7 +211,7 @@ const goEditArticle = () => {
       </div>
       <comment
         :article-id="blogDetails.id"
-        :avatarUrl="UtilVar.assetsBaseUrl+'/img/avatar/avatar.png'"
+        :avatarUrl="userStore.getUserData.avatar"
         @like="like"
       />
     </div>

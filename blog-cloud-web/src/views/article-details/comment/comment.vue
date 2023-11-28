@@ -160,7 +160,7 @@ getData();
   <div id="comment" class="container-bg mt-16 rounded-6 comments">
     <div class="header-title">评论</div>
     <div class="input_wrap flex">
-      <el-avatar :size="40" :src="avatarUrl" class="avatar" />
+      <el-avatar :size="40" :src="userStore.getUserData.avatar" class="avatar" />
       <comment-input @comment="onComment"></comment-input>
     </div>
     <div class="header-title flex items-center" >
@@ -178,7 +178,7 @@ getData();
         :src="
           item.userAvatar
             ? item.userAvatar
-            :UtilVar.assetsBaseUrl+ '/img/avatar/avatar.png'
+            :UtilVar.assetsBaseUrl+ '/imgs/avatar/avatar.png'
         "
         lazy
         class="comment_avatar"

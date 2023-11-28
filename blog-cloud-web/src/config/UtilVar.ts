@@ -16,7 +16,7 @@ const UtilVar: UtilVarType = {
     ENC_key: "f81697720ea83de3",
     resourceUrl: "https://www.daidaibg.com",
     get assetsBaseUrl(): string {
-        return this.resourceUrl + import.meta.env.VITE_PREFIX
+        return this.resourceUrl
     }
 }
 const runtimeType: any = {
