@@ -8,7 +8,7 @@
       <div class="time">练习时长:{{ kunCount }}</div>
       <div v-if="gameState" class="casketball-img">
         <img
-          src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/647c6c1ce80e4feaa1da1634070b776d~tplv-k3u1fbpfcp-watermark.image?"
+          src="./qiu.png"
           v-for="(item, index) in ballArray.length - 1"
           :key="index"
           alt=""
@@ -22,7 +22,7 @@
     >
       <div :class="{ head: true, bodybaskit: play }">
         <img
-          src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/647c6c1ce80e4feaa1da1634070b776d~tplv-k3u1fbpfcp-watermark.image?"
+          src="./qiu.png"
           alt=""
           :class="{
             baskitball: true,
@@ -76,7 +76,7 @@
     <div v-show="mentwo" class="men" style="left: 700px">
       <div :class="['head', legState ? 'headMove' : '']">
         <img
-          src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/647c6c1ce80e4feaa1da1634070b776d~tplv-k3u1fbpfcp-watermark.image?"
+          src="./qiu.png"
           alt=""
           :class="['baskitball', legState ? 'baskit2' : '']"
         />
