@@ -3,6 +3,7 @@
   "private": true,
   "license": "ISC",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "dev:gaobug": "vite --mode gaobug",
