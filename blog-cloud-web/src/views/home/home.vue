@@ -12,6 +12,7 @@ import Backtop from "@/components/backtop";
 import { useHeaderStore } from "@/store";
 import { articleDetailsConfig } from "@/config/article";
 import type { ClassifyListType, HomeBlogState, TypeList } from "./home-types";
+import { RouterEnum } from "@/enums";
 
 const router = useRouter();
 const route = useRoute();
@@ -23,6 +24,8 @@ const state = reactive<HomeBlogState>({
     size: 15,
   },
   loading: false,
+  /**加载到底 */
+  loadingEnd: false,
   categoryId: "",
   keywords: "",
 });
@@ -82,38 +85,34 @@ const getBlogList = () => {
     type: active.value,
     categoryId: state.categoryId || "",
     keywords: state.keywords,
-  }).then(
-    (res: {
-      code: number;
-      data: { records: any };
-      msg: MessageParamsWithType;
-    }) => {
-      // console.log('blogList',res);
-      if (res.code == 200) {
-        let blogList = res.data.records;
-        if (blogList.length < state.blogPage.size) {
-          if (state.blogPage.current == 1) {
-            state.blogList = [];
-          }
-          blogList.forEach((item: object) => {
-            state.blogList.push(item);
-          });
-          state.loading = "end";
-        } else if (state.blogPage.current === 1) {
-          state.blogList = blogList;
-          state.loading = false;
-        } else {
-          blogList.forEach((item: object) => {
-            state.blogList.push(item);
-          });
-          state.loading = false;
+  }).then((res) => {
+    console.log("blogList", res);
+    if (res.code == 200) {
+      let blogList = res.data.records;
+      if (res.data.totalPage <= state.blogPage.current) {
+        if (state.blogPage.current == 1) {
+          state.blogList = [];
         }
-      } else {
+        blogList.forEach((item: object) => {
+          state.blogList.push(item);
+        });
+        state.loadingEnd = true;
+      } else if (state.blogPage.current === 1) {
+        state.blogList = blogList;
         state.loading = false;
-        ElMessage.error(res.msg);
+        state.loadingEnd = false;
+      } else {
+        blogList.forEach((item: object) => {
+          state.blogList.push(item);
+        });
+        state.loading = false;
+        state.loadingEnd = false;
       }
+    } else {
+      state.loading = false;
+      ElMessage.error(res.msg);
     }
-  );
+  });
 };
 
 //首页路径参数处理
@@ -133,16 +132,25 @@ const homeRouterQuery = () => {
 
 // 无限滚动
 useInfiniteScroll(
-    // getScrollContainer(),
+  // getScrollContainer(),
   // window,
   document,
   (e) => {
-    // console.log(e);
-    if (state.loading || state.loading === "end") return;
+    console.log(route);
+    if (state.loading || state.loadingEnd) return;
     state.blogPage.current++;
     getBlogList();
   },
-  { distance: 20 }
+  {
+    distance: 20,
+    interval:100,
+    canLoadMore: () => {
+      if (route.path === RouterEnum.Home) {
+        return !state.loading || !state.loadingEnd;
+      }
+      return false;
+    },
+  }
 );
 
 watch(
@@ -190,79 +198,69 @@ onActivated(() => {
 <template>
   <Classify @on-classify="onClassify" :classifyListActive="state.categoryId" />
   <div class="gaobug index-body flex justify-between items-start">
-    <div class="blog-cloud_content flex-1 box-shadow-0 container-bg">
-      <div class="list-header">
-        <ul class="list-header_wrap flex">
+    <div class="blog-cloud_content flex-1">
+      <div class="home-content-box container-bg box-shadow-0">
+        <div class="list-header">
+          <ul class="list-header_wrap flex">
+            <li
+              class="list-header_item"
+              v-for="item in typelist"
+              :key="item.type"
+              @click="onToggleType(item)"
+              :class="{ active: active == item.type }">
+              {{ $t(item.name) }}
+            </li>
+          </ul>
+        </div>
+        <ul class="blog-list">
           <li
-            class="list-header_item"
-            v-for="item in typelist"
-            :key="item.type"
-            @click="onToggleType(item)"
-            :class="{ active: active == item.type }"
-          >
-            {{ $t(item.name) }}
+            v-for="item in state.blogList"
+            :key="item.oid"
+            class="blog-list_item cursor-pointer box-variable"
+            @click="jumpDetail(item)">
+            <header class="blog-list_header flex items-center">
+              <span class="name">{{ item.authorName }}</span>
+              <span class="time">{{ item.publishTime }}</span>
+              <span class="sortName">{{ item.categoryName || "-" }}</span>
+            </header>
+            <h2 class="info-box_title">
+              {{ item.title }}
+            </h2>
+            <div class="flex blog-list_body justify-between">
+              <div class="info-box">
+                <div class="info-box_content">
+                  {{ item.summary }}
+                </div>
+                <div class="info-box_action flex items-center">
+                  <div class="info-box_action-item">
+                    <i class="dd-icon-liulan icon"></i>
+                    <span>{{ item.clickCount }}</span>
+                  </div>
+                  <div class="info-box_action-item hovers" @click.stop="onLike(item)">
+                    <i class="dd-icon-dianzan icon"></i>
+                    <span>{{ item.likeCount }}</span>
+                  </div>
+                  <div class="info-box_action-item hovers" @click.stop="goDetailComment(item)">
+                    <i class="dd-icon-pinglun icon"></i>
+                    <span>{{ item.commentCount }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="thumb overflow-hidden" v-if="item.coverUrl">
+                <el-image style="width: 100%; height: 100%" :src="item.coverUrl" fit="cover" />
+              </div>
+            </div>
           </li>
         </ul>
       </div>
-      <ul class="blog-list">
-        <li
-          v-for="item in state.blogList"
-          :key="item.oid"
-          class="blog-list_item cursor-pointer box-variable"
-          @click="jumpDetail(item)"
-        >
-          <header class="blog-list_header flex items-center">
-            <span class="name">{{ item.authorName }}</span>
-            <span class="time">{{ item.publishTime }}</span>
-            <span class="sortName">{{ item.categoryName || "-" }}</span>
-          </header>
-          <h2 class="info-box_title">
-            {{ item.title }}
-          </h2>
-          <div class="flex blog-list_body justify-between">
-            <div class="info-box">
-              <div class="info-box_content">
-                {{ item.summary }}
-              </div>
-              <div class="info-box_action flex items-center">
-                <div class="info-box_action-item">
-                  <i class="dd-icon-liulan icon"></i>
-                  <span>{{ item.clickCount }}</span>
-                </div>
-                <div
-                  class="info-box_action-item hovers"
-                  @click.stop="onLike(item)"
-                >
-                  <i class="dd-icon-dianzan icon"></i>
-                  <span>{{ item.likeCount }}</span>
-                </div>
-                <div
-                  class="info-box_action-item hovers"
-                  @click.stop="goDetailComment(item)"
-                >
-                  <i class="dd-icon-pinglun icon"></i>
-                  <span>{{ item.commentCount }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="thumb overflow-hidden" v-if="item.coverUrl">
-              <el-image
-                style="width: 100%; height: 100%"
-                :src="item.coverUrl"
-                fit="cover"
-              />
-            </div>
-          </div>
-        </li>
-      </ul>
+      <el-divider class="home-cbox-end">{{ state.loadingEnd ? "已经到底了" : "  加载中..." }} </el-divider>
     </div>
+
     <div class="blog-cloud_info flex-shrink-0 ml-4 small-screen-hide">
       <home-user>
         <div class="beian">
           <img src="@/assets/img/beianicon.png" alt="备案徽章" />
-          <a href="https://beian.miit.gov.cn/" target="_blank"
-            >闽ICP备2022007995号-1</a
-          >
+          <a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备2022007995号-1</a>
         </div>
       </home-user>
     </div>
@@ -452,21 +450,28 @@ $font-gray-1: var(--dd-font-gray-1);
 .index-body {
   padding-top: 54px;
 }
-.beian{
+.beian {
   margin-top: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  img{
+  img {
     width: 16px;
     margin-right: 6px;
   }
-  a{
+  a {
     color: var(--yh-text-color-secondary);
-    &:hover{
+    &:hover {
       color: var(--yh-brand-color-hover);
     }
+  }
+}
+
+.home-cbox-end {
+  :deep(.el-divider__text) {
+    background-color: var(--dd-html-bg);
+    color: var(--yh-text-color-placeholder);
   }
 }
 </style>

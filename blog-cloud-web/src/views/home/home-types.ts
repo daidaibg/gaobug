@@ -9,7 +9,8 @@ export interface HomeBlogState {
     blogPage:HomeBlogPage;
     loading:boolean|string,
     categoryId:string|number,
-    keywords:string
+    keywords:string,
+    loadingEnd:boolean
 }
 
 

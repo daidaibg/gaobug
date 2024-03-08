@@ -29,6 +29,8 @@
   --dd-color-secondary-brand: rgb(99, 133, 166);
 
   --dd-component-card-background: rgba(255, 255, 255, 0.6);
+
+  --dd-html-bg: var(--yh-gray-color-1);
   .headers-root {
     --header-logo-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px,
       rgba(255, 255, 255, 0.2) 1px 3px 3px;
@@ -77,6 +79,8 @@
   --dd-color-secondary-brand: #819ece;
 
   --dd-component-card-background: rgba(36, 36, 36, 0.6);
+
+  --dd-html-bg: var(--yh-gray-color-14);
   .headers-root {
     --header-logo-shadow: rgba(0, 0, 0, 0.5) 0 5px 6px,
       rgba(0, 0, 0, 0.2) 1px 3px 3px;
@@ -135,7 +139,7 @@ html {
   // background-size: cover;
   //  background-size: 50px;
   //  background-position:  100%;
-  background-color: var(--yh-gray-color-1);
+  background-color:  var(--dd-html-bg);
   // -webkit-transform: translateZ(0);
 }
 
@@ -144,7 +148,6 @@ body {
 }
 
 .dark {
-  background-color: var(--yh-gray-color-14);
   /*滚动条的滑块按钮*/
   ::-webkit-scrollbar-thumb {
     background-color: var(--dd-scroll-thumb-color);
