@@ -3,7 +3,7 @@
     "target": "esnext",
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames":false,
+    "forceConsistentCasingInFileNames": false,
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
@@ -15,18 +15,21 @@
     "lib": ["esnext", "dom"],
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "components/*": [
-        "src/components/*"
-      ],
-      "api/*": [
-        "src/api/*"
-      ],
+      "@/*": ["src/*"],
+      "components/*": ["src/components/*"],
+      "api/*": ["src/api/*"]
     },
-    "types": ["node","vite/client" ,"element-plus/global"]
+    "types": ["node", "vite/client", "element-plus/global"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "types/env.d.ts","types/*.d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/env.d.ts",
+    "types/*.d.ts",
+    "auto-imports.d.ts",
+    "components.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
