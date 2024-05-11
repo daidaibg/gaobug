@@ -341,7 +341,7 @@ const getFileSvg = (iconname: string) => {
   //   .href;
   // console.log(import.meta.env.VITE_PREFIX,import.meta.env);
   // 
-  return `${import.meta.env.BASE_URL === "/" ? "" : import.meta.env.BASE_URL}/static-files/code-format/code-format-icon/${iconname}.svg`;
+  return `${import.meta.env.BASE_URL}/static-files/code-format/code-format-icon/${iconname}.svg`;
 };
 
 //切换编辑器内容
