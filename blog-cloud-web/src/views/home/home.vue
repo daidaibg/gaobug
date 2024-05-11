@@ -136,13 +136,13 @@ useInfiniteScroll(
   // window,
   document,
   (e) => {
-    console.log(route);
+    // console.log(route);
     if (state.loading || state.loadingEnd) return;
     state.blogPage.current++;
     getBlogList();
   },
   {
-    distance: 20,
+    distance: 200,
     interval:100,
     canLoadMore: () => {
       if (route.path === RouterEnum.Home) {
