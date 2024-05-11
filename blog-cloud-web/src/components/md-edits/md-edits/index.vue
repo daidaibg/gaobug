@@ -21,7 +21,7 @@ const editorRef = ref<ExposeParam>();
 
 const props = defineProps({
   previewTheme: {
-    type: String as PropType<string | undefined>,
+    type: String as PropType<any>,
   },
 });
 

@@ -17,7 +17,7 @@
     >
       <MdPreview 
         :theme="theme"
-        :preview-theme="previewTheme"
+        :preview-theme="props.previewTheme"
         editor-id="edit2preview"
         :modelValue="state.mdText"
         :mdHeadingId="generateId"

@@ -15,7 +15,7 @@ import { userThemeStore } from "@/store";
 
 import type { FormInstance, FormRules, UploadRequestOptions } from "element-plus";
 
-const MdEditor = defineAsyncComponent({
+const GbMdEditor = defineAsyncComponent({
   loader: () => import("@/components/md-edits/md-edits/index.vue"),
   loadingComponent: Loading,
 });
@@ -65,7 +65,7 @@ const fabu = () => {
 // 发布文章
 const publish = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
-  formEl.validate((valid:boolean) => {
+  formEl.validate((valid) => {
     if (valid) {
       saveOrUpdate(1, "发布成功").then((res) => {
         if (res) {
@@ -217,13 +217,13 @@ init();
       <user></user>
     </header>
     <div class="flex-1 relative content">
-      <md-editor
+      <gb-md-editor
         v-model="content"
         showCodeRowNumber
         :previewTheme="previewTheme"
         @onSave="save"
       >
-      </md-editor>
+      </gb-md-editor>
     </div>
   </div>
   <div class="dialog_wrap">
