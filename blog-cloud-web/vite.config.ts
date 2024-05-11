@@ -7,7 +7,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-console.log(process.env.BASE_URL);
+// console.log(process.env);
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
 
@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
     }),
     ],
     publicDir: "public",
-    base: mode==env.VITE_PREFIX_TYPE? env.VITE_PREFIX:"/",
+    base: env.VITE_PREFIX,
     server: {
       host: '0.0.0.0',
       port: 8118,

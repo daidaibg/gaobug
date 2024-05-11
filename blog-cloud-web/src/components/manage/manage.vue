@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-import Header from "@/components/header/header.vue"
+import GbHeader from "@/components/header/gb-header.vue"
 </script>
 
 <template>
-    <Header :tabShow="false"></Header>
+    <GbHeader :tabShow="false"></GbHeader>
     <div class="blog-manage gaobug ">
         <div class="menu_wrap">
             <slot></slot>

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Logo } from "@/components/header/logo";
 import {  useRoute } from "vue-router";
-import Header from "@/components/header/Header.vue";
+import GbHeader from "@/components/header/gb-header.vue";
 
 const route = useRoute();
 // console.log(route);
 </script>
 
 <template>
-  <Header :tabShow="false" v-if="route.meta.isShowHeader"><template #search>  </template> </Header>
+  <GbHeader :tabShow="false" v-if="route.meta.isShowHeader"><template #search>  </template> </GbHeader>
   <!-- <div class="tools-layout">
     <Logo class="tools-layout_logo" />
     <span class="tools-layout_title">{{route.meta.title||"搞bug工具"}}</span>

@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <gb-header />
   <router-view v-slot="{ Component }">
     <keep-alive>
       <component
@@ -16,7 +16,7 @@
   </router-view>
 </template>
 <script setup lang="ts">
-import Header from "@/components/header/Header.vue";
+import GbHeader from "@/components/header/gb-header.vue";
 </script>
 <style lang="scss" scoped>
 .page-container_wrap {
