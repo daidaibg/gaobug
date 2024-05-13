@@ -1,35 +1,24 @@
 <script setup lang="ts">
-import {
-  onBeforeMount,
-  onMounted,
-  ref,
-  reactive,
-  nextTick,
-  markRaw,
-  defineAsyncComponent
-} from "vue";
+import { onBeforeMount, onMounted, ref, reactive, nextTick, markRaw, defineAsyncComponent } from "vue";
 import Loading from "@/components/loading";
 import CodeFormatCommon from "./common/code-format-common.vue";
+import SettingAction from "./common/setting-action.vue";
+import SettingMenu from "./common/setting-menu.vue";
 import { InfoIcon, CloseIcon } from "@/components/icons";
 import { ArrowRight } from "@element-plus/icons-vue";
 import { CustomMouseMenu } from "@/components/contextmenu";
 import { Logo } from "@/components/header/logo";
 import { catalogueListDefault } from "./code-format-config";
-import { ElMessage, ElMessageBox ,ElNotification } from "element-plus";
+import { ElMessage, ElMessageBox, ElNotification } from "element-plus";
 import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
 import { seachTreeData, seachTreeParentData } from "@/utils/tree";
 import { CommonEnums } from "./type";
 import { userThemeStore } from "@/store";
 import { saveJSON } from "@/utils/modules/files";
-import {
-  getLaguageData,
-  createFileData,
-  createFolderData,
-  timerPromise,
-} from "./code-format";
+import { getLaguageData, createFileData, createFolderData, timerPromise } from "./code-format";
 
 import type Node from "element-plus/es/components/tree/src/model/node";
-import type { FileItemType,EditorOptionType } from "./type";
+import type { FileItemType, EditorOptionType } from "./type";
 
 const MonacoEditor = defineAsyncComponent({
   loader: () => import("@/components/monaco-editor"),
@@ -43,10 +32,8 @@ const settingConfig = reactive({
 //右键对象
 let contextMenuCtx: any = null;
 //通知
-let notification :any = null
-//设置栏  弹窗ref  ref
-const settingRef = ref();
-const menubarMenuRef = ref();
+let notification: any = null;
+
 //侧边栏目录列表
 const catalogueList = ref<FileItemType[]>([]);
 //侧边栏目录ref
@@ -69,13 +56,12 @@ const editorOption = reactive<EditorOptionType>({
   },
 });
 
-
-
 //editor实例加载完成
 const editorMounted = (editor: any) => {
   console.log("%ceditor实例加载完成", "color: #229453");
   // console.log("editor实例加载完成", editor);
 };
+
 //点击每一项
 const onCommonClick = (commonItem: any) => {
   editorOption.theme = commonItem.value;
@@ -124,12 +110,7 @@ const catalogueListContextmenu = (e: any) => {
   contextMenuCtx.show(x, y);
 };
 //右键
-const onCataloguetNodecontextmenu = (
-  event: any,
-  data: FileItemType,
-  node: Node,
-  nodeTemplate: any
-) => {
+const onCataloguetNodecontextmenu = (event: any, data: FileItemType, node: Node, nodeTemplate: any) => {
   // console.log({ event, data, node, nodeTemplate });
   // console.log(catalogueList.value.length);
   event.preventDefault();
@@ -178,7 +159,6 @@ const rename = async (node: Node, nodeData: FileItemType) => {
     inputValue: nodeData.title,
     draggable: true,
     type: "info",
-    icon: markRaw(InfoIcon),
   })
     .then(({ value }) => {
       nodeData.title = value;
@@ -191,9 +171,7 @@ const rename = async (node: Node, nodeData: FileItemType) => {
       //修改编辑器语言
       editorOption.languageModel = laguageData.fileLanguage;
       //处理nav导航数据
-      const navIndex = navFileList.value.findIndex(
-        (d: any) => d.id === nodeData.id
-      );
+      const navIndex = navFileList.value.findIndex((d: any) => d.id === nodeData.id);
       if (navIndex > -1) {
         navFileList.value[navIndex].title = value;
         navFileList.value[navIndex].icon = laguageData.fileIconData.icon.name;
@@ -210,7 +188,6 @@ const rename = async (node: Node, nodeData: FileItemType) => {
 };
 //下载文件
 const downFile = () => {
-  menubarMenuRef.value.hide();
   const codeFormatFileData = setFilesLocalStorage();
   saveJSON(codeFormatFileData, "格式化工具数据.json")
     .then((res) => {
@@ -287,9 +264,9 @@ const addCatalogFile = (fileOrFolder: any, createParentData?: any) => {
     return;
   }
   const currentFileData = catalogueRef.value.getCurrentNode();
-  if(!currentFileData){
-    addCatalogFile(fileOrFolder,"root")
-    return
+  if (!currentFileData) {
+    addCatalogFile(fileOrFolder, "root");
+    return;
   }
   //本身是文件夹的话向子级直接插入
   if (currentFileData.type == "2") {
@@ -299,10 +276,7 @@ const addCatalogFile = (fileOrFolder: any, createParentData?: any) => {
     currentFileData.children.push(fileOrFolder);
     return;
   }
-  const currentParentData = seachTreeParentData(
-    catalogueList.value,
-    currentActiveFile.value
-  );
+  const currentParentData = seachTreeParentData(catalogueList.value, currentActiveFile.value);
   // console.log("addCatalogFile-currentParentData",currentParentData);
   //父级是文件夹的话插入
   if (currentParentData) {
@@ -346,8 +320,10 @@ const getFileSvg = (iconname: string) => {
   // return new URL(`../../../assets/file-icon/${iconname}.svg`, import.meta.url)
   //   .href;
   // console.log(import.meta.env.VITE_PREFIX,import.meta.env);
-  // 
-  return `${import.meta.env.BASE_URL.length==1?"":import.meta.env.BASE_URL}/static-files/code-format/code-format-icon/${iconname}.svg`;
+  //
+  return `${
+    import.meta.env.BASE_URL.length == 1 ? "" : import.meta.env.BASE_URL
+  }/static-files/code-format/code-format-icon/${iconname}.svg`;
 };
 
 //切换编辑器内容
@@ -371,7 +347,6 @@ const catalogueNodeClick = (data: FileItemType) => {
 };
 //选择切换主题
 const onSelectTheme = () => {
-  settingRef.value.hide();
   editorOption.commonKeyword = CommonEnums.theme;
 };
 // 更新目录node
@@ -399,14 +374,10 @@ const setCurrentCheckCatalogue = async (id: string | null) => {
 const saveFiles = () => {
   saveCurrentCatalogue();
   setFilesLocalStorage();
-
 };
 //保存当前的数据
 const saveCurrentCatalogue = () => {
-  let currentFileData = seachTreeData(
-    catalogueList.value,
-    currentActiveFile.value
-  );
+  let currentFileData = seachTreeData(catalogueList.value, currentActiveFile.value);
   if (currentFileData) {
     currentFileData.content = editorOption.editValue;
   }
@@ -427,15 +398,15 @@ const setFilesLocalStorage = () => {
     active: currentActiveFile.value,
   };
   setLocalStorage("codeFormatFileData", codeFormatFileData);
-  notification&&notification.close()
-  notification= ElNotification({
-    title: '通知',
-    message: '保存成功!',
-    type: 'success',
+  notification && notification.close();
+  notification = ElNotification({
+    title: "通知",
+    message: "保存成功!",
+    type: "success",
     showClose: false,
-    duration:3000,
-    position:"bottom-left"
-  })
+    duration: 3000,
+    position: "bottom-left",
+  });
   return codeFormatFileData;
 };
 
@@ -464,18 +435,15 @@ const initCatalogList = async () => {
   }
   catalogueList.value = codeFormatFileData.catalogueList;
   navFileList.value = codeFormatFileData.navList;
-  if(codeFormatFileData.active){
+  if (codeFormatFileData.active) {
     currentActiveFile.value = codeFormatFileData.active;
-  }else if(navFileList.value.length>=1){
+  } else if (navFileList.value.length >= 1) {
     currentActiveFile.value = navFileList.value[0].id;
   }
   if (!currentActiveFile.value) {
     return;
   }
-  const currentFileData = seachTreeData(
-    catalogueList.value,
-    currentActiveFile.value
-  );
+  const currentFileData = seachTreeData(catalogueList.value, currentActiveFile.value);
   if (currentFileData) {
     await nextTick();
     switchEditData(currentFileData.content, currentFileData.language);
@@ -502,72 +470,22 @@ onBeforeMount(() => {
 
 <template>
   <div class="json_format edit-tool-var" :class="editorOption.theme">
-    <CodeFormatCommon
-      v-model="editorOption.commonKeyword"
-      :editorOption="editorOption"
-      @clickItem="onCommonClick"
-    >
+    <CodeFormatCommon v-model="editorOption.commonKeyword" :editorOption="editorOption" @clickItem="onCommonClick">
     </CodeFormatCommon>
     <div class="code_format_setting">
-      <el-popover
-        placement="right"
-        :width="200"
-        :hide-after="0"
-        :offset="0"
-        trigger="hover"
-        :show-arrow="false"
-        popper-class="setting_action_setting"
-        ref="menubarMenuRef"
-      >
-        <template #reference>
-          <div class="menubar-menu-button">
-            <i class="dd-icon-mulu"></i>
-          </div>
-        </template>
-        <ul class="setting_action_action">
-          <li class="setting_action_action_item" @click="downFile()">
-            下载文件
-          </li>
-        </ul>
-      </el-popover>
+      <setting-menu @downFile="downFile"></setting-menu>
       <ul class="setting_menu">
         <li
           :class="{ menuActive: settingConfig.menuActive === 'file' }"
-          class="setting_menu_item flex justify-center items-center"
-        >
+          class="setting_menu_item flex justify-center items-center">
           <i class="dd-icon-file"></i>
         </li>
       </ul>
-      <ul class="setting_action">
-        <li class="setting_menu_item">
-          <el-popover
-            placement="right"
-            :width="200"
-            :hide-after="0"
-            :offset="0"
-            trigger="hover"
-            :show-arrow="false"
-            popper-class="setting_action_setting"
-            ref="settingRef"
-          >
-            <template #reference>
-              <i
-                class="dd-icon-shezhi setting_icon flex justify-center items-center"
-              >
-              </i>
-            </template>
-            <ul class="setting_action_action">
-              <li class="setting_action_action_item" @click="onSelectTheme()">
-                颜色主题
-              </li>
-            </ul>
-          </el-popover>
-        </li>
-      </ul>
+      <setting-action @selectTheme="onSelectTheme"></setting-action>
     </div>
     <div class="json_format_nav flex flex-col">
       <div class="logo_wrap flex-shrink-0">
-        <Logo class="tools-layout_logo" target="_blank"/>
+        <Logo class="tools-layout_logo" target="_blank" />
         <span>格式化工具</span>
       </div>
       <div class="nav_title flex-shrink-0">
@@ -581,26 +499,15 @@ onBeforeMount(() => {
           </el-tooltip>
         </div>
         <div class="nav_title_action flex overflow-y-auto">
-          <div
-            class="nav_title_action_icon"
-            @click="onAddfile('1')"
-            title="新建文件..."
-          >
+          <div class="nav_title_action_icon" @click="onAddfile('1')" title="新建文件...">
             <i class="dd-icon-file1"></i>
           </div>
-          <div
-            class="nav_title_action_icon"
-            @click="onAddfile('2')"
-            title="新建文件夹..."
-          >
+          <div class="nav_title_action_icon" @click="onAddfile('2')" title="新建文件夹...">
             <i class="dd-icon-folder"></i>
           </div>
         </div>
       </div>
-      <div
-        class="catalogue—list flex-auto"
-        @contextmenu.stop="catalogueListContextmenu"
-      >
+      <div class="catalogue—list flex-auto" @contextmenu.stop="catalogueListContextmenu">
         <el-tree
           :data="catalogueList"
           :props="{ children: 'children', label: 'title' }"
@@ -610,8 +517,7 @@ onBeforeMount(() => {
           ref="catalogueRef"
           highlight-current
           :draggable="false"
-          @node-contextmenu="onCataloguetNodecontextmenu"
-        >
+          @node-contextmenu="onCataloguetNodecontextmenu">
           <template #default="{ node, data }">
             <span class="catalogue-list-tree-node">
               <div class="catalogue-list-file-icon">
@@ -630,17 +536,13 @@ onBeforeMount(() => {
           @click="navActiveChange(item)"
           class="file_nav_item"
           :class="{ currentActiveFile: currentActiveFile === item.id }"
-          :key="item.id"
-        >
+          :key="item.id">
           <div class="file_nav_img">
             <img :src="getFileSvg(item.icon)" :alt="item.language" />
           </div>
           <span class="file_nav_title">{{ item.title }}</span>
           <div class="file_nav_close">
-            <div
-              class="file_nav_close_inner"
-              @click.stop="onRemoveNav(item, i)"
-            >
+            <div class="file_nav_close_inner" @click.stop="onRemoveNav(item, i)">
               <CloseIcon />
             </div>
           </div>
@@ -655,8 +557,7 @@ onBeforeMount(() => {
         :read-only="false"
         @editor-mounted="editorMounted"
         @save="saveFiles"
-        class="json_format_editor"
-      />
+        class="json_format_editor" />
     </div>
     <div class="json_format_content empty" v-else>
       <p>请选择左侧目录列表中的文件，或者新建文件。</p>
@@ -671,6 +572,8 @@ onBeforeMount(() => {
 <style scoped lang="scss">
 @import "./style/code-format-var.scss";
 @import "./style/code-format-dark.scss";
+@import "./style/left-action.scss";
+
 .json_format {
   width: 100%;
   height: 100vh;
@@ -797,73 +700,8 @@ onBeforeMount(() => {
   background-color: var(--format-setting-bg-color);
   display: flex;
   flex-direction: column;
-
-  .menubar-menu-button {
-    color: rgba(255, 255, 255, 0.4);
-    text-align: center;
-    height: 35px;
-    cursor: pointer;
-
-    i {
-      line-height: 35px;
-      font-size: 16px;
-    }
-
-    &:hover {
-      color: var(--format-setting-text-active-color);
-    }
-  }
-
   .setting_menu {
     margin-bottom: auto;
-  }
-
-  .setting_menu_item {
-    height: 48px;
-    position: relative;
-    color: var(--format-setting-text-color);
-    cursor: pointer;
-    .setting_icon {
-      width: 100%;
-      height: 100%;
-    }
-    &:hover {
-      color: var(--format-setting-text-active-color);
-    }
-
-    &.menuActive {
-      color: var(--format-setting-text-active-color);
-
-      &::before {
-        content: "";
-        position: absolute;
-        width: 2px;
-        height: 48px;
-        left: 0;
-        top: 0;
-        background-color: var(--format-setting-text-active-color);
-      }
-    }
-
-    i {
-      font-size: 22px;
-    }
-  }
-}
-
-//设置列表
-.setting_action_action {
-  padding: 0 2px;
-  .setting_action_action_item {
-    cursor: pointer;
-    padding: 0 26px;
-    height: 26px;
-    line-height: 26px;
-    border-radius: 3px;
-    &:hover {
-      background-color: var(--yh-brand-color);
-      color: var(--yh-text-color-anti);
-    }
   }
 }
 

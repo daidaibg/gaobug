@@ -1,0 +1,46 @@
+.setting_menu_item {
+    height: 48px;
+    position: relative;
+    color: var(--format-setting-text-color);
+    cursor: pointer;
+    .setting_icon {
+      width: 100%;
+      height: 100%;
+    }
+    &:hover {
+      color: var(--format-setting-text-active-color);
+    }
+  
+    &.menuActive {
+      color: var(--format-setting-text-active-color);
+  
+      &::before {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 48px;
+        left: 0;
+        top: 0;
+        background-color: var(--format-setting-text-active-color);
+      }
+    }
+  
+    i {
+      font-size: 22px;
+    }
+  }
+  //设置列表
+  .setting_action_action {
+    padding: 0 2px;
+    .setting_action_action_item {
+      cursor: pointer;
+      padding: 0 26px;
+      height: 26px;
+      line-height: 26px;
+      border-radius: 3px;
+      &:hover {
+        background-color: var(--yh-brand-color);
+        color: var(--yh-text-color-anti);
+      }
+    }
+  }
