@@ -65,16 +65,14 @@ const fabu = () => {
 // 发布文章
 const publish = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
-  formEl.validate((valid) => {
+  formEl.validate((valid)=> {
     if (valid) {
       saveOrUpdate(1, "发布成功").then((res) => {
         if (res) {
           router.push("/blogs/manage/article");
         }
       });
-    } else {
-      return false;
-    }
+    } 
   });
 };
 

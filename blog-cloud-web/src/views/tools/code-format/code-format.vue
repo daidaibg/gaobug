@@ -6,15 +6,16 @@ import {
   reactive,
   nextTick,
   markRaw,
+  defineAsyncComponent
 } from "vue";
-import monacoEditor from "@/components/monaco-editor";
+import Loading from "@/components/loading";
 import CodeFormatCommon from "./common/code-format-common.vue";
 import { InfoIcon, CloseIcon } from "@/components/icons";
+import { ArrowRight } from "@element-plus/icons-vue";
 import { CustomMouseMenu } from "@/components/contextmenu";
 import { Logo } from "@/components/header/logo";
 import { catalogueListDefault } from "./code-format-config";
 import { ElMessage, ElMessageBox ,ElNotification } from "element-plus";
-import { ArrowRight } from "@element-plus/icons-vue";
 import { setLocalStorage, getLocalStorage } from "@/utils/modules/storage";
 import { seachTreeData, seachTreeParentData } from "@/utils/tree";
 import { CommonEnums } from "./type";
@@ -29,6 +30,11 @@ import {
 
 import type Node from "element-plus/es/components/tree/src/model/node";
 import type { FileItemType,EditorOptionType } from "./type";
+
+const MonacoEditor = defineAsyncComponent({
+  loader: () => import("@/components/monaco-editor"),
+  loadingComponent: Loading,
+});
 
 const themeStore = userThemeStore();
 const settingConfig = reactive({
@@ -640,7 +646,7 @@ onBeforeMount(() => {
           </div>
         </div>
       </nav>
-      <monacoEditor
+      <MonacoEditor
         v-model="editorOption.editValue"
         :language="editorOption.languageModel"
         :hight-change="editorOption.hightChange"
@@ -663,8 +669,8 @@ onBeforeMount(() => {
 }
 </style>
 <style scoped lang="scss">
-@import "./code-format-var.scss";
-@import "./code-format-dark.scss";
+@import "./style/code-format-var.scss";
+@import "./style/code-format-dark.scss";
 .json_format {
   width: 100%;
   height: 100vh;
