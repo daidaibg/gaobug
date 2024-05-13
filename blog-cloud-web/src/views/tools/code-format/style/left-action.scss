@@ -1,4 +1,4 @@
-.setting_menu_item {
+.activitybar_left_item {
     height: 48px;
     position: relative;
     color: var(--format-setting-text-color);
@@ -30,9 +30,9 @@
     }
   }
   //设置列表
-  .setting_action_action {
+  .activitybar_left_item_pop {
     padding: 0 2px;
-    .setting_action_action_item {
+    .pop_item {
       cursor: pointer;
       padding: 0 26px;
       height: 26px;

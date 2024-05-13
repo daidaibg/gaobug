@@ -29,8 +29,8 @@ const downFile = () => {
         <i class="dd-icon-mulu"></i>
       </div>
     </template>
-    <ul class="setting_action_action">
-      <li class="setting_action_action_item" @click="downFile()">下载文件</li>
+    <ul class="activitybar_left_item_pop">
+      <li class="pop_item" @click="downFile()">下载文件</li>
     </ul>
   </el-popover>
 </template>

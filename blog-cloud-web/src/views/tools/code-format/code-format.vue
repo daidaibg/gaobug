@@ -2,8 +2,9 @@
 import { onBeforeMount, onMounted, ref, reactive, nextTick, markRaw, defineAsyncComponent } from "vue";
 import Loading from "@/components/loading";
 import CodeFormatCommon from "./common/code-format-common.vue";
-import SettingAction from "./common/setting-action.vue";
-import SettingMenu from "./common/setting-menu.vue";
+import Actionbar from "./common/actionbar.vue";
+import Menubar from "./common/menubar.vue";
+import CompositeBar from "./common/composite-bar.vue"
 import { InfoIcon, CloseIcon } from "@/components/icons";
 import { ArrowRight } from "@element-plus/icons-vue";
 import { CustomMouseMenu } from "@/components/contextmenu";
@@ -26,9 +27,7 @@ const MonacoEditor = defineAsyncComponent({
 });
 
 const themeStore = userThemeStore();
-const settingConfig = reactive({
-  menuActive: "file",
-});
+
 //右键对象
 let contextMenuCtx: any = null;
 //通知
@@ -472,16 +471,10 @@ onBeforeMount(() => {
   <div class="json_format edit-tool-var" :class="editorOption.theme">
     <CodeFormatCommon v-model="editorOption.commonKeyword" :editorOption="editorOption" @clickItem="onCommonClick">
     </CodeFormatCommon>
-    <div class="code_format_setting">
-      <setting-menu @downFile="downFile"></setting-menu>
-      <ul class="setting_menu">
-        <li
-          :class="{ menuActive: settingConfig.menuActive === 'file' }"
-          class="setting_menu_item flex justify-center items-center">
-          <i class="dd-icon-file"></i>
-        </li>
-      </ul>
-      <setting-action @selectTheme="onSelectTheme"></setting-action>
+    <div class="activitybar-left">
+      <menubar @downFile="downFile"></menubar>
+      <composite-bar></composite-bar>
+      <actionbar @selectTheme="onSelectTheme"></actionbar>
     </div>
     <div class="json_format_nav flex flex-col">
       <div class="logo_wrap flex-shrink-0">
@@ -573,7 +566,6 @@ onBeforeMount(() => {
 @import "./style/code-format-var.scss";
 @import "./style/code-format-dark.scss";
 @import "./style/left-action.scss";
-
 .json_format {
   width: 100%;
   height: 100vh;
@@ -694,15 +686,13 @@ onBeforeMount(() => {
 }
 
 //设置
-.code_format_setting {
+.activitybar-left {
   width: 48px;
   flex-shrink: 0;
   background-color: var(--format-setting-bg-color);
   display: flex;
   flex-direction: column;
-  .setting_menu {
-    margin-bottom: auto;
-  }
+ 
 }
 
 .logo_wrap {

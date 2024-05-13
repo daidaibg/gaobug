@@ -16,7 +16,7 @@ const onSelectTheme = () => {
 
 <template>
   <ul class="setting_action">
-    <li class="setting_menu_item">
+    <li class="activitybar_left_item">
       <el-popover
         placement="right"
         :width="200"
@@ -29,8 +29,8 @@ const onSelectTheme = () => {
         <template #reference>
           <i class="dd-icon-shezhi setting_icon flex justify-center items-center"> </i>
         </template>
-        <ul class="setting_action_action">
-          <li class="setting_action_action_item" @click="onSelectTheme()">颜色主题</li>
+        <ul class="activitybar_left_item_pop">
+          <li class="pop_item" @click="onSelectTheme()">颜色主题</li>
         </ul>
       </el-popover>
     </li>
