@@ -1,10 +1,3 @@
-<!--
- * @Author: daidai
- * @Date: 2021-09-09 17:19:05
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-04-10 18:35:17
- * @FilePath: \yhht-ui\src\views\Header.vue
--->
 <template>
   <header class="headers box-shadow-bootom">
     <div class="header_inner">
