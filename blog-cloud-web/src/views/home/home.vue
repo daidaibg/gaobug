@@ -86,7 +86,7 @@ const getBlogList = () => {
     categoryId: state.categoryId || "",
     keywords: state.keywords,
   }).then((res) => {
-    console.log("blogList", res);
+    // console.log("blogList", res);
     if (res.code == 200) {
       let blogList = res.data.records;
       if (res.data.totalPage <= state.blogPage.current) {

@@ -12,8 +12,6 @@ export const useHeaderStore = defineStore('header', () => {
 
     const setKeywords=(val:string)=>{
         headerSearch.keywords=val
-        headerSearch.num++
-
     }
     return {headerSearch,setKeywords}
 })

@@ -202,7 +202,7 @@ const jump = (path: string) => {
   .right {
     display: flex;
     align-items: center;
-
+    cursor: pointer;
     .right_inner {
       display: flex;
       align-items: center;
@@ -222,7 +222,7 @@ const jump = (path: string) => {
         align-items: center;
       }
 
-      cursor: pointer;
+      
 
       &:hover {
         a,

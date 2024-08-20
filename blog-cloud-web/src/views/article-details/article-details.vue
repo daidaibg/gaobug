@@ -3,11 +3,11 @@ import { ref, Ref, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { currentGET } from "@/api";
 import { ElMessage } from "element-plus";
-import { HeadList} from "md-editor-v3";
+import { HeadList } from "md-editor-v3";
 import MdView from "@/components/md-view/md-view.vue";
-import 'md-editor-v3/lib/preview.css';
+import "md-editor-v3/lib/preview.css";
 import { useTitle } from "@vueuse/core";
-import { mdEditorConfig ,generateId} from "@/config";
+import { mdEditorConfig, generateId } from "@/config";
 import { userThemeStore, useUserStore } from "@/store";
 import Backtop from "@/components/backtop";
 import Actions from "./actions";
@@ -16,7 +16,7 @@ import { PreviewThemeType, BlogDetailsType, CodeTheme } from "./type";
 import { useMetaContent } from "@/hook";
 import { RouterEnum } from "@/enums/router-enums";
 import { windowScrollTo } from "@/utils/scroll";
-import UtilVar from "@/config/UtilVar"
+import UtilVar from "@/config/UtilVar";
 
 const themeStore = userThemeStore();
 const userStore = useUserStore();
@@ -55,10 +55,7 @@ const getDetail = () => {
       blogDetails.value = res.data;
       mdText.value = res.data.content;
       title.value = res.data.title; // change current title
-      setMetaTagContent(
-        "description",
-        res.data.summary == "" ? res.data.title : res.data.summary
-      );
+      setMetaTagContent("description", res.data.summary == "" ? res.data.title : res.data.summary);
       setMetaTagContent("keywords", res.data.title);
     } else {
       ElMessage.error(res.msg);
@@ -71,7 +68,7 @@ const anchorHandle = async () => {
   await nextTick();
   if (route.hash) {
     console.log(route.hash);
-    const str = `[id="${route.hash.slice(1).replace(/\s/g, "%20")}"]`
+    const str = `[id="${route.hash.slice(1).replace(/\s/g, "%20")}"]`;
     windowScrollTo(str, 74);
   }
 };
@@ -84,8 +81,6 @@ if (id) {
 } else {
   router.push(RouterEnum.Home);
 }
-
-
 
 //编辑文章
 const goEditArticle = () => {
@@ -128,23 +123,11 @@ const goEditArticle = () => {
               v-if="userStore.getUserData.id != blogDetails.author"
               >关注</yh-button
             >
-            <yh-button
-              theme="primary"
-              size="medium"
-              variant="outline"
-              v-else
-              @click="goEditArticle()"
-              >编辑</yh-button
-            >
+            <yh-button theme="primary" size="medium" variant="outline" v-else @click="goEditArticle()">编辑</yh-button>
           </div>
         </div>
         <div class="cover-summy flex mt-4">
-          <img
-            :src="blogDetails.coverUrl"
-            alt=""
-            class="cover"
-            v-if="blogDetails.coverUrl"
-          />
+          <img :src="blogDetails.coverUrl" alt="" class="cover" v-if="blogDetails.coverUrl" />
           <p class="summy break-all">{{ blogDetails.summary }}</p>
         </div>
         <md-view
@@ -153,8 +136,7 @@ const goEditArticle = () => {
           class="mt-8"
           :text="mdText"
           @GetCatalog="onGetCatalog"
-          :mdHeadingId="generateId"
-        >
+          :mdHeadingId="generateId">
         </md-view>
       </div>
 
@@ -164,11 +146,7 @@ const goEditArticle = () => {
         <div class="silder_inner">
           <div class="author_info container-bg mb-4 box-border px-3 py-2">
             <div class="author_header flex items-center">
-              <img
-                src="../../assets/img/avatar.png"
-                :alt="blogDetails.authorName"
-                class="author_img"
-              />
+              <img src="../../assets/img/avatar.png" :alt="blogDetails.authorName" class="author_img" />
               <div class="user_name truncate flex-1">
                 {{ blogDetails.authorName }}
               </div>
@@ -190,18 +168,16 @@ const goEditArticle = () => {
           </div>
           <div
             class="catalog_wrap container-bg box-border px-3 pb-2 box-shadow-0 flex flex-col"
-            v-show="catalogList.length > 0"
-          >
+            v-show="catalogList.length > 0">
             <header class="py-2 logs-header">目录</header>
             <div class="catalog_list overflow-y-auto mt-1">
               <yh-anchor class=" " :targetOffset="80">
                 <yh-anchor-item
-                  :href="`#${generateId(item.text,1,i+1)}`"
+                  :href="`#${generateId(item.text, 1, i + 1)}`"
                   :title="item.text"
                   v-for="(item, i) in catalogList"
                   :key="i"
-                  :class="'catalog_list_' + item.level"
-                >
+                  :class="'catalog_list_' + item.level">
                   <!-- {{ `#${item.text}_${i + 1}`}} -->
                 </yh-anchor-item>
               </yh-anchor>
@@ -209,25 +185,19 @@ const goEditArticle = () => {
           </div>
         </div>
       </div>
-      <comment
-        :article-id="blogDetails.id"
-        :avatarUrl="userStore.getUserData.avatar"
-        @like="like"
-      />
+      <comment :article-id="blogDetails.id" :avatarUrl="userStore.getUserData.avatar" @like="like" />
     </div>
     <actions
       :article-id="blogDetails.id"
       :collectCount="blogDetails.collectCount"
       :likeNum="blogDetails.clickCount"
-      :commentNum="blogDetails.openComment"
-    ></actions>
+      :commentNum="blogDetails.openComment"></actions>
   </div>
 
   <backtop> </backtop>
 </template>
 
 <style scoped lang="scss">
-
 @import "@/assets/css/edit-md/edit-md.scss";
 .details {
   position: relative;
@@ -426,14 +396,13 @@ const goEditArticle = () => {
 
     // 封面与简介
     .cover-summy {
+      flex-direction: column;
       .cover {
         max-width: 480px;
         max-height: 320px;
         width: 100% !important;
         height: auto !important;
       }
-
-      flex-direction: column;
     }
 
     //文章作者处内容
