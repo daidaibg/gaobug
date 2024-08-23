@@ -86,24 +86,23 @@ setKeywords(searchVal.value);
     <el-input
       v-model="searchVal"
       class="mini-screen-hide blog-search-input"
+      style="width: 220px"
       placeholder="探索搞bug"
       @keyup.enter.native="search"
       @input="onInput"
-      clearable
-      @clear="search"
-    >
-      <template #suffix>
+      :clearable="true"
+      @clear="search">
+      <template #append>
         <div class="searc-suffix" @click="search()">
           <Search style="width: 16; height: 16" />
         </div>
       </template>
     </el-input>
-    <div class="mini-search-icon-box" @click="showMiniSearch()">
-      <span class="mini-search-text">{{ miniSearchVal }}</span>
-      <Search
-        style="width: 20; height: 20"
-        class="mini-screen-show mini-search-icon"
-      />
+    <div class="mini-screen-show">
+      <div class="mini-search-icon-box" @click="showMiniSearch()">
+        <span class="mini-search-text">{{ miniSearchVal }}</span>
+        <Search style="width: 20; height: 20" @click="search()" class="mini-screen-show mini-search-icon" />
+      </div>
     </div>
 
     <el-drawer
@@ -114,28 +113,16 @@ setKeywords(searchVal.value);
       @close="closeMiniSearch()"
       size="70px"
       :close-on-click-modal="false"
-      direction="ttb"
-    >
+      direction="ttb">
       <div class="mini-search-box">
-        <form
-          @submit.prevent="search(SearchType.Mini)"
-          class="mini-search-input"
-          action="javascript:return true;"
-        >
+        <form @submit.prevent="search(SearchType.Mini)" class="mini-search-input" action="javascript:return true;">
           <input
             type="search"
             placeholder="探索搞bug"
             class="search-input-inner"
             v-model="miniSearchVal"
-            ref="miniSearchInput"
-          />
-          <yh-button
-            @click="search(SearchType.Mini)"
-            theme="primary"
-            class="search-btn"
-            type="button"
-            >搜素</yh-button
-          >
+            ref="miniSearchInput" />
+          <yh-button @click="search(SearchType.Mini)" theme="primary" class="search-btn" type="button">搜素</yh-button>
           <yh-button @click="cancelSearch()">取消</yh-button>
         </form>
         <div class="mini-search-content"></div>
@@ -148,12 +135,20 @@ setKeywords(searchVal.value);
 .blog-search {
   margin: 0 8px;
 }
-.searc-suffix {
-  cursor: pointer;
-  &:hover {
-    color: var(--yh-brand-color);
+.blog-search-input {
+  :deep(.el-input-group__append) {
+    padding: 0;
+    background-color: transparent;
+  }
+  .searc-suffix {
+    cursor: pointer;
+    padding: 0 12px;
+    &:hover {
+      color: var(--yh-brand-color);
+    }
   }
 }
+
 .mini-search-icon-box {
   display: flex;
   align-items: center;

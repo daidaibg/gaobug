@@ -13,6 +13,7 @@ import { useHeaderStore } from "@/store";
 import { articleDetailsConfig } from "@/config/article";
 import type { ClassifyListType, HomeBlogState, TypeList } from "./home-types";
 import { RouterEnum } from "@/enums";
+import _debounce from "lodash/debounce";
 
 const router = useRouter();
 const route = useRoute();
@@ -77,8 +78,10 @@ const onClassify = (item: ClassifyListType) => {
   homeRouterQuery();
   getBlogList();
 };
+
+
 // 获取博客列表
-const getBlogList = () => {
+const getBlogList = (): any => {
   state.loading = true;
   getBlog({
     ...state.blogPage,
@@ -89,31 +92,22 @@ const getBlogList = () => {
     // console.log("blogList", res);
     if (res.code == 200) {
       let blogList = res.data.records;
-      if (res.data.totalPage <= state.blogPage.current) {
-        if (state.blogPage.current == 1) {
-          state.blogList = [];
-        }
-        blogList.forEach((item: object) => {
-          state.blogList.push(item);
-        });
-        state.loadingEnd = true;
-      } else if (state.blogPage.current === 1) {
+      if (state.blogPage.current === 1) {
         state.blogList = blogList;
-        state.loading = false;
-        state.loadingEnd = false;
       } else {
-        blogList.forEach((item: object) => {
-          state.blogList.push(item);
-        });
-        state.loading = false;
-        state.loadingEnd = false;
+        state.blogList = [...state.blogList, ...blogList];
       }
+      state.loading = false;
+      state.loadingEnd = res.data.totalPage <= state.blogPage.current;
     } else {
       state.loading = false;
       ElMessage.error(res.msg);
     }
   });
 };
+
+const debounceGetBlogList = _debounce(getBlogList, 220);
+
 
 //首页路径参数处理
 const homeRouterQuery = () => {
@@ -143,7 +137,7 @@ useInfiniteScroll(
   },
   {
     distance: 200,
-    interval:100,
+    interval: 100,
     canLoadMore: () => {
       if (route.path === RouterEnum.Home) {
         return !state.loading || !state.loadingEnd;
@@ -153,12 +147,15 @@ useInfiniteScroll(
   }
 );
 
+
 watch(
   () => headerStore.headerSearch.num,
   (val) => {
+    console.log(1);
     state.blogPage.current = 1;
     state.keywords = headerStore.headerSearch.keywords;
-    getBlogList();
+    // getBlogList()
+    debounceGetBlogList();
   },
   {
     deep: false,
