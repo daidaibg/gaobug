@@ -30,35 +30,12 @@ blog-cloud-web与blog-cloud-admin 文件夹内包含：**干净**(不含后端�
 
 [https://www.gaobug.com](https://www.gaobug.com)
 
-## 项目地址
-
-### github地址
-
-**前端地址**[https://github.com/daidaibg/gaobug](https://github.com/daidaibg/gaobug)
-
-**后端地址github暂无,gitee有**
-
-### gitee地址
-
-**前端地址** [https://gitee.com/daidaibg/blog-cloud](https://gitee.com/daidaibg/blog-cloud)
-
-**后端地址** [https://gitee.com/gaobug/blog-cloud](https://gitee.com/gaobug/blog-cloud)
-
-# 前端项目
-
-## 博客页面 
-
-blog-cloud-web* 文件目录
-
-### 采用火爆的前端框架
-
-- 💪 Vue 3 Composition API![vue3](https://img.shields.io/badge/vue-3-brightgreen)
-- 🔥 Written in TypeScript ![TS](https://img.shields.io/badge/TS-4-brightgreen)
-- 🛠️从一组受限的原始实用程序构建复杂的组件tailwindcss![tailwindcss](https://img.shields.io/badge/tailwindcss-2-green)
-- 💡 Instant Server Start![vite](https://img.shields.io/badge/vite-2-blue)
-
-## 管理端
-
-blog-cloud-admin* 文件目录
-
-暂未开发
+## 前端项目已拆开新地址
+**最新请查看以下地址**
+github
+[https://github.com/daidaibg/blog-cloud-web](https://github.com/daidaibg/blog-cloud-web)
+gitee
+[https://gitee.com/daidaibg/blog-cloud-web](https://gitee.com/daidaibg/blog-cloud-web)
+## 后端地址
+gitee
+[https://gitee.com/gaobug/blog-cloud](https://gitee.com/gaobug/blog-cloud)
