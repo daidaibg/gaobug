@@ -8,54 +8,13 @@
 ## 预览地址
 https://www.gaobug.com/
 
-## 请求增加md5加密验签方式，方式参数篡改
-
-自己可以修改加密方式
-
-## 项目使用
-
-### 安装
-
-```node
-npm i
-```
-
-### 运行
-
-默认运行history路径
-
-```node
-npm run dev
-```
-
-如果需要hash路径 请运行
-
-```js
-npm run dev:hash
-```
-
-### 打包
-
-默认打包history路径
-
-```js
-npm run build 
-```
-
-如需打包hash路径请运行
-
-```js
-npm run build:hash
-```
-
-###  目录结构
-src/view   文件目录
-
-### 升级依赖
-
-```node
-npm install -g npm-check-updates
-ncu -u
-npm install
-```
+## 前端项目已拆开新地址
+**最新请查看以下地址**
+github
+[https://github.com/daidaibg/blog-cloud-web](https://github.com/daidaibg/blog-cloud-web)
+gitee
+[https://gitee.com/daidaibg/blog-cloud-web](https://gitee.com/daidaibg/blog-cloud-web)
+## 后端地址
+gitee
+[https://gitee.com/gaobug/blog-cloud](https://gitee.com/gaobug/blog-cloud)
 
